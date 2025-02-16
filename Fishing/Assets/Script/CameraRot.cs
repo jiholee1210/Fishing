@@ -10,13 +10,14 @@ public class CameraRot : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
     void FixedUpdate()
@@ -25,7 +26,7 @@ public class CameraRot : MonoBehaviour
         float mouseY = lookInput.y * rotSpeed * Time.deltaTime;
         
         currentYAngle -= mouseY;
-        currentYAngle = Mathf.Clamp(currentYAngle, -50f, 30f);
+        currentYAngle = Mathf.Clamp(currentYAngle, -90f, 90f);
 
         transform.Rotate(Vector3.up, mouseX);
         Camera.main.transform.localRotation = Quaternion.Euler(currentYAngle, 0, 0);
