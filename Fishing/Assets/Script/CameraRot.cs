@@ -7,6 +7,8 @@ public class CameraRot : MonoBehaviour
 
     private Vector2 lookInput;
     private float currentYAngle = 0f;
+
+    private bool isFishing = false;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -17,19 +19,27 @@ public class CameraRot : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(isFishing) {
+            lookInput = Vector2.zero;
+        }
+        else {
+            float mouseX = lookInput.x * rotSpeed * Time.deltaTime;
+            float mouseY = lookInput.y * rotSpeed * Time.deltaTime;
+            
+            currentYAngle -= mouseY;
+            currentYAngle = Mathf.Clamp(currentYAngle, -90f, 90f);
 
+            transform.Rotate(Vector3.up, mouseX);
+            Camera.main.transform.localRotation = Quaternion.Euler(currentYAngle, 0, 0);
+        }
     }
 
-    void FixedUpdate()
-    {
-        float mouseX = lookInput.x * rotSpeed * Time.deltaTime;
-        float mouseY = lookInput.y * rotSpeed * Time.deltaTime;
-        
-        currentYAngle -= mouseY;
-        currentYAngle = Mathf.Clamp(currentYAngle, -90f, 90f);
+    public void StartFishing() {
+        isFishing = true;
+    }
 
-        transform.Rotate(Vector3.up, mouseX);
-        Camera.main.transform.localRotation = Quaternion.Euler(currentYAngle, 0, 0);
+    public void StopFishing() {
+        isFishing = false;
     }
 
     private void OnLook(InputValue value) {
