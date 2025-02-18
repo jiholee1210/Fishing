@@ -7,16 +7,17 @@ public class PlayerActing : MonoBehaviour
     [SerializeField] float rayRange;
 
     private PlayerInventory playerInventory;
+    private PlayerMovement playerMovement;
     private CameraRot cameraRot;
-    private Rigidbody rb;
 
     private bool canFishing = false;
+    private bool isFishing = false;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         playerInventory = GetComponent<PlayerInventory>();
+        playerMovement = GetComponent<PlayerMovement>();
         cameraRot = GetComponent<CameraRot>();
-        rb = GetComponent<Rigidbody>();
     }
 
     // Update is called once per frame
@@ -26,15 +27,22 @@ public class PlayerActing : MonoBehaviour
     }
 
     public void OnAttack(InputValue value) {
-        if(value.isPressed && canFishing) {
-            Fishing(1);
+        if(value.isPressed && canFishing && !isFishing) {
+            isFishing = true;
+            StartFishing();
         }
     }
 
-    private void Fishing(int input) {
+    private void StartFishing() {
         cameraRot.StartFishing();
-        rb.isKinematic = true;
-        UIManager.Instance.OpenFishingUI(playerInventory);
+        playerMovement.StartFishing();
+        EventManager.Instance.StartFishing(playerInventory);
+    }
+
+    public void EndFishing() {
+        cameraRot.StopFishing();
+        playerMovement.StopFishing();
+        isFishing = false;
     }
 
     private void CheckFishingZone() {

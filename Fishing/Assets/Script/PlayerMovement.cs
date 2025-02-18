@@ -50,6 +50,14 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
+    public void StartFishing() {
+        rb.isKinematic = true;
+    }
+
+    public void StopFishing() {
+        rb.isKinematic = false;
+    }
+
     private void Jump() {
         rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
     }
