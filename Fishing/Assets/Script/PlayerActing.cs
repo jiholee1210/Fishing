@@ -12,12 +12,16 @@ public class PlayerActing : MonoBehaviour
 
     private bool canFishing = false;
     private bool isFishing = false;
+
+    public PlayerData playerData;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         playerInventory = GetComponent<PlayerInventory>();
         playerMovement = GetComponent<PlayerMovement>();
         cameraRot = GetComponent<CameraRot>();
+
+        playerData = DataManager.Instance.playerData;
     }
 
     // Update is called once per frame
@@ -36,7 +40,7 @@ public class PlayerActing : MonoBehaviour
     private void StartFishing() {
         cameraRot.StartFishing();
         playerMovement.StartFishing();
-        EventManager.Instance.StartFishing(playerInventory);
+        EventManager.Instance.StartFishing(playerData, playerInventory);
     }
 
     public void EndFishing() {

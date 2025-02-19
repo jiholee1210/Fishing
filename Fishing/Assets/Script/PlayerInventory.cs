@@ -3,11 +3,11 @@ using UnityEngine;
 
 public class PlayerInventory : MonoBehaviour
 {
-    private List<int> list = new List<int>();
+    private Inventory inventory;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        
+        SetInventory();
     }
 
     // Update is called once per frame
@@ -16,8 +16,22 @@ public class PlayerInventory : MonoBehaviour
         
     }
 
-    public void GetFish(int input) {
-        list.Add(input);
-        Debug.Log("물고기 추가됨 : " + input + " " + list.Count);
+    public void GetFish(int fishID) {
+        PlayerFish fish = inventory.fishList.Find(f => f.fishID == fishID);
+        if (fish != null) {
+            fish.catchCount++;
+        }
+        else {
+            inventory.fishList.Add(new PlayerFish{
+                fishID = fishID,
+                fishName = DataManager.Instance.GetFishNameFromList(fishID),
+                catchCount = 1
+            });
+        }
+        DataManager.Instance.SaveInventoryData();
     }
+
+    public void SetInventory() {
+        inventory = DataManager.Instance.inventory;
+    } 
 }
