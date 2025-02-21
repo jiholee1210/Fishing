@@ -14,6 +14,9 @@ public class FishingManager : MonoBehaviour
 
     private Dictionary<int, float> fishProbabilities = new();
     private int fishID;
+    private float fishPower;
+    private float fishSpeed;
+    private float fishingSpeed;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -24,12 +27,12 @@ public class FishingManager : MonoBehaviour
     void Update()
     {
         if(Input.GetMouseButton(0)) {
-            fish.anchoredPosition += new Vector2(0f, 1f);
+            fish.anchoredPosition += new Vector2(0f, 1f * fishingSpeed);
             reel.Rotate(0f, 0f, -200f * Time.deltaTime);
-            stamina.value -= Time.deltaTime;
+            stamina.value -= Time.deltaTime * fishSpeed;
         }
         else {
-            fish.anchoredPosition -= new Vector2(0f, 0.2f);
+            fish.anchoredPosition -= new Vector2(0f, 0.7f);
             stamina.value += Time.deltaTime * 0.5f;
         }
 
@@ -100,6 +103,10 @@ public class FishingManager : MonoBehaviour
         playerInventory = _playerInventory;
         playerStamina = playerData.stamina;
         fishID = SetRandomFish();
+        fishPower = DataManager.Instance.GetFishPowerFromList(fishID);
+        fishSpeed = 1 + (fishPower / 100f);
+        fishingSpeed = 1 + (playerInventory.GetRodPower() - fishPower) / 100f;
+        Debug.Log("물고기 파워 : " + fishPower);
         fish.anchoredPosition = new Vector2(0f, -280f);
         reel.rotation = Quaternion.Euler(0f, 0f, 0f);
         stamina.maxValue = playerStamina;

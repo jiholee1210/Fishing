@@ -4,10 +4,13 @@ using UnityEngine;
 public class PlayerInventory : MonoBehaviour
 {
     private Inventory inventory;
+
+    private float rodPower;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         SetInventory();
+        SetRodPower();
     }
 
     // Update is called once per frame
@@ -34,4 +37,13 @@ public class PlayerInventory : MonoBehaviour
     public void SetInventory() {
         inventory = DataManager.Instance.inventory;
     } 
+
+    public void SetRodPower() {
+        rodPower = DataManager.Instance.GetRodPowerFromList(inventory.rod);
+    }
+
+    public float GetRodPower() {
+        Debug.Log("플레이어 낚시 파워 : " + rodPower);
+        return rodPower;
+    }
 }

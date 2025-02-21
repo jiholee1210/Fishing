@@ -9,12 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 79907794405da954fa8de9ecde5f4604, type: 3}
-  m_Name: Salmon
+  m_Script: {fileID: 11500000, guid: e8f298590805f6d468fe85dd2c3247d8, type: 3}
+  m_Name: "\uCCA0 \uB09A\uC2EF\uB300"
   m_EditorClassIdentifier: 
-  fishName: Salmon
-  fishID: 1
-  rarity: 1
-  power: 10
-  fishPrefab: {fileID: 0}
-  fishIcon: {fileID: 0}
+  rodName: "\uCCA0 \uB09A\uC2EF\uB300"
+  rodID: 1
+  rodPower: 20
+  rodPrefab: {fileID: 0}

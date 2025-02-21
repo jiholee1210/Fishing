@@ -15,6 +15,6 @@ MonoBehaviour:
   fishName: "\uD751\uC694\uC11D \uC1A1\uC0AC\uB9AC"
   fishID: 7
   rarity: 1
-  power: 30
+  power: 20
   fishPrefab: {fileID: 0}
   fishIcon: {fileID: 0}

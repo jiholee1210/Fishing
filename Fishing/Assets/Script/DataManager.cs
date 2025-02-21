@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.IO;
 using Mono.Cecil;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class DataManager : MonoBehaviour
@@ -13,6 +14,7 @@ public class DataManager : MonoBehaviour
     public Inventory inventory;
 
     public Dictionary<int, FishData> fishDataDict;
+    public Dictionary<int, RodData> rodDataDict;
 
     void Awake()
     {
@@ -47,6 +49,7 @@ public class DataManager : MonoBehaviour
             LoadInventoryData();
         }
         LoadFishDataFromSo();
+        LoadRodDataFromSo();
     }
 
     private void LoadFishDataFromSo() {
@@ -55,6 +58,16 @@ public class DataManager : MonoBehaviour
         foreach(FishData fish in fishDataArray) {
             fishDataDict[fish.fishID] = fish;
         }
+        Debug.Log("물고기 데이터 불러오기");
+    }
+
+    private void LoadRodDataFromSo() {
+        RodData[] rodDataArray = Resources.LoadAll<RodData>("RodData");
+        rodDataDict = new Dictionary<int, RodData>();
+        foreach(RodData rod in rodDataArray) {
+            rodDataDict[rod.rodID] = rod;
+        }
+        Debug.Log("낚싯대 데이터 불러오기");
     }
 
     public void SavePlayerData() {
@@ -95,6 +108,14 @@ public class DataManager : MonoBehaviour
         return IDList;
     }
 
+    public float GetFishPowerFromList(int id) {
+        return fishDataDict.TryGetValue(id, out FishData fish) ? fish.power : 0;
+    }
+
+    public float GetRodPowerFromList(int id) {
+        return rodDataDict.TryGetValue(id, out RodData rod) ? rod.rodPower : 0;
+    }
+ 
 }
 
 [System.Serializable]

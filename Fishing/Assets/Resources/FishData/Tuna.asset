@@ -15,6 +15,6 @@ MonoBehaviour:
   fishName: Tuna
   fishID: 2
   rarity: 1
-  power: 30
+  power: 10
   fishPrefab: {fileID: 0}
   fishIcon: {fileID: 0}
