@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -9,6 +10,7 @@ public class PlayerActing : MonoBehaviour
     private PlayerInventory playerInventory;
     private PlayerMovement playerMovement;
     private CameraRot cameraRot;
+    private Animator animator;
 
     private bool canFishing = false;
     private bool isFishing = false;
@@ -17,6 +19,7 @@ public class PlayerActing : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        animator = transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<Animator>();
         playerInventory = GetComponent<PlayerInventory>();
         playerMovement = GetComponent<PlayerMovement>();
         cameraRot = GetComponent<CameraRot>();
@@ -37,14 +40,25 @@ public class PlayerActing : MonoBehaviour
         }
     }
 
+    IEnumerator PlayFishingAnimation() {
+        animator.Play("FishingSwing");
+        yield return new WaitForSeconds(animator.GetCurrentAnimatorStateInfo(0).length);
+    }
+
+    IEnumerator FishingSequence() {
+        yield return StartCoroutine(PlayFishingAnimation());
+        EventManager.Instance.StartFishing(playerData, playerInventory);
+    }
+
     private void StartFishing() {
         cameraRot.StartFishing();
         playerMovement.StartFishing();
-        EventManager.Instance.StartFishing(playerData, playerInventory);
+        StartCoroutine(FishingSequence());
     }
 
     public void EndFishing() {
         cameraRot.StopFishing();
+        animator.Play("FishingSwingBack");
         playerMovement.StopFishing();
         isFishing = false;
     }

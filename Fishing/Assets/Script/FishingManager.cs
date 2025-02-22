@@ -17,6 +17,10 @@ public class FishingManager : MonoBehaviour
     private float fishPower;
     private float fishSpeed;
     private float fishingSpeed;
+    private bool isOpening;
+
+    private Animator animator;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -26,7 +30,7 @@ public class FishingManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetMouseButton(0)) {
+        if(Input.GetMouseButton(0) && !isOpening) {
             fish.anchoredPosition += new Vector2(0f, 1f * fishingSpeed);
             reel.Rotate(0f, 0f, -200f * Time.deltaTime);
             stamina.value -= Time.deltaTime * fishSpeed;
@@ -40,8 +44,7 @@ public class FishingManager : MonoBehaviour
 
         if(fish.anchoredPosition.y >= 260f) {
             playerInventory.GetFish(fishID);
-            gameObject.SetActive(false);
-            EventManager.Instance.EndFishing();
+            StartCoroutine(CloseUISequence());
         }
     }
 
@@ -102,6 +105,7 @@ public class FishingManager : MonoBehaviour
         SetFishProbabilities(3);
         playerInventory = _playerInventory;
         playerStamina = playerData.stamina;
+        animator = GetComponent<Animator>();
         fishID = SetRandomFish();
         fishPower = DataManager.Instance.GetFishPowerFromList(fishID);
         fishSpeed = 1 + (fishPower / 100f);
@@ -111,5 +115,28 @@ public class FishingManager : MonoBehaviour
         reel.rotation = Quaternion.Euler(0f, 0f, 0f);
         stamina.maxValue = playerStamina;
         stamina.value = playerStamina;
+        StartCoroutine(OpenUISequence());
+    }
+
+    IEnumerator OpenFishingUIAnimation() {
+        animator.Play("Window_Open");
+        yield return new WaitForSeconds(animator.GetCurrentAnimatorStateInfo(0).length);
+    }
+
+    IEnumerator OpenUISequence() {
+        yield return StartCoroutine(OpenFishingUIAnimation());
+        isOpening = false;
+    }
+
+    IEnumerator CloseFishingUIAnimation() {
+        animator.Play("Window_Close");
+        yield return new WaitForSeconds(animator.GetCurrentAnimatorStateInfo(0).length);
+    }
+
+    IEnumerator CloseUISequence() {
+        yield return StartCoroutine(CloseFishingUIAnimation());
+        isOpening = true;
+        gameObject.SetActive(false);
+        EventManager.Instance.EndFishing();
     }
 }

@@ -1,8 +1,11 @@
+using System.Collections;
 using UnityEngine;
 
 public class UIManager : MonoBehaviour
 {
     [SerializeField] GameObject fishingUI;
+
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
