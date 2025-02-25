@@ -5,6 +5,7 @@ using UnityEngine.InputSystem;
 public class PlayerActing : MonoBehaviour
 {
     [SerializeField] LayerMask fishingLayer;
+    [SerializeField] LayerMask npcLayer;
     [SerializeField] float rayRange;
 
     private PlayerInventory playerInventory;
@@ -14,6 +15,8 @@ public class PlayerActing : MonoBehaviour
 
     private bool canFishing = false;
     private bool isFishing = false;
+    private bool inventoryOpen = false;
+    private bool canTalk = false;
 
     public PlayerData playerData;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -31,12 +34,29 @@ public class PlayerActing : MonoBehaviour
     void Update()
     {
         CheckFishingZone();
+        CheckNPC();
+        if(Input.GetKeyDown(KeyCode.Tab)) {
+            if(!inventoryOpen) {
+                EventManager.Instance.OpenInventory();
+                inventoryOpen = true;
+            }
+            else {
+                EventManager.Instance.CloseInventory();
+                inventoryOpen = false;
+            }
+        }
     }
 
     public void OnAttack(InputValue value) {
         if(value.isPressed && canFishing && !isFishing) {
             isFishing = true;
             StartFishing();
+        }
+    }
+
+    public void OnInteract(InputValue value) {
+        if(value.isPressed && canTalk) {
+            Debug.Log("NPC와 상호작용");
         }
     }
 
@@ -77,6 +97,21 @@ public class PlayerActing : MonoBehaviour
         }
         else {
             canFishing = false;
+        }
+    }
+
+    private void CheckNPC() {
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        RaycastHit hit;
+
+        Debug.DrawLine(ray.origin, ray.origin + ray.direction * rayRange, Color.red);
+
+        if(Physics.Raycast(ray, out hit, rayRange, npcLayer)) {
+            canTalk = true;
+            Debug.DrawLine(ray.origin, hit.point, Color.green);
+        }
+        else {
+            canTalk = false;
         }
     }
 }

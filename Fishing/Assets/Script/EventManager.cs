@@ -19,4 +19,12 @@ public class EventManager : MonoBehaviour
     public void EndFishing() {
         playerActing.EndFishing();
     }
+
+    public void OpenInventory() {
+        uIManager.OpenInventoryUI();
+    }
+
+    public void CloseInventory() {
+        uIManager.CloseInventoryUI();
+    }
 }

@@ -5,60 +5,68 @@ public class PlayerMovement : MonoBehaviour
 {
     [SerializeField] private float speed;
     [SerializeField] private float jumpForce;
+    [SerializeField] private float gravity;
 
     float inputValueX;
     float inputValueZ;
-    float input;
     float currentSpeedX;
     float currentSpeedZ;
-    bool isGrounded = true;
+    Vector3 velocity;
+    bool isGrounded;
+    bool isFishing = false;
 
-    public Vector3 inputVec;
-
-    private Rigidbody rb;
-    
+    private CharacterController characterController;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        rb = GetComponent<Rigidbody>();
+        characterController = GetComponent<CharacterController>();
+        characterController.slopeLimit = 45f;
     }
 
     // Update is called once per frame
     void Update()
     {
+        isGrounded = characterController.isGrounded;
 
+        if (isGrounded && velocity.y < 0)
+        {
+            velocity.y = -2f; // 살짝 바닥에 붙게 설정 (중력 버그 방지)
+        }
+        if(!isFishing) {
+            currentSpeedX = inputValueX * speed;
+            currentSpeedZ = inputValueZ * speed;
+
+            Vector3 moveDirection = transform.TransformDirection(new Vector3(currentSpeedX, 0, currentSpeedZ));
+            characterController.Move(moveDirection * Time.deltaTime);
+        }
+
+        velocity.y -= gravity * Time.deltaTime;
+        characterController.Move(velocity * Time.deltaTime);
     }
 
     void FixedUpdate()
     {
-        currentSpeedX = inputValueX * speed;
-        currentSpeedZ = inputValueZ * speed;
-
-        inputVec = new Vector3(inputValueX, 0, inputValueZ);
-        Vector3 velocity = transform.TransformDirection(new Vector3(currentSpeedX, rb.linearVelocity.y, currentSpeedZ));
-        rb.linearVelocity = velocity;
+        
     }
 
     public void OnMove(InputValue value) {
-        inputValueX = value.Get<Vector2>().x;
-        inputValueZ = value.Get<Vector2>().y;
+        if(!isFishing) {
+            inputValueX = value.Get<Vector2>().x;
+            inputValueZ = value.Get<Vector2>().y;
+        }
     }
 
     public void OnJump(InputValue value) {
-        if(value.isPressed && isGrounded) {
-            Jump();
+        if(value.isPressed && isGrounded && !isFishing) {
+            velocity.y = jumpForce;
         }
     }
 
     public void StartFishing() {
-        rb.isKinematic = true;
+        isFishing = true;
     }
 
     public void StopFishing() {
-        rb.isKinematic = false;
-    }
-
-    private void Jump() {
-        rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+        isFishing = false;
     }
 }
