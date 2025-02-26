@@ -15,6 +15,7 @@ public class DataManager : MonoBehaviour
 
     public Dictionary<int, FishData> fishDataDict;
     public Dictionary<int, RodData> rodDataDict;
+    public Dictionary<int, ItemData> itemDataDict;
 
     void Awake()
     {
@@ -50,6 +51,7 @@ public class DataManager : MonoBehaviour
         }
         LoadFishDataFromSo();
         LoadRodDataFromSo();
+        LoadItemDataFromSo();
     }
 
     private void LoadFishDataFromSo() {
@@ -68,6 +70,15 @@ public class DataManager : MonoBehaviour
             rodDataDict[rod.rodID] = rod;
         }
         Debug.Log("낚싯대 데이터 불러오기");
+    }
+    
+    private void LoadItemDataFromSo() {
+        ItemData[] itemDataArray = Resources.LoadAll<ItemData>("ItemData");
+        itemDataDict = new Dictionary<int, ItemData>();
+        foreach(ItemData item in itemDataArray) {
+            itemDataDict[item.itemID] = item;
+        }
+        Debug.Log("아이템 데이터 불러오기");
     }
 
     public void SavePlayerData() {
@@ -114,6 +125,10 @@ public class DataManager : MonoBehaviour
 
     public float GetRodPowerFromList(int id) {
         return rodDataDict.TryGetValue(id, out RodData rod) ? rod.rodPower : 0;
+    }
+
+    public ItemData GetItemData(int id) {
+        return itemDataDict.TryGetValue(id, out ItemData item) ? item : null;
     }
  
 }

@@ -15,4 +15,4 @@ MonoBehaviour:
   rodName: "\uCCA0 \uB09A\uC2EF\uB300"
   rodID: 1
   rodPower: 20
-  rodPrefab: {fileID: 0}
+  rodPrefab: {fileID: 778548322650869021, guid: 7c96d50b5ade2bb46b4c24c15b3932cf, type: 3}

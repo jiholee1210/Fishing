@@ -3,6 +3,7 @@ using UnityEngine;
 
 public class PlayerInventory : MonoBehaviour
 {
+    [SerializeField] InventoryManager inventoryManager;
     private Inventory inventory;
 
     private float rodPower;
@@ -16,7 +17,9 @@ public class PlayerInventory : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if(Input.GetKeyDown(KeyCode.F)) {
+            GetEquip(1);
+        }
     }
 
     public void GetFish(int fishID) {
@@ -32,6 +35,11 @@ public class PlayerInventory : MonoBehaviour
             });
         }
         DataManager.Instance.SaveInventoryData();
+    }
+
+    public void GetEquip(int itemID) {
+        inventory.equip.Add(itemID);
+        inventoryManager.AddEquipToSlot(itemID);
     }
 
     public void SetInventory() {
