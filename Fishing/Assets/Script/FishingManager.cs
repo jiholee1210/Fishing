@@ -43,7 +43,6 @@ public class FishingManager : MonoBehaviour
         fish.anchoredPosition = new Vector2(fish.anchoredPosition.x, Mathf.Clamp(fish.anchoredPosition.y, -280f, 260f));
 
         if(fish.anchoredPosition.y >= 260f) {
-            playerInventory.GetFish(fishID);
             StartCoroutine(CloseUISequence());
         }
     }
@@ -135,6 +134,7 @@ public class FishingManager : MonoBehaviour
 
     IEnumerator CloseUISequence() {
         yield return StartCoroutine(CloseFishingUIAnimation());
+        playerInventory.GetFish(fishID);
         isOpening = true;
         gameObject.SetActive(false);
         EventManager.Instance.EndFishing();

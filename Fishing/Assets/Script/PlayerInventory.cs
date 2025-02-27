@@ -20,6 +20,9 @@ public class PlayerInventory : MonoBehaviour
         if(Input.GetKeyDown(KeyCode.F)) {
             GetEquip(1);
         }
+        if(Input.GetKeyDown(KeyCode.T)) {
+            GetEquip(2);
+        }
     }
 
     public void GetFish(int fishID) {

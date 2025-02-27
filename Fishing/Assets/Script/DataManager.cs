@@ -127,6 +127,14 @@ public class DataManager : MonoBehaviour
         return rodDataDict.TryGetValue(id, out RodData rod) ? rod.rodPower : 0;
     }
 
+    public RodData GetRodData(int id) {
+        return rodDataDict.TryGetValue(id, out RodData rod) ? rod : null;
+    }
+
+    public FishData GetFishData(int id) {
+        return fishDataDict.TryGetValue(id, out FishData fish) ? fish : null;
+    }
+
     public ItemData GetItemData(int id) {
         return itemDataDict.TryGetValue(id, out ItemData item) ? item : null;
     }

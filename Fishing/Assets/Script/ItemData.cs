@@ -14,4 +14,13 @@ public class ItemData : ScriptableObject
     public int itemID;
     public ItemType itemType;
     public Sprite itemImage;
+
+    public ItemData Clone() {
+        ItemData clone = ScriptableObject.CreateInstance<ItemData>();
+        clone.itemID = itemID;
+        clone.itemType = itemType;
+        clone.itemImage = itemImage;
+
+        return clone;
+    }
 }

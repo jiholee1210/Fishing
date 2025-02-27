@@ -38,10 +38,16 @@ public class PlayerActing : MonoBehaviour
         if(Input.GetKeyDown(KeyCode.Tab)) {
             if(!inventoryOpen) {
                 EventManager.Instance.OpenInventory();
+                Cursor.lockState = CursorLockMode.None;
+                Cursor.visible = true;
+                cameraRot.OpenInventory();
                 inventoryOpen = true;
             }
             else {
                 EventManager.Instance.CloseInventory();
+                Cursor.lockState = CursorLockMode.Locked;
+                Cursor.visible = false;
+                cameraRot.CloseInventory();
                 inventoryOpen = false;
             }
         }
