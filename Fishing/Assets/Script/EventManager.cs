@@ -6,6 +6,8 @@ public class EventManager : MonoBehaviour
 
     [SerializeField] PlayerActing playerActing;
     [SerializeField] UIManager uIManager;
+    [SerializeField] GameObject npcWindow;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -26,5 +28,23 @@ public class EventManager : MonoBehaviour
 
     public void CloseInventory() {
         uIManager.CloseInventoryUI();
+    }
+
+    public void OpenNPCUI(int npcType) {
+        npcWindow.SetActive(true);
+        switch(npcType) {
+            case 1:
+                uIManager.OpenMerchantUI();
+                break;
+        }
+    }
+
+    public void CloseNpcUI(int npcType) {
+        npcWindow.SetActive(false);
+        switch(npcType) {
+            case 1:
+                uIManager.CloseMerchantUI();
+                break;
+        }
     }
 }

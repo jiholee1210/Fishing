@@ -8,7 +8,7 @@ public class CameraRot : MonoBehaviour
     private Vector2 lookInput;
     private float currentYAngle = 0f;
 
-    private bool isFishing = false;
+    private bool cantMove = false;
     private bool isInventoryOpen = false;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -20,7 +20,7 @@ public class CameraRot : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(isFishing) {
+        if(cantMove) {
             lookInput = Vector2.zero;
         }
 
@@ -40,20 +40,12 @@ public class CameraRot : MonoBehaviour
         }
     }
 
-    public void StartFishing() {
-        isFishing = true;
+    public void StartOtherJob() {
+        cantMove = true;
     }
 
-    public void StopFishing() {
-        isFishing = false;
-    }
-
-    public void OpenInventory() {
-        isInventoryOpen = true;
-    }
-
-    public void CloseInventory() {
-        isInventoryOpen = false;
+    public void StopOtherJob() {
+        cantMove = false;
     }
 
     private void OnLook(InputValue value) {

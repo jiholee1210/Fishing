@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -8,6 +9,7 @@ public enum ItemType {
     Hook,
     Bait
 }
+[Serializable]
 [CreateAssetMenu(fileName = "NewItem", menuName = "Fishing/Item Data")]
 public class ItemData : ScriptableObject
 {  

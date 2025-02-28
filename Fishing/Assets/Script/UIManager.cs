@@ -5,6 +5,8 @@ public class UIManager : MonoBehaviour
 {
     [SerializeField] GameObject fishingUI;
     [SerializeField] GameObject inventoryUI;
+    [SerializeField] GameObject merchantUI;
+
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -29,5 +31,13 @@ public class UIManager : MonoBehaviour
 
     public void CloseInventoryUI() {
         inventoryUI.SetActive(false);
+    }
+
+    public void OpenMerchantUI() {
+        merchantUI.SetActive(true);
+    }
+
+    public void CloseMerchantUI() {
+        merchantUI.SetActive(false);
     }
 }

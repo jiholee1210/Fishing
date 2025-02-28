@@ -7,6 +7,7 @@ public class PlayerActing : MonoBehaviour
     [SerializeField] LayerMask fishingLayer;
     [SerializeField] LayerMask npcLayer;
     [SerializeField] float rayRange;
+    [SerializeField] Transform handPos;
 
     private PlayerInventory playerInventory;
     private PlayerMovement playerMovement;
@@ -17,12 +18,12 @@ public class PlayerActing : MonoBehaviour
     private bool isFishing = false;
     private bool inventoryOpen = false;
     private bool canTalk = false;
+    private int curNpcType;
 
     public PlayerData playerData;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        animator = transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<Animator>();
         playerInventory = GetComponent<PlayerInventory>();
         playerMovement = GetComponent<PlayerMovement>();
         cameraRot = GetComponent<CameraRot>();
@@ -40,30 +41,54 @@ public class PlayerActing : MonoBehaviour
                 EventManager.Instance.OpenInventory();
                 Cursor.lockState = CursorLockMode.None;
                 Cursor.visible = true;
-                cameraRot.OpenInventory();
+                cameraRot.StartOtherJob();
                 inventoryOpen = true;
             }
             else {
                 EventManager.Instance.CloseInventory();
                 Cursor.lockState = CursorLockMode.Locked;
                 Cursor.visible = false;
-                cameraRot.CloseInventory();
+                cameraRot.StopOtherJob();
                 inventoryOpen = false;
             }
         }
     }
 
+    public IEnumerator SetAnimator() {
+        yield return new WaitForEndOfFrame();
+
+        if(handPos.childCount > 0) {
+            Debug.Log("애니메이터 설정됨");
+            animator = handPos.GetChild(0).GetComponent<Animator>();
+        }
+    }
+
     public void OnAttack(InputValue value) {
-        if(value.isPressed && canFishing && !isFishing) {
-            isFishing = true;
-            StartFishing();
+        if(playerInventory.haveRod()) {
+            if(value.isPressed && canFishing && !isFishing) {
+                isFishing = true;
+                StartFishing();
+            }
         }
     }
 
     public void OnInteract(InputValue value) {
         if(value.isPressed && canTalk) {
+            EventManager.Instance.OpenNPCUI(curNpcType);
+            cameraRot.StartOtherJob();
+            playerMovement.StartOtherJob();
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
             Debug.Log("NPC와 상호작용");
         }
+    }
+
+    public void EndTalk() {
+        EventManager.Instance.CloseNpcUI(curNpcType);
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
+        cameraRot.StopOtherJob();
+        playerMovement.StopOtherJob();
     }
 
     IEnumerator PlayFishingAnimation() {
@@ -77,15 +102,15 @@ public class PlayerActing : MonoBehaviour
     }
 
     private void StartFishing() {
-        cameraRot.StartFishing();
-        playerMovement.StartFishing();
+        cameraRot.StartOtherJob();
+        playerMovement.StartOtherJob();
         StartCoroutine(FishingSequence());
     }
 
     public void EndFishing() {
-        cameraRot.StopFishing();
+        cameraRot.StopOtherJob();
         animator.Play("FishingSwingBack");
-        playerMovement.StopFishing();
+        playerMovement.StopOtherJob();
         isFishing = false;
     }
 
@@ -114,10 +139,12 @@ public class PlayerActing : MonoBehaviour
 
         if(Physics.Raycast(ray, out hit, rayRange, npcLayer)) {
             canTalk = true;
+            curNpcType = hit.collider.GetComponent<INPC>().GetNpcType();
             Debug.DrawLine(ray.origin, hit.point, Color.green);
         }
         else {
             canTalk = false;
+            curNpcType = 0;
         }
     }
 }

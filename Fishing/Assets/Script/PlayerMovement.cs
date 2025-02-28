@@ -13,7 +13,7 @@ public class PlayerMovement : MonoBehaviour
     float currentSpeedZ;
     Vector3 velocity;
     bool isGrounded;
-    bool isFishing = false;
+    bool cantMove = false;
 
     private CharacterController characterController;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -32,7 +32,7 @@ public class PlayerMovement : MonoBehaviour
         {
             velocity.y = -2f; // 살짝 바닥에 붙게 설정 (중력 버그 방지)
         }
-        if(!isFishing) {
+        if(!cantMove) {
             currentSpeedX = inputValueX * speed;
             currentSpeedZ = inputValueZ * speed;
 
@@ -50,23 +50,25 @@ public class PlayerMovement : MonoBehaviour
     }
 
     public void OnMove(InputValue value) {
-        if(!isFishing) {
+        if(!cantMove) {
             inputValueX = value.Get<Vector2>().x;
             inputValueZ = value.Get<Vector2>().y;
         }
     }
 
     public void OnJump(InputValue value) {
-        if(value.isPressed && isGrounded && !isFishing) {
+        if(value.isPressed && isGrounded && !cantMove) {
             velocity.y = jumpForce;
         }
     }
 
-    public void StartFishing() {
-        isFishing = true;
+    public void StartOtherJob() {
+        cantMove = true;
+        inputValueX = 0f;
+        inputValueZ = 0f;
     }
 
-    public void StopFishing() {
-        isFishing = false;
+    public void StopOtherJob() {
+        cantMove = false;
     }
 }

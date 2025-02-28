@@ -1,17 +1,20 @@
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class PlayerInventory : MonoBehaviour
 {
     [SerializeField] InventoryManager inventoryManager;
+
     private Inventory inventory;
+    private PlayerActing playerActing;
 
     private float rodPower;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        SetInventory();
-        SetRodPower();
+        playerActing = GetComponent<PlayerActing>();
+        ResetInventory();
     }
 
     // Update is called once per frame
@@ -41,16 +44,28 @@ public class PlayerInventory : MonoBehaviour
     }
 
     public void GetEquip(int itemID) {
-        inventory.equip.Add(itemID);
-        inventoryManager.AddEquipToSlot(itemID);
+        inventoryManager.AddItemToSlot(itemID);
     }
 
-    public void SetInventory() {
+    public void ResetInventory() {
         inventory = DataManager.Instance.inventory;
-    } 
+    }
+
+    public void SetSlots(List<ItemData> _slots) {
+        inventory.slots = _slots;
+    }
+
+    public void SetEquip(List<ItemData> _equip) {
+        inventory.equip = _equip;
+        StartCoroutine(playerActing.SetAnimator());
+    }
 
     public void SetRodPower() {
-        rodPower = DataManager.Instance.GetRodPowerFromList(inventory.rod);
+        rodPower = inventory.equip[0] != null ? DataManager.Instance.GetRodPowerFromList(inventory.equip[0].itemID) : 0;
+    }
+
+    public bool haveRod() {
+        return inventory.equip[0] != null ? true : false;
     }
 
     public float GetRodPower() {

@@ -10,6 +10,7 @@ public class DraggableItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
     private CanvasGroup canvasGroup;
 
     public int itemIndex;
+    public bool isEquipSlot;
     void Awake()
     {
         canvasGroup = GetComponent<CanvasGroup>();
