@@ -30,21 +30,27 @@ public class EventManager : MonoBehaviour
         uIManager.CloseInventoryUI();
     }
 
-    public void OpenNPCUI(int npcType) {
+    public void OpenNPCUI(int npcType, GameObject npcObject) {
         npcWindow.SetActive(true);
         switch(npcType) {
             case 1:
-                uIManager.OpenMerchantUI();
+                uIManager.OpenMerchantTalkUI();
                 break;
         }
+        uIManager.SetNpcObject(npcObject);
     }
 
     public void CloseNpcUI(int npcType) {
         npcWindow.SetActive(false);
         switch(npcType) {
             case 1:
-                uIManager.CloseMerchantUI();
+                uIManager.CloseMerchantTalkUI();
                 break;
         }
+    }
+
+    public void CloseAllWindows() {
+        npcWindow.SetActive(false);
+        uIManager.CloseAllWindows();
     }
 }

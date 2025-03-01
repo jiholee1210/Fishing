@@ -151,7 +151,7 @@ public class PlayerData {
 [System.Serializable]
 public class Inventory {
     public List<PlayerFish> fishList = new();
-    public List<ItemData> slots = new(new ItemData[54]);
+    public List<ItemData> slots = new(new ItemData[36]);
     public List<ItemData> equip = new(new ItemData[5]);
 }
 

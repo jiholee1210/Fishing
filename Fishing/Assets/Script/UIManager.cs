@@ -6,8 +6,9 @@ public class UIManager : MonoBehaviour
     [SerializeField] GameObject fishingUI;
     [SerializeField] GameObject inventoryUI;
     [SerializeField] GameObject merchantUI;
+    [SerializeField] TradeManager tradeManager;
 
-
+    private GameObject npcObject;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -33,11 +34,38 @@ public class UIManager : MonoBehaviour
         inventoryUI.SetActive(false);
     }
 
-    public void OpenMerchantUI() {
+    public void OpenMerchantTalkUI() {
         merchantUI.SetActive(true);
+        merchantUI.transform.GetChild(0).gameObject.SetActive(true);
     }
 
-    public void CloseMerchantUI() {
+    public void CloseMerchantTalkUI() {
+        merchantUI.transform.GetChild(0).gameObject.SetActive(false);
         merchantUI.SetActive(false);
+    }
+
+    public void OpenMerchantTradeUI() {
+        merchantUI.transform.GetChild(0).gameObject.SetActive(false);
+        merchantUI.transform.GetChild(1).gameObject.SetActive(true);
+        tradeManager.SetNpcObject(npcObject);
+    }
+
+    public void CloseMerchantTradeUI() {
+        merchantUI.transform.GetChild(1).gameObject.SetActive(false);
+    }
+
+    public void CloseAllWindows() {
+        inventoryUI.GetComponent<InventoryManager>().CloseWindow();
+        inventoryUI.SetActive(false);
+
+        tradeManager.CloseWindow();
+        merchantUI.transform.GetChild(1).gameObject.SetActive(false);
+
+        merchantUI.transform.GetChild(0).gameObject.SetActive(false);
+        merchantUI.SetActive(false);
+    }
+
+    public void SetNpcObject(GameObject _npcObject) {
+        npcObject = _npcObject;
     }
 }

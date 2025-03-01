@@ -10,7 +10,7 @@ public class DraggableItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
     private CanvasGroup canvasGroup;
 
     public int itemIndex;
-    public bool isEquipSlot;
+    public int slotType; // 인벤토리 = 0, 장비창 = 1, 상점창 = 2
     void Awake()
     {
         canvasGroup = GetComponent<CanvasGroup>();

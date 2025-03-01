@@ -18,7 +18,9 @@ public class PlayerActing : MonoBehaviour
     private bool isFishing = false;
     private bool inventoryOpen = false;
     private bool canTalk = false;
+    private bool isTalking = false;
     private int curNpcType;
+    private GameObject curNpcObject;
 
     public PlayerData playerData;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -36,7 +38,7 @@ public class PlayerActing : MonoBehaviour
     {
         CheckFishingZone();
         CheckNPC();
-        if(Input.GetKeyDown(KeyCode.Tab)) {
+        if(Input.GetKeyDown(KeyCode.Tab) && !isTalking) {
             if(!inventoryOpen) {
                 EventManager.Instance.OpenInventory();
                 Cursor.lockState = CursorLockMode.None;
@@ -51,6 +53,16 @@ public class PlayerActing : MonoBehaviour
                 cameraRot.StopOtherJob();
                 inventoryOpen = false;
             }
+        }
+
+        if(Input.GetKey(KeyCode.Escape)) {
+            EventManager.Instance.CloseAllWindows();
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
+            cameraRot.StopOtherJob();
+            playerMovement.StopOtherJob();
+            inventoryOpen = false;
+            isTalking = false;
         }
     }
 
@@ -74,11 +86,12 @@ public class PlayerActing : MonoBehaviour
 
     public void OnInteract(InputValue value) {
         if(value.isPressed && canTalk) {
-            EventManager.Instance.OpenNPCUI(curNpcType);
+            EventManager.Instance.OpenNPCUI(curNpcType, curNpcObject);
             cameraRot.StartOtherJob();
             playerMovement.StartOtherJob();
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;
+            isTalking = true;
             Debug.Log("NPC와 상호작용");
         }
     }
@@ -89,6 +102,7 @@ public class PlayerActing : MonoBehaviour
         Cursor.visible = false;
         cameraRot.StopOtherJob();
         playerMovement.StopOtherJob();
+        isTalking = false;
     }
 
     IEnumerator PlayFishingAnimation() {
@@ -140,6 +154,7 @@ public class PlayerActing : MonoBehaviour
         if(Physics.Raycast(ray, out hit, rayRange, npcLayer)) {
             canTalk = true;
             curNpcType = hit.collider.GetComponent<INPC>().GetNpcType();
+            curNpcObject = hit.collider.gameObject;
             Debug.DrawLine(ray.origin, hit.point, Color.green);
         }
         else {
