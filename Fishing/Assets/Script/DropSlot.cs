@@ -12,6 +12,7 @@ public class DropSlot : MonoBehaviour, IDropHandler
     public void OnDrop(PointerEventData eventData) {
         DraggableItem draggedItem = eventData.pointerDrag.GetComponent<DraggableItem>();
 
+        if(!draggedItem.canDrag) return;
         
         if(slotType == 1 ^ draggedItem.slotType == 1) {
             bool check = slotType == 1 ? inventoryManager.CheckType(draggedItem.itemIndex, slotIndex) : inventoryManager.CheckType(slotIndex, draggedItem.itemIndex);
@@ -27,6 +28,9 @@ public class DropSlot : MonoBehaviour, IDropHandler
 
         if(draggedItem.slotType == 2 && slotType != 2) {
             tradeManager.BuyEquip(draggedItem.itemIndex, slotIndex);
+        }
+        else if (draggedItem.slotType != 2 && slotType == 2) {
+            tradeManager.SellEquip(draggedItem.itemIndex);
         }
         
         if(slotType == 0 && draggedItem.slotType == 0) {

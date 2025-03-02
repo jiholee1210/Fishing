@@ -13,6 +13,7 @@ public class FishingManager : MonoBehaviour
     private float playerStamina;
 
     private Dictionary<int, float> fishProbabilities = new();
+    private string[] fishRarity = {"일반", "희귀", "에픽", "전설"};
     private int fishID;
     private float fishPower;
     private float fishSpeed;
@@ -51,31 +52,31 @@ public class FishingManager : MonoBehaviour
         fishProbabilities.Clear();
         switch(baitLevel) {
             case 0:
-                fishProbabilities.Add(1, 70f);
-                fishProbabilities.Add(2, 30f);
+                fishProbabilities.Add(0, 70f);
+                fishProbabilities.Add(1, 30f);
                 break;
             case 1:
-                fishProbabilities.Add(1, 65f);
-                fishProbabilities.Add(2, 25f);
-                fishProbabilities.Add(3, 10f);
+                fishProbabilities.Add(0, 65f);
+                fishProbabilities.Add(1, 25f);
+                fishProbabilities.Add(2, 10f);
                 break;
             case 2:
-                fishProbabilities.Add(1, 60f);
-                fishProbabilities.Add(2, 25f);
-                fishProbabilities.Add(3, 15f);
+                fishProbabilities.Add(0, 60f);
+                fishProbabilities.Add(1, 25f);
+                fishProbabilities.Add(2, 15f);
                 break;
             case 3:
-                fishProbabilities.Add(1, 55f);
-                fishProbabilities.Add(2, 30f);
-                fishProbabilities.Add(3, 10f);
-                fishProbabilities.Add(4, 5f);
+                fishProbabilities.Add(0, 55f);
+                fishProbabilities.Add(1, 30f);
+                fishProbabilities.Add(2, 10f);
+                fishProbabilities.Add(3, 5f);
                 break;
         }
     }
 
     private int SetRandomFish() {
-        //레어도 선택
-        int rarity = 0;
+        //레어도 선택"
+        string rarity = "";
         float randomPoint = Random.Range(0, 100f);
         Debug.Log("물고기 랜덤 포인트" + randomPoint);
         float currentProbability = 0f;
@@ -83,7 +84,7 @@ public class FishingManager : MonoBehaviour
             Debug.Log("물고기 가중치" + fish.Key + " : " + fish.Value);
             currentProbability += fish.Value;
             if(randomPoint <= currentProbability) {
-                rarity = fish.Key;
+                rarity = fishRarity[fish.Key];
                 break;
             }
         }
@@ -95,7 +96,6 @@ public class FishingManager : MonoBehaviour
             Debug.Log("물고기 아이디" + fishList[randomIndex]);
             return fishList[randomIndex];
         }
-
         return 0;
     }
 

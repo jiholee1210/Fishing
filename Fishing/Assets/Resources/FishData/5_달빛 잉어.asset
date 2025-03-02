@@ -10,11 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 79907794405da954fa8de9ecde5f4604, type: 3}
-  m_Name: Salmon
+  m_Name: "5_\uB2EC\uBE5B \uC789\uC5B4"
   m_EditorClassIdentifier: 
-  fishName: Salmon
-  fishID: 1
-  rarity: 1
-  power: 10
+  fishName: "\uB2EC\uBE5B \uC789\uC5B4"
+  fishID: 5
+  rarity: "\uC5D0\uD53D"
+  power: 60
+  weightMin: 10
+  weightMax: 20
+  desc: "\uB2EC\uBE5B \uC789\uC5B4"
+  price: 130
   fishPrefab: {fileID: 0}
-  fishIcon: {fileID: 0}
+  fishIcon: {fileID: 21300000, guid: 4f78bf498be585c4585a3d8b48c30e26, type: 3}

@@ -5,8 +5,12 @@ public class FishData : ScriptableObject
 {
     public string fishName;
     public int fishID;
-    public int rarity;
+    public string rarity;
     public float power;
+    public float weightMin;
+    public float weightMax;
+    public string desc;
+    public float price;
     public GameObject fishPrefab;
     public Sprite fishIcon;
 }

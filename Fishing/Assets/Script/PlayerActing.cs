@@ -19,6 +19,8 @@ public class PlayerActing : MonoBehaviour
     private bool inventoryOpen = false;
     private bool canTalk = false;
     private bool isTalking = false;
+    private bool isEquipInven = false;
+    private bool isFishInven = false;
     private int curNpcType;
     private GameObject curNpcObject;
 
@@ -38,13 +40,14 @@ public class PlayerActing : MonoBehaviour
     {
         CheckFishingZone();
         CheckNPC();
-        if(Input.GetKeyDown(KeyCode.Tab) && !isTalking) {
+        if(Input.GetKeyDown(KeyCode.Tab) && !isTalking && !isFishInven) {
             if(!inventoryOpen) {
                 EventManager.Instance.OpenInventory();
                 Cursor.lockState = CursorLockMode.None;
                 Cursor.visible = true;
                 cameraRot.StartOtherJob();
                 inventoryOpen = true;
+                isEquipInven = true;
             }
             else {
                 EventManager.Instance.CloseInventory();
@@ -52,10 +55,30 @@ public class PlayerActing : MonoBehaviour
                 Cursor.visible = false;
                 cameraRot.StopOtherJob();
                 inventoryOpen = false;
+                isEquipInven = false;
             }
         }
 
-        if(Input.GetKey(KeyCode.Escape)) {
+        if(Input.GetKeyDown(KeyCode.I) && !isTalking && !isEquipInven) {
+            if(!inventoryOpen) {
+                EventManager.Instance.OpenFishInventory();
+                Cursor.lockState = CursorLockMode.None;
+                Cursor.visible = true;
+                cameraRot.StartOtherJob();
+                inventoryOpen = true;
+                isFishInven = true;
+            }
+            else {
+                EventManager.Instance.CloseFishInventory();
+                Cursor.lockState = CursorLockMode.Locked;
+                Cursor.visible = false;
+                cameraRot.StopOtherJob();
+                inventoryOpen = false;
+                isFishInven = false;
+            }
+        }
+
+        if(Input.GetKeyDown(KeyCode.Escape)) {
             EventManager.Instance.CloseAllWindows();
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
@@ -85,7 +108,7 @@ public class PlayerActing : MonoBehaviour
     }
 
     public void OnInteract(InputValue value) {
-        if(value.isPressed && canTalk) {
+        if(value.isPressed && canTalk && !isTalking) {
             EventManager.Instance.OpenNPCUI(curNpcType, curNpcObject);
             cameraRot.StartOtherJob();
             playerMovement.StartOtherJob();

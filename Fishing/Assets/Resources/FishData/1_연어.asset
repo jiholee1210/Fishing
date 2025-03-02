@@ -10,11 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 79907794405da954fa8de9ecde5f4604, type: 3}
-  m_Name: Tuna
+  m_Name: "1_\uC5F0\uC5B4"
   m_EditorClassIdentifier: 
-  fishName: Tuna
-  fishID: 2
-  rarity: 1
+  fishName: "\uC5F0\uC5B4"
+  fishID: 1
+  rarity: "\uC77C\uBC18"
   power: 10
+  weightMin: 1
+  weightMax: 4
+  desc: "\uC5F0\uC5B4"
+  price: 10
   fishPrefab: {fileID: 0}
-  fishIcon: {fileID: 0}
+  fishIcon: {fileID: 21300000, guid: f762962da78c8ae45b378695e04d29a1, type: 3}

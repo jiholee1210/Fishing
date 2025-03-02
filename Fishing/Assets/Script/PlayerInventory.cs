@@ -5,6 +5,7 @@ using UnityEngine;
 public class PlayerInventory : MonoBehaviour
 {
     [SerializeField] InventoryManager inventoryManager;
+    [SerializeField] FishInvenManager fishInvenManager;
 
     private Inventory inventory;
     private PlayerActing playerActing;
@@ -29,16 +30,18 @@ public class PlayerInventory : MonoBehaviour
     }
 
     public void GetFish(int fishID) {
-        PlayerFish fish = inventory.fishList.Find(f => f.fishID == fishID);
-        if (fish != null) {
-            fish.catchCount++;
-        }
-        else {
-            inventory.fishList.Add(new PlayerFish{
-                fishID = fishID,
-                fishName = DataManager.Instance.GetFishNameFromList(fishID),
-                catchCount = 1
-            });
+        FishData fishData = DataManager.Instance.GetFishData(fishID);
+        float randomWeight = Random.Range(fishData.weightMin, fishData.weightMax);
+        float weight = float.Parse(randomWeight.ToString("F2"));
+        for(int i = 0; i < inventory.fishList.Count; i++) {
+            if(inventory.fishList[i].fishID == 0) {
+                inventory.fishList[i] = new PlayerFish{
+                    fishID = fishID,
+                    weight = weight,
+                    price = (int)(fishData.price * (weight / fishData.weightMin))
+                };
+                break;
+            }
         }
         DataManager.Instance.SaveInventoryData();
     }
@@ -55,8 +58,7 @@ public class PlayerInventory : MonoBehaviour
         inventory.slots = _slots;
     }
 
-    public void SetEquip(List<ItemData> _equip) {
-        inventory.equip = _equip;
+    public void SetEquip() {
         StartCoroutine(playerActing.SetAnimator());
     }
 

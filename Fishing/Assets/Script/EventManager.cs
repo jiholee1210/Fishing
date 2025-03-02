@@ -30,6 +30,14 @@ public class EventManager : MonoBehaviour
         uIManager.CloseInventoryUI();
     }
 
+    public void OpenFishInventory() {
+        uIManager.OpenFishInventoryUI();
+    }
+
+    public void CloseFishInventory() {
+        uIManager.CloseFishInventoryUI();
+    }
+
     public void OpenNPCUI(int npcType, GameObject npcObject) {
         npcWindow.SetActive(true);
         switch(npcType) {

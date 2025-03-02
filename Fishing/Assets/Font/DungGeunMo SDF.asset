@@ -172,24 +172,24 @@ MonoBehaviour:
     m_FaceIndex: 0
     m_FamilyName: DungGeunMo
     m_StyleName: ???
-    m_PointSize: 250
+    m_PointSize: 100
     m_Scale: 1
     m_UnitsPerEM: 160
-    m_LineHeight: 250
-    m_AscentLine: 203.125
-    m_CapLine: 141
-    m_MeanLine: 110
+    m_LineHeight: 100
+    m_AscentLine: 81.25
+    m_CapLine: 57
+    m_MeanLine: 44
     m_Baseline: 0
-    m_DescentLine: -46.875
-    m_SuperscriptOffset: 203.125
+    m_DescentLine: -18.75
+    m_SuperscriptOffset: 81.25
     m_SuperscriptSize: 0.5
-    m_SubscriptOffset: -46.875
+    m_SubscriptOffset: -18.75
     m_SubscriptSize: 0.5
-    m_UnderlineOffset: -31.25
-    m_UnderlineThickness: 15.625
-    m_StrikethroughOffset: 44
-    m_StrikethroughThickness: 15.625
-    m_TabWidth: 125
+    m_UnderlineOffset: -12.5
+    m_UnderlineThickness: 6.25
+    m_StrikethroughOffset: 17.6
+    m_StrikethroughThickness: 6.25
+    m_TabWidth: 50
   m_Material: {fileID: -3229828018247645682}
   m_SourceFontFileGUID: 0b5804c9e1ce7314e88dec9221b7c3e8
   m_CreationSettings:
@@ -197,7 +197,7 @@ MonoBehaviour:
     sourceFontFileGUID: 0b5804c9e1ce7314e88dec9221b7c3e8
     faceIndex: 0
     pointSizeSamplingMode: 0
-    pointSize: 250
+    pointSize: 100
     padding: 4
     paddingMode: 2
     packingMode: 0
@@ -235,9 +235,7 @@ MonoBehaviour:
     m_Height: 2048
   m_FontFeatureTable:
     m_MultipleSubstitutionRecords: []
-    m_LigatureSubstitutionRecords:
-    - m_ComponentGlyphIDs: b5000000a20300001b3b0000
-      m_LigatureGlyphID: 15940
+    m_LigatureSubstitutionRecords: []
     m_GlyphPairAdjustmentRecords: []
     m_MarkToBaseAdjustmentRecords: []
     m_MarkToMarkAdjustmentRecords: []

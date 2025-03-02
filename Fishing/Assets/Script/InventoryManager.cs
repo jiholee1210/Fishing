@@ -12,39 +12,16 @@ public class InventoryManager : MonoBehaviour, ISlotHandler
     [SerializeField] GameObject[] slots;
     [SerializeField] Transform[] details;
     [SerializeField] GameObject[] equip;
+    [SerializeField] TMP_Text gold;
     [SerializeField] Transform handPos;
     [SerializeField] PlayerInventory playerInventory;
 
     private List<ItemData> itemList;
     private List<ItemData> equipList;
+
     void Start()
     {
-        int equipSize = 5;
-        equipList = new List<ItemData>(new ItemData[equipSize]);
-
-        for (int i = 0; i < slots.Length; i++) {
-            DraggableItem draggable = slots[i].AddComponent<DraggableItem>();
-            draggable.itemIndex = i;
-            draggable.slotType = 0;
-            
-            DropSlot dropSlot = slots[i].AddComponent<DropSlot>();
-            dropSlot.slotIndex = i;
-            dropSlot.slotType = 0;
-            dropSlot.inventoryManager = this;
-            dropSlot.slotHandler = this;
-        }
-
-        for (int i = 0; i < equip.Length; i++) {
-            DraggableItem draggable = equip[i].AddComponent<DraggableItem>();
-            draggable.itemIndex = i;
-            draggable.slotType = 1;
-
-            DropSlot dropSlot = equip[i].AddComponent<DropSlot>();
-            dropSlot.slotIndex = i;
-            dropSlot.slotType = 1;
-            dropSlot.inventoryManager = this;
-            dropSlot.slotHandler = this;
-        }
+        
     }
 
     public void AddFishToSlot(int id) {
@@ -57,36 +34,36 @@ public class InventoryManager : MonoBehaviour, ISlotHandler
             if(itemList[i] == null) {
                 itemList[i] = itemData;
                 slots[i].GetComponent<Image>().sprite = itemData.itemImage;
-                slots[i].GetComponent<Button>().onClick.AddListener(() => OnItemClick(itemData, i));
+                slots[i].GetComponent<Button>().onClick.AddListener(() => OnItemClick(itemData));
+                slots[i].GetComponent<DraggableItem>().canDrag = true;
                 Debug.Log("아이템 이벤토리에 추가");
-                playerInventory.SetSlots(itemList);
+                DataManager.Instance.SaveInventoryData();
                 break;
             }
         }
     }
 
-    private void OnItemClick(ItemData itemData, int i) {
-        Debug.Log("슬롯 번호 " + i);
+    private void OnItemClick(ItemData itemData) {
         switch(itemData.itemType) {
             case ItemType.Rod:
-                SetRodDetail(itemData.itemID, i);
+                SetRodDetail(itemData.itemID);
                 break;
             case ItemType.Reel:
-                SetReelDetail(itemData.itemID, i);
+                SetReelDetail(itemData.itemID);
                 break;
             case ItemType.Wire:
-                SetWireDetail(itemData.itemID, i);
+                SetWireDetail(itemData.itemID);
                 break;
             case ItemType.Hook:
-                SetHookDetail(itemData.itemID, i);
+                SetHookDetail(itemData.itemID);
                 break;
             case ItemType.Bait:
-                SetBaitDetail(itemData.itemID, i);
+                SetBaitDetail(itemData.itemID);
                 break;
         }
     }
 
-    public void SetRodDetail(int itemID, int index) {
+    public void SetRodDetail(int itemID) {
         if(details[0].GetChild(5).childCount > 0) {
             Destroy(details[0].GetChild(5).GetChild(0).gameObject);    
         }
@@ -109,19 +86,19 @@ public class InventoryManager : MonoBehaviour, ISlotHandler
         details[0].GetChild(5).GetComponent<RotateRod>().StartRotate();
     }
 
-    public void SetReelDetail(int id, int index) {
+    public void SetReelDetail(int id) {
         details[1].gameObject.SetActive(true);
     }
 
-    public void SetWireDetail(int id, int index) {
+    public void SetWireDetail(int id) {
         details[2].gameObject.SetActive(true);
     }
 
-    public void SetHookDetail(int id, int index) {
+    public void SetHookDetail(int id) {
         details[3].gameObject.SetActive(true);
     }
 
-    public void SetBaitDetail(int id, int index) {
+    public void SetBaitDetail(int id) {
         details[4].gameObject.SetActive(true);
     }
 
@@ -129,7 +106,7 @@ public class InventoryManager : MonoBehaviour, ISlotHandler
         Button buttonA = slots[indexA].GetComponent<Button>();
         Button buttonB = slots[indexB].GetComponent<Button>();
         if(itemList[indexB] == null) {
-            itemList[indexB] = itemList[indexA].Clone();
+            itemList[indexB] = DataManager.Instance.GetItemData(itemList[indexA].itemID);
             itemList[indexA] = null;
 
             slots[indexB].GetComponent<Image>().sprite = slots[indexA].GetComponent<Image>().sprite;
@@ -138,46 +115,53 @@ public class InventoryManager : MonoBehaviour, ISlotHandler
             buttonA.onClick.RemoveAllListeners();
             buttonB.onClick.RemoveAllListeners();
 
-            buttonB.onClick.AddListener(() => OnItemClick(itemList[indexB], indexB));
-            return;
+            buttonB.onClick.AddListener(() => OnItemClick(itemList[indexB]));
+
+            slots[indexA].GetComponent<DraggableItem>().canDrag = false;
+            slots[indexB].GetComponent<DraggableItem>().canDrag = true;
         }
-        ItemData temp = itemList[indexA].Clone();
-        itemList[indexA] = itemList[indexB].Clone();
-        itemList[indexB] = temp;
+        else {
+            ItemData temp = DataManager.Instance.GetItemData(itemList[indexA].itemID);;
+            itemList[indexA] = DataManager.Instance.GetItemData(itemList[indexB].itemID);;
+            itemList[indexB] = temp;
 
-        Sprite tempSprite = slots[indexA].GetComponent<Image>().sprite;
-        slots[indexA].GetComponent<Image>().sprite = slots[indexB].GetComponent<Image>().sprite;
-        slots[indexB].GetComponent<Image>().sprite = tempSprite;
+            Sprite tempSprite = slots[indexA].GetComponent<Image>().sprite;
+            slots[indexA].GetComponent<Image>().sprite = slots[indexB].GetComponent<Image>().sprite;
+            slots[indexB].GetComponent<Image>().sprite = tempSprite;
 
-        buttonA.onClick.RemoveAllListeners();
-        buttonB.onClick.RemoveAllListeners();
+            buttonA.onClick.RemoveAllListeners();
+            buttonB.onClick.RemoveAllListeners();
 
-        buttonA.onClick.AddListener(() => OnItemClick(itemList[indexA], indexA));
-        buttonB.onClick.AddListener(() => OnItemClick(itemList[indexB], indexB));
-
+            buttonA.onClick.AddListener(() => OnItemClick(itemList[indexA]));
+            buttonB.onClick.AddListener(() => OnItemClick(itemList[indexB]));
+        }
+        DataManager.Instance.SaveInventoryData();
     }
 
     public void ExchangeEquip(int indexA, int indexB) {
         Button buttonA = slots[indexA].GetComponent<Button>();
         Button buttonB = equip[indexB].GetComponent<Button>();
         if(equipList[indexB] == null) {
-            equipList[indexB] = itemList[indexA].Clone();
+            equipList[indexB] = DataManager.Instance.GetItemData(itemList[indexA].itemID);;
             itemList[indexA] = null;
 
             if(indexB == 0) {
                 RodData rodData = DataManager.Instance.GetRodData(equipList[indexB].itemID);
                 Instantiate(rodData.rodPrefab, handPos);
+                playerInventory.SetEquip();
             }
 
             equip[indexB].GetComponent<Image>().sprite = slots[indexA].GetComponent<Image>().sprite;
             slots[indexA].GetComponent<Image>().sprite = null;
 
             buttonA.onClick.RemoveAllListeners();
-            buttonB.onClick.AddListener(() => OnItemClick(equipList[indexB], indexB));
+            buttonB.onClick.AddListener(() => OnItemClick(equipList[indexB]));
             
+            slots[indexA].GetComponent<DraggableItem>().canDrag = false;
+            equip[indexB].GetComponent<DraggableItem>().canDrag = true;
         }
         else if(itemList[indexA] == null) {
-            itemList[indexA] = equipList[indexB].Clone();
+            itemList[indexA] = DataManager.Instance.GetItemData(equipList[indexB].itemID);;
             equipList[indexB] = null;
 
             if(indexB == 0) {
@@ -188,18 +172,21 @@ public class InventoryManager : MonoBehaviour, ISlotHandler
             equip[indexB].GetComponent<Image>().sprite = null;
 
             buttonB.onClick.RemoveAllListeners();
-            buttonA.onClick.AddListener(() => OnItemClick(itemList[indexA], indexA));
+            buttonA.onClick.AddListener(() => OnItemClick(itemList[indexA]));
 
+            slots[indexA].GetComponent<DraggableItem>().canDrag = true;
+            equip[indexB].GetComponent<DraggableItem>().canDrag = false;
         }
         else {
-            ItemData temp = itemList[indexA].Clone();
-            itemList[indexA] = equipList[indexB].Clone();
+            ItemData temp = DataManager.Instance.GetItemData(itemList[indexA].itemID);;
+            itemList[indexA] = DataManager.Instance.GetItemData(equipList[indexB].itemID);;
             equipList[indexB] = temp;
 
             if(indexB == 0) {
                 Destroy(handPos.GetChild(0).gameObject);
                 RodData rodData = DataManager.Instance.GetRodData(equipList[indexB].itemID);
                 Instantiate(rodData.rodPrefab, handPos);
+                playerInventory.SetEquip();
             }
 
             Sprite tempSprite = slots[indexA].GetComponent<Image>().sprite;
@@ -209,13 +196,11 @@ public class InventoryManager : MonoBehaviour, ISlotHandler
             buttonA.onClick.RemoveAllListeners();
             buttonB.onClick.RemoveAllListeners();
 
-            buttonA.onClick.AddListener(() => OnItemClick(itemList[indexA], indexA));
-            buttonB.onClick.AddListener(() => OnItemClick(equipList[indexB], indexB));
+            buttonA.onClick.AddListener(() => OnItemClick(itemList[indexA]));
+            buttonB.onClick.AddListener(() => OnItemClick(equipList[indexB]));
         }
-
-        playerInventory.SetSlots(itemList);
-        playerInventory.SetEquip(equipList);
         playerInventory.SetRodPower();
+        DataManager.Instance.SaveInventoryData();
     }
 
     public bool CheckType(int indexA, int indexB) {
@@ -253,25 +238,79 @@ public class InventoryManager : MonoBehaviour, ISlotHandler
     }
 
     public void SetPlayerSlots() {
-        itemList = DataManager.Instance.inventory.slots;
-
         for(int i = 0; i < itemList.Count; i++) {
             int index = i;
+            slots[index].GetComponent<Image>().sprite = null;
+            slots[index].GetComponent<Button>().onClick.RemoveAllListeners();
             if(itemList[index] != null) {
                 slots[index].GetComponent<Image>().sprite = itemList[index].itemImage;
-                slots[index].GetComponent<Button>().onClick.AddListener(() => OnItemClick(itemList[index], index));
-                Debug.Log(index + " " + itemList[index].itemID);
-            }
-            else {
-                slots[index].GetComponent<Image>().sprite = null;
-                slots[index].GetComponent<Button>().onClick.RemoveAllListeners();
+                slots[index].GetComponent<Button>().onClick.AddListener(() => OnItemClick(itemList[index]));
+                slots[index].GetComponent<DraggableItem>().canDrag = true;
             }
         }
     }
 
+    public void SetPlayerEquip() {
+        for(int i = 0; i < equip.Length; i++) {
+            int index = i;
+            equip[index].GetComponent<Image>().sprite = null;
+            equip[index].GetComponent<Button>().onClick.RemoveAllListeners();
+            if(equipList[index] != null) {
+                equip[index].GetComponent<Image>().sprite = equipList[index].itemImage;
+                equip[index].GetComponent<Button>().onClick.AddListener(() => OnItemClick(equipList[index]));
+                equip[index].GetComponent<DraggableItem>().canDrag = true;
+            }
+        }
+        if(equipList[0] != null && handPos.childCount == 0) {
+            RodData rodData = DataManager.Instance.GetRodData(equipList[0].itemID);
+            Instantiate(rodData.rodPrefab, handPos);
+            playerInventory.SetEquip();
+        }
+    }
+
+    public void SetGoldText() {
+        gold.text = DataManager.Instance.playerData.gold + " 코인";
+    }
+
     void OnEnable()
     {
+        itemList = DataManager.Instance.inventory.slots;
+        equipList = DataManager.Instance.inventory.equip;
         SetPlayerSlots();
+        SetPlayerEquip();
+        SetGoldText();
+    }
+
+    public void DefaultSetting() {
+        itemList = DataManager.Instance.inventory.slots;
+        equipList = DataManager.Instance.inventory.equip;
+
+        for (int i = 0; i < slots.Length; i++) {
+            DraggableItem draggable = slots[i].AddComponent<DraggableItem>();
+            draggable.itemIndex = i;
+            draggable.slotType = 0;
+            
+            DropSlot dropSlot = slots[i].AddComponent<DropSlot>();
+            dropSlot.slotIndex = i;
+            dropSlot.slotType = 0;
+            dropSlot.inventoryManager = this;
+            dropSlot.slotHandler = this;
+        }
+
+        for (int i = 0; i < equip.Length; i++) {
+            DraggableItem draggable = equip[i].AddComponent<DraggableItem>();
+            draggable.itemIndex = i;
+            draggable.slotType = 1;
+
+            DropSlot dropSlot = equip[i].AddComponent<DropSlot>();
+            dropSlot.slotIndex = i;
+            dropSlot.slotType = 1;
+            dropSlot.inventoryManager = this;
+            dropSlot.slotHandler = this;
+        }
+        SetPlayerSlots();
+        SetPlayerEquip();
+        SetGoldText();
     }
 
     void OnDisable()

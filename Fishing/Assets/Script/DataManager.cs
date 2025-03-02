@@ -109,10 +109,10 @@ public class DataManager : MonoBehaviour
         return fishDataDict.TryGetValue(id, out FishData fish) ? fish.fishName : "";
     }
 
-    public List<int> GetFishIDFromList(int rarity) {
+    public List<int> GetFishIDFromList(string rarity) {
         List<int> IDList = new();
         foreach (var fishData in fishDataDict) {
-            if(fishData.Value.rarity == rarity) {
+            if(fishData.Value.rarity.Equals(rarity)) {
                 IDList.Add(fishData.Key);
             }
         }
@@ -150,14 +150,23 @@ public class PlayerData {
 
 [System.Serializable]
 public class Inventory {
-    public List<PlayerFish> fishList = new();
+    public List<PlayerFish> fishList = new(new PlayerFish[36]);
     public List<ItemData> slots = new(new ItemData[36]);
     public List<ItemData> equip = new(new ItemData[5]);
 }
 
 [System.Serializable]
 public class PlayerFish {
-    public string fishName;
     public int fishID;
-    public int catchCount;
+    public float weight;
+    public int price;
+
+    public PlayerFish Clone() {
+        PlayerFish playerFish = new PlayerFish();
+        playerFish.fishID = this.fishID;
+        playerFish.weight = this.weight;
+        playerFish.price = this.price;
+
+        return playerFish;
+    }
 }

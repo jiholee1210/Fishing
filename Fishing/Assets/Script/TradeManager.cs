@@ -8,11 +8,14 @@ public class TradeManager : MonoBehaviour, ISlotHandler
 {
     [SerializeField] GameObject[] npcSlots;
     [SerializeField] GameObject[] playerSlots;
+    [SerializeField] TMP_Text gold;
     [SerializeField] Button[] category;
     [SerializeField] Transform[] details;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
 
     private List<ItemData> playerItemList;
+    private PlayerData playerData;
+
     private List<ItemData> npcItemList;
     private GameObject npcObject;
 
@@ -22,6 +25,9 @@ public class TradeManager : MonoBehaviour, ISlotHandler
             DraggableItem draggable = playerSlots[i].AddComponent<DraggableItem>();
             draggable.itemIndex = i;
             draggable.slotType = 0;
+            if(playerItemList[i] != null) {
+                draggable.canDrag = true;
+            }
 
             DropSlot dropSlot = playerSlots[i].AddComponent<DropSlot>();
             dropSlot.slotIndex = i;
@@ -66,38 +72,68 @@ public class TradeManager : MonoBehaviour, ISlotHandler
     }
 
     public void BuyEquip(int indexA, int indexB) {
-        if(playerItemList[indexB] == null) {
-            playerItemList[indexB] = npcItemList[indexA].Clone();
-            playerSlots[indexB].GetComponent<Image>().sprite = npcSlots[indexA].GetComponent<Image>().sprite;
-        }
-        else {
-            for(int i = 0; i < playerItemList.Count; i++) {
-                if(playerItemList[i] == null) {
-                    Debug.Log(i);
-                    playerItemList[i] = npcItemList[indexA].Clone();
-                    playerSlots[i].GetComponent<Image>().sprite = npcSlots[indexA].GetComponent<Image>().sprite;
-                    return;
+        if(playerData.gold >= npcItemList[indexA].reqGold) {
+            if(playerItemList[indexB] == null) {
+                playerItemList[indexB] = DataManager.Instance.GetItemData(npcItemList[indexA].itemID);
+                playerSlots[indexB].GetComponent<Image>().sprite = npcSlots[indexA].GetComponent<Image>().sprite;
+                playerSlots[indexB].GetComponent<DraggableItem>().canDrag = true;
+            }
+            else {
+                for(int i = 0; i < playerItemList.Count; i++) {
+                    if(playerItemList[i] == null) {
+                        Debug.Log(i);
+                        playerItemList[i] = DataManager.Instance.GetItemData(npcItemList[indexA].itemID);
+                        playerSlots[i].GetComponent<Image>().sprite = npcSlots[indexA].GetComponent<Image>().sprite;
+                        playerSlots[i].GetComponent<DraggableItem>().canDrag = true;
+                        break;
+                    }
                 }
             }
+            playerData.gold -= npcItemList[indexA].reqGold;
+            SetGoldText();
+            DataManager.Instance.SaveInventoryData();
+            DataManager.Instance.SavePlayerData();
         }
+        else {
+            Debug.Log("골드가 부족합니다.");
+        }
+    }
+
+    public void SellEquip(int indexA) {
+        Debug.Log(indexA + " " + playerItemList[indexA].reqGold);
+        playerData.gold += (int)(playerItemList[indexA].reqGold * 0.2f);
+
+        playerItemList[indexA] = null;
+        playerSlots[indexA].GetComponent<Image>().sprite = null;
+        playerSlots[indexA].GetComponent<DraggableItem>().canDrag = false;
+
+        SetGoldText();
+        DataManager.Instance.SaveInventoryData();
+        DataManager.Instance.SavePlayerData();
+
     }
 
     public void SwapItem(int indexA, int indexB) {
         if(playerItemList[indexB] == null) {
-            playerItemList[indexB] = playerItemList[indexA].Clone();
+            playerItemList[indexB] = DataManager.Instance.GetItemData(playerItemList[indexA].itemID);
             playerItemList[indexA] = null;
 
             playerSlots[indexB].GetComponent<Image>().sprite = playerSlots[indexA].GetComponent<Image>().sprite;
             playerSlots[indexA].GetComponent<Image>().sprite = null;
-            return;
-        }
-        ItemData temp = playerItemList[indexA].Clone();
-        playerItemList[indexA] = playerItemList[indexB].Clone();
-        playerItemList[indexB] = temp;
 
-        Sprite tempSprite = playerSlots[indexA].GetComponent<Image>().sprite;
-        playerSlots[indexA].GetComponent<Image>().sprite = playerSlots[indexB].GetComponent<Image>().sprite;
-        playerSlots[indexB].GetComponent<Image>().sprite = tempSprite;
+            playerSlots[indexA].GetComponent<DraggableItem>().canDrag = false;
+            playerSlots[indexB].GetComponent<DraggableItem>().canDrag = true;
+        }
+        else {
+            ItemData temp = DataManager.Instance.GetItemData(playerItemList[indexA].itemID);
+            playerItemList[indexA] = DataManager.Instance.GetItemData(playerItemList[indexB].itemID);
+            playerItemList[indexB] = temp;
+
+            Sprite tempSprite = playerSlots[indexA].GetComponent<Image>().sprite;
+            playerSlots[indexA].GetComponent<Image>().sprite = playerSlots[indexB].GetComponent<Image>().sprite;
+            playerSlots[indexB].GetComponent<Image>().sprite = tempSprite;
+        } 
+        DataManager.Instance.SaveInventoryData();
     }
 
     public void SetNpcObject(GameObject _npcObject) {
@@ -107,14 +143,22 @@ public class TradeManager : MonoBehaviour, ISlotHandler
     private void SetNpcSlots(List<ItemData> item) {
         for(int i = 0; i < item.Count; i++) {
             int index = i;
+            npcSlots[index].GetComponent<Button>().onClick.RemoveAllListeners();
+            npcSlots[index].GetComponent<Image>().sprite = null;
             if(item[index] != null) {
                 npcSlots[index].GetComponent<Image>().sprite = item[index].itemImage;
                 npcSlots[index].GetComponent<Button>().onClick.AddListener(() => OnItemClick(item[index], index));
+                npcSlots[index].GetComponent<DraggableItem>().canDrag = true;
             }
-            else {
-                npcSlots[index].GetComponent<Image>().sprite = null;
-                npcSlots[index].GetComponent<Button>().onClick.RemoveAllListeners();
-            }
+        }
+    }
+
+    public void SetNpcDefault() {
+        for(int i = 0; i < npcItemList.Count; i++) {
+            int index = i;
+            npcSlots[index].GetComponent<Button>().onClick.RemoveAllListeners();
+            npcSlots[index].GetComponent<Image>().sprite = null;
+            npcSlots[index].GetComponent<DraggableItem>().canDrag = false;
         }
     }
 
@@ -122,12 +166,10 @@ public class TradeManager : MonoBehaviour, ISlotHandler
         playerItemList = DataManager.Instance.inventory.slots;
 
         for(int i = 0; i < playerItemList.Count; i++) {
+            playerSlots[i].GetComponent<Image>().sprite = null;
             if(playerItemList[i] != null) {
                 playerSlots[i].GetComponent<Image>().sprite = playerItemList[i].itemImage;
                 Debug.Log(i + " " + playerItemList[i].itemID);
-            }
-            else {
-                playerSlots[i].GetComponent<Image>().sprite = null;
             }
         }
     }
@@ -158,17 +200,19 @@ public class TradeManager : MonoBehaviour, ISlotHandler
                     Destroy(details[0].GetChild(5).GetChild(0).gameObject);    
             }
 
-            TMP_Text Name = details[0].GetChild(0).GetComponent<TMP_Text>();
-            TMP_Text Rarity = details[0].GetChild(2).GetComponent<TMP_Text>();
-            TMP_Text Power = details[0].GetChild(3).GetComponent<TMP_Text>();
-            TMP_Text Desc = details[0].GetChild(4).GetComponent<TMP_Text>();
+            TMP_Text name = details[0].GetChild(0).GetComponent<TMP_Text>();
+            TMP_Text rarity = details[0].GetChild(2).GetComponent<TMP_Text>();
+            TMP_Text power = details[0].GetChild(3).GetComponent<TMP_Text>();
+            TMP_Text desc = details[0].GetChild(4).GetComponent<TMP_Text>();
+            TMP_Text gold = details[0].GetChild(6).GetComponent<TMP_Text>();
 
             RodData rodData = DataManager.Instance.GetRodData(itemID);
 
-            Name.text = rodData.rodName;
-            Rarity.text = rodData.rodRarity;
-            Power.text = rodData.rodPower + " 낚시력";
-            Desc.text = rodData.rodDesc;
+            name.text = rodData.rodName;
+            rarity.text = rodData.rodRarity;
+            power.text = rodData.rodPower + " 낚시력";
+            desc.text = rodData.rodDesc;
+            gold.text = npcItemList[index].reqGold + " 골드";
 
             Instantiate(rodData.rodPrefab, details[0].GetChild(5));
             Debug.Log("자식 생성");
@@ -194,7 +238,13 @@ public class TradeManager : MonoBehaviour, ISlotHandler
 
     void OnEnable()
     {
+        playerData = DataManager.Instance.playerData;
         SetPlayerSlots();
+        SetGoldText(); 
+    }
+
+    public void SetGoldText() {
+        gold.text = playerData.gold + " 코인";
     }
 
     void OnDisable()
@@ -202,6 +252,8 @@ public class TradeManager : MonoBehaviour, ISlotHandler
         if(details[0].GetChild(5).childCount > 0) {
             Destroy(details[0].GetChild(5).GetChild(0).gameObject);
         }
+
+        SetNpcDefault();
 
         foreach(Transform detail in details) {
             detail.gameObject.SetActive(false);

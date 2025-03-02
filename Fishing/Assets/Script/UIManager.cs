@@ -5,6 +5,7 @@ public class UIManager : MonoBehaviour
 {
     [SerializeField] GameObject fishingUI;
     [SerializeField] GameObject inventoryUI;
+    [SerializeField] GameObject fishInventoryUI;
     [SerializeField] GameObject merchantUI;
     [SerializeField] TradeManager tradeManager;
 
@@ -12,7 +13,8 @@ public class UIManager : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-
+        inventoryUI.GetComponent<InventoryManager>().DefaultSetting();
+        fishInventoryUI.GetComponent<FishInvenManager>().DefaultSetting();
     }
 
     // Update is called once per frame
@@ -32,6 +34,14 @@ public class UIManager : MonoBehaviour
 
     public void CloseInventoryUI() {
         inventoryUI.SetActive(false);
+    }
+
+    public void OpenFishInventoryUI() {
+        fishInventoryUI.SetActive(true);
+    }
+
+    public void CloseFishInventoryUI() {
+        fishInventoryUI.SetActive(false);
     }
 
     public void OpenMerchantTalkUI() {
