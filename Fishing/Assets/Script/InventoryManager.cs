@@ -265,6 +265,7 @@ public class InventoryManager : MonoBehaviour, ISlotHandler
             RodData rodData = DataManager.Instance.GetRodData(equipList[0].itemID);
             Instantiate(rodData.rodPrefab, handPos);
             playerInventory.SetEquip();
+            playerInventory.SetRodPower();
         }
     }
 

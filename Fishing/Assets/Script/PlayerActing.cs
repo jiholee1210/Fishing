@@ -85,6 +85,8 @@ public class PlayerActing : MonoBehaviour
             cameraRot.StopOtherJob();
             playerMovement.StopOtherJob();
             inventoryOpen = false;
+            isEquipInven = false;
+            isFishInven = false;
             isTalking = false;
         }
     }
@@ -158,10 +160,16 @@ public class PlayerActing : MonoBehaviour
         Debug.DrawLine(ray.origin, ray.origin + ray.direction * rayRange, Color.red);
 
         if(Physics.Raycast(ray, out hit, rayRange, fishingLayer)) {
-            float terrainHitPoint = Terrain.activeTerrain.SampleHeight(hit.point);
-            canFishing = hit.point.y >= terrainHitPoint ? true : false;
+            // 수면 위치를 체크하기 위한 두 번째 레이캐스트
+            Ray downRay = new Ray(hit.point + Vector3.up * 10f, Vector3.down);
+            RaycastHit groundHit;
+            
+            if(Physics.Raycast(downRay, out groundHit, 20f)) {
+                canFishing = hit.point.y >= groundHit.point.y;
+            }
 
             Debug.DrawLine(ray.origin, hit.point, Color.green);
+            Debug.DrawLine(downRay.origin, groundHit.point, Color.red);
         }
         else {
             canFishing = false;

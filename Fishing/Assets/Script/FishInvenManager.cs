@@ -9,17 +9,6 @@ public class FishInvenManager : MonoBehaviour, ISlotHandler
     [SerializeField] Transform detail;
 
     private List<PlayerFish> fishList;
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 
     private void SetDetail(PlayerFish fishData) {
         detail.gameObject.SetActive(true);
@@ -117,5 +106,9 @@ public class FishInvenManager : MonoBehaviour, ISlotHandler
     void OnDisable()
     {
         detail.gameObject.SetActive(false);
+    }
+
+    public void CloseWindow() {
+            detail.gameObject.SetActive(false);
     }
 }

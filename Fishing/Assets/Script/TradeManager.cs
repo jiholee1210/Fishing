@@ -110,7 +110,6 @@ public class TradeManager : MonoBehaviour, ISlotHandler
         SetGoldText();
         DataManager.Instance.SaveInventoryData();
         DataManager.Instance.SavePlayerData();
-
     }
 
     public void SwapItem(int indexA, int indexB) {

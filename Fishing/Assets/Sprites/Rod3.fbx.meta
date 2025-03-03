@@ -3,7 +3,17 @@ guid: 6c553f046cf7a2a47acebc22905c3532
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material.001
+    second: {fileID: 2100000, guid: 49795dd72250e5943be1ae28849ca4f7, type: 2}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Rod_UV
+    second: {fileID: 2800000, guid: e6ce83450b79c3344b3f4232949591a7, type: 3}
   materials:
     materialImportMode: 2
     materialName: 0

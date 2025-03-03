@@ -42,7 +42,10 @@ public class EventManager : MonoBehaviour
         npcWindow.SetActive(true);
         switch(npcType) {
             case 1:
-                uIManager.OpenMerchantTalkUI();
+                uIManager.OpenEquipMerchantTalkUI();
+                break;
+            case 2:
+                uIManager.OpenFishMerchantTalkUI();
                 break;
         }
         uIManager.SetNpcObject(npcObject);
@@ -52,7 +55,10 @@ public class EventManager : MonoBehaviour
         npcWindow.SetActive(false);
         switch(npcType) {
             case 1:
-                uIManager.CloseMerchantTalkUI();
+                uIManager.CloseEquipMerchantTalkUI();
+                break;
+            case 2:
+                uIManager.CloseFishMerchantTalkUI();
                 break;
         }
     }
