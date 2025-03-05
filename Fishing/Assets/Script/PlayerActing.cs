@@ -159,7 +159,7 @@ public class PlayerActing : MonoBehaviour
 
         Debug.DrawLine(ray.origin, ray.origin + ray.direction * rayRange, Color.red);
 
-        if(Physics.Raycast(ray, out hit, rayRange, fishingLayer)) {
+        if(Physics.Raycast(ray, out hit, 6f, fishingLayer)) {
             // 수면 위치를 체크하기 위한 두 번째 레이캐스트
             Ray downRay = new Ray(hit.point + Vector3.up * 10f, Vector3.down);
             RaycastHit groundHit;
