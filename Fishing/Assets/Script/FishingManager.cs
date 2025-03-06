@@ -1,5 +1,7 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -13,7 +15,19 @@ public class FishingManager : MonoBehaviour
     private float playerStamina;
 
     private Dictionary<int, float> fishProbabilities = new();
-    private string[] fishRarity = {"일반", "희귀", "에픽", "전설"};
+    private Dictionary<string, int> rarityPriority = new Dictionary<string, int>() {
+        {"일반", 0},
+        {"희귀", 1},
+        {"에픽", 2},
+        {"전설", 3}
+    };
+    private Dictionary<int, string> priorityRarity = new Dictionary<int, string>() {
+        {0, "일반"},
+        {1, "희귀"},
+        {2, "에픽"},
+        {3, "전설"}
+    };
+
     private int fishID;
     private float fishPower;
     private float fishSpeed;
@@ -74,47 +88,72 @@ public class FishingManager : MonoBehaviour
         }
     }
 
-    private int SetRandomFish() {
-        //레어도 선택"
-        string rarity = "";
-        float randomPoint = Random.Range(0, 100f);
-        Debug.Log("물고기 랜덤 포인트" + randomPoint);
-        float currentProbability = 0f;
-        foreach(var fish in fishProbabilities) {
-            Debug.Log("물고기 가중치" + fish.Key + " : " + fish.Value);
-            currentProbability += fish.Value;
-            if(randomPoint <= currentProbability) {
-                rarity = fishRarity[fish.Key];
+    private int SetRandomFish(List<FishData> fishList) {
+        List<int> list = fishList
+            .Where(fish => fishProbabilities.Keys.Last() > rarityPriority[fish.rarity])
+            .Select(fish => rarityPriority[fish.rarity])
+            .Distinct()
+            .OrderBy(x => x)
+            .ToList();
+
+        List<FishData> fish = new();
+        int rarity = 0;
+        float randomProb = UnityEngine.Random.Range(0, 100f);
+        Debug.Log(randomProb);
+        float curProb = 0;
+        foreach(var prob in fishProbabilities) {
+            curProb += prob.Value;
+            if(randomProb <= curProb) {
+                Debug.Log(list.Count);
+                for(int j = 0; j < list.Count; j++) {
+                    
+                    if(list[j] > prob.Key) {
+                        Debug.Log(rarity);
+                        fish = fishList.Where(f => priorityRarity[rarity] == f.rarity).ToList();
+                        break;
+                    }
+                    if(j == list.Count - 1) {
+                        rarity = list[j];
+                        Debug.Log(rarity);
+                        fish = fishList.Where(f => priorityRarity[rarity] == f.rarity).ToList();
+                        break;
+                    }
+                    rarity = list[j]; 
+                }
                 break;
             }
         }
-        Debug.Log("물고기 레어도" + rarity);
-        List<int> fishList = DataManager.Instance.GetFishIDFromList(rarity);
-
-        if(fishList != null && fishList.Count > 0) {
-            int randomIndex = Random.Range(0, fishList.Count);
-            Debug.Log("물고기 아이디" + fishList[randomIndex]);
-            return fishList[randomIndex];
-        }
-        return 0;
+        
+        int randomIndex = UnityEngine.Random.Range(0, fish.Count);
+        return fish[randomIndex].fishID;
     }
 
-    public void ResetStatus(PlayerData playerData, PlayerInventory _playerInventory)
+    public void ResetStatus(PlayerData playerData, PlayerInventory _playerInventory, List<FishData> fishList)
     {
         SetFishProbabilities(3);
         playerInventory = _playerInventory;
         playerStamina = playerData.stamina;
         animator = GetComponent<Animator>();
-        fishID = SetRandomFish();
-        fishPower = DataManager.Instance.GetFishPowerFromList(fishID);
-        fishSpeed = 1 + (fishPower / 100f);
-        fishingSpeed = 1 + (playerInventory.GetRodPower() - fishPower) / 100f;
+        fishID = SetRandomFish(fishList);
+
+        SetFishStat();
+        SetPlayerStat();
+        
         Debug.Log("물고기 파워 : " + fishPower);
         fish.anchoredPosition = new Vector2(0f, -280f);
         reel.rotation = Quaternion.Euler(0f, 0f, 0f);
-        stamina.maxValue = playerStamina;
-        stamina.value = playerStamina;
         StartCoroutine(OpenUISequence());
+    }
+
+    public void SetFishStat() {
+        fishPower = DataManager.Instance.GetFishPowerFromList(fishID);
+        fishSpeed = 1 + (fishPower / 100f);
+    }
+
+    public void SetPlayerStat() {
+        fishingSpeed = 1 + (playerInventory.GetReelPower() - fishPower) / 100f;
+        stamina.maxValue = playerStamina + playerInventory.GetRodDur();
+        stamina.value = stamina.maxValue;
     }
 
     IEnumerator OpenFishingUIAnimation() {

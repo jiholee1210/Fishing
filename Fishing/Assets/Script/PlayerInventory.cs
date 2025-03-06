@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -10,7 +11,6 @@ public class PlayerInventory : MonoBehaviour
     private Inventory inventory;
     private PlayerActing playerActing;
 
-    private float rodPower;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -26,6 +26,9 @@ public class PlayerInventory : MonoBehaviour
         }
         if(Input.GetKeyDown(KeyCode.T)) {
             GetEquip(2);
+        }
+        if(Input.GetKeyDown(KeyCode.P)) {
+            GetEquip(11);
         }
     }
 
@@ -54,6 +57,10 @@ public class PlayerInventory : MonoBehaviour
         inventory = DataManager.Instance.inventory;
     }
 
+    public bool isFishFull() {
+        return inventory.fishList.All(fish => fish.fishID != 0);
+    }
+
     public void SetSlots(List<ItemData> _slots) {
         inventory.slots = _slots;
     }
@@ -61,17 +68,19 @@ public class PlayerInventory : MonoBehaviour
     public void SetEquip() {
         StartCoroutine(playerActing.SetAnimator());
     }
-
-    public void SetRodPower() {
-        rodPower = inventory.equip[0] != null ? DataManager.Instance.GetRodPowerFromList(inventory.equip[0].itemID) : 0;
-    }
-
     public bool haveRod() {
         return inventory.equip[0] != null ? true : false;
     }
 
-    public float GetRodPower() {
+    public float GetRodDur() {
+        int rodPower = inventory.equip[0] != null ? DataManager.Instance.GetRodData(inventory.equip[0].itemID).rodDur : 0;
         Debug.Log("플레이어 낚시 파워 : " + rodPower);
         return rodPower;
     }
+
+    public float GetReelPower() {
+        float reelPower = inventory.equip[1] != null ? DataManager.Instance.GetReelData(inventory.equip[1].itemID).reelPower : 0;
+        return reelPower;
+    }
+
 }

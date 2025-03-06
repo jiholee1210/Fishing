@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class UIManager : MonoBehaviour
@@ -26,9 +27,9 @@ public class UIManager : MonoBehaviour
         
     }
 
-    public void OpenFishingUI(PlayerData playerData, PlayerInventory playerInventory) {
+    public void OpenFishingUI(PlayerData playerData, PlayerInventory playerInventory, List<FishData> fishList) {
         fishingUI.SetActive(true);
-        fishingUI.GetComponent<FishingManager>().ResetStatus(playerData, playerInventory);
+        fishingUI.GetComponent<FishingManager>().ResetStatus(playerData, playerInventory, fishList);
     }
 
     public void OpenInventoryUI() {

@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class EventManager : MonoBehaviour
@@ -14,8 +15,8 @@ public class EventManager : MonoBehaviour
         Instance = this;
     }
 
-    public void StartFishing(PlayerData playerData, PlayerInventory playerInventory) {
-        uIManager.OpenFishingUI(playerData, playerInventory);
+    public void StartFishing(PlayerData playerData, PlayerInventory playerInventory, List<FishData> fishList) {
+        uIManager.OpenFishingUI(playerData, playerInventory, fishList);
     }
 
     public void EndFishing() {

@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -25,6 +26,7 @@ public class PlayerActing : MonoBehaviour
     private GameObject curNpcObject;
 
     public PlayerData playerData;
+    private List<FishData> fishList;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -103,6 +105,10 @@ public class PlayerActing : MonoBehaviour
     public void OnAttack(InputValue value) {
         if(playerInventory.haveRod()) {
             if(value.isPressed && canFishing && !isFishing) {
+                if(playerInventory.isFishFull()) {
+                    Debug.Log("낚시 가방이 꽉 찼습니다.");
+                    return;
+                }
                 isFishing = true;
                 StartFishing();
             }
@@ -137,7 +143,7 @@ public class PlayerActing : MonoBehaviour
 
     IEnumerator FishingSequence() {
         yield return StartCoroutine(PlayFishingAnimation());
-        EventManager.Instance.StartFishing(playerData, playerInventory);
+        EventManager.Instance.StartFishing(playerData, playerInventory, fishList);
     }
 
     private void StartFishing() {
@@ -166,6 +172,7 @@ public class PlayerActing : MonoBehaviour
             
             if(Physics.Raycast(downRay, out groundHit, 20f)) {
                 canFishing = hit.point.y >= groundHit.point.y;
+                fishList = hit.collider.GetComponent<IFishingZone>().GetFishList();
             }
 
             Debug.DrawLine(ray.origin, hit.point, Color.green);

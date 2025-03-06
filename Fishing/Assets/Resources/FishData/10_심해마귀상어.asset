@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 79907794405da954fa8de9ecde5f4604, type: 3}
+  m_Name: "10_\uC2EC\uD574\uB9C8\uADC0\uC0C1\uC5B4"
+  m_EditorClassIdentifier: 
+  fishName: "\uC2EC\uD574\uB9C8\uADC0\uC0C1\uC5B4"
+  fishID: 10
+  rarity: "\uC5D0\uD53D"
+  power: 50
+  weightMin: 30
+  weightMax: 50
+  desc: "\uBC14\uB2E4 \uAE4A\uC740 \uACF3\uC5D0\uC11C\uB9CC \uB098\uD0C0\uB098\uB294
+    \uAD34\uBB3C"
+  price: 150
+  fishPrefab: {fileID: 0}
+  fishIcon: {fileID: 0}

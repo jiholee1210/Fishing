@@ -15,6 +15,7 @@ public class DataManager : MonoBehaviour
 
     public Dictionary<int, FishData> fishDataDict;
     public Dictionary<int, RodData> rodDataDict;
+    public Dictionary<int, ReelData> reelDataDict;
     public Dictionary<int, ItemData> itemDataDict;
 
     void Awake()
@@ -51,6 +52,7 @@ public class DataManager : MonoBehaviour
         }
         LoadFishDataFromSo();
         LoadRodDataFromSo();
+        LoadReelDataFromSo();
         LoadItemDataFromSo();
     }
 
@@ -70,6 +72,15 @@ public class DataManager : MonoBehaviour
             rodDataDict[rod.rodID] = rod;
         }
         Debug.Log("낚싯대 데이터 불러오기");
+    }
+
+    private void LoadReelDataFromSo() {
+        ReelData[] reelDataArray = Resources.LoadAll<ReelData>("ReelData");
+        reelDataDict = new Dictionary<int, ReelData>();
+        foreach(ReelData reel in reelDataArray) {
+            reelDataDict[reel.reelID] = reel;
+        }
+        Debug.Log("낚시 릴 데이터 불러오기");
     }
     
     private void LoadItemDataFromSo() {
@@ -123,12 +134,16 @@ public class DataManager : MonoBehaviour
         return fishDataDict.TryGetValue(id, out FishData fish) ? fish.power : 0;
     }
 
-    public float GetRodPowerFromList(int id) {
-        return rodDataDict.TryGetValue(id, out RodData rod) ? rod.rodPower : 0;
+    public float GetRodDurFromList(int id) {
+        return rodDataDict.TryGetValue(id, out RodData rod) ? rod.rodDur : 0;
     }
 
     public RodData GetRodData(int id) {
         return rodDataDict.TryGetValue(id, out RodData rod) ? rod : null;
+    }
+
+    public ReelData GetReelData(int id) {
+        return reelDataDict.TryGetValue(id, out ReelData reel) ? reel : null;
     }
 
     public FishData GetFishData(int id) {

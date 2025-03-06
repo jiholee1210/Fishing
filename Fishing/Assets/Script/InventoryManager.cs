@@ -44,6 +44,7 @@ public class InventoryManager : MonoBehaviour, ISlotHandler
     }
 
     private void OnItemClick(ItemData itemData) {
+        CloseWindow();
         switch(itemData.itemType) {
             case ItemType.Rod:
                 SetRodDetail(itemData.itemID);
@@ -64,21 +65,17 @@ public class InventoryManager : MonoBehaviour, ISlotHandler
     }
 
     public void SetRodDetail(int itemID) {
-        if(details[0].GetChild(5).childCount > 0) {
-            Destroy(details[0].GetChild(5).GetChild(0).gameObject);    
-        }
-
-        TMP_Text Name = details[0].GetChild(0).GetComponent<TMP_Text>();
-        TMP_Text Rarity = details[0].GetChild(2).GetComponent<TMP_Text>();
-        TMP_Text Power = details[0].GetChild(3).GetComponent<TMP_Text>();
-        TMP_Text Desc = details[0].GetChild(4).GetComponent<TMP_Text>();
+        TMP_Text name = details[0].GetChild(0).GetComponent<TMP_Text>();
+        TMP_Text rarity = details[0].GetChild(2).GetComponent<TMP_Text>();
+        TMP_Text power = details[0].GetChild(3).GetComponent<TMP_Text>();
+        TMP_Text desc = details[0].GetChild(4).GetComponent<TMP_Text>();
 
         RodData rodData = DataManager.Instance.GetRodData(itemID);
 
-        Name.text = rodData.rodName;
-        Rarity.text = rodData.rodRarity;
-        Power.text = rodData.rodPower + " 낚시력";
-        Desc.text = rodData.rodDesc;
+        name.text = rodData.rodName;
+        rarity.text = rodData.rodRarity;
+        power.text = rodData.rodDur + " 내구력";
+        desc.text = rodData.rodDesc;
 
         Instantiate(rodData.rodPrefab, details[0].GetChild(5));
         Debug.Log("자식 생성");
@@ -87,6 +84,21 @@ public class InventoryManager : MonoBehaviour, ISlotHandler
     }
 
     public void SetReelDetail(int id) {
+        TMP_Text name = details[1].GetChild(0).GetComponent<TMP_Text>();
+        TMP_Text rarity = details[1].GetChild(2).GetComponent<TMP_Text>();
+        TMP_Text power = details[1].GetChild(3).GetComponent<TMP_Text>();
+        TMP_Text desc = details[1].GetChild(4).GetComponent<TMP_Text>();
+        Image image = details[1].GetChild(1).GetComponent<Image>();
+
+        ReelData reelData = DataManager.Instance.GetReelData(id);
+        ItemData itemData = DataManager.Instance.GetItemData(id);
+
+        name.text = reelData.reelName;
+        rarity.text = reelData.reelRarity;
+        power.text = reelData.reelPower + "속도";
+        desc.text = reelData.reelDesc;
+        image.sprite = itemData.itemImage;
+
         details[1].gameObject.SetActive(true);
     }
 
@@ -199,7 +211,6 @@ public class InventoryManager : MonoBehaviour, ISlotHandler
             buttonA.onClick.AddListener(() => OnItemClick(itemList[indexA]));
             buttonB.onClick.AddListener(() => OnItemClick(equipList[indexB]));
         }
-        playerInventory.SetRodPower();
         DataManager.Instance.SaveInventoryData();
     }
 
@@ -265,7 +276,6 @@ public class InventoryManager : MonoBehaviour, ISlotHandler
             RodData rodData = DataManager.Instance.GetRodData(equipList[0].itemID);
             Instantiate(rodData.rodPrefab, handPos);
             playerInventory.SetEquip();
-            playerInventory.SetRodPower();
         }
     }
 

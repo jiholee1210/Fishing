@@ -209,7 +209,7 @@ public class TradeManager : MonoBehaviour, ISlotHandler
 
             name.text = rodData.rodName;
             rarity.text = rodData.rodRarity;
-            power.text = rodData.rodPower + " 낚시력";
+            power.text = rodData.rodDur + " 내구력";
             desc.text = rodData.rodDesc;
             gold.text = npcItemList[index].reqGold + " 골드";
 
