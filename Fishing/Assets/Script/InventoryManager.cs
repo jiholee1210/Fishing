@@ -95,7 +95,7 @@ public class InventoryManager : MonoBehaviour, ISlotHandler
 
         name.text = reelData.reelName;
         rarity.text = reelData.reelRarity;
-        power.text = reelData.reelPower + "속도";
+        power.text = reelData.reelSpeed + " 속도";
         desc.text = reelData.reelDesc;
         image.sprite = itemData.itemImage;
 
@@ -103,14 +103,59 @@ public class InventoryManager : MonoBehaviour, ISlotHandler
     }
 
     public void SetWireDetail(int id) {
+        TMP_Text name = details[2].GetChild(0).GetComponent<TMP_Text>();
+        TMP_Text rarity = details[2].GetChild(2).GetComponent<TMP_Text>();
+        TMP_Text power = details[2].GetChild(3).GetComponent<TMP_Text>();
+        TMP_Text desc = details[2].GetChild(4).GetComponent<TMP_Text>();
+        Image image = details[2].GetChild(1).GetComponent<Image>();
+
+        WireData wireData = DataManager.Instance.GetWireData(id);
+        ItemData itemData = DataManager.Instance.GetItemData(id);
+
+        name.text = wireData.wireName;
+        rarity.text = wireData.wireRarity;
+        power.text = wireData.wireDur + " 내구력";
+        desc.text = wireData.wireDesc;
+        image.sprite = itemData.itemImage;
+
         details[2].gameObject.SetActive(true);
     }
 
     public void SetHookDetail(int id) {
+        TMP_Text name = details[3].GetChild(0).GetComponent<TMP_Text>();
+        TMP_Text rarity = details[3].GetChild(2).GetComponent<TMP_Text>();
+        TMP_Text power = details[3].GetChild(3).GetComponent<TMP_Text>();
+        TMP_Text desc = details[3].GetChild(4).GetComponent<TMP_Text>();
+        Image image = details[3].GetChild(1).GetComponent<Image>();
+
+        HookData hookData = DataManager.Instance.GetHookData(id);
+        ItemData itemData = DataManager.Instance.GetItemData(id);
+
+        name.text = hookData.hookName;
+        rarity.text = hookData.hookRarity;
+        power.text = hookData.hookPower + " 파워";
+        desc.text = hookData.hookDesc;
+        image.sprite = itemData.itemImage;
+
         details[3].gameObject.SetActive(true);
     }
 
     public void SetBaitDetail(int id) {
+        TMP_Text name = details[4].GetChild(0).GetComponent<TMP_Text>();
+        TMP_Text rarity = details[4].GetChild(2).GetComponent<TMP_Text>();
+        TMP_Text power = details[4].GetChild(3).GetComponent<TMP_Text>();
+        TMP_Text desc = details[4].GetChild(4).GetComponent<TMP_Text>();
+        Image image = details[4].GetChild(1).GetComponent<Image>();
+
+        BaitData baitData = DataManager.Instance.GetBaitData(id);
+        ItemData itemData = DataManager.Instance.GetItemData(id);
+
+        name.text = baitData.baitName;
+        rarity.text = baitData.baitRarity;
+        power.text = baitData.baitLevel + " 단계";
+        desc.text = baitData.baitDesc;
+        image.sprite = itemData.itemImage;
+
         details[4].gameObject.SetActive(true);
     }
 

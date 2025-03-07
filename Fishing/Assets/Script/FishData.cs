@@ -7,6 +7,7 @@ public class FishData : ScriptableObject
     public int fishID;
     public string rarity;
     public float power;
+    public float speed;
     public float weightMin;
     public float weightMax;
     public string desc;

@@ -104,9 +104,13 @@ public class PlayerActing : MonoBehaviour
 
     public void OnAttack(InputValue value) {
         if(playerInventory.haveRod()) {
-            if(value.isPressed && canFishing && !isFishing) {
+            if(value.isPressed && canFishing && !isFishing && !inventoryOpen) {
                 if(playerInventory.isFishFull()) {
                     Debug.Log("낚시 가방이 꽉 찼습니다.");
+                    return;
+                }
+                if(playerInventory.NotEquip()) {
+                    Debug.Log("장비를 모두 장착하지 않았습니다.");
                     return;
                 }
                 isFishing = true;
@@ -143,7 +147,7 @@ public class PlayerActing : MonoBehaviour
 
     IEnumerator FishingSequence() {
         yield return StartCoroutine(PlayFishingAnimation());
-        EventManager.Instance.StartFishing(playerData, playerInventory, fishList);
+        EventManager.Instance.StartFishing(playerInventory, fishList);
     }
 
     private void StartFishing() {

@@ -16,6 +16,9 @@ public class DataManager : MonoBehaviour
     public Dictionary<int, FishData> fishDataDict;
     public Dictionary<int, RodData> rodDataDict;
     public Dictionary<int, ReelData> reelDataDict;
+    public Dictionary<int, WireData> wireDataDict;
+    public Dictionary<int, HookData> hookDataDict;
+    public Dictionary<int, BaitData> baitDataDict;
     public Dictionary<int, ItemData> itemDataDict;
 
     void Awake()
@@ -53,6 +56,9 @@ public class DataManager : MonoBehaviour
         LoadFishDataFromSo();
         LoadRodDataFromSo();
         LoadReelDataFromSo();
+        LoadWireDataFromSo();
+        LoadHookDataFromSo();
+        LoadBaitDataFromSo();
         LoadItemDataFromSo();
     }
 
@@ -81,6 +87,30 @@ public class DataManager : MonoBehaviour
             reelDataDict[reel.reelID] = reel;
         }
         Debug.Log("낚시 릴 데이터 불러오기");
+    }
+
+    private void LoadWireDataFromSo() {
+        WireData[] wireDataArray = Resources.LoadAll<WireData>("WireData");
+        wireDataDict = new Dictionary<int, WireData>();
+        foreach(WireData wire in wireDataArray) {
+            wireDataDict[wire.wireID] = wire;
+        }
+    }
+
+    private void LoadHookDataFromSo() {
+        HookData[] hookDataArray = Resources.LoadAll<HookData>("HookData");
+        hookDataDict = new Dictionary<int, HookData>();
+        foreach(HookData hook in hookDataArray) {
+            hookDataDict[hook.hookID] = hook;
+        }
+    }
+
+    private void LoadBaitDataFromSo() {
+        BaitData[] baitDataArray = Resources.LoadAll<BaitData>("BaitData");
+        baitDataDict = new Dictionary<int, BaitData>();
+        foreach (BaitData bait in baitDataArray) {
+            baitDataDict[bait.baitID] = bait;
+        }
     }
     
     private void LoadItemDataFromSo() {
@@ -146,6 +176,18 @@ public class DataManager : MonoBehaviour
         return reelDataDict.TryGetValue(id, out ReelData reel) ? reel : null;
     }
 
+    public WireData GetWireData(int id) {
+        return wireDataDict.TryGetValue(id, out WireData wire) ? wire : null;
+    }
+
+    public HookData GetHookData(int id) {
+        return hookDataDict.TryGetValue(id, out HookData hook) ? hook : null;
+    }
+
+    public BaitData GetBaitData(int id) {
+        return baitDataDict.TryGetValue(id, out BaitData bait) ? bait : null;
+    }
+
     public FishData GetFishData(int id) {
         return fishDataDict.TryGetValue(id, out FishData fish) ? fish : null;
     }
@@ -159,7 +201,6 @@ public class DataManager : MonoBehaviour
 [System.Serializable]
 public class PlayerData {
     // 스테미나, 인벤토리
-    public float stamina = 10f;
     public int gold = 0;
 }
 

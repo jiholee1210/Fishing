@@ -9,11 +9,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9690ebafd30bc4f46845dcf9a05242d4, type: 3}
-  m_Name: "11_\uB098\uBB34 \uB9B4"
+  m_Script: {fileID: 11500000, guid: e10b2d6485bd5154abaf185aab6fe355, type: 3}
+  m_Name: "30_\uB098\uBB34 \uBC14\uB298"
   m_EditorClassIdentifier: 
-  reelName: "\uB098\uBB34 \uB9B4"
-  reelID: 11
-  reelPower: 10
-  reelRarity: "\uC77C\uBC18"
-  reelDesc: "\uD615\uD3B8\uC5C6\uB294 \uB098\uBB34 \uB9B4\uC774\uB2E4."
+  hookName: "\uB098\uBB34 \uBC14\uB298"
+  hookID: 30
+  hookPower: 10
+  hookRarity: "\uC77C\uBC18"
+  hookDesc: "\uB098\uBB34\uB85C \uB300\uCDA9 \uAE4E\uC740 \uBC14\uB298"

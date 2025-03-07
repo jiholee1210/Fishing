@@ -27,9 +27,10 @@ public class UIManager : MonoBehaviour
         
     }
 
-    public void OpenFishingUI(PlayerData playerData, PlayerInventory playerInventory, List<FishData> fishList) {
+    public void OpenFishingUI(PlayerInventory playerInventory, List<FishData> fishList) {
         fishingUI.SetActive(true);
-        fishingUI.GetComponent<FishingManager>().ResetStatus(playerData, playerInventory, fishList);
+        
+        fishingUI.GetComponent<FishingManager>().ResetStatus(playerInventory, fishList);
     }
 
     public void OpenInventoryUI() {

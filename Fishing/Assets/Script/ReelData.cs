@@ -5,7 +5,7 @@ public class ReelData : ScriptableObject
 {
     public string reelName;
     public int reelID;
-    public int reelPower;
+    public float reelSpeed;
     public string reelRarity;
     public string reelDesc;
 }

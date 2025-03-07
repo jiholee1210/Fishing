@@ -15,7 +15,8 @@ MonoBehaviour:
   fishName: "\uC2EC\uD574\uB9C8\uADC0\uC0C1\uC5B4"
   fishID: 10
   rarity: "\uC5D0\uD53D"
-  power: 50
+  power: 5
+  speed: 50
   weightMin: 30
   weightMax: 50
   desc: "\uBC14\uB2E4 \uAE4A\uC740 \uACF3\uC5D0\uC11C\uB9CC \uB098\uD0C0\uB098\uB294

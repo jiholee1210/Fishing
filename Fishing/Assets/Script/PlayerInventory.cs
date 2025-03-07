@@ -22,26 +22,28 @@ public class PlayerInventory : MonoBehaviour
     void Update()
     {
         if(Input.GetKeyDown(KeyCode.F)) {
-            GetEquip(1);
+            GetEquip(0);
         }
         if(Input.GetKeyDown(KeyCode.T)) {
-            GetEquip(2);
+            GetEquip(1);
         }
         if(Input.GetKeyDown(KeyCode.P)) {
-            GetEquip(11);
+            GetEquip(10);
+            GetEquip(20);
+            GetEquip(30);
+            GetEquip(40);
         }
+    
     }
 
-    public void GetFish(int fishID) {
+    public void GetFish(int fishID, float _weight) {
         FishData fishData = DataManager.Instance.GetFishData(fishID);
-        float randomWeight = Random.Range(fishData.weightMin, fishData.weightMax);
-        float weight = float.Parse(randomWeight.ToString("F2"));
         for(int i = 0; i < inventory.fishList.Count; i++) {
             if(inventory.fishList[i].fishID == 0) {
                 inventory.fishList[i] = new PlayerFish{
                     fishID = fishID,
-                    weight = weight,
-                    price = (int)(fishData.price * (weight / fishData.weightMin))
+                    weight = _weight,
+                    price = (int)(fishData.price * (_weight / fishData.weightMin))
                 };
                 break;
             }
@@ -61,6 +63,10 @@ public class PlayerInventory : MonoBehaviour
         return inventory.fishList.All(fish => fish.fishID != 0);
     }
 
+    public bool NotEquip() {
+        return inventory.equip.Any(item => item == null);
+    }
+
     public void SetSlots(List<ItemData> _slots) {
         inventory.slots = _slots;
     }
@@ -73,14 +79,29 @@ public class PlayerInventory : MonoBehaviour
     }
 
     public float GetRodDur() {
-        int rodPower = inventory.equip[0] != null ? DataManager.Instance.GetRodData(inventory.equip[0].itemID).rodDur : 0;
-        Debug.Log("플레이어 낚시 파워 : " + rodPower);
-        return rodPower;
+        float rodDur = inventory.equip[0] != null ? DataManager.Instance.GetRodData(inventory.equip[0].itemID).rodDur : 0;
+        Debug.Log("플레이어 낚시 파워 : " + rodDur);
+        return rodDur;
     }
 
-    public float GetReelPower() {
-        float reelPower = inventory.equip[1] != null ? DataManager.Instance.GetReelData(inventory.equip[1].itemID).reelPower : 0;
-        return reelPower;
+    public float GetReelSpeed() {
+        float reelSpeed = inventory.equip[1] != null ? DataManager.Instance.GetReelData(inventory.equip[1].itemID).reelSpeed : 0;
+        return reelSpeed;
+    }
+
+    public float GetWireDur() {
+        float wireDur = inventory.equip[2] != null ? DataManager.Instance.GetWireData(inventory.equip[2].itemID).wireDur : 0;
+        return wireDur;
+    }
+
+    public float GetHookPower() {
+        float hookPower = inventory.equip[3] != null ? DataManager.Instance.GetHookData(inventory.equip[3].itemID).hookPower : 0;
+        return hookPower;
+    }
+
+    public int GetBaitLevel() {
+        int baitLevel = inventory.equip[4] != null ? DataManager.Instance.GetBaitData(inventory.equip[4].itemID).baitLevel : 0;
+        return baitLevel;
     }
 
 }
