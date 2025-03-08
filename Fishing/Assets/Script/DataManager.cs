@@ -10,8 +10,10 @@ public class DataManager : MonoBehaviour
     
     string playerPath;
     string inventoryPath;
+    string questNpcPath;
     public PlayerData playerData;
     public Inventory inventory;
+    public NpcQuest questNpc;
 
     public Dictionary<int, FishData> fishDataDict;
     public Dictionary<int, RodData> rodDataDict;
@@ -20,6 +22,7 @@ public class DataManager : MonoBehaviour
     public Dictionary<int, HookData> hookDataDict;
     public Dictionary<int, BaitData> baitDataDict;
     public Dictionary<int, ItemData> itemDataDict;
+    public Dictionary<int, QuestData> questDataDict;
 
     void Awake()
     {
@@ -36,6 +39,17 @@ public class DataManager : MonoBehaviour
     private void Init() {
         playerPath = Path.Combine(Application.persistentDataPath, "playerdata.json");
         inventoryPath = Path.Combine(Application.persistentDataPath, "inventory.json");
+        questNpcPath = Path.Combine(Application.persistentDataPath, "questNpc.json");
+
+        LoadFishDataFromSo();
+        LoadRodDataFromSo();
+        LoadReelDataFromSo();
+        LoadWireDataFromSo();
+        LoadHookDataFromSo();
+        LoadBaitDataFromSo();
+        LoadItemDataFromSo();
+        LoadQuestDataFromSo();
+
         if(!File.Exists(playerPath)) {
             playerData = new();
             SavePlayerData();
@@ -53,13 +67,16 @@ public class DataManager : MonoBehaviour
         else {
             LoadInventoryData();
         }
-        LoadFishDataFromSo();
-        LoadRodDataFromSo();
-        LoadReelDataFromSo();
-        LoadWireDataFromSo();
-        LoadHookDataFromSo();
-        LoadBaitDataFromSo();
-        LoadItemDataFromSo();
+
+        if(!File.Exists(questNpcPath)) {
+            questNpc = new();
+            questNpc.questlist.Add(GetQuestData(0));
+            SaveQuestNpcData();
+            Debug.Log("퀘스트 상황 생성");
+        }
+        else {
+            LoadQuestNpcData();
+        }        
     }
 
     private void LoadFishDataFromSo() {
@@ -122,6 +139,14 @@ public class DataManager : MonoBehaviour
         Debug.Log("아이템 데이터 불러오기");
     }
 
+    private void LoadQuestDataFromSo() {
+        QuestData[] questDataArray = Resources.LoadAll<QuestData>("QuestData");
+        questDataDict = new Dictionary<int, QuestData>();
+        foreach(QuestData quest in questDataArray) {
+            questDataDict[quest.questID] = quest;
+        }
+    }
+
     public void SavePlayerData() {
         string json = JsonUtility.ToJson(playerData, true);
         File.WriteAllText(playerPath, json);
@@ -144,6 +169,18 @@ public class DataManager : MonoBehaviour
         string json = File.ReadAllText(inventoryPath);
         inventory = JsonUtility.FromJson<Inventory>(json);
         Debug.Log("인벤토리 로드");
+    }
+
+    public void SaveQuestNpcData() {
+        string json = JsonUtility.ToJson(questNpc, true);
+        File.WriteAllText(questNpcPath, json);
+        Debug.Log("퀘스트 진행상황 저장");
+    }
+
+    public void LoadQuestNpcData() {
+        string json = File.ReadAllText(questNpcPath);
+        questNpc = JsonUtility.FromJson<NpcQuest>(json);
+        Debug.Log("퀘스트 진행상황 로드");
     }
 
     public string GetFishNameFromList(int id) {
@@ -195,6 +232,10 @@ public class DataManager : MonoBehaviour
     public ItemData GetItemData(int id) {
         return itemDataDict.TryGetValue(id, out ItemData item) ? item : null;
     }
+
+    public QuestData GetQuestData(int id) {
+        return questDataDict.TryGetValue(id, out QuestData quest) ? quest : null;
+    }
  
 }
 
@@ -202,6 +243,12 @@ public class DataManager : MonoBehaviour
 public class PlayerData {
     // 스테미나, 인벤토리
     public int gold = 0;
+    public List<QuestData> questList = new();
+}
+
+[System.Serializable]
+public class NpcQuest {
+    public List<QuestData> questlist = new();
 }
 
 [System.Serializable]

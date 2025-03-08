@@ -20,13 +20,25 @@ public class PlayerActing : MonoBehaviour
     private bool inventoryOpen = false;
     private bool canTalk = false;
     private bool isTalking = false;
-    private bool isEquipInven = false;
-    private bool isFishInven = false;
-    private int curNpcType;
+
+    private int npcType;
+    private int curType;
+
     private GameObject curNpcObject;
 
     public PlayerData playerData;
     private List<FishData> fishList;
+
+    private enum UIState
+    {
+        None,
+        Equipment,
+        FishInventory,
+        Quest
+    }
+
+    private UIState currentUIState = UIState.None;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -42,41 +54,30 @@ public class PlayerActing : MonoBehaviour
     {
         CheckFishingZone();
         CheckNPC();
-        if(Input.GetKeyDown(KeyCode.Tab) && !isTalking && !isFishInven) {
-            if(!inventoryOpen) {
-                EventManager.Instance.OpenInventory();
-                Cursor.lockState = CursorLockMode.None;
-                Cursor.visible = true;
-                cameraRot.StartOtherJob();
-                inventoryOpen = true;
-                isEquipInven = true;
+        if(Input.GetKeyDown(KeyCode.Tab) && !isTalking) {
+            if(currentUIState == UIState.Equipment) {
+                CloseUI();
             }
-            else {
-                EventManager.Instance.CloseInventory();
-                Cursor.lockState = CursorLockMode.Locked;
-                Cursor.visible = false;
-                cameraRot.StopOtherJob();
-                inventoryOpen = false;
-                isEquipInven = false;
+            else if(currentUIState == UIState.None) {
+                OpenUI(UIState.Equipment);
             }
         }
 
-        if(Input.GetKeyDown(KeyCode.I) && !isTalking && !isEquipInven) {
-            if(!inventoryOpen) {
-                EventManager.Instance.OpenFishInventory();
-                Cursor.lockState = CursorLockMode.None;
-                Cursor.visible = true;
-                cameraRot.StartOtherJob();
-                inventoryOpen = true;
-                isFishInven = true;
+        if(Input.GetKeyDown(KeyCode.I) && !isTalking) {
+            if(currentUIState == UIState.FishInventory) {
+                CloseUI();
             }
-            else {
-                EventManager.Instance.CloseFishInventory();
-                Cursor.lockState = CursorLockMode.Locked;
-                Cursor.visible = false;
-                cameraRot.StopOtherJob();
-                inventoryOpen = false;
-                isFishInven = false;
+            else if(currentUIState == UIState.None) {
+                OpenUI(UIState.FishInventory);
+            }
+        }
+
+        if(Input.GetKeyDown(KeyCode.Q) && !isTalking) {
+            if(currentUIState == UIState.Quest) {
+                CloseUI();
+            }
+            else if(currentUIState == UIState.None) {
+                OpenUI(UIState.Quest);
             }
         }
 
@@ -84,11 +85,10 @@ public class PlayerActing : MonoBehaviour
             EventManager.Instance.CloseAllWindows();
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
+            currentUIState = UIState.None;
             cameraRot.StopOtherJob();
             playerMovement.StopOtherJob();
             inventoryOpen = false;
-            isEquipInven = false;
-            isFishInven = false;
             isTalking = false;
         }
     }
@@ -121,7 +121,8 @@ public class PlayerActing : MonoBehaviour
 
     public void OnInteract(InputValue value) {
         if(value.isPressed && canTalk && !isTalking) {
-            EventManager.Instance.OpenNPCUI(curNpcType, curNpcObject);
+            curType = npcType;
+            EventManager.Instance.OpenNPCUI(curType, curNpcObject);
             cameraRot.StartOtherJob();
             playerMovement.StartOtherJob();
             Cursor.lockState = CursorLockMode.None;
@@ -132,7 +133,7 @@ public class PlayerActing : MonoBehaviour
     }
 
     public void EndTalk() {
-        EventManager.Instance.CloseNpcUI(curNpcType);
+        EventManager.Instance.CloseNpcUI(curType);
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
         cameraRot.StopOtherJob();
@@ -195,13 +196,55 @@ public class PlayerActing : MonoBehaviour
 
         if(Physics.Raycast(ray, out hit, rayRange, npcLayer)) {
             canTalk = true;
-            curNpcType = hit.collider.GetComponent<INPC>().GetNpcType();
+            npcType = hit.collider.GetComponent<INPC>().GetNpcType();
             curNpcObject = hit.collider.gameObject;
             Debug.DrawLine(ray.origin, hit.point, Color.green);
         }
         else {
             canTalk = false;
-            curNpcType = 0;
+            npcType = 0;
         }
+    }
+
+    private void OpenUI(UIState newState)
+    {
+        currentUIState = newState;
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+        cameraRot.StartOtherJob();
+
+        switch(newState)
+        {
+            case UIState.Equipment:
+                EventManager.Instance.OpenInventory();
+                break;
+            case UIState.FishInventory:
+                EventManager.Instance.OpenFishInventory();
+                break;
+            case UIState.Quest:
+                EventManager.Instance.OpenQuest();
+                break;
+        }
+    }
+
+    private void CloseUI()
+    {
+        switch(currentUIState)
+        {
+            case UIState.Equipment:
+                EventManager.Instance.CloseInventory();
+                break;
+            case UIState.FishInventory:
+                EventManager.Instance.CloseFishInventory();
+                break;
+            case UIState.Quest:
+                EventManager.Instance.CloseQuest();
+                break;
+        }
+
+        currentUIState = UIState.None;
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
+        cameraRot.StopOtherJob();
     }
 }

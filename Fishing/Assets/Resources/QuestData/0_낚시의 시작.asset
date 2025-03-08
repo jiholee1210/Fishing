@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dfa6d49a23ed6eb4bafa2053cc7e0e02, type: 3}
+  m_Name: "0_\uB09A\uC2DC\uC758 \uC2DC\uC791"
+  m_EditorClassIdentifier: 
+  questID: 0
+  questName: "\uB09A\uC2DC\uC758 \uC2DC\uC791"
+  desc: "\uB09A\uC2DC\uB97C \uBC30\uC6CC\uBCF4\uC790"
+  nextQuest: 01000000
+  requirements:
+  - fishID: 12
+    requiredAmount: 1
+  rewardGold: 100
+  rewardItem: 

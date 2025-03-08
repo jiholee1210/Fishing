@@ -109,6 +109,6 @@ public class FishInvenManager : MonoBehaviour, ISlotHandler
     }
 
     public void CloseWindow() {
-            detail.gameObject.SetActive(false);
+        detail.gameObject.SetActive(false);
     }
 }

@@ -39,6 +39,14 @@ public class EventManager : MonoBehaviour
         uIManager.CloseFishInventoryUI();
     }
 
+    public void OpenQuest() {
+        uIManager.OpenQuestUI();
+    }
+
+    public void CloseQuest() {
+        uIManager.CloseQuestUI();
+    }
+
     public void OpenNPCUI(int npcType, GameObject npcObject) {
         npcWindow.SetActive(true);
         switch(npcType) {
@@ -48,12 +56,15 @@ public class EventManager : MonoBehaviour
             case 2:
                 uIManager.OpenFishMerchantTalkUI();
                 break;
+            case 3:
+                uIManager.OpenQuestNpcTalkUI();
+                break;
         }
         uIManager.SetNpcObject(npcObject);
     }
 
     public void CloseNpcUI(int npcType) {
-        npcWindow.SetActive(false);
+        Debug.Log(npcType);
         switch(npcType) {
             case 1:
                 uIManager.CloseEquipMerchantTalkUI();
@@ -61,7 +72,11 @@ public class EventManager : MonoBehaviour
             case 2:
                 uIManager.CloseFishMerchantTalkUI();
                 break;
+            case 3:
+                uIManager.CloseQuestNpcTalkUI();
+                break;
         }
+        npcWindow.SetActive(false);
     }
 
     public void CloseAllWindows() {
