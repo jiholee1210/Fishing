@@ -78,6 +78,10 @@ public class PlayerInventory : MonoBehaviour
         return inventory.equip[0] != null ? true : false;
     }
 
+    public bool haveBait() {
+        return inventory.equip[4] != null ? true : false;
+    }
+
     public float GetRodDur() {
         float rodDur = inventory.equip[0] != null ? DataManager.Instance.GetRodData(inventory.equip[0].itemID).rodDur : 0;
         Debug.Log("플레이어 낚시 파워 : " + rodDur);

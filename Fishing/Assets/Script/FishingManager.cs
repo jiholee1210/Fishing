@@ -44,20 +44,17 @@ public class FishingManager : MonoBehaviour
     private float clickDuration = 0f;  // 마우스 클릭 지속 시간
     private float maxClickDuration = 3f;  // 최대 클릭 지속 가능 시간
     private bool isResisting = false;  // 물고기가 저항하는 중인지
-    private Vector2 originalPosition;  // 물고기의 원래 위치
     private Image fishImage;  // 물고기 이미지 컴포넌트
 
     private float resistDuration = 0f;  // 저항 지속 시간
     private float maxResistDuration = 1f;  // 최대 저항 지속 가능 시간
 
-    private float decreaseSpeed = 1f;  // clickDuration 감소 속도
 
     void Awake()
     {
         fishRect = fish.GetComponent<RectTransform>();
         fishImage = fish.GetComponent<Image>();
         animator = GetComponent<Animator>();
-        originalPosition = fishRect.anchoredPosition;
     }
 
     void Start()
@@ -91,7 +88,7 @@ public class FishingManager : MonoBehaviour
         }
         else {
             // clickDuration을 서서히 감소
-            clickDuration = Mathf.Max(0, clickDuration - Time.deltaTime * decreaseSpeed);
+            clickDuration = 0f;
             resistDuration = 0f;
             isResisting = false;
             fishImage.color = Color.white;
@@ -181,7 +178,6 @@ public class FishingManager : MonoBehaviour
         SetFishProbabilities(playerInventory.GetBaitLevel());
 
         fishID = SetRandomFish(fishList);
-        fishID = 10;
         SetFishStat();
         SetPlayerStat();
         

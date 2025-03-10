@@ -330,8 +330,6 @@ public class InventoryManager : MonoBehaviour, ISlotHandler
 
     void OnEnable()
     {
-        itemList = DataManager.Instance.inventory.slots;
-        equipList = DataManager.Instance.inventory.equip;
         SetPlayerSlots();
         SetPlayerEquip();
         SetGoldText();

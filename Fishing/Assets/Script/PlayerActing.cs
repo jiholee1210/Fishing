@@ -34,7 +34,8 @@ public class PlayerActing : MonoBehaviour
         None,
         Equipment,
         FishInventory,
-        Quest
+        Quest,
+        Fishing
     }
 
     private UIState currentUIState = UIState.None;
@@ -103,16 +104,13 @@ public class PlayerActing : MonoBehaviour
     }
 
     public void OnAttack(InputValue value) {
-        if(playerInventory.haveRod()) {
-            if(value.isPressed && canFishing && !isFishing && !inventoryOpen) {
+        if(playerInventory.haveRod() && playerInventory.haveBait()) {
+            if(value.isPressed && canFishing && currentUIState == UIState.None) {
                 if(playerInventory.isFishFull()) {
                     Debug.Log("낚시 가방이 꽉 찼습니다.");
                     return;
                 }
-                if(playerInventory.NotEquip()) {
-                    Debug.Log("장비를 모두 장착하지 않았습니다.");
-                    return;
-                }
+                currentUIState = UIState.Fishing;
                 isFishing = true;
                 StartFishing();
             }
@@ -161,6 +159,7 @@ public class PlayerActing : MonoBehaviour
         cameraRot.StopOtherJob();
         animator.Play("FishingSwingBack");
         playerMovement.StopOtherJob();
+        currentUIState = UIState.None;
         isFishing = false;
     }
 

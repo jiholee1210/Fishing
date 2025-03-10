@@ -4,7 +4,7 @@ using UnityEngine;
 [Serializable]
 public class QuestRequirement {
     public int fishID;  // FishData 대신 ID만 저장
-    public int requiredAmount;
+    public float weight;
 }
 
 [Serializable]
