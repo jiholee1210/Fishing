@@ -5,7 +5,7 @@ public class WireData : ScriptableObject
 {
     public string wireName;
     public int wireID;
-    public float wireDur;
+    public float wirePower;
     public string wireRarity;
     public string wireDesc;
 }

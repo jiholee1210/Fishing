@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fishName: "\uC5F0\uC5B4"
   fishID: 1
+  habitat: 1
   rarity: "\uC77C\uBC18"
   power: 1
   speed: 10

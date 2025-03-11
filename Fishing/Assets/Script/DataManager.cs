@@ -273,3 +273,13 @@ public class PlayerFish {
         return playerFish;
     }
 }
+
+[System.Serializable]
+public class SlotList {
+    public int itemID;
+}
+
+[System.Serializable] 
+public class EquipList {
+    public int itemID;
+}

@@ -114,7 +114,7 @@ public class InventoryManager : MonoBehaviour, ISlotHandler
 
         name.text = wireData.wireName;
         rarity.text = wireData.wireRarity;
-        power.text = wireData.wireDur + " 내구력";
+        power.text = wireData.wirePower + " 파워";
         desc.text = wireData.wireDesc;
         image.sprite = itemData.itemImage;
 

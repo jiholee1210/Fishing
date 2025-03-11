@@ -8,7 +8,7 @@ AnimatorState:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: FishingSwingBack
-  m_Speed: 1
+  m_Speed: 0.4
   m_CycleOffset: 0
   m_Transitions: []
   m_StateMachineBehaviours: []
@@ -20,7 +20,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 4702114276778421693, guid: d08d20336b786e4458e484994a30fdeb, type: 3}
+  m_Motion: {fileID: 4702114276778421693, guid: 3642b72416616e44dbf0a2373004f2a2, type: 3}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
@@ -110,7 +110,7 @@ AnimatorState:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: FishingSwing
-  m_Speed: 1
+  m_Speed: 0.4
   m_CycleOffset: 0
   m_Transitions: []
   m_StateMachineBehaviours: []
@@ -122,7 +122,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: -8740823693930664346, guid: d08d20336b786e4458e484994a30fdeb, type: 3}
+  m_Motion: {fileID: -8740823693930664346, guid: 3642b72416616e44dbf0a2373004f2a2, type: 3}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 

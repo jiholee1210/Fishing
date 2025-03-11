@@ -93,8 +93,8 @@ public class PlayerInventory : MonoBehaviour
         return reelSpeed;
     }
 
-    public float GetWireDur() {
-        float wireDur = inventory.equip[2] != null ? DataManager.Instance.GetWireData(inventory.equip[2].itemID).wireDur : 0;
+    public float GetWirePower() {
+        float wireDur = inventory.equip[2] != null ? DataManager.Instance.GetWireData(inventory.equip[2].itemID).wirePower : 0;
         return wireDur;
     }
 

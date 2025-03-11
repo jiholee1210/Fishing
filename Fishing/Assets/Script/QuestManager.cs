@@ -29,6 +29,14 @@ public class QuestManager : MonoBehaviour
         name.text = questData.questName;
         desc.text = questData.desc;
         gold.text = questData.rewardGold + " 코인";
+
+        foreach(Transform req in reqParent) {
+            Destroy(req.gameObject);
+        }
+
+        foreach(Transform reward in rewardParent) {
+            Destroy(reward.gameObject);
+        }
         
         int len = questData.requirements.Length;
 

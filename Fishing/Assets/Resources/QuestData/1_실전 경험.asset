@@ -22,4 +22,4 @@ MonoBehaviour:
   - fishID: 2
     weight: 6
   rewardGold: 300
-  rewardItem: 01000000
+  rewardItem: 1e000000

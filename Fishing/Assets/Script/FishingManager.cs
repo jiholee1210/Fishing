@@ -11,6 +11,7 @@ public class FishingManager : MonoBehaviour
     [SerializeField] GameObject fish;
     [SerializeField] GameObject reel;
     [SerializeField] Slider durability;
+    [SerializeField] GameObject GetFishIcon;
 
     private PlayerInventory playerInventory;
 
@@ -36,7 +37,7 @@ public class FishingManager : MonoBehaviour
 
     private float durRegen;
     private float fishingSpeed;
-    private bool isOpening;
+    private bool isOpening = true;
 
     private Animator animator;
     private RectTransform fishRect;
@@ -54,12 +55,7 @@ public class FishingManager : MonoBehaviour
     {
         fishRect = fish.GetComponent<RectTransform>();
         fishImage = fish.GetComponent<Image>();
-        animator = GetComponent<Animator>();
-    }
-
-    void Start()
-    {
-        // Start는 비워둡니다
+        animator = transform.GetChild(0).GetComponent<Animator>();
     }
 
     // Update is called once per frame
@@ -174,6 +170,7 @@ public class FishingManager : MonoBehaviour
 
     public void ResetStatus(PlayerInventory _playerInventory, List<FishData> fishList)
     {
+        transform.GetChild(0).gameObject.SetActive(true);
         playerInventory = _playerInventory;
         SetFishProbabilities(playerInventory.GetBaitLevel());
 
@@ -184,6 +181,26 @@ public class FishingManager : MonoBehaviour
         fishRect.anchoredPosition = new Vector2(0f, -280f);
         reel.GetComponent<RectTransform>().rotation = Quaternion.Euler(0f, 0f, 0f);
         StartCoroutine(OpenUISequence());
+    }
+
+    public IEnumerator CalFishing(PlayerInventory _playerInventory, List<FishData> fishList) {
+        float time = 0f;
+        float randomTime = UnityEngine.Random.Range(5f, 20f);
+        Debug.Log(randomTime);
+        while(time < randomTime) {
+            time += Time.deltaTime * (1 + _playerInventory.GetHookPower() / 1000);
+            yield return null;
+        }
+        Debug.Log("입질이 왔습니다");
+        yield return StartCoroutine(OpenGetFishUI());
+        ResetStatus(_playerInventory, fishList);
+    }
+
+    public IEnumerator OpenGetFishUI() {
+        GetFishIcon.SetActive(true);
+        GetFishIcon.GetComponent<Animator>().Play("Get_Fish");
+        yield return new WaitForSeconds(GetFishIcon.GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).length);
+        GetFishIcon.SetActive(false);
     }
 
     public void SetFishStat() {
@@ -198,9 +215,9 @@ public class FishingManager : MonoBehaviour
     public void SetPlayerStat() {
         fishingSpeed = Math.Max(1 + (playerInventory.GetReelSpeed() - fishSpeed) / 100f, 0.01f);
         Debug.Log("낚시 속도 : " + fishSpeed + " 릴 속도 : " + playerInventory.GetReelSpeed());
-        fishResist = Math.Max(1 + (playerInventory.GetHookPower() - fishWeight) / 100f, 0.33f);
+        fishResist = Math.Max(1 + (playerInventory.GetWirePower() - fishWeight) / 100f, 0.33f);
         Debug.Log("낚시 저항 : " + fishResist);
-        durability.maxValue = playerInventory.GetRodDur() + playerInventory.GetWireDur();
+        durability.maxValue = playerInventory.GetRodDur();
         durability.value = durability.maxValue;
 
         durRegen = durability.maxValue * 0.1f;
@@ -227,7 +244,7 @@ public class FishingManager : MonoBehaviour
         isOpening = true;
         isResisting = false;
         fishImage.color = Color.white;
-        gameObject.SetActive(false);
+        transform.GetChild(0).gameObject.SetActive(false);
         EventManager.Instance.EndFishing();
     }
 
@@ -262,7 +279,7 @@ public class FishingManager : MonoBehaviour
         yield return new WaitForSeconds(animator.GetCurrentAnimatorStateInfo(0).length);
         
         isOpening = true;
-        gameObject.SetActive(false);
+        transform.GetChild(0).gameObject.SetActive(false);
         EventManager.Instance.EndFishing();
     }
 }

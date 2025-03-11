@@ -31,9 +31,7 @@ public class UIManager : MonoBehaviour
     
     // 낚시 UI
     public void OpenFishingUI(PlayerInventory playerInventory, List<FishData> fishList) {
-        fishingUI.SetActive(true);
-        
-        fishingUI.GetComponent<FishingManager>().ResetStatus(playerInventory, fishList);
+        StartCoroutine(fishingUI.GetComponent<FishingManager>().CalFishing(playerInventory, fishList));
     }
 
     // 인벤토리 UI
