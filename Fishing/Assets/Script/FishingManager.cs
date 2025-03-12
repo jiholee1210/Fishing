@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using TMPro;
 using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.UI;
@@ -11,7 +12,8 @@ public class FishingManager : MonoBehaviour
     [SerializeField] GameObject fish;
     [SerializeField] GameObject reel;
     [SerializeField] Slider durability;
-    [SerializeField] GameObject GetFishIcon;
+    [SerializeField] GameObject getFishIcon;
+    [SerializeField] Transform detail;
 
     private PlayerInventory playerInventory;
 
@@ -38,6 +40,7 @@ public class FishingManager : MonoBehaviour
     private float durRegen;
     private float fishingSpeed;
     private bool isOpening = true;
+    private bool isClosing = false;
 
     private Animator animator;
     private RectTransform fishRect;
@@ -49,7 +52,6 @@ public class FishingManager : MonoBehaviour
 
     private float resistDuration = 0f;  // 저항 지속 시간
     private float maxResistDuration = 1f;  // 최대 저항 지속 가능 시간
-
 
     void Awake()
     {
@@ -94,7 +96,8 @@ public class FishingManager : MonoBehaviour
 
         fishRect.anchoredPosition = new Vector2(fishRect.anchoredPosition.x, Mathf.Clamp(fishRect.anchoredPosition.y, -280f, 260f));
 
-        if(fishRect.anchoredPosition.y >= 260f) {
+        if(fishRect.anchoredPosition.y >= 260f && !isClosing) {
+            isClosing = true;
             StartCoroutine(CloseUISequence());
         }
     }
@@ -197,10 +200,14 @@ public class FishingManager : MonoBehaviour
     }
 
     public IEnumerator OpenGetFishUI() {
-        GetFishIcon.SetActive(true);
-        GetFishIcon.GetComponent<Animator>().Play("Get_Fish");
-        yield return new WaitForSeconds(GetFishIcon.GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).length);
-        GetFishIcon.SetActive(false);
+        getFishIcon.SetActive(true);
+        Animator animator = getFishIcon.GetComponent<Animator>();
+        animator.Play("Get_Fish");
+        yield return null;
+        
+        float len = animator.GetCurrentAnimatorStateInfo(0).length;
+        yield return new WaitForSeconds(len);
+        getFishIcon.SetActive(false);
     }
 
     public void SetFishStat() {
@@ -240,12 +247,49 @@ public class FishingManager : MonoBehaviour
 
     IEnumerator CloseUISequence() {
         yield return StartCoroutine(CloseFishingUIAnimation());
+        yield return StartCoroutine(ShowDetail());
+        isClosing = false;
         playerInventory.GetFish(fishID, fishWeight);
         isOpening = true;
         isResisting = false;
         fishImage.color = Color.white;
         transform.GetChild(0).gameObject.SetActive(false);
         EventManager.Instance.EndFishing();
+    }
+
+    IEnumerator ShowDetail() {
+        if(!DataManager.Instance.guide.fishID[fishID]) {
+            DataManager.Instance.guide.fishID[fishID] = true;
+            DataManager.Instance.SaveGuideData();
+            yield return StartCoroutine(FirstFishing());
+        }
+        else {
+            //yield return StartCoroutine()
+        }
+    }
+
+    IEnumerator FirstFishing() {
+        detail.gameObject.SetActive(true);
+        Animator animator = detail.GetComponent<Animator>();
+        FishData fish = DataManager.Instance.GetFishData(fishID);
+
+        detail.GetChild(0).GetComponent<TMP_Text>().text = fish.fishName;
+        detail.GetChild(1).GetComponent<Image>().sprite = fish.fishIcon;
+        detail.GetChild(2).GetComponent<TMP_Text>().text = fish.rarity;
+        detail.GetChild(3).GetComponent<TMP_Text>().text = fish.desc;
+        
+        animator.Play("Detail_Open");
+        yield return null;
+        
+        float len = animator.GetCurrentAnimatorStateInfo(0).length + 1f;
+        yield return new WaitForSeconds(len);
+
+        animator.Play("Detail_Close");
+        yield return null;
+
+        len = animator.GetCurrentAnimatorStateInfo(0).length;
+        yield return new WaitForSeconds(len);
+        detail.gameObject.SetActive(false);
     }
 
     IEnumerator FishResistance()

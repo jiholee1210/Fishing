@@ -336,8 +336,8 @@ public class InventoryManager : MonoBehaviour, ISlotHandler
     }
 
     public void DefaultSetting() {
-        itemList = DataManager.Instance.inventory.slots;
-        equipList = DataManager.Instance.inventory.equip;
+        itemList = DataManager.Instance.slotList;
+        equipList = DataManager.Instance.equipList;
 
         for (int i = 0; i < slots.Length; i++) {
             DraggableItem draggable = slots[i].AddComponent<DraggableItem>();

@@ -162,7 +162,7 @@ public class TradeManager : MonoBehaviour, ISlotHandler
     }
 
     public void SetPlayerSlots() {
-        playerItemList = DataManager.Instance.inventory.slots;
+        playerItemList = DataManager.Instance.slotList;
 
         for(int i = 0; i < playerItemList.Count; i++) {
             playerSlots[i].GetComponent<Image>().sprite = null;

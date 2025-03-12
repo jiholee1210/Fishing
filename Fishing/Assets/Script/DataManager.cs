@@ -11,9 +11,17 @@ public class DataManager : MonoBehaviour
     string playerPath;
     string inventoryPath;
     string questNpcPath;
+    string guidePath;
+
     public PlayerData playerData;
     public Inventory inventory;
     public NpcQuest questNpc;
+    public Guide guide;
+
+    public List<ItemData> slotList;
+    public List<ItemData> equipList;
+    public List<QuestData> playerQuest;
+    public List<QuestData> npcQuest;
 
     public Dictionary<int, FishData> fishDataDict;
     public Dictionary<int, RodData> rodDataDict;
@@ -40,6 +48,7 @@ public class DataManager : MonoBehaviour
         playerPath = Path.Combine(Application.persistentDataPath, "playerdata.json");
         inventoryPath = Path.Combine(Application.persistentDataPath, "inventory.json");
         questNpcPath = Path.Combine(Application.persistentDataPath, "questNpc.json");
+        guidePath = Path.Combine(Application.persistentDataPath, "guide.json");
 
         LoadFishDataFromSo();
         LoadRodDataFromSo();
@@ -62,6 +71,7 @@ public class DataManager : MonoBehaviour
         if(!File.Exists(inventoryPath)) {
             inventory = new();
             SaveInventoryData();
+            LoadInventoryData();
             Debug.Log("인벤토리 생성");
         }
         else {
@@ -70,15 +80,22 @@ public class DataManager : MonoBehaviour
 
         if(!File.Exists(questNpcPath)) {
             questNpc = new();
-            questNpc.questlist.Add(GetQuestData(0));
+            npcQuest.Add(GetQuestData(0));
             SaveQuestNpcData();
             Debug.Log("퀘스트 상황 생성");
         }
+
+        if(!File.Exists(guidePath)) {
+            guide = new();
+            SaveGuideData();
+            Debug.Log("도감 생성");
+        }
         else {
-            LoadQuestNpcData();
+            LoadGuideData();
         }        
     }
 
+    // 데이터 불러오기
     private void LoadFishDataFromSo() {
         FishData[] fishDataArray = Resources.LoadAll<FishData>("FishData");
         fishDataDict = new Dictionary<int, FishData>();
@@ -148,6 +165,11 @@ public class DataManager : MonoBehaviour
     }
 
     public void SavePlayerData() {
+        List<int> quest = new();
+        foreach(var item in playerQuest) {
+            quest.Add(item.questID);
+        }
+        playerData.questList = quest;
         string json = JsonUtility.ToJson(playerData, true);
         File.WriteAllText(playerPath, json);
         Debug.Log("데이터 저장");
@@ -156,10 +178,19 @@ public class DataManager : MonoBehaviour
     public void LoadPlayerData() {
         string json = File.ReadAllText(playerPath);
         playerData = JsonUtility.FromJson<PlayerData>(json);
+        foreach(var item in playerData.questList) {
+            playerQuest.Add(GetQuestData(item));
+        }
         Debug.Log("데이터 로드");
     }
 
     public void SaveInventoryData() {
+        for(int i = 0; i < slotList.Count; i++) {
+            inventory.slots[i] = slotList[i] != null ? slotList[i].itemID : -1;
+        }
+        for(int i = 0; i < equipList.Count; i++) {
+            inventory.equip[i] = equipList[i] != null ? equipList[i].itemID : -1;
+        }
         string json = JsonUtility.ToJson(inventory, true);
         File.WriteAllText(inventoryPath, json);
         Debug.Log("인벤토리 저장");
@@ -168,10 +199,21 @@ public class DataManager : MonoBehaviour
     public void LoadInventoryData() {
         string json = File.ReadAllText(inventoryPath);
         inventory = JsonUtility.FromJson<Inventory>(json);
+        foreach(var item in inventory.slots) {
+            slotList.Add(GetItemData(item));
+        }
+        foreach(var item in inventory.equip) {
+            equipList.Add(GetItemData(item));
+        }
         Debug.Log("인벤토리 로드");
     }
 
     public void SaveQuestNpcData() {
+        List<int> quest = new();
+        foreach(var item in npcQuest) {
+            quest.Add(item.questID);
+        }
+        questNpc.questlist = quest;
         string json = JsonUtility.ToJson(questNpc, true);
         File.WriteAllText(questNpcPath, json);
         Debug.Log("퀘스트 진행상황 저장");
@@ -180,29 +222,21 @@ public class DataManager : MonoBehaviour
     public void LoadQuestNpcData() {
         string json = File.ReadAllText(questNpcPath);
         questNpc = JsonUtility.FromJson<NpcQuest>(json);
+        foreach(var item in questNpc.questlist) {
+            npcQuest.Add(GetQuestData(item));
+        }
         Debug.Log("퀘스트 진행상황 로드");
     }
 
-    public string GetFishNameFromList(int id) {
-        return fishDataDict.TryGetValue(id, out FishData fish) ? fish.fishName : "";
+    public void SaveGuideData() {
+        string json = JsonUtility.ToJson(guide, true);
+        File.WriteAllText(guidePath, json);
+        Debug.Log("도감 저장");
     }
 
-    public List<int> GetFishIDFromList(string rarity) {
-        List<int> IDList = new();
-        foreach (var fishData in fishDataDict) {
-            if(fishData.Value.rarity.Equals(rarity)) {
-                IDList.Add(fishData.Key);
-            }
-        }
-        return IDList;
-    }
-
-    public float GetFishPowerFromList(int id) {
-        return fishDataDict.TryGetValue(id, out FishData fish) ? fish.power : 0;
-    }
-
-    public float GetRodDurFromList(int id) {
-        return rodDataDict.TryGetValue(id, out RodData rod) ? rod.rodDur : 0;
+    public void LoadGuideData() {
+        string json = File.ReadAllText(guidePath);
+        guide = JsonUtility.FromJson<Guide>(json);
     }
 
     public RodData GetRodData(int id) {
@@ -236,26 +270,37 @@ public class DataManager : MonoBehaviour
     public QuestData GetQuestData(int id) {
         return questDataDict.TryGetValue(id, out QuestData quest) ? quest : null;
     }
- 
 }
 
 [System.Serializable]
 public class PlayerData {
     // 스테미나, 인벤토리
     public int gold = 0;
-    public List<QuestData> questList = new();
+    public List<int> questList = new();
 }
 
 [System.Serializable]
 public class NpcQuest {
-    public List<QuestData> questlist = new();
+    public List<int> questlist = new();
 }
 
 [System.Serializable]
 public class Inventory {
     public List<PlayerFish> fishList = new(new PlayerFish[36]);
-    public List<ItemData> slots = new(new ItemData[36]);
-    public List<ItemData> equip = new(new ItemData[5]);
+    public List<int> slots;
+    public List<int> equip;
+
+    public Inventory() {
+        slots = new List<int>(new int[36]);
+        equip = new List<int>(new int[5]);
+
+        for (int i = 0; i < slots.Count; i++) {
+            slots[i] = -1;
+        }
+        for (int i = 0; i < equip.Count; i++) {
+            equip[i] = -1;
+        }
+    }
 }
 
 [System.Serializable]
@@ -275,11 +320,14 @@ public class PlayerFish {
 }
 
 [System.Serializable]
-public class SlotList {
-    public int itemID;
-}
+public class Guide {
+    public List<bool> fishID;
 
-[System.Serializable] 
-public class EquipList {
-    public int itemID;
+    public Guide() {
+        fishID = new(new bool[30]);
+
+        for(int i = 0; i < fishID.Count; i++) {
+            fishID[i] = false;
+        }
+    }
 }

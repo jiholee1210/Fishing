@@ -18,6 +18,7 @@ public class QuestNpcManager : MonoBehaviour
     [SerializeField] Transform questDetail;
 
     private List<QuestData> npcQuest;
+    private List<QuestData> playerQuest;
     private List<PlayerFish> playerFish;
     private PlayerData playerData;
     
@@ -83,13 +84,14 @@ public class QuestNpcManager : MonoBehaviour
     }
 
     public void DefaultSetting() {
-        npcQuest = DataManager.Instance.questNpc.questlist;
+        npcQuest = DataManager.Instance.npcQuest;
+        playerQuest = DataManager.Instance.playerQuest;
         playerFish = DataManager.Instance.inventory.fishList;
         playerData = DataManager.Instance.playerData;
     }
 
     public void AddQuest(QuestData questData) {
-        playerData.questList.Add(questData);
+        playerQuest.Add(questData);
         npcQuest.Remove(questData);
         questDetail.gameObject.SetActive(false);
         CreateQuestItems();
@@ -126,13 +128,14 @@ public class QuestNpcManager : MonoBehaviour
 
         playerData.gold += questData.rewardGold;
 
-        playerData.questList.Remove(questData);
+        playerQuest.Remove(questData);
         questDetail.gameObject.SetActive(false);
         foreach(var id in questData.nextQuest) {
             npcQuest.Add(DataManager.Instance.GetQuestData(id));
         }
         CreateQuestItems();
         DataManager.Instance.SavePlayerData();
+        DataManager.Instance.SaveInventoryData();
         DataManager.Instance.SaveQuestNpcData();
     }
     
@@ -167,7 +170,7 @@ public class QuestNpcManager : MonoBehaviour
             quest.GetComponent<Button>().onClick.AddListener(() => SetDetail(npcQuest[index], true));
         }
 
-        for(int i = 0; i < playerData.questList.Count; i++)
+        for(int i = 0; i < playerQuest.Count; i++)
         {
             int index = i;
             GameObject quest = Instantiate(questItemPrefab, playerQuestParent);
@@ -178,9 +181,9 @@ public class QuestNpcManager : MonoBehaviour
             rectTransform.anchoredPosition = new Vector2(0, yPosition);
 
             // 퀘스트 데이터 설정
-            rectTransform.GetChild(0).GetComponent<TMP_Text>().text = playerData.questList[index].questName; 
-            quest.GetComponent<Quest>().SetQuest(playerData.questList[index]);
-            quest.GetComponent<Button>().onClick.AddListener(() => SetDetail(playerData.questList[index], false));
+            rectTransform.GetChild(0).GetComponent<TMP_Text>().text = playerQuest[index].questName; 
+            quest.GetComponent<Quest>().SetQuest(playerQuest[index]);
+            quest.GetComponent<Button>().onClick.AddListener(() => SetDetail(playerQuest[index], false));
         }
     }
 

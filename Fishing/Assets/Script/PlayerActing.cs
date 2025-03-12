@@ -104,7 +104,7 @@ public class PlayerActing : MonoBehaviour
     }
 
     public void OnAttack(InputValue value) {
-        if(playerInventory.haveRod() && playerInventory.haveBait()) {
+        if(playerInventory.HaveRod() && playerInventory.HaveBait()) {
             if(value.isPressed && canFishing && currentUIState == UIState.None) {
                 if(playerInventory.isFishFull()) {
                     Debug.Log("낚시 가방이 꽉 찼습니다.");

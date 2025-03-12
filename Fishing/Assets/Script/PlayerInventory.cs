@@ -9,6 +9,8 @@ public class PlayerInventory : MonoBehaviour
     [SerializeField] FishInvenManager fishInvenManager;
 
     private Inventory inventory;
+    private List<ItemData> slot;
+    private List<ItemData> equip;
     private PlayerActing playerActing;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -57,54 +59,49 @@ public class PlayerInventory : MonoBehaviour
 
     public void ResetInventory() {
         inventory = DataManager.Instance.inventory;
+        slot = DataManager.Instance.slotList;
+        equip = DataManager.Instance.equipList;
     }
 
     public bool isFishFull() {
         return inventory.fishList.All(fish => fish.fishID != 0);
     }
 
-    public bool NotEquip() {
-        return inventory.equip.Any(item => item == null);
-    }
-
-    public void SetSlots(List<ItemData> _slots) {
-        inventory.slots = _slots;
-    }
-
     public void SetEquip() {
         StartCoroutine(playerActing.SetAnimator());
     }
-    public bool haveRod() {
-        return inventory.equip[0] != null ? true : false;
+
+    public bool HaveRod() {
+        return equip[0] != null;
     }
 
-    public bool haveBait() {
-        return inventory.equip[4] != null ? true : false;
+    public bool HaveBait() {
+        return equip[4] != null;
     }
 
     public float GetRodDur() {
-        float rodDur = inventory.equip[0] != null ? DataManager.Instance.GetRodData(inventory.equip[0].itemID).rodDur : 0;
+        float rodDur = equip[0] != null ? DataManager.Instance.GetRodData(equip[0].itemID).rodDur : 0;
         Debug.Log("플레이어 낚시 파워 : " + rodDur);
         return rodDur;
     }
 
     public float GetReelSpeed() {
-        float reelSpeed = inventory.equip[1] != null ? DataManager.Instance.GetReelData(inventory.equip[1].itemID).reelSpeed : 0;
+        float reelSpeed = equip[1] != null ? DataManager.Instance.GetReelData(equip[1].itemID).reelSpeed : 0;
         return reelSpeed;
     }
 
     public float GetWirePower() {
-        float wireDur = inventory.equip[2] != null ? DataManager.Instance.GetWireData(inventory.equip[2].itemID).wirePower : 0;
+        float wireDur = equip[2] != null ? DataManager.Instance.GetWireData(equip[2].itemID).wirePower : 0;
         return wireDur;
     }
 
     public float GetHookPower() {
-        float hookPower = inventory.equip[3] != null ? DataManager.Instance.GetHookData(inventory.equip[3].itemID).hookPower : 0;
+        float hookPower = equip[3] != null ? DataManager.Instance.GetHookData(equip[3].itemID).hookPower : 0;
         return hookPower;
     }
 
     public int GetBaitLevel() {
-        int baitLevel = inventory.equip[4] != null ? DataManager.Instance.GetBaitData(inventory.equip[4].itemID).baitLevel : 0;
+        int baitLevel = equip[4] != null ? DataManager.Instance.GetBaitData(equip[4].itemID).baitLevel : 0;
         return baitLevel;
     }
 

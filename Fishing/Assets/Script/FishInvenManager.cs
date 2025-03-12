@@ -82,7 +82,6 @@ public class FishInvenManager : MonoBehaviour, ISlotHandler
 
     void OnEnable()
     {
-        fishList = DataManager.Instance.inventory.fishList;
         SetSlots();
     }
 

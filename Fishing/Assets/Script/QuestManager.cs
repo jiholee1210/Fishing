@@ -64,7 +64,7 @@ public class QuestManager : MonoBehaviour
     }
 
     public void DefaultSetting() {
-        questDatas = DataManager.Instance.playerData.questList;
+        questDatas = DataManager.Instance.playerQuest;
     }
 
     private void CreateQuestItems()
