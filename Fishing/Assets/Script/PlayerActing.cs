@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -10,16 +11,17 @@ public class PlayerActing : MonoBehaviour
     [SerializeField] float rayRange;
     [SerializeField] Transform handPos;
 
-    private PlayerInventory playerInventory;
+    public event Action OnFishingEnd;
+
+    public PlayerInventory playerInventory;
     private PlayerMovement playerMovement;
     private CameraRot cameraRot;
     private Animator animator;
 
     private bool canFishing = false;
-    private bool isFishing = false;
-    private bool inventoryOpen = false;
     private bool canTalk = false;
     private bool isTalking = false;
+    private bool isFishing = false;
 
     private int npcType;
     private int curType;
@@ -35,7 +37,8 @@ public class PlayerActing : MonoBehaviour
         Equipment,
         FishInventory,
         Quest,
-        Fishing
+        Fishing,
+        Guide
     }
 
     private UIState currentUIState = UIState.None;
@@ -82,6 +85,15 @@ public class PlayerActing : MonoBehaviour
             }
         }
 
+        if(Input.GetKeyDown(KeyCode.G) && !isTalking) {
+            if(currentUIState == UIState.Guide) {
+                CloseUI();
+            }
+            else if(currentUIState == UIState.None) {
+                OpenUI(UIState.Guide);
+            }
+        }
+
         if(Input.GetKeyDown(KeyCode.Escape)) {
             EventManager.Instance.CloseAllWindows();
             Cursor.lockState = CursorLockMode.Locked;
@@ -89,7 +101,6 @@ public class PlayerActing : MonoBehaviour
             currentUIState = UIState.None;
             cameraRot.StopOtherJob();
             playerMovement.StopOtherJob();
-            inventoryOpen = false;
             isTalking = false;
         }
     }
@@ -111,8 +122,11 @@ public class PlayerActing : MonoBehaviour
                     return;
                 }
                 currentUIState = UIState.Fishing;
-                isFishing = true;
                 StartFishing();
+            }
+            else if(value.isPressed && currentUIState == UIState.Fishing && !isFishing) {
+                EndFishing();
+                OnFishingEnd?.Invoke();
             }
         }
     }
@@ -146,7 +160,7 @@ public class PlayerActing : MonoBehaviour
 
     IEnumerator FishingSequence() {
         yield return StartCoroutine(PlayFishingAnimation());
-        EventManager.Instance.StartFishing(playerInventory, fishList);
+        EventManager.Instance.StartFishing(fishList);
     }
 
     private void StartFishing() {
@@ -160,7 +174,10 @@ public class PlayerActing : MonoBehaviour
         animator.Play("FishingSwingBack");
         playerMovement.StopOtherJob();
         currentUIState = UIState.None;
-        isFishing = false;
+    }
+
+    public void SetStartFishing() {
+        isFishing = !isFishing;
     }
 
     private void CheckFishingZone() {
@@ -223,6 +240,9 @@ public class PlayerActing : MonoBehaviour
             case UIState.Quest:
                 EventManager.Instance.OpenQuest();
                 break;
+            case UIState.Guide:
+                EventManager.Instance.OpenGuide();
+                break;
         }
     }
 
@@ -238,6 +258,9 @@ public class PlayerActing : MonoBehaviour
                 break;
             case UIState.Quest:
                 EventManager.Instance.CloseQuest();
+                break;
+            case UIState.Guide:
+                EventManager.Instance.CloseGuide();
                 break;
         }
 

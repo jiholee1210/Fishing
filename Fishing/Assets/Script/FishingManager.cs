@@ -14,8 +14,7 @@ public class FishingManager : MonoBehaviour
     [SerializeField] Slider durability;
     [SerializeField] GameObject getFishIcon;
     [SerializeField] Transform detail;
-
-    private PlayerInventory playerInventory;
+    [SerializeField] PlayerActing playerActing;
 
     private Dictionary<int, float> fishProbabilities = new();
     private Dictionary<string, int> rarityPriority = new Dictionary<string, int>() {
@@ -53,11 +52,23 @@ public class FishingManager : MonoBehaviour
     private float resistDuration = 0f;  // 저항 지속 시간
     private float maxResistDuration = 1f;  // 최대 저항 지속 가능 시간
 
+    private Coroutine fishingCoroutine;
+
     void Awake()
     {
         fishRect = fish.GetComponent<RectTransform>();
         fishImage = fish.GetComponent<Image>();
         animator = transform.GetChild(0).GetComponent<Animator>();
+    }
+
+    void OnEnable()
+    {
+        playerActing.OnFishingEnd += StopFishing;
+    }
+
+    void OnDisable()
+    {
+        playerActing.OnFishingEnd -= StopFishing;
     }
 
     // Update is called once per frame
@@ -171,11 +182,11 @@ public class FishingManager : MonoBehaviour
         return fish[randomIndex].fishID;
     }
 
-    public void ResetStatus(PlayerInventory _playerInventory, List<FishData> fishList)
+    public void ResetStatus(List<FishData> fishList)
     {
         transform.GetChild(0).gameObject.SetActive(true);
-        playerInventory = _playerInventory;
-        SetFishProbabilities(playerInventory.GetBaitLevel());
+        SetFishProbabilities(playerActing.playerInventory.GetBaitLevel());
+        playerActing.SetStartFishing();
 
         fishID = SetRandomFish(fishList);
         SetFishStat();
@@ -186,17 +197,27 @@ public class FishingManager : MonoBehaviour
         StartCoroutine(OpenUISequence());
     }
 
-    public IEnumerator CalFishing(PlayerInventory _playerInventory, List<FishData> fishList) {
+    public IEnumerator CalFishing(List<FishData> fishList) {
         float time = 0f;
         float randomTime = UnityEngine.Random.Range(5f, 20f);
         Debug.Log(randomTime);
         while(time < randomTime) {
-            time += Time.deltaTime * (1 + _playerInventory.GetHookPower() / 1000);
+            time += Time.deltaTime * (1 + playerActing.playerInventory.GetHookPower() / 1000);
             yield return null;
         }
         Debug.Log("입질이 왔습니다");
         yield return StartCoroutine(OpenGetFishUI());
-        ResetStatus(_playerInventory, fishList);
+        ResetStatus(fishList);
+    }
+    
+    public void StartFishing(List<FishData> fishList) {
+        fishingCoroutine = StartCoroutine(CalFishing(fishList));
+    }
+    public void StopFishing() {
+        if(fishingCoroutine != null) {
+            StopCoroutine(fishingCoroutine);
+            fishingCoroutine = null;
+        }
     }
 
     public IEnumerator OpenGetFishUI() {
@@ -220,11 +241,11 @@ public class FishingManager : MonoBehaviour
     }
 
     public void SetPlayerStat() {
-        fishingSpeed = Math.Max(1 + (playerInventory.GetReelSpeed() - fishSpeed) / 100f, 0.01f);
-        Debug.Log("낚시 속도 : " + fishSpeed + " 릴 속도 : " + playerInventory.GetReelSpeed());
-        fishResist = Math.Max(1 + (playerInventory.GetWirePower() - fishWeight) / 100f, 0.33f);
+        fishingSpeed = Math.Max(1 + (playerActing.playerInventory.GetReelSpeed() - fishSpeed) / 100f, 0.01f);
+        Debug.Log("낚시 속도 : " + fishSpeed + " 릴 속도 : " + playerActing.playerInventory.GetReelSpeed());
+        fishResist = Math.Max(1 + (playerActing.playerInventory.GetWirePower() - fishWeight) / 100f, 0.33f);
         Debug.Log("낚시 저항 : " + fishResist);
-        durability.maxValue = playerInventory.GetRodDur();
+        durability.maxValue = playerActing.playerInventory.GetRodDur();
         durability.value = durability.maxValue;
 
         durRegen = durability.maxValue * 0.1f;
@@ -249,7 +270,8 @@ public class FishingManager : MonoBehaviour
         yield return StartCoroutine(CloseFishingUIAnimation());
         yield return StartCoroutine(ShowDetail());
         isClosing = false;
-        playerInventory.GetFish(fishID, fishWeight);
+        playerActing.playerInventory.GetFish(fishID, fishWeight);
+        playerActing.SetStartFishing();
         isOpening = true;
         isResisting = false;
         fishImage.color = Color.white;

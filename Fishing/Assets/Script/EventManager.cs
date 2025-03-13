@@ -15,8 +15,8 @@ public class EventManager : MonoBehaviour
         Instance = this;
     }
 
-    public void StartFishing(PlayerInventory playerInventory, List<FishData> fishList) {
-        uIManager.OpenFishingUI(playerInventory, fishList);
+    public void StartFishing(List<FishData> fishList) {
+        uIManager.OpenFishingUI(fishList);
     }
 
     public void EndFishing() {
@@ -45,6 +45,14 @@ public class EventManager : MonoBehaviour
 
     public void CloseQuest() {
         uIManager.CloseQuestUI();
+    }
+
+    public void OpenGuide() {
+        uIManager.OpenGuideUI();
+    }
+
+    public void CloseGuide() {
+        uIManager.CloseGuideUI();
     }
 
     public void OpenNPCUI(int npcType, GameObject npcObject) {

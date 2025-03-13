@@ -324,7 +324,7 @@ public class Guide {
     public List<bool> fishID;
 
     public Guide() {
-        fishID = new(new bool[30]);
+        fishID = new(new bool[22]);
 
         for(int i = 0; i < fishID.Count; i++) {
             fishID[i] = false;

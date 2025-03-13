@@ -9,6 +9,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] GameObject inventoryUI;
     [SerializeField] GameObject fishInventoryUI;
     [SerializeField] GameObject questUI;
+    [SerializeField] GameObject guideUI;
 
     [SerializeField] GameObject equipMerchantUI;
     [SerializeField] GameObject fishMerchantUI;
@@ -25,13 +26,14 @@ public class UIManager : MonoBehaviour
         inventoryUI.GetComponent<InventoryManager>().DefaultSetting();
         fishInventoryUI.GetComponent<FishInvenManager>().DefaultSetting();
         questUI.GetComponent<QuestManager>().DefaultSetting();
+        guideUI.GetComponent<GuideManager>().DefaultSetting();
         questNpcManager.DefaultSetting();
         fishTradeManager.DefaultSetting();
     }
     
     // 낚시 UI
-    public void OpenFishingUI(PlayerInventory playerInventory, List<FishData> fishList) {
-        StartCoroutine(fishingUI.GetComponent<FishingManager>().CalFishing(playerInventory, fishList));
+    public void OpenFishingUI(List<FishData> fishList) {
+        fishingUI.GetComponent<FishingManager>().StartFishing(fishList);
     }
 
     // 인벤토리 UI
@@ -52,12 +54,22 @@ public class UIManager : MonoBehaviour
         fishInventoryUI.SetActive(false);
     }
 
+    // 퀘스트 UI
     public void OpenQuestUI() {
         questUI.SetActive(true);
     }
 
     public void CloseQuestUI() {
         questUI.SetActive(false);
+    }
+
+    // 물고기 도감 UI
+    public void OpenGuideUI() {
+        guideUI.SetActive(true);
+    }
+
+    public void CloseGuideUI() {
+        guideUI.SetActive(false);
     }
 
     // 장비 상인 대화
@@ -136,6 +148,9 @@ public class UIManager : MonoBehaviour
 
         questUI.GetComponent<QuestManager>().CloseWindow();
         questUI.SetActive(false);
+
+        guideUI.GetComponent<GuideManager>().CloseWindow();
+        guideUI.SetActive(false);
 
         tradeManager.CloseWindow();
         equipMerchantUI.transform.GetChild(1).gameObject.SetActive(false);
