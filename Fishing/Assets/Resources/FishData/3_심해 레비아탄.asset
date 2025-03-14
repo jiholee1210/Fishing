@@ -22,5 +22,5 @@ MonoBehaviour:
   weightMax: 250
   desc: "\uC2EC\uD574 \uB808\uBE44\uC544\uD0C4"
   price: 500
-  fishPrefab: {fileID: 0}
-  fishIcon: {fileID: 21300000, guid: 826981fc73057714aae2411144ee8272, type: 3}
+  fishDetail: {fileID: 21300000, guid: 166f10afdc7b49d41bec992446878602, type: 3}
+  fishIcon: {fileID: 21300000, guid: e95771ea6bbe62c41a729497e3eaa286, type: 3}

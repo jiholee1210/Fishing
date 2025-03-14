@@ -68,7 +68,11 @@ public class GuideManager : MonoBehaviour
 
             detail.transform.GetChild(0).GetComponent<TMP_Text>().text = fishData.fishName;
             detail.transform.GetChild(1).GetComponent<TMP_Text>().text = fishData.rarity;
-            detail.transform.GetChild(2).GetComponent<Image>().sprite = fishData.fishIcon;
+            
+            Image fishImage = detail.transform.GetChild(2).GetComponent<Image>();
+            fishImage.sprite = fishData.fishDetail;
+            fishImage.SetNativeSize();
+
             detail.transform.GetChild(3).GetComponent<TMP_Text>().text = fishData.weightMin + " ~ " + fishData.weightMax + " kg";
             detail.transform.GetChild(4).GetComponent<TMP_Text>().text = fishData.price + " 코인";
             detail.transform.GetChild(5).GetComponent<TMP_Text>().text = fishData.desc;

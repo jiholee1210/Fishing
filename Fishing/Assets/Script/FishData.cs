@@ -20,6 +20,6 @@ public class FishData : ScriptableObject
     public float weightMax;
     public string desc;
     public float price;
-    public GameObject fishPrefab;
+    public Sprite fishDetail;
     public Sprite fishIcon;
 }

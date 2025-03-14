@@ -21,13 +21,14 @@ public class FishInvenManager : MonoBehaviour, ISlotHandler
         TMP_Text price = detail.GetChild(5).GetComponent<TMP_Text>();
 
         Image image = detail.GetChild(1).GetComponent<Image>();
+        image.sprite = fish.fishDetail;
+        image.SetNativeSize();
 
         name.text = fish.fishName;
         rarity.text = fish.rarity;
         desc.text = fish.desc;
         weight.text = fishData.weight + "kg";
         price.text = fishData.price + " 골드";
-        image.sprite = fish.fishIcon;
     }
     
     public void SwapItem(int indexA, int indexB)

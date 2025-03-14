@@ -15,10 +15,10 @@ public class FishingZoneA : MonoBehaviour, IFishingZone
     {
         fishList = new()
         {
+            DataManager.Instance.GetFishData(11),
             DataManager.Instance.GetFishData(12),
             DataManager.Instance.GetFishData(13),
-            DataManager.Instance.GetFishData(14),
-            DataManager.Instance.GetFishData(15)
+            DataManager.Instance.GetFishData(14)
         };
     }
 

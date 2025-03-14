@@ -18,9 +18,9 @@ MonoBehaviour:
   rarity: "\uC77C\uBC18"
   power: 1
   speed: 12
-  weightMin: 1
-  weightMax: 2
+  weightMin: 5
+  weightMax: 10
   desc: "\uB728\uAC70\uC6B4 \uBB3C\uC5D0\uC11C\uB3C4 \uBC84\uD2F0\uB294 \uC789\uC5B4"
   price: 15
-  fishPrefab: {fileID: 0}
-  fishIcon: {fileID: 0}
+  fishDetail: {fileID: 21300000, guid: 43972fb4e0923df4e9557916f7bb6bbd, type: 3}
+  fishIcon: {fileID: 21300000, guid: e60e5c9ae7fd804498ee1545e74caedc, type: 3}

@@ -13,14 +13,14 @@ public class FishingZoneB : MonoBehaviour, IFishingZone
     void Start()
     {
         fishList = new() {
+            DataManager.Instance.GetFishData(0),
             DataManager.Instance.GetFishData(1),
-            DataManager.Instance.GetFishData(2),
+            DataManager.Instance.GetFishData(3),
             DataManager.Instance.GetFishData(4),
-            DataManager.Instance.GetFishData(5),
+            DataManager.Instance.GetFishData(7),
             DataManager.Instance.GetFishData(8),
             DataManager.Instance.GetFishData(9),
-            DataManager.Instance.GetFishData(10),
-            DataManager.Instance.GetFishData(11)
+            DataManager.Instance.GetFishData(10)
         };
     }
 }

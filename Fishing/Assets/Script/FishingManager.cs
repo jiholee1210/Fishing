@@ -214,6 +214,7 @@ public class FishingManager : MonoBehaviour
         fishingCoroutine = StartCoroutine(CalFishing(fishList));
     }
     public void StopFishing() {
+        Debug.Log("낚시 중단");
         if(fishingCoroutine != null) {
             StopCoroutine(fishingCoroutine);
             fishingCoroutine = null;
@@ -296,7 +297,9 @@ public class FishingManager : MonoBehaviour
         FishData fish = DataManager.Instance.GetFishData(fishID);
 
         detail.GetChild(0).GetComponent<TMP_Text>().text = fish.fishName;
-        detail.GetChild(1).GetComponent<Image>().sprite = fish.fishIcon;
+        Image image = detail.GetChild(1).GetComponent<Image>();
+        image.sprite = fish.fishDetail;
+        image.SetNativeSize();
         detail.GetChild(2).GetComponent<TMP_Text>().text = fish.rarity;
         detail.GetChild(3).GetComponent<TMP_Text>().text = fish.desc;
         

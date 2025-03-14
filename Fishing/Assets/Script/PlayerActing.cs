@@ -31,6 +31,8 @@ public class PlayerActing : MonoBehaviour
     public PlayerData playerData;
     private List<FishData> fishList;
 
+    private Coroutine fishingCoroutine;
+
     private enum UIState
     {
         None,
@@ -166,11 +168,15 @@ public class PlayerActing : MonoBehaviour
     private void StartFishing() {
         cameraRot.StartOtherJob();
         playerMovement.StartOtherJob();
-        StartCoroutine(FishingSequence());
+        fishingCoroutine = StartCoroutine(FishingSequence());
     }
 
     public void EndFishing() {
         cameraRot.StopOtherJob();
+        if(fishingCoroutine != null) {
+            StopCoroutine(fishingCoroutine);
+            fishingCoroutine = null;
+        }
         animator.Play("FishingSwingBack");
         playerMovement.StopOtherJob();
         currentUIState = UIState.None;
