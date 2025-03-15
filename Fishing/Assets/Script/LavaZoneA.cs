@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FishingZoneA : MonoBehaviour, IFishingZone
+public class LavaZoneA : MonoBehaviour, IFishingZone
 {
     private List<FishData> fishList;
 
@@ -15,10 +15,10 @@ public class FishingZoneA : MonoBehaviour, IFishingZone
     {
         fishList = new()
         {
-            DataManager.Instance.GetFishData(11),
-            DataManager.Instance.GetFishData(12),
-            DataManager.Instance.GetFishData(13),
-            DataManager.Instance.GetFishData(14)
+            DataManager.Instance.GetFishData(2),
+            DataManager.Instance.GetFishData(19),
+            DataManager.Instance.GetFishData(20),
+            DataManager.Instance.GetFishData(21)
         };
     }
 }

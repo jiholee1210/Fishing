@@ -198,7 +198,7 @@ Material:
     - _InvFade: 0.628783
     - _InvFadeDepthFade: 0.07197756
     - _InvFadeFoam: 0.1217
-    - _Metallic: 0.476
+    - _Metallic: 0
     - _Mode: 0
     - _NormalsDisplacement: 0
     - _OcclusionStrength: 1
@@ -212,7 +212,7 @@ Material:
     - _Shininess: 17.1
     - _ShoreTiling: 56.862743
     - _SkyBoxReflection: 0.426
-    - _Smoothness: 1
+    - _Smoothness: 0
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
     - _Speed: 0.4137931
@@ -234,11 +234,11 @@ Material:
     - WaveSpeed: {r: 1.086165, g: 4.440575, b: 12.105146, a: -3.0206447}
     - _AnimationDirection: {r: 0, g: 0, b: 0, a: 0}
     - _AnimationTiling: {r: 0.04582553, g: 0.0182, b: 0.045714468, a: 0.027129691}
-    - _BaseColor: {r: 1, g: 0.33133912, b: 0.0141509175, a: 1}
+    - _BaseColor: {r: 0.6320754, g: 0.16879554, b: 0, a: 1}
     - _BumpDirection: {r: 30, g: 30, b: 30, a: -50}
     - _BumpMap_ST: {r: 1, g: 1, b: 0, a: 0}
     - _BumpTiling: {r: 0.01, g: 0.01, b: 0.01, a: 0.01}
-    - _Color: {r: 1, g: 0.3313391, b: 0.0141509175, a: 1}
+    - _Color: {r: 0.6320754, g: 0.1687955, b: 0, a: 1}
     - _DepthColor: {r: 0.027511697, g: 0.14179105, b: 0.13226777, a: 0.4627451}
     - _DepthColorFade: {r: 0.8880597, g: 0.27834705, b: 0.44463244, a: 0.22352941}
     - _Displacement: {r: 6.6371665, g: 20.353983, b: -1, a: -0.681416}
