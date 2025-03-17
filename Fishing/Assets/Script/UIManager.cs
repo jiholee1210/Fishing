@@ -100,6 +100,7 @@ public class UIManager : MonoBehaviour
     public void OpenQuestNpcTalkUI() {
         questNpcUI.SetActive(true);
         questNpcUI.transform.GetChild(0).gameObject.SetActive(true);
+        questNpcManager.SetTalk(npcObject);
     }
 
     public void CloseQuestNpcTalkUI() {
@@ -112,6 +113,7 @@ public class UIManager : MonoBehaviour
     public void OpenMerchantTradeUI() {
         equipMerchantUI.transform.GetChild(0).gameObject.SetActive(false);
         equipMerchantUI.transform.GetChild(1).gameObject.SetActive(true);
+        Debug.Log("UIManager" + npcObject);
         tradeManager.SetNpcObject(npcObject);
     }
 
@@ -133,6 +135,7 @@ public class UIManager : MonoBehaviour
     public void OpenQuestNpcCheckUI() {
         questNpcUI.transform.GetChild(0).gameObject.SetActive(false);
         questNpcUI.transform.GetChild(1).gameObject.SetActive(true);
+        questNpcManager.SetQuest();
     }
 
     public void CloseQuestNpcCheckUI() {
@@ -152,18 +155,14 @@ public class UIManager : MonoBehaviour
         guideUI.GetComponent<GuideManager>().CloseWindow();
         guideUI.SetActive(false);
 
-        tradeManager.CloseWindow();
         equipMerchantUI.transform.GetChild(1).gameObject.SetActive(false);
-
         CloseEquipMerchantTalkUI();
 
-        fishTradeManager.CloseWindow();
         fishMerchantUI.transform.GetChild(1).gameObject.SetActive(false);
-
         CloseFishMerchantTalkUI();
 
+        questNpcManager.CloseWindow();
         questNpcUI.transform.GetChild(1).gameObject.SetActive(false);
-
         CloseQuestNpcTalkUI();
     }
 

@@ -1,6 +1,8 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Microsoft.Unity.VisualStudio.Editor;
+using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -10,6 +12,7 @@ public class PlayerActing : MonoBehaviour
     [SerializeField] LayerMask npcLayer;
     [SerializeField] float rayRange;
     [SerializeField] Transform handPos;
+    [SerializeField] GameObject highlighter;
 
     public event Action OnFishingEnd;
 
@@ -22,10 +25,13 @@ public class PlayerActing : MonoBehaviour
     private bool canTalk = false;
     private bool isTalking = false;
     private bool isFishing = false;
+    private bool wasFishingZone = false;
 
     private int npcType;
     private int curType;
+    
 
+    private GameObject npcObject;
     private GameObject curNpcObject;
 
     public PlayerData playerData;
@@ -136,6 +142,8 @@ public class PlayerActing : MonoBehaviour
     public void OnInteract(InputValue value) {
         if(value.isPressed && canTalk && !isTalking) {
             curType = npcType;
+            curNpcObject = npcObject;
+            Debug.Log(curNpcObject);
             EventManager.Instance.OpenNPCUI(curType, curNpcObject);
             cameraRot.StartOtherJob();
             playerMovement.StartOtherJob();
@@ -187,27 +195,37 @@ public class PlayerActing : MonoBehaviour
     }
 
     private void CheckFishingZone() {
-        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
-
-        Debug.DrawLine(ray.origin, ray.origin + ray.direction * rayRange, Color.red);
-
-        if(Physics.Raycast(ray, out hit, 6f, fishingLayer)) {
-            // 수면 위치를 체크하기 위한 두 번째 레이캐스트
-            Ray downRay = new Ray(hit.point + Vector3.up * 10f, Vector3.down);
-            RaycastHit groundHit;
-            
-            if(Physics.Raycast(downRay, out groundHit, 20f)) {
-                canFishing = hit.point.y >= groundHit.point.y;
-                fishList = hit.collider.GetComponent<IFishingZone>().GetFishList();
-            }
-
-            Debug.DrawLine(ray.origin, hit.point, Color.green);
-            Debug.DrawLine(downRay.origin, groundHit.point, Color.red);
+        Vector3 origin = Camera.main.transform.position + Camera.main.transform.forward * rayRange + Vector3.up * 3f;
+        
+        // 1차 레이: 정면 아래 방향, 낚시 구역 감지
+        if (!Physics.Raycast(origin, Vector3.down, out hit, 6f, fishingLayer)) {
+            SetFishingState(false, "");
+            return;
         }
+
+        // 2차 레이: 감지된 지점에서 아래 방향 (수면 감지)
+        Physics.Raycast(hit.point + Vector3.up * 10f, Vector3.down, out RaycastHit groundHit, 20f);
+
+        // 높이 비교 (오차 범위 적용)
+        bool isFishingZone = hit.point.y >= groundHit.point.y - 0.05f;
+        if (isFishingZone) {
+            fishList = hit.collider.GetComponent<IFishingZone>().GetFishList();
+        } 
         else {
-            canFishing = false;
+            SetFishingState(false, "");
+            return;
         }
+
+        SetFishingState(isFishingZone, "낚시하기");
+    }
+
+    private void SetFishingState(bool state, string text) {
+        if (wasFishingZone == state) return;
+
+        wasFishingZone = state;
+        canFishing = state;
+        highlighter.GetComponent<TMP_Text>().text = text;
     }
 
     private void CheckNPC() {
@@ -219,12 +237,13 @@ public class PlayerActing : MonoBehaviour
         if(Physics.Raycast(ray, out hit, rayRange, npcLayer)) {
             canTalk = true;
             npcType = hit.collider.GetComponent<INPC>().GetNpcType();
-            curNpcObject = hit.collider.gameObject;
+            npcObject = hit.collider.gameObject;
             Debug.DrawLine(ray.origin, hit.point, Color.green);
         }
         else {
             canTalk = false;
             npcType = 0;
+            npcObject = null;
         }
     }
 

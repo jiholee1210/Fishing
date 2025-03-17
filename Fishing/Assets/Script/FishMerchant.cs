@@ -5,7 +5,7 @@ public class FishMerchant : MonoBehaviour, INPC
 {
     [SerializeField] int type;
 
-    public List<ItemData>[] itemList = new List<ItemData>[5];
+    string line;
 
     public void SetNpcType()
     {
@@ -17,9 +17,14 @@ public class FishMerchant : MonoBehaviour, INPC
         return type;
     }
 
+    public string GetLine() {
+        return line;
+    }
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        line = "어느 물고기든 가져오기만 하면 환영일세.";
         SetNpcType();
     }
 }

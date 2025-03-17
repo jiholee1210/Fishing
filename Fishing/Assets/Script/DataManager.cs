@@ -21,7 +21,10 @@ public class DataManager : MonoBehaviour
     public List<ItemData> slotList;
     public List<ItemData> equipList;
     public List<QuestData> playerQuest;
-    public List<QuestData> npcQuest;
+    public List<QuestData> tutorial;
+    public List<QuestData> island;
+    public List<QuestData> rock;
+    public List<QuestData> lava;
 
     public Dictionary<int, FishData> fishDataDict;
     public Dictionary<int, RodData> rodDataDict;
@@ -80,7 +83,7 @@ public class DataManager : MonoBehaviour
 
         if(!File.Exists(questNpcPath)) {
             questNpc = new();
-            npcQuest.Add(GetQuestData(0));
+            SetBaseQuest();
             SaveQuestNpcData();
             Debug.Log("퀘스트 상황 생성");
         }
@@ -93,6 +96,11 @@ public class DataManager : MonoBehaviour
         else {
             LoadGuideData();
         }        
+    }
+
+    public void SetBaseQuest() {
+        tutorial.Add(GetQuestData(0));
+        island.Add(GetQuestData(1));
     }
 
     // 데이터 불러오기
@@ -209,11 +217,18 @@ public class DataManager : MonoBehaviour
     }
 
     public void SaveQuestNpcData() {
-        List<int> quest = new();
-        foreach(var item in npcQuest) {
-            quest.Add(item.questID);
+        foreach(var item in tutorial) {
+            questNpc.tutorial.Add(item.questID);
         }
-        questNpc.questlist = quest;
+        foreach(var item in island) {
+            questNpc.island.Add(item.questID);
+        }
+        foreach(var item in rock) {
+            questNpc.rock.Add(item.questID);
+        }
+        foreach(var item in lava) {
+            questNpc.lava.Add(item.questID);
+        }
         string json = JsonUtility.ToJson(questNpc, true);
         File.WriteAllText(questNpcPath, json);
         Debug.Log("퀘스트 진행상황 저장");
@@ -222,8 +237,17 @@ public class DataManager : MonoBehaviour
     public void LoadQuestNpcData() {
         string json = File.ReadAllText(questNpcPath);
         questNpc = JsonUtility.FromJson<NpcQuest>(json);
-        foreach(var item in questNpc.questlist) {
-            npcQuest.Add(GetQuestData(item));
+        foreach(var item in questNpc.tutorial) {
+            tutorial.Add(GetQuestData(item));
+        }
+        foreach(var item in questNpc.island) {
+            island.Add(GetQuestData(item));
+        }
+        foreach(var item in questNpc.rock) {
+            rock.Add(GetQuestData(item));
+        }
+        foreach(var item in questNpc.lava) {
+            lava.Add(GetQuestData(item));
         }
         Debug.Log("퀘스트 진행상황 로드");
     }
@@ -281,7 +305,10 @@ public class PlayerData {
 
 [System.Serializable]
 public class NpcQuest {
-    public List<int> questlist = new();
+    public List<int> tutorial = new();
+    public List<int> island = new();
+    public List<int> rock = new();
+    public List<int> lava = new();
 }
 
 [System.Serializable]

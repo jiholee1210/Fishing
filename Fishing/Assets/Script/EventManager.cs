@@ -57,6 +57,7 @@ public class EventManager : MonoBehaviour
 
     public void OpenNPCUI(int npcType, GameObject npcObject) {
         npcWindow.SetActive(true);
+        uIManager.SetNpcObject(npcObject);
         switch(npcType) {
             case 1:
                 uIManager.OpenEquipMerchantTalkUI();
@@ -67,8 +68,7 @@ public class EventManager : MonoBehaviour
             case 3:
                 uIManager.OpenQuestNpcTalkUI();
                 break;
-        }
-        uIManager.SetNpcObject(npcObject);
+        } 
     }
 
     public void CloseNpcUI(int npcType) {

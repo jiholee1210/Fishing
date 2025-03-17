@@ -15,7 +15,7 @@ MonoBehaviour:
   questID: 0
   questName: "\uB09A\uC2DC\uC758 \uC2DC\uC791"
   desc: "\uB09A\uC2DC\uB97C \uBC30\uC6CC\uBCF4\uC790"
-  nextQuest: 01000000
+  nextQuest: 
   requirements:
   - fishID: 12
     weight: 0.1

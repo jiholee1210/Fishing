@@ -23,5 +23,5 @@ MonoBehaviour:
   desc: "\uBE44\uAC00 \uC628 \uB4A4 \uBC1C\uACAC\uB418\uB294 \uD615\uD615\uC0C9\uC0C9
     \uC1A1\uC5B4"
   price: 40
-  fishPrefab: {fileID: 0}
-  fishIcon: {fileID: 0}
+  fishDetail: {fileID: 21300000, guid: 60980b033e686fa4f83afc1af4ffaa70, type: 3}
+  fishIcon: {fileID: 21300000, guid: 9f4b3ad6e34f4f54d87af12f9a1fdc25, type: 3}

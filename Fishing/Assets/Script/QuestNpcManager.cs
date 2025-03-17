@@ -15,12 +15,16 @@ public class QuestNpcManager : MonoBehaviour
     [SerializeField] Transform reqParent;
     [SerializeField] Transform rewardParent;
 
+    [SerializeField] TMP_Text talkText;
+
     [SerializeField] Transform questDetail;
 
     private List<QuestData> npcQuest;
     private List<QuestData> playerQuest;
     private List<PlayerFish> playerFish;
     private PlayerData playerData;
+
+    private GameObject npcObject;
     
     [SerializeField] private PlayerInventory playerInventory;
 
@@ -84,7 +88,6 @@ public class QuestNpcManager : MonoBehaviour
     }
 
     public void DefaultSetting() {
-        npcQuest = DataManager.Instance.npcQuest;
         playerQuest = DataManager.Instance.playerQuest;
         playerFish = DataManager.Instance.inventory.fishList;
         playerData = DataManager.Instance.playerData;
@@ -187,12 +190,18 @@ public class QuestNpcManager : MonoBehaviour
         }
     }
 
-    private void OnEnable() {
+    public void SetQuest() {
+        npcQuest = npcObject.GetComponent<IQuest>().GetQuestList();
         CreateQuestItems();
     }
 
-    void OnDisable()
-    {
+    public void SetTalk(GameObject _npcObject) {
+        npcObject = _npcObject;
+        Debug.Log("NPCManager" + npcObject);
+        talkText.text = npcObject.GetComponent<INPC>().GetLine();
+    }
+
+    public void CloseWindow() {
         questDetail.gameObject.SetActive(false);
     }
 }

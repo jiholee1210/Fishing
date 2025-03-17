@@ -258,14 +258,4 @@ public class TradeManager : MonoBehaviour, ISlotHandler
             detail.gameObject.SetActive(false);
         }
     }
-
-    public void CloseWindow() {
-        if(details[0].GetChild(5).childCount > 0) {
-            Destroy(details[0].GetChild(5).GetChild(0).gameObject);
-        }
-
-        foreach(Transform detail in details) {
-            detail.gameObject.SetActive(false);
-        }
-    }
 }
