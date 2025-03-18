@@ -9,7 +9,7 @@ using UnityEngine.InputSystem;
 public class PlayerActing : MonoBehaviour
 {
     [SerializeField] LayerMask fishingLayer;
-    [SerializeField] LayerMask npcLayer;
+    [SerializeField] LayerMask collisionLayer;
     [SerializeField] float rayRange;
     [SerializeField] Transform handPos;
     [SerializeField] GameObject highlighter;
@@ -25,11 +25,9 @@ public class PlayerActing : MonoBehaviour
     private bool canTalk = false;
     private bool isTalking = false;
     private bool isFishing = false;
-    private bool wasFishingZone = false;
 
     private int npcType;
-    private int curType;
-    
+    private int layer;
 
     private GameObject npcObject;
     private GameObject curNpcObject;
@@ -49,7 +47,15 @@ public class PlayerActing : MonoBehaviour
         Guide
     }
 
+    private enum Layer {
+        None = 0,
+        Npc = 7,
+        Sign = 9,
+        Portal = 10
+    }
+
     private UIState currentUIState = UIState.None;
+    private Layer currentLayer = Layer.None;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -141,10 +147,19 @@ public class PlayerActing : MonoBehaviour
 
     public void OnInteract(InputValue value) {
         if(value.isPressed && canTalk && !isTalking) {
-            curType = npcType;
             curNpcObject = npcObject;
-            Debug.Log(curNpcObject);
-            EventManager.Instance.OpenNPCUI(curType, curNpcObject);
+            currentLayer = (Layer)layer;
+            switch(currentLayer) {
+                case Layer.Npc:
+                    npcType = curNpcObject.GetComponent<INPC>().GetNpcType();
+                    EventManager.Instance.OpenNPCUI(npcType, curNpcObject);
+                    break;
+                case Layer.Sign:
+                    EventManager.Instance.OpenSignUI();
+                    break;
+                case Layer.Portal:
+                    break;
+            }
             cameraRot.StartOtherJob();
             playerMovement.StartOtherJob();
             Cursor.lockState = CursorLockMode.None;
@@ -155,7 +170,6 @@ public class PlayerActing : MonoBehaviour
     }
 
     public void EndTalk() {
-        EventManager.Instance.CloseNpcUI(curType);
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
         cameraRot.StopOtherJob();
@@ -198,33 +212,29 @@ public class PlayerActing : MonoBehaviour
         RaycastHit hit;
         Vector3 origin = Camera.main.transform.position + Camera.main.transform.forward * rayRange + Vector3.up * 3f;
         
-        // 1차 레이: 정면 아래 방향, 낚시 구역 감지
         if (!Physics.Raycast(origin, Vector3.down, out hit, 6f, fishingLayer)) {
-            SetFishingState(false, "");
+            SetHighliterState("");
+            canFishing = false;
             return;
         }
 
-        // 2차 레이: 감지된 지점에서 아래 방향 (수면 감지)
         Physics.Raycast(hit.point + Vector3.up * 10f, Vector3.down, out RaycastHit groundHit, 20f);
 
-        // 높이 비교 (오차 범위 적용)
         bool isFishingZone = hit.point.y >= groundHit.point.y - 0.05f;
         if (isFishingZone) {
             fishList = hit.collider.GetComponent<IFishingZone>().GetFishList();
+            SetHighliterState("낚시하기");
+            canFishing = isFishingZone;  
         } 
         else {
-            SetFishingState(false, "");
+            SetHighliterState("");
+            canFishing = false;
             return;
         }
-
-        SetFishingState(isFishingZone, "낚시하기");
     }
 
-    private void SetFishingState(bool state, string text) {
-        if (wasFishingZone == state) return;
-
-        wasFishingZone = state;
-        canFishing = state;
+    private void SetHighliterState(string text) {
+        if(highlighter.GetComponent<TMP_Text>().text == text) return;
         highlighter.GetComponent<TMP_Text>().text = text;
     }
 
@@ -232,18 +242,15 @@ public class PlayerActing : MonoBehaviour
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
 
-        Debug.DrawLine(ray.origin, ray.origin + ray.direction * rayRange, Color.red);
 
-        if(Physics.Raycast(ray, out hit, rayRange, npcLayer)) {
+        if(Physics.Raycast(ray, out hit, rayRange, collisionLayer)) {
             canTalk = true;
-            npcType = hit.collider.GetComponent<INPC>().GetNpcType();
+            layer = hit.collider.gameObject.layer;
             npcObject = hit.collider.gameObject;
-            Debug.DrawLine(ray.origin, hit.point, Color.green);
+            SetHighliterState("대화");
         }
         else {
             canTalk = false;
-            npcType = 0;
-            npcObject = null;
         }
     }
 

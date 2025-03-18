@@ -10,6 +10,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] GameObject fishInventoryUI;
     [SerializeField] GameObject questUI;
     [SerializeField] GameObject guideUI;
+    [SerializeField] GameObject signUI;
 
     [SerializeField] GameObject equipMerchantUI;
     [SerializeField] GameObject fishMerchantUI;
@@ -18,6 +19,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] TradeManager tradeManager;
     [SerializeField] FishTradeManager fishTradeManager;
     [SerializeField] QuestNpcManager questNpcManager;
+    [SerializeField] SignManager signManager;
 
     private GameObject npcObject;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -98,7 +100,6 @@ public class UIManager : MonoBehaviour
 
     // 퀘스트 NPC 대화
     public void OpenQuestNpcTalkUI() {
-        questNpcUI.SetActive(true);
         questNpcUI.transform.GetChild(0).gameObject.SetActive(true);
         questNpcManager.SetTalk(npcObject);
     }
@@ -106,7 +107,6 @@ public class UIManager : MonoBehaviour
     public void CloseQuestNpcTalkUI() {
         Debug.Log("퀘스트 npc 창 닫음");
         questNpcUI.transform.GetChild(0).gameObject.SetActive(false);
-        questNpcUI.SetActive(false);
     }
 
     // 장비 상인 거래
@@ -142,6 +142,15 @@ public class UIManager : MonoBehaviour
         questNpcUI.transform.GetChild(1).gameObject.SetActive(false);
     }
 
+    public void OpenSignUI() {
+        signUI.SetActive(true);
+        signManager.ShowFirstImage();
+    }
+
+    public void CloseSignUI() {
+        signUI.SetActive(false);
+    }
+
     public void CloseAllWindows() {
         inventoryUI.GetComponent<InventoryManager>().CloseWindow();
         inventoryUI.SetActive(false);
@@ -164,6 +173,8 @@ public class UIManager : MonoBehaviour
         questNpcManager.CloseWindow();
         questNpcUI.transform.GetChild(1).gameObject.SetActive(false);
         CloseQuestNpcTalkUI();
+
+        CloseSignUI();
     }
 
     public void SetNpcObject(GameObject _npcObject) {

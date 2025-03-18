@@ -71,4 +71,13 @@ public class PlayerMovement : MonoBehaviour
     public void StopOtherJob() {
         cantMove = false;
     }
+
+    void OnTriggerEnter(Collider other)
+    {
+        if(other.gameObject.layer == 10) {
+            characterController.enabled = false;
+            transform.position = other.GetComponent<IPortal>().GetTelPosition();
+            characterController.enabled = true;
+        }
+    }
 }

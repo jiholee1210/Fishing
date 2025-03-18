@@ -56,7 +56,6 @@ public class EventManager : MonoBehaviour
     }
 
     public void OpenNPCUI(int npcType, GameObject npcObject) {
-        npcWindow.SetActive(true);
         uIManager.SetNpcObject(npcObject);
         switch(npcType) {
             case 1:
@@ -72,7 +71,6 @@ public class EventManager : MonoBehaviour
     }
 
     public void CloseNpcUI(int npcType) {
-        Debug.Log(npcType);
         switch(npcType) {
             case 1:
                 uIManager.CloseEquipMerchantTalkUI();
@@ -84,11 +82,19 @@ public class EventManager : MonoBehaviour
                 uIManager.CloseQuestNpcTalkUI();
                 break;
         }
-        npcWindow.SetActive(false);
+        playerActing.EndTalk();
+    }
+
+    public void OpenSignUI() {
+        uIManager.OpenSignUI();
+    }
+
+    public void CloseSignUI() {
+        uIManager.CloseSignUI();
+        playerActing.EndTalk();
     }
 
     public void CloseAllWindows() {
-        npcWindow.SetActive(false);
         uIManager.CloseAllWindows();
     }
 }
