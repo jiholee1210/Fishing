@@ -32,4 +32,9 @@ public class QuestNpc : MonoBehaviour, INPC, IQuest
     {
         return questList;
     }
+
+    public string GetHighlighter()
+    {
+        return "대화하기";
+    }
 }

@@ -72,12 +72,9 @@ public class PlayerMovement : MonoBehaviour
         cantMove = false;
     }
 
-    void OnTriggerEnter(Collider other)
-    {
-        if(other.gameObject.layer == 10) {
-            characterController.enabled = false;
-            transform.position = other.GetComponent<IPortal>().GetTelPosition();
-            characterController.enabled = true;
-        }
+    public void Teleport(Transform pos) {
+        characterController.enabled = false;
+        transform.position = pos.position;
+        characterController.enabled = true;
     }
 }

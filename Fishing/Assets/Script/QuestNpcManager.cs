@@ -192,6 +192,7 @@ public class QuestNpcManager : MonoBehaviour
 
     public void SetQuest() {
         npcQuest = npcObject.GetComponent<IQuest>().GetQuestList();
+        Debug.Log(npcQuest.Count);
         CreateQuestItems();
     }
 

@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public interface INPC
+public interface INPC : IScannable
 {
     void SetNpcType();
     int GetNpcType();    

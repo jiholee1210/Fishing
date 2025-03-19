@@ -158,7 +158,8 @@ public class PlayerActing : MonoBehaviour
                     EventManager.Instance.OpenSignUI();
                     break;
                 case Layer.Portal:
-                    break;
+                    playerMovement.Teleport(curNpcObject.GetComponent<IPortal>().GetTelPosition());
+                    return;
             }
             cameraRot.StartOtherJob();
             playerMovement.StartOtherJob();
@@ -247,7 +248,8 @@ public class PlayerActing : MonoBehaviour
             canTalk = true;
             layer = hit.collider.gameObject.layer;
             npcObject = hit.collider.gameObject;
-            SetHighliterState("대화");
+            string highlight = hit.collider.GetComponent<IScannable>() != null ? hit.collider.GetComponent<IScannable>().GetHighlighter() : "보기";
+            SetHighliterState(highlight);
         }
         else {
             canTalk = false;

@@ -27,4 +27,9 @@ public class FishMerchant : MonoBehaviour, INPC
         line = "어느 물고기든 가져오기만 하면 환영일세.";
         SetNpcType();
     }
+
+    public string GetHighlighter()
+    {
+        return "대화하기";
+    }
 }

@@ -10,14 +10,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: dfa6d49a23ed6eb4bafa2053cc7e0e02, type: 3}
-  m_Name: "2_\uBBFC\uBB3C \uB09A\uC2DC"
+  m_Name: "3_\uC2E4\uC804 \uACBD\uD5D8"
   m_EditorClassIdentifier: 
-  questID: 2
-  questName: "\uBBFC\uBB3C \uB09A\uC2DC"
-  desc: "\uBBFC\uBB3C \uB09A\uC2DC\uB97C \uC5F0\uC2B5\uD558\uC790"
-  nextQuest: 04000000
+  questID: 3
+  questName: "\uC2E4\uC804 \uACBD\uD5D8"
+  desc: "\uBC14\uB2E4\uC5D0 \uB098\uAC00\uC11C \uBB3C\uACE0\uAE30\uB97C \uB09A\uC544\uBCF4\uC790"
+  nextQuest: 0400000005000000
   requirements:
-  - fishID: 13
-    weight: 0.8
+  - fishID: 1
+    weight: 2
+  - fishID: 2
+    weight: 6
   rewardGold: 300
-  rewardItem: 0a000000
+  rewardItem: 1e000000

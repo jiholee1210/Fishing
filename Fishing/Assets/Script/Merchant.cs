@@ -40,4 +40,9 @@ public class Merchant : MonoBehaviour, INPC, IMerchant
         Debug.Log(category);
         return itemList[category];
     }
+
+    public string GetHighlighter()
+    {
+        return "대화하기";
+    }
 }

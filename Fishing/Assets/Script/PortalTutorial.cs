@@ -1,9 +1,10 @@
 using UnityEngine;
 
-public class PortalTutorial : MonoBehaviour, IPortal
+public class PortalTutorial : MonoBehaviour, IPortal, IScannable
 {
-    Vector3 telPos;
-    public Vector3 GetTelPosition()
+    [SerializeField] Transform telPos;
+    string highlight;
+    public Transform GetTelPosition()
     {
         Debug.Log("위치 반환" + telPos);
         return telPos;
@@ -12,6 +13,10 @@ public class PortalTutorial : MonoBehaviour, IPortal
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        telPos = new Vector3(156, -9, -975);
+        highlight = "이동하기";
+    }
+
+    public string GetHighlighter() {
+        return highlight;
     }
 }
