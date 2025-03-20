@@ -20,11 +20,8 @@ public class DataManager : MonoBehaviour
 
     public List<ItemData> slotList;
     public List<ItemData> equipList;
-    public List<QuestData> playerQuest;
-    public List<QuestData> tutorial;
-    public List<QuestData> island;
-    public List<QuestData> rock;
-    public List<QuestData> lava;
+    public List<QuestData> playerQuestList;
+    public List<QuestData> npcQuestList;
 
     public Dictionary<int, FishData> fishDataDict;
     public Dictionary<int, RodData> rodDataDict;
@@ -64,6 +61,7 @@ public class DataManager : MonoBehaviour
 
         if(!File.Exists(playerPath)) {
             playerData = new();
+            playerData.pos = new Vector3(424f, -108, -44);
             SavePlayerData();
             Debug.Log("데이터 새로 생성");
         }
@@ -102,8 +100,7 @@ public class DataManager : MonoBehaviour
     }
 
     public void SetBaseQuest() {
-        tutorial.Add(GetQuestData(0));
-        island.Add(GetQuestData(1));
+        npcQuestList.Add(GetQuestData(0));
     }
 
     // 데이터 불러오기
@@ -177,7 +174,7 @@ public class DataManager : MonoBehaviour
 
     public void SavePlayerData() {
         List<int> quest = new();
-        foreach(var item in playerQuest) {
+        foreach(var item in playerQuestList) {
             quest.Add(item.questID);
         }
         playerData.questList = quest;
@@ -190,7 +187,7 @@ public class DataManager : MonoBehaviour
         string json = File.ReadAllText(playerPath);
         playerData = JsonUtility.FromJson<PlayerData>(json);
         foreach(var item in playerData.questList) {
-            playerQuest.Add(GetQuestData(item));
+            playerQuestList.Add(GetQuestData(item));
         }
         Debug.Log("데이터 로드");
     }
@@ -221,17 +218,8 @@ public class DataManager : MonoBehaviour
 
     public void SaveQuestNpcData() {
         NpcQuest tmp = new();
-        foreach(var item in tutorial) {
-            tmp.tutorial.Add(item.questID);
-        }
-        foreach(var item in island) {
-            tmp.island.Add(item.questID);
-        }
-        foreach(var item in rock) {
-            tmp.rock.Add(item.questID);
-        }
-        foreach(var item in lava) {
-            tmp.lava.Add(item.questID);
+        foreach(var item in npcQuestList) {
+            tmp.questList.Add(item.questID);
         }
         npcQuest = tmp;
         string json = JsonUtility.ToJson(npcQuest, true);
@@ -242,17 +230,8 @@ public class DataManager : MonoBehaviour
     public void LoadQuestNpcData() {
         string json = File.ReadAllText(questNpcPath);
         npcQuest = JsonUtility.FromJson<NpcQuest>(json);
-        foreach(var item in npcQuest.tutorial) {
-            tutorial.Add(GetQuestData(item));
-        }
-        foreach(var item in npcQuest.island) {
-            island.Add(GetQuestData(item));
-        }
-        foreach(var item in npcQuest.rock) {
-            rock.Add(GetQuestData(item));
-        }
-        foreach(var item in npcQuest.lava) {
-            lava.Add(GetQuestData(item));
+        foreach(var item in npcQuest.questList) {
+            npcQuestList.Add(GetQuestData(item));
         }
         Debug.Log("퀘스트 진행상황 로드");
     }
@@ -299,6 +278,10 @@ public class DataManager : MonoBehaviour
     public QuestData GetQuestData(int id) {
         return questDataDict.TryGetValue(id, out QuestData quest) ? quest : null;
     }
+
+    public void SaveAndExit() {
+
+    }
 }
 
 [System.Serializable]
@@ -306,14 +289,12 @@ public class PlayerData {
     // 스테미나, 인벤토리
     public int gold = 0;
     public List<int> questList = new();
+    public Vector3 pos;
 }
 
 [System.Serializable]
 public class NpcQuest {
-    public List<int> tutorial = new();
-    public List<int> island = new();
-    public List<int> rock = new();
-    public List<int> lava = new();
+    public List<int> questList = new();
 }
 
 [System.Serializable]

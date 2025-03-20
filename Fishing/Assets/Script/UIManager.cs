@@ -11,6 +11,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] GameObject questUI;
     [SerializeField] GameObject guideUI;
     [SerializeField] GameObject signUI;
+    [SerializeField] GameObject optionUI;
 
     [SerializeField] GameObject equipMerchantUI;
     [SerializeField] GameObject fishMerchantUI;
@@ -151,6 +152,14 @@ public class UIManager : MonoBehaviour
         signUI.SetActive(false);
     }
 
+    public void OpenOptionUI() {
+        optionUI.SetActive(true);
+    }
+
+    public void CloseOptionUI() {
+        optionUI.SetActive(false);
+    }
+
     public void CloseAllWindows() {
         inventoryUI.GetComponent<InventoryManager>().CloseWindow();
         inventoryUI.SetActive(false);
@@ -175,6 +184,8 @@ public class UIManager : MonoBehaviour
         CloseQuestNpcTalkUI();
 
         CloseSignUI();
+
+        CloseOptionUI();
     }
 
     public void SetNpcObject(GameObject _npcObject) {

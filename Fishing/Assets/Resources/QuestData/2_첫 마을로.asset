@@ -18,6 +18,8 @@ MonoBehaviour:
     \uAE38\uC744 \uB530\uB77C \uCB49 \uAC00\uB2E4\uBCF4\uBA74 \uBCF4\uC77C\uAC70\uB77C\uB124.
     \uB9C8\uC744 \uAD00\uB9AC\uC778\uC5D0\uAC8C \uB0B4 \uC18C\uAC1C\uB85C \uC654\uB2E4\uACE0
     \uB9D0\uD558\uBA74 \uC54C\uC544\uB4E4\uC744\uAC78\uC138."
+  receive: 0
+  complete: 1
   nextQuest: 03000000
   requirements: []
   rewardGold: 100

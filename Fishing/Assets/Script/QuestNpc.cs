@@ -5,7 +5,16 @@ public class QuestNpc : MonoBehaviour, INPC, IQuest
 {
     [SerializeField] int type;
     string line;
-    List<QuestData> questList;
+    private int npcID;
+
+    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    void Start()
+    {
+        SetNpcType();
+        SetNpcID();
+        line = "내가 이 마을의 관리인일세. 마을 문제를 해결해주면 그에 맞는 보상을 지급하겠네.";
+    }
+
     public int GetNpcType()
     {
         return type;
@@ -20,21 +29,18 @@ public class QuestNpc : MonoBehaviour, INPC, IQuest
         return line;
     }
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        SetNpcType();
-        line = "내가 이 마을의 관리인일세. 마을 문제를 해결해주면 그에 맞는 보상을 지급하겠네.";
-        questList = DataManager.Instance.island;
-    }
-
-    public List<QuestData> GetQuestList()
-    {
-        return questList;
-    }
-
     public string GetHighlighter()
     {
         return "대화하기";
+    }
+    
+    public void SetNpcID()
+    {
+        npcID = 1;
+    }
+
+    public int GetNpcID()
+    {
+        return npcID;
     }
 }

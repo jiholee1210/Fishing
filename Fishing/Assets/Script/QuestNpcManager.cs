@@ -25,6 +25,8 @@ public class QuestNpcManager : MonoBehaviour
     private PlayerData playerData;
 
     private GameObject npcObject;
+
+    private int npcID;
     
     [SerializeField] private PlayerInventory playerInventory;
 
@@ -88,9 +90,10 @@ public class QuestNpcManager : MonoBehaviour
     }
 
     public void DefaultSetting() {
-        playerQuest = DataManager.Instance.playerQuest;
+        playerQuest = DataManager.Instance.playerQuestList;
         playerFish = DataManager.Instance.inventory.fishList;
         playerData = DataManager.Instance.playerData;
+        npcQuest = DataManager.Instance.npcQuestList;
     }
 
     public void AddQuest(QuestData questData) {
@@ -160,6 +163,9 @@ public class QuestNpcManager : MonoBehaviour
         for(int i = 0; i < npcQuest.Count; i++)
         {
             int index = i;
+
+            // npc id와 퀘스트 완료 npc 아이디가 같을때만 출력하도록
+            if(npcQuest[index].receive != npcID) continue; 
             GameObject quest = Instantiate(questItemPrefab, npcQuestParent);
             RectTransform rectTransform = quest.GetComponent<RectTransform>();
             
@@ -175,7 +181,11 @@ public class QuestNpcManager : MonoBehaviour
 
         for(int i = 0; i < playerQuest.Count; i++)
         {
+            // npc id와 퀘스트 완료 npc 아이디가 같을때만 출력하도록
             int index = i;
+
+            if(playerQuest[index].complete != npcID) continue; 
+            Debug.Log(playerQuest[index].complete + " " + npcID);
             GameObject quest = Instantiate(questItemPrefab, playerQuestParent);
             RectTransform rectTransform = quest.GetComponent<RectTransform>();
             
@@ -191,13 +201,12 @@ public class QuestNpcManager : MonoBehaviour
     }
 
     public void SetQuest() {
-        npcQuest = npcObject.GetComponent<IQuest>().GetQuestList();
-        Debug.Log(npcQuest.Count);
         CreateQuestItems();
     }
 
     public void SetTalk(GameObject _npcObject) {
         npcObject = _npcObject;
+        npcID = npcObject.GetComponent<IQuest>().GetNpcID();
         Debug.Log("NPCManager" + npcObject);
         talkText.text = npcObject.GetComponent<INPC>().GetLine();
     }

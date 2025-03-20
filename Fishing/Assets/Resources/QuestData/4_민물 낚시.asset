@@ -15,6 +15,8 @@ MonoBehaviour:
   questID: 4
   questName: "\uBBFC\uBB3C \uB09A\uC2DC"
   desc: "\uBBFC\uBB3C \uB09A\uC2DC\uB97C \uC5F0\uC2B5\uD558\uC790"
+  receive: 1
+  complete: 1
   nextQuest: 06000000
   requirements:
   - fishID: 13

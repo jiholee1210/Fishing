@@ -94,7 +94,23 @@ public class EventManager : MonoBehaviour
         playerActing.EndTalk();
     }
 
+    public void OpenOptionUI() {
+        uIManager.OpenOptionUI();
+    }
+
     public void CloseAllWindows() {
         uIManager.CloseAllWindows();
+    }
+
+    public void SaveAndExit() {
+        Vector3 playerPos = playerActing.GetPos();
+        DataManager.Instance.playerData.pos = playerPos;
+        DataManager.Instance.SavePlayerData();
+
+        #if UNITY_EDITOR
+            UnityEditor.EditorApplication.isPlaying = false;
+        #else
+            Application.Quit();
+        #endif
     }
 }

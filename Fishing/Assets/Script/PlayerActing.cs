@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Microsoft.Unity.VisualStudio.Editor;
 using TMPro;
 using UnityEngine;
@@ -34,6 +35,7 @@ public class PlayerActing : MonoBehaviour
 
     public PlayerData playerData;
     private List<FishData> fishList;
+    private List<QuestData> questList;
 
     private Coroutine fishingCoroutine;
 
@@ -44,7 +46,10 @@ public class PlayerActing : MonoBehaviour
         FishInventory,
         Quest,
         Fishing,
-        Guide
+        Guide,
+        Option,
+        NPC,
+        Sign
     }
 
     private enum Layer {
@@ -65,6 +70,7 @@ public class PlayerActing : MonoBehaviour
         cameraRot = GetComponent<CameraRot>();
 
         playerData = DataManager.Instance.playerData;
+        questList = DataManager.Instance.playerQuestList;
     }
 
     // Update is called once per frame
@@ -109,13 +115,23 @@ public class PlayerActing : MonoBehaviour
         }
 
         if(Input.GetKeyDown(KeyCode.Escape)) {
-            EventManager.Instance.CloseAllWindows();
-            Cursor.lockState = CursorLockMode.Locked;
-            Cursor.visible = false;
-            currentUIState = UIState.None;
-            cameraRot.StopOtherJob();
-            playerMovement.StopOtherJob();
-            isTalking = false;
+            if(currentUIState != UIState.None) {
+                EventManager.Instance.CloseAllWindows();
+                Cursor.lockState = CursorLockMode.Locked;
+                Cursor.visible = false;
+                currentUIState = UIState.None;
+                cameraRot.StopOtherJob();
+                playerMovement.StopOtherJob();
+                isTalking = false;
+            }
+            else {
+                EventManager.Instance.OpenOptionUI();
+                cameraRot.StartOtherJob();
+                playerMovement.StartOtherJob();
+                Cursor.lockState = CursorLockMode.None;
+                Cursor.visible = true;
+                currentUIState = UIState.Option;
+            } 
         }
     }
 
@@ -152,13 +168,15 @@ public class PlayerActing : MonoBehaviour
             switch(currentLayer) {
                 case Layer.Npc:
                     npcType = curNpcObject.GetComponent<INPC>().GetNpcType();
+                    currentUIState = UIState.NPC;
                     EventManager.Instance.OpenNPCUI(npcType, curNpcObject);
                     break;
                 case Layer.Sign:
+                    currentUIState = UIState.Sign;
                     EventManager.Instance.OpenSignUI();
                     break;
                 case Layer.Portal:
-                    playerMovement.Teleport(curNpcObject.GetComponent<IPortal>().GetTelPosition());
+                    CheckEnable(curNpcObject);
                     return;
             }
             cameraRot.StartOtherJob();
@@ -256,6 +274,21 @@ public class PlayerActing : MonoBehaviour
         }
     }
 
+    private void CheckEnable(GameObject npcObject) {
+        int reqQeustID = npcObject.GetComponent<IPortal>().GetReqQuestID();
+        List<int> list = questList
+            .Select(quest => quest.questID)
+            .OrderBy(x => x)
+            .ToList();
+        
+        if(list.Contains(reqQeustID)) {
+            playerMovement.SetPos(curNpcObject.GetComponent<IPortal>().GetTelPosition());
+        }
+        else {
+            Debug.Log("요구 퀘스트 : " + DataManager.Instance.GetQuestData(reqQeustID).questName);
+        }
+    }
+
     private void OpenUI(UIState newState)
     {
         currentUIState = newState;
@@ -302,5 +335,9 @@ public class PlayerActing : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
         cameraRot.StopOtherJob();
+    }
+
+    public Vector3 GetPos() {
+        return transform.position;
     }
 }

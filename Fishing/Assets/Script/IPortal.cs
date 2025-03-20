@@ -2,5 +2,6 @@ using UnityEngine;
 
 public interface IPortal
 {
-    Transform GetTelPosition();
+    Vector3 GetTelPosition();
+    int GetReqQuestID();
 }
