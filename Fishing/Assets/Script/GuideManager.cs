@@ -39,6 +39,7 @@ public class GuideManager : MonoBehaviour
 
         if(guideList != null) {
             for(int i = 0; i < guideList.Count; i++) {
+                if(i == 50) continue; // 보물상자는 도감 제외
                 FishData fish = DataManager.Instance.GetFishData(i);
 
                 if(habitat == Habitat.None || fish.habitat == habitat) {

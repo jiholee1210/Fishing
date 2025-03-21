@@ -6,7 +6,7 @@ public class Merchant : MonoBehaviour, INPC, IMerchant
     [SerializeField] int type;
     string line;
 
-    public List<ItemData>[] itemList = new List<ItemData>[5];
+    public List<ItemData> itemList = new();
 
     public void SetNpcType()
     {
@@ -26,19 +26,16 @@ public class Merchant : MonoBehaviour, INPC, IMerchant
     void Start()
     {
         SetNpcType();
-        line = "좋은 물건을 싸게 팔고 있으니 맘껏 둘러보라고.";
-        for (int i = 0; i < itemList.Length; i++) {
-            itemList[i] = new List<ItemData>();
-            Debug.Log(i + " 번째 리스트 초기화");
-        }
 
-        itemList[0].Add(DataManager.Instance.GetItemData(1));
-        itemList[0].Add(DataManager.Instance.GetItemData(2));
+        itemList.Add(DataManager.Instance.GetItemData(0));
+        itemList.Add(DataManager.Instance.GetItemData(1));
+        itemList.Add(DataManager.Instance.GetItemData(10));
+        itemList.Add(DataManager.Instance.GetItemData(20));
+        itemList.Add(DataManager.Instance.GetItemData(30));
     }
 
-    public List<ItemData> GetItemList(int category) {
-        Debug.Log(category);
-        return itemList[category];
+    public List<ItemData> GetItemList() {
+        return itemList;
     }
 
     public string GetHighlighter()

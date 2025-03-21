@@ -15,8 +15,8 @@ public class EventManager : MonoBehaviour
         Instance = this;
     }
 
-    public void StartFishing(List<FishData> fishList) {
-        uIManager.OpenFishingUI(fishList);
+    public void StartFishing(List<FishData> fishList, List<int> itemList) {
+        uIManager.OpenFishingUI(fishList, itemList);
     }
 
     public void EndFishing() {

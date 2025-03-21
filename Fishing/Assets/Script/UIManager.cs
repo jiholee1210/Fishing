@@ -35,8 +35,8 @@ public class UIManager : MonoBehaviour
     }
     
     // 낚시 UI
-    public void OpenFishingUI(List<FishData> fishList) {
-        fishingUI.GetComponent<FishingManager>().StartFishing(fishList);
+    public void OpenFishingUI(List<FishData> fishList, List<int> itemList) {
+        fishingUI.GetComponent<FishingManager>().StartFishing(fishList, itemList);
     }
 
     // 인벤토리 UI

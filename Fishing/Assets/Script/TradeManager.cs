@@ -53,13 +53,19 @@ public class TradeManager : MonoBehaviour, ISlotHandler
         for(int i = 0; i < category.Length; i++) {
             int index = i;
             category[index].onClick.AddListener(() => {
-                npcItemList = new(new ItemData[npcListSize]);
-                List<ItemData> items = npcObject.GetComponent<IMerchant>().GetItemList(index);
+                //npcItemList = new(new ItemData[npcListSize]);
+                List<ItemData> items = npcObject.GetComponent<IMerchant>().GetItemList();
+                SetNpcDefault();
+                int listID = 0;
                 for(int j = 0; j < items.Count; j++) {
-                    npcItemList[j] = items[j];
+                    
+                    if(items[j].itemType == (ItemType)index) {
+                        Debug.Log(listID);
+                        npcItemList[listID++] = items[j];
+                    }
                 }
-                SetNpcSlots(npcItemList);
-
+                SetNpcSlots(index);
+                
                 if(details[0].GetChild(5).childCount > 0) {
                     Destroy(details[0].GetChild(5).GetChild(0).gameObject);
                 }
@@ -139,14 +145,14 @@ public class TradeManager : MonoBehaviour, ISlotHandler
         npcObject = _npcObject;
     }
 
-    private void SetNpcSlots(List<ItemData> item) {
-        for(int i = 0; i < item.Count; i++) {
+    private void SetNpcSlots(int idx) {
+        for(int i = 0; i < npcItemList.Count; i++) {
             int index = i;
             npcSlots[index].GetComponent<Button>().onClick.RemoveAllListeners();
             npcSlots[index].GetComponent<Image>().sprite = null;
-            if(item[index] != null) {
-                npcSlots[index].GetComponent<Image>().sprite = item[index].itemImage;
-                npcSlots[index].GetComponent<Button>().onClick.AddListener(() => OnItemClick(item[index], index));
+            if(npcItemList[index] != null) {
+                npcSlots[index].GetComponent<Image>().sprite = npcItemList[index].itemImage;
+                npcSlots[index].GetComponent<Button>().onClick.AddListener(() => OnItemClick(npcItemList[index], index));
                 npcSlots[index].GetComponent<DraggableItem>().canDrag = true;
             }
         }
@@ -155,6 +161,7 @@ public class TradeManager : MonoBehaviour, ISlotHandler
     public void SetNpcDefault() {
         for(int i = 0; i < npcItemList.Count; i++) {
             int index = i;
+            npcItemList[index] = null;
             npcSlots[index].GetComponent<Button>().onClick.RemoveAllListeners();
             npcSlots[index].GetComponent<Image>().sprite = null;
             npcSlots[index].GetComponent<DraggableItem>().canDrag = false;
@@ -174,64 +181,136 @@ public class TradeManager : MonoBehaviour, ISlotHandler
     }
 
     private void OnItemClick(ItemData itemData, int i) {
-        Debug.Log("슬롯 번호 " + i);
         switch(itemData.itemType) {
             case ItemType.Rod:
-                SetRodDetail(itemData.itemID, i);
+                SetRodDetail(itemData.itemID);
                 break;
             case ItemType.Reel:
-                SetReelDetail(itemData.itemID, i);
+                SetReelDetail(itemData.itemID);
                 break;
             case ItemType.Wire:
-                SetWireDetail(itemData.itemID, i);
+                SetWireDetail(itemData.itemID);
                 break;
             case ItemType.Hook:
-                SetHookDetail(itemData.itemID, i);
+                SetHookDetail(itemData.itemID);
                 break;
             case ItemType.Bait:
-                SetBaitDetail(itemData.itemID, i);
+                SetBaitDetail(itemData.itemID);
                 break;
         }
     }
 
-    public void SetRodDetail(int itemID, int index) {
-            if(details[0].GetChild(5).childCount > 0) {
-                    Destroy(details[0].GetChild(5).GetChild(0).gameObject);    
-            }
+    public void SetRodDetail(int itemID) {
+        if(details[0].GetChild(5).childCount > 0) {
+                Destroy(details[0].GetChild(5).GetChild(0).gameObject);    
+        }
 
-            TMP_Text name = details[0].GetChild(0).GetComponent<TMP_Text>();
-            TMP_Text rarity = details[0].GetChild(2).GetComponent<TMP_Text>();
-            TMP_Text power = details[0].GetChild(3).GetComponent<TMP_Text>();
-            TMP_Text desc = details[0].GetChild(4).GetComponent<TMP_Text>();
-            TMP_Text gold = details[0].GetChild(6).GetComponent<TMP_Text>();
+        TMP_Text name = details[0].GetChild(0).GetComponent<TMP_Text>();
+        TMP_Text rarity = details[0].GetChild(2).GetComponent<TMP_Text>();
+        TMP_Text power = details[0].GetChild(3).GetComponent<TMP_Text>();
+        TMP_Text desc = details[0].GetChild(4).GetComponent<TMP_Text>();
+        TMP_Text gold = details[0].GetChild(6).GetComponent<TMP_Text>();
 
-            RodData rodData = DataManager.Instance.GetRodData(itemID);
+        RodData rodData = DataManager.Instance.GetRodData(itemID);
+        ItemData itemData = DataManager.Instance.GetItemData(itemID);
 
-            name.text = rodData.rodName;
-            rarity.text = rodData.rodRarity;
-            power.text = rodData.rodDur + " 내구력";
-            desc.text = rodData.rodDesc;
-            gold.text = npcItemList[index].reqGold + " 골드";
+        name.text = rodData.rodName;
+        rarity.text = rodData.rodRarity;
+        power.text = rodData.rodDur + " 내구력";
+        desc.text = rodData.rodDesc;
+        gold.text = itemData.reqGold + " 골드";
 
-            Instantiate(rodData.rodPrefab, details[0].GetChild(5));
-            Debug.Log("자식 생성");
-            details[0].gameObject.SetActive(true);
-            details[0].GetChild(5).GetComponent<RotateRod>().StartRotate();
+        Instantiate(rodData.rodPrefab, details[0].GetChild(5));
+        Debug.Log("자식 생성");
+        details[0].gameObject.SetActive(true);
+        details[0].GetChild(5).GetComponent<RotateRod>().StartRotate();
     }
 
-    public void SetReelDetail(int id, int index) {
+    public void SetReelDetail(int id) {
+        if(details[0].GetChild(5).childCount > 0) {
+                Destroy(details[0].GetChild(5).GetChild(0).gameObject);    
+        }
+
+        TMP_Text name = details[1].GetChild(0).GetComponent<TMP_Text>();
+        TMP_Text rarity = details[1].GetChild(2).GetComponent<TMP_Text>();
+        TMP_Text power = details[1].GetChild(3).GetComponent<TMP_Text>();
+        TMP_Text desc = details[1].GetChild(4).GetComponent<TMP_Text>();
+        TMP_Text gold = details[1].GetChild(5).GetComponent<TMP_Text>();
+        Image image = details[1].GetChild(1).GetComponent<Image>();
+
+        ReelData reelData = DataManager.Instance.GetReelData(id);
+        ItemData itemData = DataManager.Instance.GetItemData(id);
+
+        name.text = reelData.reelName;
+        rarity.text = reelData.reelRarity;
+        power.text = reelData.reelSpeed + " 속도";
+        desc.text = reelData.reelDesc;
+        image.sprite = itemData.itemImage;
+        gold.text = itemData.reqGold + " 골드";
+
         details[1].gameObject.SetActive(true);
     }
 
-    public void SetWireDetail(int id, int index) {
+    public void SetWireDetail(int id) {
+        TMP_Text name = details[2].GetChild(0).GetComponent<TMP_Text>();
+        TMP_Text rarity = details[2].GetChild(2).GetComponent<TMP_Text>();
+        TMP_Text power = details[2].GetChild(3).GetComponent<TMP_Text>();
+        TMP_Text desc = details[2].GetChild(4).GetComponent<TMP_Text>();
+        TMP_Text gold = details[2].GetChild(5).GetComponent<TMP_Text>();
+        Image image = details[2].GetChild(1).GetComponent<Image>();
+
+        WireData wireData = DataManager.Instance.GetWireData(id);
+        ItemData itemData = DataManager.Instance.GetItemData(id);
+
+        name.text = wireData.wireName;
+        rarity.text = wireData.wireRarity;
+        power.text = wireData.wirePower + " 파워";
+        desc.text = wireData.wireDesc;
+        image.sprite = itemData.itemImage;
+        gold.text = itemData.reqGold + " 골드";
+
         details[2].gameObject.SetActive(true);
     }
 
-    public void SetHookDetail(int id, int index) {
+    public void SetHookDetail(int id) {
+        TMP_Text name = details[3].GetChild(0).GetComponent<TMP_Text>();
+        TMP_Text rarity = details[3].GetChild(2).GetComponent<TMP_Text>();
+        TMP_Text power = details[3].GetChild(3).GetComponent<TMP_Text>();
+        TMP_Text desc = details[3].GetChild(4).GetComponent<TMP_Text>();
+        TMP_Text gold = details[3].GetChild(5).GetComponent<TMP_Text>();
+        Image image = details[3].GetChild(1).GetComponent<Image>();
+
+        HookData hookData = DataManager.Instance.GetHookData(id);
+        ItemData itemData = DataManager.Instance.GetItemData(id);
+
+        name.text = hookData.hookName;
+        rarity.text = hookData.hookRarity;
+        power.text = hookData.hookPower + " 파워";
+        desc.text = hookData.hookDesc;
+        image.sprite = itemData.itemImage;
+        gold.text = itemData.reqGold + " 골드";
+
         details[3].gameObject.SetActive(true);
     }
 
-    public void SetBaitDetail(int id, int index) {
+    public void SetBaitDetail(int id) {
+        TMP_Text name = details[4].GetChild(0).GetComponent<TMP_Text>();
+        TMP_Text rarity = details[4].GetChild(2).GetComponent<TMP_Text>();
+        TMP_Text power = details[4].GetChild(3).GetComponent<TMP_Text>();
+        TMP_Text desc = details[4].GetChild(4).GetComponent<TMP_Text>();
+        TMP_Text gold = details[4].GetChild(5).GetComponent<TMP_Text>();
+        Image image = details[4].GetChild(1).GetComponent<Image>();
+
+        BaitData baitData = DataManager.Instance.GetBaitData(id);
+        ItemData itemData = DataManager.Instance.GetItemData(id);
+
+        name.text = baitData.baitName;
+        rarity.text = baitData.baitRarity;
+        power.text = baitData.baitLevel + " 단계";
+        desc.text = baitData.baitDesc;
+        image.sprite = itemData.itemImage;
+        gold.text = itemData.reqGold + " 골드";
+
         details[4].gameObject.SetActive(true);
     }
 

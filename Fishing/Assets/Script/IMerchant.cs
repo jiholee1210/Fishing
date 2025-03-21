@@ -3,5 +3,5 @@ using UnityEngine;
 
 public interface IMerchant
 {
-    List<ItemData> GetItemList(int type);
+    List<ItemData> GetItemList();
 }

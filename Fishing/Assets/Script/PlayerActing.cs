@@ -35,6 +35,7 @@ public class PlayerActing : MonoBehaviour
 
     public PlayerData playerData;
     private List<FishData> fishList;
+    private List<int> itemList;
     private List<QuestData> questList;
 
     private Coroutine fishingCoroutine;
@@ -114,7 +115,7 @@ public class PlayerActing : MonoBehaviour
             }
         }
 
-        if(Input.GetKeyDown(KeyCode.Escape)) {
+        if(Input.GetKeyDown(KeyCode.Escape) && currentUIState != UIState.Fishing) {
             if(currentUIState != UIState.None) {
                 EventManager.Instance.CloseAllWindows();
                 Cursor.lockState = CursorLockMode.Locked;
@@ -203,7 +204,7 @@ public class PlayerActing : MonoBehaviour
 
     IEnumerator FishingSequence() {
         yield return StartCoroutine(PlayFishingAnimation());
-        EventManager.Instance.StartFishing(fishList);
+        EventManager.Instance.StartFishing(fishList, itemList);
     }
 
     private void StartFishing() {
@@ -242,6 +243,7 @@ public class PlayerActing : MonoBehaviour
         bool isFishingZone = hit.point.y >= groundHit.point.y - 0.05f;
         if (isFishingZone) {
             fishList = hit.collider.GetComponent<IFishingZone>().GetFishList();
+            itemList = hit.collider.GetComponent<IFishingZone>().GetItemList();
             SetHighliterState("낚시하기");
             canFishing = isFishingZone;  
         } 

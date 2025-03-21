@@ -24,10 +24,6 @@ public class InventoryManager : MonoBehaviour, ISlotHandler
         
     }
 
-    public void AddFishToSlot(int id) {
-
-    }
-
     public void AddItemToSlot(int id) {
         ItemData itemData = DataManager.Instance.GetItemData(id);
         for(int i = 0; i < itemList.Count; i++) {

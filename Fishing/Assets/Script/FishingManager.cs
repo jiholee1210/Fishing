@@ -14,6 +14,8 @@ public class FishingManager : MonoBehaviour
     [SerializeField] Slider durability;
     [SerializeField] GameObject getFishIcon;
     [SerializeField] Transform detail;
+    [SerializeField] Transform chest;
+
     [SerializeField] PlayerActing playerActing;
 
     private Dictionary<int, float> fishProbabilities = new();
@@ -21,14 +23,19 @@ public class FishingManager : MonoBehaviour
         {"일반", 0},
         {"희귀", 1},
         {"에픽", 2},
-        {"전설", 3}
+        {"전설", 3},
+        {"보물", 4}
     };
     private Dictionary<int, string> priorityRarity = new Dictionary<int, string>() {
         {0, "일반"},
         {1, "희귀"},
         {2, "에픽"},
-        {3, "전설"}
+        {3, "전설"},
+        {4, "보물"}
     };
+
+    private List<FishData> fishList;
+    private List<int> ItemList;
 
     private int fishID;
     private float fishPower;
@@ -119,28 +126,37 @@ public class FishingManager : MonoBehaviour
         switch(baitLevel) {
             case 1:
                 fishProbabilities.Add(0, 70f);
-                fishProbabilities.Add(1, 30f);
+                fishProbabilities.Add(1, 29f);
+                fishProbabilities.Add(2, 0.8f);
+                fishProbabilities.Add(3, 0.1f);
+                fishProbabilities.Add(4, 0.1f);
                 break;
             case 2:
                 fishProbabilities.Add(0, 65f);
-                fishProbabilities.Add(1, 25f);
-                fishProbabilities.Add(2, 10f);
+                fishProbabilities.Add(1, 32f);
+                fishProbabilities.Add(2, 2f);
+                fishProbabilities.Add(3, 0.5f);
+                fishProbabilities.Add(4, 0.5f);
                 break;
             case 3:
-                fishProbabilities.Add(0, 60f);
-                fishProbabilities.Add(1, 25f);
-                fishProbabilities.Add(2, 15f);
+                fishProbabilities.Add(0, 55f);
+                fishProbabilities.Add(1, 36f);
+                fishProbabilities.Add(2, 5f);
+                fishProbabilities.Add(3, 2f);
+                fishProbabilities.Add(4, 2f);
                 break;
             case 4:
-                fishProbabilities.Add(0, 55f);
-                fishProbabilities.Add(1, 30f);
+                fishProbabilities.Add(0, 40f);
+                fishProbabilities.Add(1, 40f);
                 fishProbabilities.Add(2, 10f);
                 fishProbabilities.Add(3, 5f);
+                fishProbabilities.Add(4, 5f);
                 break;
             default:
                 break;
         }
     }
+    
 
     private int SetRandomFish(List<FishData> fishList) {
         List<int> list = fishList
@@ -182,7 +198,7 @@ public class FishingManager : MonoBehaviour
         return fish[randomIndex].fishID;
     }
 
-    public void ResetStatus(List<FishData> fishList)
+    public void ResetStatus()
     {
         transform.GetChild(0).gameObject.SetActive(true);
         SetFishProbabilities(playerActing.playerInventory.GetBaitLevel());
@@ -197,7 +213,7 @@ public class FishingManager : MonoBehaviour
         StartCoroutine(OpenUISequence());
     }
 
-    public IEnumerator CalFishing(List<FishData> fishList) {
+    public IEnumerator CalFishing() {
         float time = 0f;
         float randomTime = UnityEngine.Random.Range(5f, 20f);
         Debug.Log(randomTime);
@@ -207,11 +223,13 @@ public class FishingManager : MonoBehaviour
         }
         Debug.Log("입질이 왔습니다");
         yield return StartCoroutine(OpenGetFishUI());
-        ResetStatus(fishList);
+        ResetStatus();
     }
     
-    public void StartFishing(List<FishData> fishList) {
-        fishingCoroutine = StartCoroutine(CalFishing(fishList));
+    public void StartFishing(List<FishData> _fishList, List<int> _itemList) {
+        fishList = _fishList;
+        ItemList = _itemList;
+        fishingCoroutine = StartCoroutine(CalFishing());
     }
     public void StopFishing() {
         Debug.Log("낚시 중단");
@@ -269,15 +287,57 @@ public class FishingManager : MonoBehaviour
 
     IEnumerator CloseUISequence() {
         yield return StartCoroutine(CloseFishingUIAnimation());
-        yield return StartCoroutine(ShowDetail());
+        transform.GetChild(0).gameObject.SetActive(false);
+        if(fishID == 50) {
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
+
+            int itemID = ItemList[UnityEngine.Random.Range(0, ItemList.Count)];
+            chest.gameObject.SetActive(true);
+            chest.GetComponent<Animator>().Play("ChestPanel_Open");
+            chest.GetChild(1).GetComponent<Animator>().Play("Chest_Open");
+            chest.GetChild(1).GetComponent<Button>().onClick.AddListener(() => OpenChest(itemID));
+        }
+        else {
+            yield return StartCoroutine(ShowDetail());
+            playerActing.playerInventory.GetFish(fishID, fishWeight);
+            EndFishing();
+        }
+    }
+
+    private void EndFishing() {
         isClosing = false;
-        playerActing.playerInventory.GetFish(fishID, fishWeight);
         playerActing.SetStartFishing();
         isOpening = true;
         isResisting = false;
         fishImage.color = Color.white;
-        transform.GetChild(0).gameObject.SetActive(false);
         EventManager.Instance.EndFishing();
+    }
+
+    private void OpenChest(int id) {
+        chest.GetChild(2).gameObject.SetActive(true);
+        chest.GetChild(2).GetComponent<Button>().onClick.AddListener(() => StartCoroutine(CloseChest(id)));
+
+        chest.GetChild(1).GetComponent<Animator>().Play("Chest_Close");
+
+        chest.GetChild(3).GetComponent<Image>().sprite = DataManager.Instance.GetItemData(id).itemImage;
+        chest.GetChild(3).GetComponent<Animator>().Play("Inside_Open");
+    }
+
+    private IEnumerator CloseChest(int id) {
+        chest.GetChild(3).GetComponent<Animator>().Play("Inside_Close");
+        chest.GetComponent<Animator>().Play("ChestPanel_Close");
+        yield return null;
+
+        float len = chest.GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).length;
+        yield return new WaitForSeconds(len);
+
+        playerActing.playerInventory.GetEquip(id);
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
+        EndFishing();
+        chest.GetChild(2).gameObject.SetActive(false);
+        chest.gameObject.SetActive(false);
     }
 
     IEnumerator ShowDetail() {
