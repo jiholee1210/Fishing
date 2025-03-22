@@ -3,6 +3,5 @@ using UnityEngine;
 
 public interface IQuest
 {
-    void SetNpcID();
     int GetNpcID();
 }

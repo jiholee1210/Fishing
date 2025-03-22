@@ -36,7 +36,6 @@ public class PlayerActing : MonoBehaviour
     public PlayerData playerData;
     private List<FishData> fishList;
     private List<int> itemList;
-    private List<QuestData> questList;
 
     private Coroutine fishingCoroutine;
 
@@ -70,8 +69,7 @@ public class PlayerActing : MonoBehaviour
         playerMovement = GetComponent<PlayerMovement>();
         cameraRot = GetComponent<CameraRot>();
 
-        playerData = DataManager.Instance.playerData;
-        questList = DataManager.Instance.playerQuestList;
+        playerData = DataManager.Instance.playerData;;
     }
 
     // Update is called once per frame
@@ -278,12 +276,8 @@ public class PlayerActing : MonoBehaviour
 
     private void CheckEnable(GameObject npcObject) {
         int reqQeustID = npcObject.GetComponent<IPortal>().GetReqQuestID();
-        List<int> list = questList
-            .Select(quest => quest.questID)
-            .OrderBy(x => x)
-            .ToList();
         
-        if(list.Contains(reqQeustID)) {
+        if(playerData.completeQuest.Contains(reqQeustID)) {
             playerMovement.SetPos(curNpcObject.GetComponent<IPortal>().GetTelPosition());
         }
         else {

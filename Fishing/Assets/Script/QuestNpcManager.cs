@@ -21,6 +21,7 @@ public class QuestNpcManager : MonoBehaviour
 
     private List<QuestData> npcQuest;
     private List<QuestData> playerQuest;
+    private List<int> completeQuest;
     private List<PlayerFish> playerFish;
     private PlayerData playerData;
 
@@ -91,6 +92,7 @@ public class QuestNpcManager : MonoBehaviour
 
     public void DefaultSetting() {
         playerQuest = DataManager.Instance.playerQuestList;
+        completeQuest = DataManager.Instance.playerData.completeQuest;
         playerFish = DataManager.Instance.inventory.fishList;
         playerData = DataManager.Instance.playerData;
         npcQuest = DataManager.Instance.npcQuestList;
@@ -135,6 +137,7 @@ public class QuestNpcManager : MonoBehaviour
         playerData.gold += questData.rewardGold;
 
         playerQuest.Remove(questData);
+        completeQuest.Add(questData.questID);
         questDetail.gameObject.SetActive(false);
         foreach(var id in questData.nextQuest) {
             npcQuest.Add(DataManager.Instance.GetQuestData(id));

@@ -7,7 +7,8 @@ public enum ItemType {
     Reel,
     Wire,
     Hook,
-    Bait
+    Bait,
+    Relic
 }
 [Serializable]
 [CreateAssetMenu(fileName = "NewItem", menuName = "Fishing/Item Data")]

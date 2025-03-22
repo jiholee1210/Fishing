@@ -289,6 +289,7 @@ public class PlayerData {
     // 스테미나, 인벤토리
     public int gold = 0;
     public List<int> questList = new();
+    public List<int> completeQuest = new();
     public Vector3 pos;
 }
 
