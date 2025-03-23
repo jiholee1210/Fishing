@@ -14,7 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   questID: 5
   questName: "\uBC14\uB2E4 \uB09A\uC2DC"
-  desc: "\uBC14\uB2E4 \uB09A\uC2DC\uB97C \uC5F0\uC2B5\uD558\uC790"
+  desc: "\uC774\uBC88\uC5D4 \uBC14\uB2E4 \uB09A\uC2DC\uC77C\uC138. \uBC14\uB2F7\uAC00\uC5D4
+    \uC815\uC2E0 \uB098\uAC04 \uB178\uC778\uB124\uAC00 \uC0B4\uACE0 \uC788\uC73C\uB2C8
+    \uC870\uC2EC\uD558\uAC8C."
   receive: 1
   complete: 1
   nextQuest: 07000000

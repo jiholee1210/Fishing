@@ -10,13 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: dfa6d49a23ed6eb4bafa2053cc7e0e02, type: 3}
-  m_Name: "1_\uB09A\uC2DC\uC758 \uC2DC\uC791"
+  m_Name: "1_\uC800\uB141\uAC70\uB9AC \uC900\uBE44"
   m_EditorClassIdentifier: 
   questID: 1
-  questName: "\uB09A\uC2DC\uC758 \uC2DC\uC791"
+  questName: "\uC800\uB141\uAC70\uB9AC \uC900\uBE44"
   desc: "\uB0B4\uAC00 \uC190\uC744 \uB2E4\uCCD0\uC11C \uB9D0\uC774\uC57C. \uBC29\uAE08
-    \uC900 \uB09A\uC2EF\uB300\uB85C \uC624\uB298 \uC800\uB141\uC73C\uB85C \uBA39\uC744
+    \uC900 \uBBF8\uB07C\uB85C \uC624\uB298 \uC800\uB141\uC73C\uB85C \uBA39\uC744
     \uBB3C\uACE0\uAE30 \uC880 \uB09A\uC544\uC8FC\uAC8C."
+  receive: 0
+  complete: 0
   nextQuest: 02000000
   requirements:
   - fishID: 12

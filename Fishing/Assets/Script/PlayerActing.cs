@@ -230,7 +230,7 @@ public class PlayerActing : MonoBehaviour
         RaycastHit hit;
         Vector3 origin = Camera.main.transform.position + Camera.main.transform.forward * rayRange + Vector3.up * 3f;
         
-        if (!Physics.Raycast(origin, Vector3.down, out hit, 6f, fishingLayer)) {
+        if (!Physics.Raycast(origin, Vector3.down, out hit, 10f, fishingLayer)) {
             SetHighliterState("");
             canFishing = false;
             return;
@@ -276,8 +276,9 @@ public class PlayerActing : MonoBehaviour
 
     private void CheckEnable(GameObject npcObject) {
         int reqQeustID = npcObject.GetComponent<IPortal>().GetReqQuestID();
+        QuestData quest = DataManager.Instance.GetQuestData(reqQeustID);
         
-        if(playerData.completeQuest.Contains(reqQeustID)) {
+        if(playerData.completeQuest.Contains(reqQeustID) || DataManager.Instance.playerQuestList.Contains(quest)) {
             playerMovement.SetPos(curNpcObject.GetComponent<IPortal>().GetTelPosition());
         }
         else {

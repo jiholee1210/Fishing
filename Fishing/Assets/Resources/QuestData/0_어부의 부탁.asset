@@ -17,7 +17,9 @@ MonoBehaviour:
   desc: "\uC606 \uB9C8\uC744\uAE4C\uC9C0 \uAC00\uACE0 \uC788\uB2E4\uACE0? 3\uC77C\uC740
     \uAC78\uB9B4\uD150\uB370, \uC6B0\uB9AC \uC9D1\uC5D0\uC11C \uD558\uB8E8 \uBB35\uAC8C
     \uD574\uC904\uD14C\uB2C8 \uBD80\uD0C1\uD558\uB098\uB9CC \uB4E4\uC5B4\uC8FC\uAC8C."
+  receive: 0
+  complete: 0
   nextQuest: 01000000
   requirements: []
   rewardGold: 0
-  rewardItem: 0000000028000000
+  rewardItem: 28000000
