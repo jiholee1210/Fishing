@@ -6,9 +6,15 @@ using UnityEngine.UI;
 public class FishInvenManager : MonoBehaviour, ISlotHandler
 {
     [SerializeField] GameObject[] slots;
+    [SerializeField] GameObject[] equips;
     [SerializeField] Transform detail;
+    [SerializeField] TMP_Text goldText;
+    [SerializeField] Sprite[] gradeSprite;
+    [SerializeField] TooltipManager tooltipManager;
 
     private List<PlayerFish> fishList;
+    private int[] equipList = new int[5];
+    private PlayerData playerData;
 
     private void SetDetail(PlayerFish fishData) {
         detail.gameObject.SetActive(true);
@@ -23,6 +29,9 @@ public class FishInvenManager : MonoBehaviour, ISlotHandler
         Image image = detail.GetChild(1).GetComponent<Image>();
         image.sprite = fish.fishDetail;
         image.SetNativeSize();
+
+        Image grade = detail.GetChild(6).GetComponent<Image>();
+        grade.sprite = gradeSprite[fishData.grade];
 
         name.text = fish.fishName;
         rarity.text = fish.rarity;
@@ -81,13 +90,30 @@ public class FishInvenManager : MonoBehaviour, ISlotHandler
         }
     }
 
+    private void SetGoldText() {
+        goldText.text = playerData.gold + " C";
+    }
+
+    private void SetEquipSlots() {
+        for (int i = 0; i < equipList.Length; i++) {
+            int index = i;
+            int itemID = index * 10 + equipList[index];
+            equips[index].GetComponent<Image>().sprite = DataManager.Instance.GetItemData(itemID).itemImage;
+            equips[index].GetComponent<Slot>().itemID = itemID;
+        }
+    }
+
     void OnEnable()
     {
         SetSlots();
+        SetGoldText();
+        SetEquipSlots();
     }
 
     public void DefaultSetting() {
         fishList = DataManager.Instance.inventory.fishList;
+        equipList = DataManager.Instance.inventory.equip;
+        playerData = DataManager.Instance.playerData;
 
         for (int i = 0; i < slots.Length; i++) {
             DraggableItem draggable = slots[i].AddComponent<DraggableItem>();
@@ -99,16 +125,19 @@ public class FishInvenManager : MonoBehaviour, ISlotHandler
             dropSlot.slotType = 0;
             dropSlot.slotHandler = this;
         }
-
         SetSlots();
+        SetEquipSlots();
+        SetGoldText();
     }
 
     void OnDisable()
     {
         detail.gameObject.SetActive(false);
+        tooltipManager.HideTooltip();
     }
 
     public void CloseWindow() {
         detail.gameObject.SetActive(false);
+        tooltipManager.HideTooltip();
     }
 }

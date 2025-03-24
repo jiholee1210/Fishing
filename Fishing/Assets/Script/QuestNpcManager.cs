@@ -8,12 +8,10 @@ public class QuestNpcManager : MonoBehaviour
 {
     [SerializeField] private GameObject questItemPrefab;
     [SerializeField] GameObject reqFishPrefab;
-    [SerializeField] GameObject rewardItemPrefab;
 
     [SerializeField] private Transform npcQuestParent;
     [SerializeField] private Transform playerQuestParent;
     [SerializeField] Transform reqParent;
-    [SerializeField] Transform rewardParent;
 
     [SerializeField] TMP_Text talkText;
 
@@ -61,10 +59,6 @@ public class QuestNpcManager : MonoBehaviour
             Destroy(req.gameObject);
         }
 
-        foreach(Transform reward in rewardParent) {
-            Destroy(reward.gameObject);
-        }
-
         int len = questData.requirements.Length;
 
         for(int i = 0; i < len; i++) {
@@ -73,17 +67,6 @@ public class QuestNpcManager : MonoBehaviour
 
             questReq.GetComponent<Image>().sprite = DataManager.Instance.GetFishData(questData.requirements[i].fishID).fishIcon;
             questReq.GetComponent<Transform>().GetChild(0).GetComponent<TMP_Text>().text = questData.requirements[i].weight.ToString() + " kg";
-
-            float xPos = (-60 * (len - 1)) + (120 * i);
-            rect.anchoredPosition = new Vector2(xPos, 0);
-        }
-
-        len = questData.rewardItem.Length;
-        for(int i = 0; i < len; i++) {
-            GameObject questReward = Instantiate(rewardItemPrefab, rewardParent);
-            RectTransform rect = questReward.GetComponent<RectTransform>();
-
-            questReward.GetComponent<Image>().sprite = DataManager.Instance.GetItemData(questData.rewardItem[i]).itemImage;
 
             float xPos = (-60 * (len - 1)) + (120 * i);
             rect.anchoredPosition = new Vector2(xPos, 0);
@@ -128,10 +111,6 @@ public class QuestNpcManager : MonoBehaviour
         }
         foreach(int i in list) {
             playerFish[i] = null;
-        }
-
-        foreach(var reward in questData.rewardItem) {
-            playerInventory.GetEquip(reward);
         }
 
         playerData.gold += questData.rewardGold;

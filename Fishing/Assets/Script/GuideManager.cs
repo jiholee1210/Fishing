@@ -16,6 +16,7 @@ public class GuideManager : MonoBehaviour
     private readonly Habitat[] habitats = { Habitat.None, Habitat.Freshwater, Habitat.Sea, Habitat.Lava, Habitat.Rock};
 
     private List<bool> guideList;
+    private List<CatchGrade> catchGrades;
     private bool isDetailOpen = false;
 
     // 버튼별 클릭 이벤트
@@ -24,6 +25,7 @@ public class GuideManager : MonoBehaviour
 
     public void DefaultSetting() {
         guideList = DataManager.Instance.guide.fishID;
+        catchGrades = DataManager.Instance.guide.fishGrade;
 
         for(int i = 0; i < filters.Length; i++) {
             int index = i;
@@ -48,6 +50,11 @@ public class GuideManager : MonoBehaviour
                         fishItem.transform.GetChild(0).GetComponent<TMP_Text>().text = "No." + (fish.fishID + 1);
                         fishItem.transform.GetChild(1).GetComponent<Image>().sprite = fish.fishIcon;
                         fishItem.transform.GetChild(2).GetComponent<TMP_Text>().text = fish.fishName;
+                        for(int j = 0; j < 4; j++) {
+                            if(catchGrades[i].grade[j]) {
+                                fishItem.transform.GetChild(j + 3).GetComponent<Image>().color = new Color(1f, 1f, 1f);
+                            }
+                        }
                         fishItem.GetComponent<Button>().onClick.AddListener(() => SetDetail(fish));
                     }
                     else {

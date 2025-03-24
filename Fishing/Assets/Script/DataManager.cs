@@ -18,8 +18,6 @@ public class DataManager : MonoBehaviour
     public NpcQuest npcQuest;
     public Guide guide;
 
-    public List<ItemData> slotList;
-    public List<ItemData> equipList;
     public List<QuestData> playerQuestList;
     public List<QuestData> npcQuestList;
 
@@ -61,7 +59,7 @@ public class DataManager : MonoBehaviour
 
         if(!File.Exists(playerPath)) {
             playerData = new();
-            playerData.pos = new Vector3(424f, -108, -44);
+            playerData.pos = new Vector3(1275.5f, -75.2f, 1921.3f);
             SavePlayerData();
             Debug.Log("데이터 새로 생성");
         }
@@ -193,12 +191,6 @@ public class DataManager : MonoBehaviour
     }
 
     public void SaveInventoryData() {
-        for(int i = 0; i < slotList.Count; i++) {
-            inventory.slots[i] = slotList[i] != null ? slotList[i].itemID : -1;
-        }
-        for(int i = 0; i < equipList.Count; i++) {
-            inventory.equip[i] = equipList[i] != null ? equipList[i].itemID : -1;
-        }
         string json = JsonUtility.ToJson(inventory, true);
         File.WriteAllText(inventoryPath, json);
         Debug.Log("인벤토리 저장");
@@ -207,12 +199,6 @@ public class DataManager : MonoBehaviour
     public void LoadInventoryData() {
         string json = File.ReadAllText(inventoryPath);
         inventory = JsonUtility.FromJson<Inventory>(json);
-        foreach(var item in inventory.slots) {
-            slotList.Add(GetItemData(item));
-        }
-        foreach(var item in inventory.equip) {
-            equipList.Add(GetItemData(item));
-        }
         Debug.Log("인벤토리 로드");
     }
 
@@ -301,31 +287,20 @@ public class NpcQuest {
 [System.Serializable]
 public class Inventory {
     public List<PlayerFish> fishList = new(new PlayerFish[36]);
-    public List<int> slots;
-    public List<int> equip;
-
-    public Inventory() {
-        slots = new List<int>(new int[36]);
-        equip = new List<int>(new int[5]);
-
-        for (int i = 0; i < slots.Count; i++) {
-            slots[i] = -1;
-        }
-        for (int i = 0; i < equip.Count; i++) {
-            equip[i] = -1;
-        }
-    }
+    public int[] equip = new int[5];
 }
 
 [System.Serializable]
 public class PlayerFish {
     public int fishID;
+    public int grade;
     public float weight;
     public int price;
 
     public PlayerFish Clone() {
         PlayerFish playerFish = new PlayerFish();
         playerFish.fishID = this.fishID;
+        playerFish.grade = this.grade;
         playerFish.weight = this.weight;
         playerFish.price = this.price;
 
@@ -336,12 +311,19 @@ public class PlayerFish {
 [System.Serializable]
 public class Guide {
     public List<bool> fishID;
+    public List<CatchGrade> fishGrade; 
 
     public Guide() {
         fishID = new(new bool[22]);
+        fishGrade = new(new CatchGrade[22]);
 
         for(int i = 0; i < fishID.Count; i++) {
             fishID[i] = false;
         }
     }
+}
+
+[System.Serializable]
+public class CatchGrade {
+    public bool[] grade = new bool[4];
 }

@@ -15,10 +15,12 @@ public class FishingManager : MonoBehaviour
     [SerializeField] GameObject getFishIcon;
     [SerializeField] Transform detail;
     [SerializeField] Transform chest;
+    [SerializeField] Sprite[] gradeSprites;
 
     [SerializeField] PlayerActing playerActing;
 
     private Dictionary<int, float> fishProbabilities = new();
+    private Dictionary<int, float> gradeProbabilities = new();
     private Dictionary<string, int> rarityPriority = new Dictionary<string, int>() {
         {"일반", 0},
         {"희귀", 1},
@@ -35,9 +37,10 @@ public class FishingManager : MonoBehaviour
     };
 
     private List<FishData> fishList;
-    private List<int> ItemList;
+    private List<int> relicList;
 
     private int fishID;
+    private int fishGrade;
     private float fishPower;
     private float fishSpeed;
     private float fishWeight;
@@ -156,6 +159,30 @@ public class FishingManager : MonoBehaviour
                 break;
         }
     }
+
+    private void SetGradeProbabilities(int baitLevel) {
+        gradeProbabilities.Clear();
+        switch(baitLevel) {
+            case 1:
+                gradeProbabilities.Add(0, 100f);
+                break;
+            case 2:
+                gradeProbabilities.Add(0, 70f);
+                gradeProbabilities.Add(1, 30f);
+                break;
+            case 3:
+                gradeProbabilities.Add(0, 50f);
+                gradeProbabilities.Add(1, 35f);
+                gradeProbabilities.Add(2, 15f);
+                break;
+            case 4:
+                gradeProbabilities.Add(0, 30f);
+                gradeProbabilities.Add(1, 40f);
+                gradeProbabilities.Add(2, 20f);
+                gradeProbabilities.Add(3, 10f);
+                break;
+        }
+    }
     
 
     private int SetRandomFish(List<FishData> fishList) {
@@ -202,9 +229,11 @@ public class FishingManager : MonoBehaviour
     {
         transform.GetChild(0).gameObject.SetActive(true);
         SetFishProbabilities(playerActing.playerInventory.GetBaitLevel());
+        SetGradeProbabilities(playerActing.playerInventory.GetBaitLevel());
         playerActing.SetStartFishing();
 
         fishID = SetRandomFish(fishList);
+        fishGrade = SetFishGrade();
         SetFishStat();
         SetPlayerStat();
         
@@ -213,12 +242,27 @@ public class FishingManager : MonoBehaviour
         StartCoroutine(OpenUISequence());
     }
 
+    private int SetFishGrade() {
+        float randomProb = UnityEngine.Random.Range(0, 100f);
+        Debug.Log("랜덤 등급 : " + randomProb);
+        float curProb = 0f;
+        int grade = 0;
+        foreach(var prob in gradeProbabilities) {
+            curProb += prob.Value;
+            if(curProb >= randomProb) {
+                grade = prob.Key;
+                break;
+            }
+        }
+        return grade;
+    }
+
     public IEnumerator CalFishing() {
         float time = 0f;
         float randomTime = UnityEngine.Random.Range(5f, 20f);
         Debug.Log(randomTime);
         while(time < randomTime) {
-            time += Time.deltaTime * (1 + playerActing.playerInventory.GetHookPower() / 1000);
+            time += Time.deltaTime * (1 + playerActing.playerInventory.GetHookPower() / 500);
             yield return null;
         }
         Debug.Log("입질이 왔습니다");
@@ -228,7 +272,12 @@ public class FishingManager : MonoBehaviour
     
     public void StartFishing(List<FishData> _fishList, List<int> _itemList) {
         fishList = _fishList;
-        ItemList = _itemList;
+        foreach(FishData fish in fishList) {
+            if(fish.fishID > 50) {
+                relicList.Add(fish.fishID);
+            }
+        }
+
         fishingCoroutine = StartCoroutine(CalFishing());
     }
     public void StopFishing() {
@@ -253,8 +302,8 @@ public class FishingManager : MonoBehaviour
     public void SetFishStat() {
         // 내구성 관련 : 파워, 속도 관련 : 스피드, 저항 관련 : 무게
         FishData fish = DataManager.Instance.GetFishData(fishID);
-        fishPower = fish.power;
-        fishSpeed = fish.speed;
+        fishPower = fish.power * (1 + (fishGrade * 0.5f));
+        fishSpeed = fish.speed * (1 + (fishGrade * 0.5f));
         float randomWeight = UnityEngine.Random.Range(fish.weightMin, fish.weightMax);
         fishWeight = float.Parse(randomWeight.ToString("F2"));
     }
@@ -292,15 +341,15 @@ public class FishingManager : MonoBehaviour
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;
 
-            int itemID = ItemList[UnityEngine.Random.Range(0, ItemList.Count)];
+            int relicID = relicList[UnityEngine.Random.Range(0, relicList.Count)];
             chest.gameObject.SetActive(true);
             chest.GetComponent<Animator>().Play("ChestPanel_Open");
             chest.GetChild(1).GetComponent<Animator>().Play("Chest_Open");
-            chest.GetChild(1).GetComponent<Button>().onClick.AddListener(() => OpenChest(itemID));
+            chest.GetChild(1).GetComponent<Button>().onClick.AddListener(() => OpenChest(relicID));
         }
         else {
             yield return StartCoroutine(ShowDetail());
-            playerActing.playerInventory.GetFish(fishID, fishWeight);
+            playerActing.playerInventory.GetFish(fishID, fishWeight, fishGrade);
             EndFishing();
         }
     }
@@ -332,7 +381,11 @@ public class FishingManager : MonoBehaviour
         float len = chest.GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).length;
         yield return new WaitForSeconds(len);
 
-        playerActing.playerInventory.GetEquip(id);
+        FishData relic = DataManager.Instance.GetFishData(id);
+        float randomWeight = UnityEngine.Random.Range(relic.weightMin, relic.weightMax);
+        float relicWeight = float.Parse(randomWeight.ToString("F2"));
+
+        playerActing.playerInventory.GetFish(id, relicWeight, 0);
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
         EndFishing();
@@ -341,8 +394,9 @@ public class FishingManager : MonoBehaviour
     }
 
     IEnumerator ShowDetail() {
-        if(!DataManager.Instance.guide.fishID[fishID]) {
+        if(!DataManager.Instance.guide.fishID[fishID] || !DataManager.Instance.guide.fishGrade[fishID].grade[fishGrade]) {
             DataManager.Instance.guide.fishID[fishID] = true;
+            DataManager.Instance.guide.fishGrade[fishID].grade[fishGrade] = true;
             DataManager.Instance.SaveGuideData();
             yield return StartCoroutine(FirstFishing());
         }
@@ -362,6 +416,7 @@ public class FishingManager : MonoBehaviour
         image.SetNativeSize();
         detail.GetChild(2).GetComponent<TMP_Text>().text = fish.rarity;
         detail.GetChild(3).GetComponent<TMP_Text>().text = fish.desc;
+        detail.GetChild(4).GetComponent<Image>().sprite = gradeSprites[fishGrade];
         
         animator.Play("Detail_Open");
         yield return null;

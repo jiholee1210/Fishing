@@ -23,14 +23,6 @@ public class EventManager : MonoBehaviour
         playerActing.EndFishing();
     }
 
-    public void OpenInventory() {
-        uIManager.OpenInventoryUI();
-    }
-
-    public void CloseInventory() {
-        uIManager.CloseInventoryUI();
-    }
-
     public void OpenFishInventory() {
         uIManager.OpenFishInventoryUI();
     }
@@ -59,7 +51,7 @@ public class EventManager : MonoBehaviour
         uIManager.SetNpcObject(npcObject);
         switch(npcType) {
             case 1:
-                uIManager.OpenEquipMerchantTalkUI();
+                uIManager.OpenUpgradeNpcTalkUI();
                 break;
             case 2:
                 uIManager.OpenFishMerchantTalkUI();
@@ -73,7 +65,7 @@ public class EventManager : MonoBehaviour
     public void CloseNpcUI(int npcType) {
         switch(npcType) {
             case 1:
-                uIManager.CloseEquipMerchantTalkUI();
+                uIManager.CloseUpgradeNpcTalkUI();
                 break;
             case 2:
                 uIManager.CloseFishMerchantTalkUI();

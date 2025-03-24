@@ -7,11 +7,9 @@ public class QuestManager : MonoBehaviour
 {
     [SerializeField] GameObject questItemPrefab;
     [SerializeField] GameObject reqFishPrefab;
-    [SerializeField] GameObject rewardItemPrefab;
 
     [SerializeField] Transform questParent;  // Vertical Layout Group이 있는 부모 오브젝트
     [SerializeField] Transform reqParent;
-    [SerializeField] Transform rewardParent;
 
     [SerializeField] Transform questDetail;
 
@@ -33,10 +31,6 @@ public class QuestManager : MonoBehaviour
         foreach(Transform req in reqParent) {
             Destroy(req.gameObject);
         }
-
-        foreach(Transform reward in rewardParent) {
-            Destroy(reward.gameObject);
-        }
         
         int len = questData.requirements.Length;
 
@@ -46,17 +40,6 @@ public class QuestManager : MonoBehaviour
 
             questReq.GetComponent<Image>().sprite = DataManager.Instance.GetFishData(questData.requirements[i].fishID).fishIcon;
             questReq.GetComponent<Transform>().GetChild(0).GetComponent<TMP_Text>().text = questData.requirements[i].weight.ToString() + " kg";
-
-            float xPos = (-60 * (len - 1)) + (120 * i);
-            rect.anchoredPosition = new Vector2(xPos, 0);
-        }
-
-        len = questData.rewardItem.Length;
-        for(int i = 0; i < len; i++) {
-            GameObject questReward = Instantiate(rewardItemPrefab, rewardParent);
-            RectTransform rect = questReward.GetComponent<RectTransform>();
-
-            questReward.GetComponent<Image>().sprite = DataManager.Instance.GetItemData(questData.rewardItem[i]).itemImage;
 
             float xPos = (-60 * (len - 1)) + (120 * i);
             rect.anchoredPosition = new Vector2(xPos, 0);

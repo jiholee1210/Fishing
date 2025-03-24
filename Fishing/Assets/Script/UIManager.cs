@@ -6,18 +6,16 @@ public class UIManager : MonoBehaviour
 {
     [SerializeField] GameObject fishingUI;
 
-    [SerializeField] GameObject inventoryUI;
     [SerializeField] GameObject fishInventoryUI;
     [SerializeField] GameObject questUI;
     [SerializeField] GameObject guideUI;
     [SerializeField] GameObject signUI;
     [SerializeField] GameObject optionUI;
 
-    [SerializeField] GameObject equipMerchantUI;
+    [SerializeField] GameObject UpgradeNpcUI;
     [SerializeField] GameObject fishMerchantUI;
     [SerializeField] GameObject questNpcUI;
 
-    [SerializeField] TradeManager tradeManager;
     [SerializeField] FishTradeManager fishTradeManager;
     [SerializeField] QuestNpcManager questNpcManager;
     [SerializeField] SignManager signManager;
@@ -26,7 +24,6 @@ public class UIManager : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        inventoryUI.GetComponent<InventoryManager>().DefaultSetting();
         fishInventoryUI.GetComponent<FishInvenManager>().DefaultSetting();
         questUI.GetComponent<QuestManager>().DefaultSetting();
         guideUI.GetComponent<GuideManager>().DefaultSetting();
@@ -37,15 +34,6 @@ public class UIManager : MonoBehaviour
     // 낚시 UI
     public void OpenFishingUI(List<FishData> fishList, List<int> itemList) {
         fishingUI.GetComponent<FishingManager>().StartFishing(fishList, itemList);
-    }
-
-    // 인벤토리 UI
-    public void OpenInventoryUI() {
-        inventoryUI.SetActive(true);
-    }
-
-    public void CloseInventoryUI() {
-        inventoryUI.SetActive(false);
     }
 
     // 물고기 인벤토리 UI
@@ -76,15 +64,15 @@ public class UIManager : MonoBehaviour
     }
 
     // 장비 상인 대화
-    public void OpenEquipMerchantTalkUI() {
-        equipMerchantUI.SetActive(true);
-        equipMerchantUI.transform.GetChild(0).gameObject.SetActive(true);
+    public void OpenUpgradeNpcTalkUI() {
+        UpgradeNpcUI.SetActive(true);
+        UpgradeNpcUI.transform.GetChild(0).gameObject.SetActive(true);
     }
 
-    public void CloseEquipMerchantTalkUI() {
+    public void CloseUpgradeNpcTalkUI() {
         Debug.Log("상인 npc 창 닫음");
-        equipMerchantUI.transform.GetChild(0).gameObject.SetActive(false);
-        equipMerchantUI.SetActive(false);
+        UpgradeNpcUI.transform.GetChild(0).gameObject.SetActive(false);
+        UpgradeNpcUI.SetActive(false);
     }
 
     // 물고기 상인 대화
@@ -110,16 +98,14 @@ public class UIManager : MonoBehaviour
         questNpcUI.transform.GetChild(0).gameObject.SetActive(false);
     }
 
-    // 장비 상인 거래
-    public void OpenMerchantTradeUI() {
-        equipMerchantUI.transform.GetChild(0).gameObject.SetActive(false);
-        equipMerchantUI.transform.GetChild(1).gameObject.SetActive(true);
-        Debug.Log("UIManager" + npcObject);
-        tradeManager.SetNpcObject(npcObject);
+    public void OpenUpgradeNpcUI() {
+        UpgradeNpcUI.transform.GetChild(0).gameObject.SetActive(false);
+        UpgradeNpcUI.transform.GetChild(1).gameObject.SetActive(true);
+        UpgradeNpcUI.GetComponent<UpgradeManager>().DefaultSetting();
     }
 
-    public void CloseMerchantTradeUI() {
-        equipMerchantUI.transform.GetChild(1).gameObject.SetActive(false);
+    public void CloseUpgradeNpcUI() {
+        UpgradeNpcUI.transform.GetChild(1).gameObject.SetActive(false);
     }
 
     // 물고기 상인 거래
@@ -161,9 +147,6 @@ public class UIManager : MonoBehaviour
     }
 
     public void CloseAllWindows() {
-        inventoryUI.GetComponent<InventoryManager>().CloseWindow();
-        inventoryUI.SetActive(false);
-
         fishInventoryUI.GetComponent<FishInvenManager>().CloseWindow();
         fishInventoryUI.SetActive(false);
 
@@ -173,8 +156,8 @@ public class UIManager : MonoBehaviour
         guideUI.GetComponent<GuideManager>().CloseWindow();
         guideUI.SetActive(false);
 
-        equipMerchantUI.transform.GetChild(1).gameObject.SetActive(false);
-        CloseEquipMerchantTalkUI();
+        UpgradeNpcUI.transform.GetChild(1).gameObject.SetActive(false);
+        CloseUpgradeNpcTalkUI();
 
         fishMerchantUI.transform.GetChild(1).gameObject.SetActive(false);
         CloseFishMerchantTalkUI();

@@ -42,8 +42,7 @@ public class PlayerActing : MonoBehaviour
     private enum UIState
     {
         None,
-        Equipment,
-        FishInventory,
+        Inventory,
         Quest,
         Fishing,
         Guide,
@@ -78,20 +77,11 @@ public class PlayerActing : MonoBehaviour
         CheckFishingZone();
         CheckNPC();
         if(Input.GetKeyDown(KeyCode.Tab) && !isTalking) {
-            if(currentUIState == UIState.Equipment) {
+            if(currentUIState == UIState.Inventory) {
                 CloseUI();
             }
             else if(currentUIState == UIState.None) {
-                OpenUI(UIState.Equipment);
-            }
-        }
-
-        if(Input.GetKeyDown(KeyCode.I) && !isTalking) {
-            if(currentUIState == UIState.FishInventory) {
-                CloseUI();
-            }
-            else if(currentUIState == UIState.None) {
-                OpenUI(UIState.FishInventory);
+                OpenUI(UIState.Inventory);
             }
         }
 
@@ -144,19 +134,17 @@ public class PlayerActing : MonoBehaviour
     }
 
     public void OnAttack(InputValue value) {
-        if(playerInventory.HaveRod() && playerInventory.HaveBait()) {
-            if(value.isPressed && canFishing && currentUIState == UIState.None) {
-                if(playerInventory.isFishFull()) {
-                    Debug.Log("낚시 가방이 꽉 찼습니다.");
-                    return;
-                }
-                currentUIState = UIState.Fishing;
-                StartFishing();
+        if(value.isPressed && canFishing && currentUIState == UIState.None) {
+            if(playerInventory.isFishFull()) {
+                Debug.Log("낚시 가방이 꽉 찼습니다.");
+                return;
             }
-            else if(value.isPressed && currentUIState == UIState.Fishing && !isFishing) {
-                EndFishing();
-                OnFishingEnd?.Invoke();
-            }
+            currentUIState = UIState.Fishing;
+            StartFishing();
+        }
+        else if(value.isPressed && currentUIState == UIState.Fishing && !isFishing) {
+            EndFishing();
+            OnFishingEnd?.Invoke();
         }
     }
 
@@ -295,10 +283,7 @@ public class PlayerActing : MonoBehaviour
 
         switch(newState)
         {
-            case UIState.Equipment:
-                EventManager.Instance.OpenInventory();
-                break;
-            case UIState.FishInventory:
+            case UIState.Inventory:
                 EventManager.Instance.OpenFishInventory();
                 break;
             case UIState.Quest:
@@ -314,10 +299,7 @@ public class PlayerActing : MonoBehaviour
     {
         switch(currentUIState)
         {
-            case UIState.Equipment:
-                EventManager.Instance.CloseInventory();
-                break;
-            case UIState.FishInventory:
+            case UIState.Inventory:
                 EventManager.Instance.CloseFishInventory();
                 break;
             case UIState.Quest:
