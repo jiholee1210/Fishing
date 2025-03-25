@@ -13,18 +13,15 @@ MonoBehaviour:
   m_Name: "3_\uB9C8\uC744\uC5D0\uC11C\uC758 \uC2DC\uC791"
   m_EditorClassIdentifier: 
   questID: 3
-  questName: "\uB9C8\uC744\uC5D0\uC11C\uC758 \uC2DC\uC791"
-  desc: "\uBB34\uC2A8 \uC77C\uC778\uAC00. \uBA39\uACE0 \uC798 \uACF3\uC774 \uD544\uC694\uD558\uB2E4\uACE0?
-    \uBCF4\uC544\uD558\uB2C8 \uB09A\uC2DC\uB97C \uC880 \uD558\uB294 \uAC83 \uAC19\uC740\uB370
-    \uB9C8\uC744 \uC77C\uC744 \uB3C4\uC640\uC8FC\uBA74 \uBCF4\uC0C1\uC73C\uB85C \uCF54\uC778\uC744
-    \uC8FC\uACA0\uB124."
-  receive: 1
-  complete: 1
+  isEpic: 1
+  questName: "\uB124 \uBC88\uC9F8 \uD018\uC2A4\uD2B8"
+  desc: 
+  receive: 2
+  complete: 2
   nextQuest: 0400000005000000
   requirements:
   - fishID: 1
-    weight: 2
+    grade: 0
   - fishID: 2
-    weight: 6
+    grade: 0
   rewardGold: 300
-  rewardItem: 1e000000

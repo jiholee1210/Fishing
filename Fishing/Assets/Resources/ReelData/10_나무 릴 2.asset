@@ -14,6 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   reelName: "\uB098\uBB34 \uB9B4"
   reelID: 12
-  reelSpeed: 40
+  reelSpeed: 80
   reelRarity: "\uC77C\uBC18"
   reelDesc: "\uD615\uD3B8\uC5C6\uB294 \uB098\uBB34 \uB9B4\uC774\uB2E4."

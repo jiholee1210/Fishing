@@ -85,15 +85,6 @@ public class PlayerActing : MonoBehaviour
             }
         }
 
-        if(Input.GetKeyDown(KeyCode.Q) && !isTalking) {
-            if(currentUIState == UIState.Quest) {
-                CloseUI();
-            }
-            else if(currentUIState == UIState.None) {
-                OpenUI(UIState.Quest);
-            }
-        }
-
         if(Input.GetKeyDown(KeyCode.G) && !isTalking) {
             if(currentUIState == UIState.Guide) {
                 CloseUI();
@@ -212,6 +203,7 @@ public class PlayerActing : MonoBehaviour
 
     public void SetStartFishing() {
         isFishing = !isFishing;
+        Debug.Log("현재 낚시중 : " + isFishing);
     }
 
     private void CheckFishingZone() {
@@ -266,7 +258,7 @@ public class PlayerActing : MonoBehaviour
         int reqQeustID = npcObject.GetComponent<IPortal>().GetReqQuestID();
         QuestData quest = DataManager.Instance.GetQuestData(reqQeustID);
         
-        if(playerData.completeQuest.Contains(reqQeustID) || DataManager.Instance.playerQuestList.Contains(quest)) {
+        if(playerData.completeQuest.Contains(reqQeustID)) {
             playerMovement.SetPos(curNpcObject.GetComponent<IPortal>().GetTelPosition());
         }
         else {
@@ -286,9 +278,6 @@ public class PlayerActing : MonoBehaviour
             case UIState.Inventory:
                 EventManager.Instance.OpenFishInventory();
                 break;
-            case UIState.Quest:
-                EventManager.Instance.OpenQuest();
-                break;
             case UIState.Guide:
                 EventManager.Instance.OpenGuide();
                 break;
@@ -301,9 +290,6 @@ public class PlayerActing : MonoBehaviour
         {
             case UIState.Inventory:
                 EventManager.Instance.CloseFishInventory();
-                break;
-            case UIState.Quest:
-                EventManager.Instance.CloseQuest();
                 break;
             case UIState.Guide:
                 EventManager.Instance.CloseGuide();

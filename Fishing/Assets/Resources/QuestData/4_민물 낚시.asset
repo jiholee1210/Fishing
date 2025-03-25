@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: "4_\uBBFC\uBB3C \uB09A\uC2DC"
   m_EditorClassIdentifier: 
   questID: 4
+  isEpic: 1
   questName: "\uBBFC\uBB3C \uB09A\uC2DC"
   desc: "\uB2E4\uC74C\uC740 \uBBFC\uBB3C\uACE0\uAE30\uB97C \uC880 \uC7A1\uC544\uC8FC\uAC8C.
     \uADF8\uB098\uC800\uB098 \uC0AC\uB78C\uC744 \uCC3E\uB294\uB2E4\uACE0? \uC9C0\uB09C
@@ -23,6 +24,5 @@ MonoBehaviour:
   nextQuest: 06000000
   requirements:
   - fishID: 13
-    weight: 0.8
+    grade: 0
   rewardGold: 300
-  rewardItem: 0a000000

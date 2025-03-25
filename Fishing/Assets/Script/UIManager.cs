@@ -7,7 +7,6 @@ public class UIManager : MonoBehaviour
     [SerializeField] GameObject fishingUI;
 
     [SerializeField] GameObject fishInventoryUI;
-    [SerializeField] GameObject questUI;
     [SerializeField] GameObject guideUI;
     [SerializeField] GameObject signUI;
     [SerializeField] GameObject optionUI;
@@ -25,7 +24,6 @@ public class UIManager : MonoBehaviour
     void Start()
     {
         fishInventoryUI.GetComponent<FishInvenManager>().DefaultSetting();
-        questUI.GetComponent<QuestManager>().DefaultSetting();
         guideUI.GetComponent<GuideManager>().DefaultSetting();
         questNpcManager.DefaultSetting();
         fishTradeManager.DefaultSetting();
@@ -43,15 +41,6 @@ public class UIManager : MonoBehaviour
 
     public void CloseFishInventoryUI() {
         fishInventoryUI.SetActive(false);
-    }
-
-    // 퀘스트 UI
-    public void OpenQuestUI() {
-        questUI.SetActive(true);
-    }
-
-    public void CloseQuestUI() {
-        questUI.SetActive(false);
     }
 
     // 물고기 도감 UI
@@ -149,9 +138,6 @@ public class UIManager : MonoBehaviour
     public void CloseAllWindows() {
         fishInventoryUI.GetComponent<FishInvenManager>().CloseWindow();
         fishInventoryUI.SetActive(false);
-
-        questUI.GetComponent<QuestManager>().CloseWindow();
-        questUI.SetActive(false);
 
         guideUI.GetComponent<GuideManager>().CloseWindow();
         guideUI.SetActive(false);

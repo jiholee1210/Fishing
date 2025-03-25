@@ -31,14 +31,6 @@ public class EventManager : MonoBehaviour
         uIManager.CloseFishInventoryUI();
     }
 
-    public void OpenQuest() {
-        uIManager.OpenQuestUI();
-    }
-
-    public void CloseQuest() {
-        uIManager.CloseQuestUI();
-    }
-
     public void OpenGuide() {
         uIManager.OpenGuideUI();
     }
@@ -92,6 +84,14 @@ public class EventManager : MonoBehaviour
 
     public void CloseAllWindows() {
         uIManager.CloseAllWindows();
+    }
+
+    public void ClearQuest(int id) {
+        switch(id) {
+            case 0:
+                Debug.Log("양식장 해금");
+                break;
+        }
     }
 
     public void SaveAndExit() {

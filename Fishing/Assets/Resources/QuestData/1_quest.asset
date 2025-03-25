@@ -10,18 +10,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: dfa6d49a23ed6eb4bafa2053cc7e0e02, type: 3}
-  m_Name: "1_\uC800\uB141\uAC70\uB9AC \uC900\uBE44"
+  m_Name: 1_quest
   m_EditorClassIdentifier: 
   questID: 1
-  questName: "\uC800\uB141\uAC70\uB9AC \uC900\uBE44"
-  desc: "\uB0B4\uAC00 \uC190\uC744 \uB2E4\uCCD0\uC11C \uB9D0\uC774\uC57C. \uBC29\uAE08
-    \uC900 \uBBF8\uB07C\uB85C \uC624\uB298 \uC800\uB141\uC73C\uB85C \uBA39\uC744
-    \uBB3C\uACE0\uAE30 \uC880 \uB09A\uC544\uC8FC\uAC8C."
-  receive: 0
-  complete: 0
+  isEpic: 1
+  questName: "\uB450 \uBC88\uC9F8 \uD018\uC2A4\uD2B8"
+  desc: "\uBC15\uBB3C\uAD00 \uAC74\uC124"
+  receive: 1
+  complete: 1
   nextQuest: 02000000
   requirements:
   - fishID: 12
-    weight: 0.1
+    grade: 0
   rewardGold: 100
-  rewardItem: 

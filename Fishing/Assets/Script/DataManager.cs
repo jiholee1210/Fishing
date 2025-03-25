@@ -7,6 +7,8 @@ using UnityEngine;
 public class DataManager : MonoBehaviour
 {
     public static DataManager Instance { get; private set;}
+
+    [SerializeField] public Sprite[] gradeSprites;
     
     string playerPath;
     string inventoryPath;
@@ -18,7 +20,6 @@ public class DataManager : MonoBehaviour
     public NpcQuest npcQuest;
     public Guide guide;
 
-    public List<QuestData> playerQuestList;
     public List<QuestData> npcQuestList;
 
     public Dictionary<int, FishData> fishDataDict;
@@ -99,6 +100,8 @@ public class DataManager : MonoBehaviour
 
     public void SetBaseQuest() {
         npcQuestList.Add(GetQuestData(0));
+        npcQuestList.Add(GetQuestData(1));
+        npcQuestList.Add(GetQuestData(2));
     }
 
     // 데이터 불러오기
@@ -171,11 +174,6 @@ public class DataManager : MonoBehaviour
     }
 
     public void SavePlayerData() {
-        List<int> quest = new();
-        foreach(var item in playerQuestList) {
-            quest.Add(item.questID);
-        }
-        playerData.questList = quest;
         string json = JsonUtility.ToJson(playerData, true);
         File.WriteAllText(playerPath, json);
         Debug.Log("데이터 저장");
@@ -184,9 +182,6 @@ public class DataManager : MonoBehaviour
     public void LoadPlayerData() {
         string json = File.ReadAllText(playerPath);
         playerData = JsonUtility.FromJson<PlayerData>(json);
-        foreach(var item in playerData.questList) {
-            playerQuestList.Add(GetQuestData(item));
-        }
         Debug.Log("데이터 로드");
     }
 
@@ -216,6 +211,7 @@ public class DataManager : MonoBehaviour
     public void LoadQuestNpcData() {
         string json = File.ReadAllText(questNpcPath);
         npcQuest = JsonUtility.FromJson<NpcQuest>(json);
+        npcQuest.questList.RemoveAll(item => item >= 1000); 
         foreach(var item in npcQuest.questList) {
             npcQuestList.Add(GetQuestData(item));
         }
@@ -274,7 +270,6 @@ public class DataManager : MonoBehaviour
 public class PlayerData {
     // 스테미나, 인벤토리
     public int gold = 0;
-    public List<int> questList = new();
     public List<int> completeQuest = new();
     public Vector3 pos;
 }

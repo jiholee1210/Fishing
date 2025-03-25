@@ -11,6 +11,7 @@ public class FishTradeManager : MonoBehaviour, ISlotHandler
 
     private List<PlayerFish> fishList;
     private PlayerData playerData;
+    private Sprite[] gradeSprites;
 
     private int curIndex = -1;
 
@@ -25,13 +26,17 @@ public class FishTradeManager : MonoBehaviour, ISlotHandler
         TMP_Text price = detail.GetChild(5).GetComponent<TMP_Text>();
 
         Image image = detail.GetChild(1).GetComponent<Image>();
+        image.sprite = fish.fishDetail;
+        image.SetNativeSize();
+
+        Image grade = detail.GetChild(6).GetComponent<Image>();
+        grade.sprite = gradeSprites[fishData.grade];
 
         name.text = fish.fishName;
         rarity.text = fish.rarity;
         desc.text = fish.desc;
         weight.text = fishData.weight + "kg";
         price.text = fishData.price + " 골드";
-        image.sprite = fish.fishIcon;
     }
 
     public void SwapItem(int indexA, int indexB)
@@ -111,6 +116,7 @@ public class FishTradeManager : MonoBehaviour, ISlotHandler
     public void DefaultSetting() {
         fishList = DataManager.Instance.inventory.fishList;
         playerData = DataManager.Instance.playerData;
+        gradeSprites = DataManager.Instance.gradeSprites;
 
         for (int i = 0; i < slots.Length; i++) {
             DraggableItem draggable = slots[i].AddComponent<DraggableItem>();

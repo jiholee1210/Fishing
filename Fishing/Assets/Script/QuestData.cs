@@ -4,13 +4,14 @@ using UnityEngine;
 [Serializable]
 public class QuestRequirement {
     public int fishID;  // FishData 대신 ID만 저장
-    public float weight;
+    public int grade;
 }
 
 [Serializable]
 [CreateAssetMenu(fileName = "NewQuest", menuName = "Fishing/Quest Data")]
 public class QuestData : ScriptableObject {
     public int questID;
+    public bool isEpic;
     public string questName;
     public string desc;
     public int receive;

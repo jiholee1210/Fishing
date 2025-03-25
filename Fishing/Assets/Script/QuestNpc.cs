@@ -3,9 +3,8 @@ using UnityEngine;
 
 public class QuestNpc : MonoBehaviour, INPC, IQuest
 {
-    [SerializeField] int npcId;
+    [SerializeField] int npcID;
     [SerializeField] string line;
-    private int npcID;
 
     public int GetNpcType()
     {

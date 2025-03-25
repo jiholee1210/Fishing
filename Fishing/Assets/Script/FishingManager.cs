@@ -95,7 +95,8 @@ public class FishingManager : MonoBehaviour
                 // 저항 중일 때 시간 추적
                 if(isResisting) {
                     resistDuration += Time.deltaTime;
-                    if(resistDuration >= maxResistDuration) {
+                    if(resistDuration >= maxResistDuration && !isClosing) {
+                        isClosing = true;
                         StartCoroutine(FishingFail());
                         return;
                     }
@@ -455,15 +456,10 @@ public class FishingManager : MonoBehaviour
 
     IEnumerator FishingFail()
     {
-        isResisting = false;
-        fishImage.color = Color.white;
-        
-        // 실패 애니메이션이나 효과를 여기에 추가할 수 있습니다
         animator.Play("Window_Close");
         yield return new WaitForSeconds(animator.GetCurrentAnimatorStateInfo(0).length);
         
-        isOpening = true;
         transform.GetChild(0).gameObject.SetActive(false);
-        EventManager.Instance.EndFishing();
+        EndFishing();
     }
 }
