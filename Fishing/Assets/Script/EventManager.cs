@@ -51,6 +51,9 @@ public class EventManager : MonoBehaviour
             case 3:
                 uIManager.OpenQuestNpcTalkUI();
                 break;
+            case 4:
+                uIManager.OpenFishFarmNpcUI();
+                break;
         } 
     }
 
@@ -64,6 +67,9 @@ public class EventManager : MonoBehaviour
                 break;
             case 3:
                 uIManager.CloseQuestNpcTalkUI();
+                break;
+            case 4:
+                uIManager.CloseFishFarmNpcUI();
                 break;
         }
         playerActing.EndTalk();

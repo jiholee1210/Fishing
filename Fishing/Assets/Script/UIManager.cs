@@ -11,12 +11,14 @@ public class UIManager : MonoBehaviour
     [SerializeField] GameObject signUI;
     [SerializeField] GameObject optionUI;
 
-    [SerializeField] GameObject UpgradeNpcUI;
+    [SerializeField] GameObject upgradeNpcUI;
     [SerializeField] GameObject fishMerchantUI;
     [SerializeField] GameObject questNpcUI;
+    [SerializeField] GameObject fishFarmNpcUI;
 
     [SerializeField] FishTradeManager fishTradeManager;
     [SerializeField] QuestNpcManager questNpcManager;
+    [SerializeField] FishFarmManager fishFarmManager;
     [SerializeField] SignManager signManager;
 
     private GameObject npcObject;
@@ -54,14 +56,12 @@ public class UIManager : MonoBehaviour
 
     // 장비 상인 대화
     public void OpenUpgradeNpcTalkUI() {
-        UpgradeNpcUI.SetActive(true);
-        UpgradeNpcUI.transform.GetChild(0).gameObject.SetActive(true);
+        upgradeNpcUI.transform.GetChild(0).gameObject.SetActive(true);
     }
 
     public void CloseUpgradeNpcTalkUI() {
         Debug.Log("상인 npc 창 닫음");
-        UpgradeNpcUI.transform.GetChild(0).gameObject.SetActive(false);
-        UpgradeNpcUI.SetActive(false);
+        upgradeNpcUI.transform.GetChild(0).gameObject.SetActive(false);
     }
 
     // 물고기 상인 대화
@@ -87,14 +87,24 @@ public class UIManager : MonoBehaviour
         questNpcUI.transform.GetChild(0).gameObject.SetActive(false);
     }
 
+    // 양식장 NPC 대화
+    public void OpenFishFarmNpcUI() {
+        fishFarmNpcUI.gameObject.SetActive(true);
+        fishFarmManager.SetMainSlot();
+    }
+
+    public void CloseFishFarmNpcUI() {
+        fishFarmNpcUI.gameObject.SetActive(false);
+    }
+
     public void OpenUpgradeNpcUI() {
-        UpgradeNpcUI.transform.GetChild(0).gameObject.SetActive(false);
-        UpgradeNpcUI.transform.GetChild(1).gameObject.SetActive(true);
-        UpgradeNpcUI.GetComponent<UpgradeManager>().DefaultSetting();
+        upgradeNpcUI.transform.GetChild(0).gameObject.SetActive(false);
+        upgradeNpcUI.transform.GetChild(1).gameObject.SetActive(true);
+        upgradeNpcUI.GetComponent<UpgradeManager>().DefaultSetting();
     }
 
     public void CloseUpgradeNpcUI() {
-        UpgradeNpcUI.transform.GetChild(1).gameObject.SetActive(false);
+        upgradeNpcUI.transform.GetChild(1).gameObject.SetActive(false);
     }
 
     // 물고기 상인 거래
@@ -142,7 +152,7 @@ public class UIManager : MonoBehaviour
         guideUI.GetComponent<GuideManager>().CloseWindow();
         guideUI.SetActive(false);
 
-        UpgradeNpcUI.transform.GetChild(1).gameObject.SetActive(false);
+        upgradeNpcUI.transform.GetChild(1).gameObject.SetActive(false);
         CloseUpgradeNpcTalkUI();
 
         fishMerchantUI.transform.GetChild(1).gameObject.SetActive(false);
@@ -151,6 +161,9 @@ public class UIManager : MonoBehaviour
         questNpcManager.CloseWindow();
         questNpcUI.transform.GetChild(1).gameObject.SetActive(false);
         CloseQuestNpcTalkUI();
+
+        fishFarmManager.CloseWindow();
+        CloseFishFarmNpcUI();
 
         CloseSignUI();
 

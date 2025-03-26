@@ -21,7 +21,7 @@ public class PlayerInventory : MonoBehaviour
     public void GetFish(int _fishID, float _weight, int _grade) {
         FishData fishData = DataManager.Instance.GetFishData(_fishID);
         for(int i = 0; i < inventory.fishList.Count; i++) {
-            if(inventory.fishList[i].fishID == 0) {
+            if(inventory.fishList[i].fishID == -1) {
                 inventory.fishList[i] = new PlayerFish{
                     fishID = _fishID,
                     weight = _weight,
@@ -34,12 +34,21 @@ public class PlayerInventory : MonoBehaviour
         DataManager.Instance.SaveInventoryData();
     }
 
+    public void GetFish(PlayerFish playerFish) {
+        for(int i = 0; i < inventory.fishList.Count; i++) {
+            if(inventory.fishList[i].fishID == -1) {
+                inventory.fishList[i] = playerFish.Clone();
+                break;
+            }   
+        }
+    }
+
     public void ResetInventory() {
         inventory = DataManager.Instance.inventory;
     }
 
     public bool isFishFull() {
-        return inventory.fishList.All(fish => fish.fishID != 0);
+        return inventory.fishList.All(fish => fish.fishID != -1);
     }
 
     public void SetEquip() {

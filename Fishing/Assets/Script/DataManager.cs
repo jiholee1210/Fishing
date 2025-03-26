@@ -272,6 +272,7 @@ public class PlayerData {
     public int gold = 0;
     public List<int> completeQuest = new();
     public Vector3 pos;
+    public bool[] farmUnlock = new bool[2];
 }
 
 [System.Serializable]
@@ -283,11 +284,13 @@ public class NpcQuest {
 public class Inventory {
     public List<PlayerFish> fishList = new(new PlayerFish[36]);
     public int[] equip = new int[5];
+    public List<PlayerFish> fishInFarm = new(new PlayerFish[18]);
+    public NewFish[] newFishList = new NewFish[3];
 }
 
 [System.Serializable]
 public class PlayerFish {
-    public int fishID;
+    public int fishID = -1;
     public int grade;
     public float weight;
     public int price;
@@ -301,6 +304,11 @@ public class PlayerFish {
 
         return playerFish;
     }
+}
+
+[System.Serializable]
+public class NewFish {
+    public List<PlayerFish> list = new(new PlayerFish[24]);
 }
 
 [System.Serializable]

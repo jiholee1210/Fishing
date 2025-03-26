@@ -44,7 +44,8 @@ public class FishInvenManager : MonoBehaviour, ISlotHandler
     {
         Button buttonA = slots[indexA].GetComponent<Button>();
         Button buttonB = slots[indexB].GetComponent<Button>();
-        if(fishList[indexB].fishID == 0) {
+        if(fishList[indexB].fishID == -1) {
+            Debug.Log("빈칸에 스왑");
             fishList[indexB] = fishList[indexA].Clone();
             fishList[indexA] = null;
 
@@ -82,7 +83,7 @@ public class FishInvenManager : MonoBehaviour, ISlotHandler
             int index = i;
             slots[index].GetComponent<Image>().sprite = null;
             slots[index].GetComponent<Button>().onClick.RemoveAllListeners();
-            if(fishList[index].fishID != 0) {
+            if(fishList[index].fishID != -1) {
                 slots[index].GetComponent<Image>().sprite = DataManager.Instance.GetFishData(fishList[i].fishID).fishIcon;
                 slots[index].GetComponent<Button>().onClick.AddListener(() => SetDetail(fishList[index]));
                 slots[index].GetComponent<DraggableItem>().canDrag = true;
