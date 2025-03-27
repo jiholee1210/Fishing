@@ -181,7 +181,7 @@ public class PlayerActing : MonoBehaviour
 
     IEnumerator FishingSequence() {
         yield return StartCoroutine(PlayFishingAnimation());
-        EventManager.Instance.StartFishing(fishList, itemList);
+        EventManager.Instance.StartFishing(fishList);
     }
 
     private void StartFishing() {

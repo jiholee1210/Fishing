@@ -75,7 +75,7 @@ public class GuideManager : MonoBehaviour
             isDetailOpen = true;
 
             detail.transform.GetChild(0).GetComponent<TMP_Text>().text = fishData.fishName;
-            detail.transform.GetChild(1).GetComponent<TMP_Text>().text = fishData.rarity;
+            detail.transform.GetChild(1).GetComponent<TMP_Text>().text = fishData.rarity.ToString();
             
             Image fishImage = detail.transform.GetChild(2).GetComponent<Image>();
             fishImage.sprite = fishData.fishDetail;

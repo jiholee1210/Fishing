@@ -34,7 +34,7 @@ public class FishInvenManager : MonoBehaviour, ISlotHandler
         grade.sprite = gradeSprite[fishData.grade];
 
         name.text = fish.fishName;
-        rarity.text = fish.rarity;
+        rarity.text = fish.rarity.ToString();
         desc.text = fish.desc;
         weight.text = fishData.weight + "kg";
         price.text = fishData.price + " 골드";
@@ -51,6 +51,9 @@ public class FishInvenManager : MonoBehaviour, ISlotHandler
 
             slots[indexB].GetComponent<Image>().sprite = slots[indexA].GetComponent<Image>().sprite;
             slots[indexA].GetComponent<Image>().sprite = null;
+
+            slots[indexB].transform.GetChild(0).GetComponent<Image>().sprite = slots[indexA].transform.GetChild(0).GetComponent<Image>().sprite;
+            slots[indexA].transform.GetChild(0).GetComponent<Image>().sprite = null;
 
             buttonA.onClick.RemoveAllListeners();
             buttonB.onClick.RemoveAllListeners();
@@ -69,6 +72,11 @@ public class FishInvenManager : MonoBehaviour, ISlotHandler
             slots[indexA].GetComponent<Image>().sprite = slots[indexB].GetComponent<Image>().sprite;
             slots[indexB].GetComponent<Image>().sprite = tempSprite;
 
+            Sprite tempGrade = slots[indexA].transform.GetChild(0).GetComponent<Image>().sprite;
+            slots[indexA].transform.GetChild(0).GetComponent<Image>().sprite = slots[indexB].transform.GetChild(0).GetComponent<Image>().sprite;
+            slots[indexB].transform.GetChild(0).GetComponent<Image>().sprite = tempGrade;
+
+
             buttonA.onClick.RemoveAllListeners();
             buttonB.onClick.RemoveAllListeners();
 
@@ -82,9 +90,11 @@ public class FishInvenManager : MonoBehaviour, ISlotHandler
         for(int i = 0; i < slots.Length; i++) {
             int index = i;
             slots[index].GetComponent<Image>().sprite = null;
+            slots[index].transform.GetChild(0).GetComponent<Image>().sprite = null;
             slots[index].GetComponent<Button>().onClick.RemoveAllListeners();
             if(fishList[index].fishID != -1) {
                 slots[index].GetComponent<Image>().sprite = DataManager.Instance.GetFishData(fishList[i].fishID).fishIcon;
+                slots[index].transform.GetChild(0).GetComponent<Image>().sprite = DataManager.Instance.gradeSprites[fishList[index].grade];
                 slots[index].GetComponent<Button>().onClick.AddListener(() => SetDetail(fishList[index]));
                 slots[index].GetComponent<DraggableItem>().canDrag = true;
             }

@@ -33,7 +33,7 @@ public class FishTradeManager : MonoBehaviour, ISlotHandler
         grade.sprite = gradeSprites[fishData.grade];
 
         name.text = fish.fishName;
-        rarity.text = fish.rarity;
+        rarity.text = fish.rarity.ToString();
         desc.text = fish.desc;
         weight.text = fishData.weight + "kg";
         price.text = fishData.price + " 골드";

@@ -15,7 +15,7 @@ MonoBehaviour:
   fishName: "\uB4DC\uB798\uACE4\uD53C\uC26C"
   fishID: 21
   habitat: 4
-  rarity: "\uC804\uC124"
+  rarity: 3
   power: 7
   speed: 200
   weightMin: 300

@@ -15,8 +15,8 @@ public class EventManager : MonoBehaviour
         Instance = this;
     }
 
-    public void StartFishing(List<FishData> fishList, List<int> itemList) {
-        uIManager.OpenFishingUI(fishList, itemList);
+    public void StartFishing(List<FishData> fishList) {
+        uIManager.OpenFishingUI(fishList);
     }
 
     public void EndFishing() {
@@ -104,6 +104,9 @@ public class EventManager : MonoBehaviour
         Vector3 playerPos = playerActing.GetPos();
         DataManager.Instance.playerData.pos = playerPos;
         DataManager.Instance.SavePlayerData();
+        DataManager.Instance.SaveGuideData();
+        DataManager.Instance.SaveInventoryData();
+        DataManager.Instance.SaveQuestNpcData();
 
         #if UNITY_EDITOR
             UnityEditor.EditorApplication.isPlaying = false;

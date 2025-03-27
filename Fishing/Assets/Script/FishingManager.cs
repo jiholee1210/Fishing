@@ -187,13 +187,7 @@ public class FishingManager : MonoBehaviour
     
 
     private int SetRandomFish(List<FishData> fishList) {
-        List<int> list = fishList
-            .Where(fish => fishProbabilities.Keys.Last() >= rarityPriority[fish.rarity])
-            .Select(fish => rarityPriority[fish.rarity])
-            .Distinct()
-            .OrderBy(x => x)
-            .ToList();
-
+        
         List<FishData> fish = new();
         int rarity = 0;
         float randomProb = UnityEngine.Random.Range(0, 100f);
@@ -202,25 +196,12 @@ public class FishingManager : MonoBehaviour
         foreach(var prob in fishProbabilities) {
             curProb += prob.Value;
             if(randomProb <= curProb) {
-                Debug.Log(list.Count);
-                for(int j = 0; j < list.Count; j++) {
-                    
-                    if(list[j] > prob.Key) {
-                        Debug.Log(rarity);
-                        fish = fishList.Where(f => priorityRarity[rarity] == f.rarity).ToList();
-                        break;
-                    }
-                    if(j == list.Count - 1) {
-                        rarity = list[j];
-                        Debug.Log(rarity);
-                        fish = fishList.Where(f => priorityRarity[rarity] == f.rarity).ToList();
-                        break;
-                    }
-                    rarity = list[j]; 
-                }
+                rarity = prob.Key;
                 break;
             }
         }
+
+        fish = fishList.Where(x => (int)x.rarity == rarity).ToList();
         
         int randomIndex = UnityEngine.Random.Range(0, fish.Count);
         return fish[randomIndex].fishID;
@@ -271,7 +252,7 @@ public class FishingManager : MonoBehaviour
         ResetStatus();
     }
     
-    public void StartFishing(List<FishData> _fishList, List<int> _itemList) {
+    public void StartFishing(List<FishData> _fishList) {
         fishList = _fishList;
         foreach(FishData fish in fishList) {
             if(fish.fishID > 50) {
@@ -415,7 +396,7 @@ public class FishingManager : MonoBehaviour
         Image image = detail.GetChild(1).GetComponent<Image>();
         image.sprite = fish.fishDetail;
         image.SetNativeSize();
-        detail.GetChild(2).GetComponent<TMP_Text>().text = fish.rarity;
+        detail.GetChild(2).GetComponent<TMP_Text>().text = fish.rarity.ToString();
         detail.GetChild(3).GetComponent<TMP_Text>().text = fish.desc;
         detail.GetChild(4).GetComponent<Image>().sprite = gradeSprites[fishGrade];
         

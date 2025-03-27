@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.IO;
 using Mono.Cecil;
@@ -272,7 +273,7 @@ public class PlayerData {
     public int gold = 0;
     public List<int> completeQuest = new();
     public Vector3 pos;
-    public bool[] farmUnlock = new bool[2];
+    public bool[] farmUnlock = new bool[4];
 }
 
 [System.Serializable]
@@ -284,8 +285,9 @@ public class NpcQuest {
 public class Inventory {
     public List<PlayerFish> fishList = new(new PlayerFish[36]);
     public int[] equip = new int[5];
-    public List<PlayerFish> fishInFarm = new(new PlayerFish[18]);
-    public NewFish[] newFishList = new NewFish[3];
+    public List<PlayerFish> fishInFarm = new(new PlayerFish[24]);
+    public NewFish[] newFishList = new NewFish[4];
+    public FishFarmTimer[] fishFarmTimer = new FishFarmTimer[12];
 }
 
 [System.Serializable]
@@ -310,6 +312,12 @@ public class PlayerFish {
 public class NewFish {
     public List<PlayerFish> list = new(new PlayerFish[24]);
 }
+
+[Serializable]
+public class FishFarmTimer {
+    public float timer;
+    public bool isFullFarm;
+} 
 
 [System.Serializable]
 public class Guide {
