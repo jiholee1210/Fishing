@@ -15,10 +15,10 @@ MonoBehaviour:
   fishName: "\uCCAD\uD30C\uB791\uB3D4"
   fishID: 7
   habitat: 1
-  rarity: "\uC77C\uBC18"
-  power: 1
-  speed: 15
-  weightMin: 1
+  rarity: 0
+  power: 50
+  speed: 14
+  weightMin: 2
   weightMax: 3
   desc: "\uD3C9\uBC94\uD55C \uBC14\uB2F7\uBB3C\uACE0\uAE30, \uB9DB\uB3C4 \uBB34\uB09C"
   price: 20

@@ -101,8 +101,6 @@ public class DataManager : MonoBehaviour
 
     public void SetBaseQuest() {
         npcQuestList.Add(GetQuestData(0));
-        npcQuestList.Add(GetQuestData(1));
-        npcQuestList.Add(GetQuestData(2));
     }
 
     // 데이터 불러오기

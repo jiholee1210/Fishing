@@ -50,10 +50,14 @@ public class FishInvenManager : MonoBehaviour, ISlotHandler
             fishList[indexA] = null;
 
             slots[indexB].GetComponent<Image>().sprite = slots[indexA].GetComponent<Image>().sprite;
+            slots[indexB].GetComponent<Image>().color = new Color(1f, 1f, 1f, 1f);
             slots[indexA].GetComponent<Image>().sprite = null;
+            slots[indexA].GetComponent<Image>().color = new Color(1f, 1f, 1f, 0f);
 
             slots[indexB].transform.GetChild(0).GetComponent<Image>().sprite = slots[indexA].transform.GetChild(0).GetComponent<Image>().sprite;
+            slots[indexB].transform.GetChild(0).GetComponent<Image>().color = new Color(1f, 1f, 1f, 1f);
             slots[indexA].transform.GetChild(0).GetComponent<Image>().sprite = null;
+            slots[indexA].transform.GetChild(0).GetComponent<Image>().color = new Color(1f, 1f, 1f, 0f);
 
             buttonA.onClick.RemoveAllListeners();
             buttonB.onClick.RemoveAllListeners();
@@ -91,10 +95,15 @@ public class FishInvenManager : MonoBehaviour, ISlotHandler
             int index = i;
             slots[index].GetComponent<Image>().sprite = null;
             slots[index].transform.GetChild(0).GetComponent<Image>().sprite = null;
+            slots[index].GetComponent<Image>().color = new Color(1f, 1f, 1f, 0f);
+            slots[index].transform.GetChild(0).GetComponent<Image>().color = new Color(1f, 1f, 1f, 0f);
             slots[index].GetComponent<Button>().onClick.RemoveAllListeners();
+
             if(fishList[index].fishID != -1) {
                 slots[index].GetComponent<Image>().sprite = DataManager.Instance.GetFishData(fishList[i].fishID).fishIcon;
                 slots[index].transform.GetChild(0).GetComponent<Image>().sprite = DataManager.Instance.gradeSprites[fishList[index].grade];
+                slots[index].GetComponent<Image>().color = new Color(1f, 1f, 1f, 1f);
+                slots[index].transform.GetChild(0).GetComponent<Image>().color = new Color(1f, 1f, 1f, 1f);
                 slots[index].GetComponent<Button>().onClick.AddListener(() => SetDetail(fishList[index]));
                 slots[index].GetComponent<DraggableItem>().canDrag = true;
             }

@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rodName: "\uC5D0\uBA54\uB784\uB4DC \uB09A\uC2EF\uB300"
   rodID: 3
-  rodDur: 80
+  rodDur: 1600
   rodRarity: "\uD76C\uADC0"
-  rodDesc: "\uB8E8\uBE44\uAC00 \uBC15\uD78C \uB9CC\uB4E0 \uB09A\uC2EF\uB300"
+  rodDesc: "\uC5D0\uBA54\uB784\uB4DC\uB85C \uB9CC\uB4E0 \uB09A\uC2EF\uB300"
   rodPrefab: {fileID: 3208353134486255692, guid: 4089472406423344b9f547335fe0d8d0, type: 3}

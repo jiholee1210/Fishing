@@ -99,9 +99,15 @@ public class FishFarmManager : MonoBehaviour
             fishSlot.GetComponent<Image>().sprite = null;
             fishSlot.GetChild(0).GetComponent<Image>().sprite = null;
 
+            fishSlot.GetComponent<Image>().color = new Color(1f, 1f, 1f, 0f);
+            fishSlot.GetChild(0).GetComponent<Image>().color = new Color(1f, 1f, 1f, 0f);
+
             if(fishInFarm[count].fishID != -1) {
                 fishSlot.GetComponent<Image>().sprite = DataManager.Instance.GetFishData(fishInFarm[count].fishID).fishIcon;
                 fishSlot.GetChild(0).GetComponent<Image>().sprite = DataManager.Instance.gradeSprites[fishInFarm[count++].grade];
+
+                fishSlot.GetComponent<Image>().color = new Color(1f, 1f, 1f, 1f);
+                fishSlot.GetChild(0).GetComponent<Image>().color = new Color(1f, 1f, 1f, 1f);
             }
             else {
                 count++;
@@ -372,11 +378,6 @@ public class FishFarmManager : MonoBehaviour
             fishInFarm[i + count] = selectedFish[i].Clone();
         }
 
-        foreach(GameObject gameObject in activeIcons) {
-            Destroy(gameObject);
-        }
-        activeIcons.Clear();
-
         Debug.Log("타이머 인덱스 " + timerIndex);
         fishFarmTimer[timerIndex].isFullFarm = true;
         fishFarmTimer[timerIndex].timer = 0f;
@@ -425,6 +426,11 @@ public class FishFarmManager : MonoBehaviour
     public void CloseFishSlotSetting() {
         select.gameObject.SetActive(false);
         detail.gameObject.SetActive(true);
+
+        foreach(GameObject gameObject in activeIcons) {
+            Destroy(gameObject);
+        }
+        activeIcons.Clear();
 
         selectedFish.Clear();
         prevID.Clear();

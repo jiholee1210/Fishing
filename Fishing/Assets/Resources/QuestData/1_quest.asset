@@ -12,14 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dfa6d49a23ed6eb4bafa2053cc7e0e02, type: 3}
   m_Name: 1_quest
   m_EditorClassIdentifier: 
-  questID: 1
+  questID: 0
   isEpic: 1
-  questName: "\uB450 \uBC88\uC9F8 \uD018\uC2A4\uD2B8"
-  desc: "\uBC15\uBB3C\uAD00 \uAC74\uC124"
+  questName: "\uC591\uC2DD\uC7A5 \uAC74\uC124"
+  desc: "\uBB3C\uACE0\uAE30\uB97C \uC591\uC2DD\uD558\uB294 \uC591\uC2DD\uC7A5 \uCD94\uAC00"
   receive: 1
   complete: 1
-  nextQuest: 02000000
+  nextQuest: 01000000
   requirements:
-  - fishID: 12
+  - fishID: 11
     grade: 0
   rewardGold: 100

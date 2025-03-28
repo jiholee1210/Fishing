@@ -15,59 +15,43 @@ public class FishingManager : MonoBehaviour
     [SerializeField] GameObject getFishIcon;
     [SerializeField] Transform detail;
     [SerializeField] Transform chest;
-    [SerializeField] Sprite[] gradeSprites;
+    [SerializeField] Image grade;
+
+    [SerializeField] GameObject noteItemPrefab;
+    [SerializeField] Transform noteArea;
 
     [SerializeField] PlayerActing playerActing;
 
     private Dictionary<int, float> fishProbabilities = new();
     private Dictionary<int, float> gradeProbabilities = new();
-    private Dictionary<string, int> rarityPriority = new Dictionary<string, int>() {
-        {"일반", 0},
-        {"희귀", 1},
-        {"에픽", 2},
-        {"전설", 3},
-        {"보물", 4}
-    };
-    private Dictionary<int, string> priorityRarity = new Dictionary<int, string>() {
-        {0, "일반"},
-        {1, "희귀"},
-        {2, "에픽"},
-        {3, "전설"},
-        {4, "보물"}
-    };
 
     private List<FishData> fishList;
     private List<int> relicList;
 
     private int fishID;
     private int fishGrade;
-    private float fishPower;
+    private float fishHealth;
+    private float fishCurHealth;
     private float fishSpeed;
     private float fishWeight;
-    private float fishResist;
 
-    private float durRegen;
-    private float fishingSpeed;
-    private bool isOpening = true;
-    private bool isClosing = false;
+    private float playerPower;
+    private float playerSpeed;
+    private float biteTime;
+    private float upPos;
+
+    private bool isFishing = false;
 
     private Animator animator;
     private RectTransform fishRect;
 
-    private float clickDuration = 0f;  // 마우스 클릭 지속 시간
-    private float maxClickDuration = 3f;  // 최대 클릭 지속 가능 시간
-    private bool isResisting = false;  // 물고기가 저항하는 중인지
-    private Image fishImage;  // 물고기 이미지 컴포넌트
-
-    private float resistDuration = 0f;  // 저항 지속 시간
-    private float maxResistDuration = 1f;  // 최대 저항 지속 가능 시간
-
     private Coroutine fishingCoroutine;
+    private Coroutine noteCoroutine;
+    private Queue<GameObject> noteQueue = new();
 
     void Awake()
     {
         fishRect = fish.GetComponent<RectTransform>();
-        fishImage = fish.GetComponent<Image>();
         animator = transform.GetChild(0).GetComponent<Animator>();
     }
 
@@ -84,44 +68,71 @@ public class FishingManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetMouseButton(0) && !isOpening) {
-            clickDuration += Time.deltaTime;
-            float resistanceThreshold = maxClickDuration * fishResist;
+        if(isFishing) {
+            reel.GetComponent<RectTransform>().Rotate(0f, 0f, -200f * Time.deltaTime);
 
-            if(clickDuration >= resistanceThreshold) {
-                if(!isResisting) {
-                    StartCoroutine(FishResistance());
-                }
-                // 저항 중일 때 시간 추적
-                if(isResisting) {
-                    resistDuration += Time.deltaTime;
-                    if(resistDuration >= maxResistDuration && !isClosing) {
-                        isClosing = true;
-                        StartCoroutine(FishingFail());
-                        return;
+            if(Input.GetMouseButtonDown(0)) {
+                if(noteQueue.Count > 0) {
+                    if(noteQueue.Peek().GetComponent<RectTransform>().anchoredPosition.y <= -118 && noteQueue.Peek().GetComponent<RectTransform>().anchoredPosition.y >= -164) {
+                        UpFish();
+                    }
+                    else {
+                        ReduceDur();
                     }
                 }
             }
-            fishRect.anchoredPosition += new Vector2(0f, fishingSpeed);
-            reel.GetComponent<RectTransform>().Rotate(0f, 0f, -200f * Time.deltaTime);
-            durability.value -= Time.deltaTime * fishPower;
-        }
-        else {
-            // clickDuration을 서서히 감소
-            clickDuration = 0f;
-            resistDuration = 0f;
-            isResisting = false;
-            fishImage.color = Color.white;
-            fishRect.anchoredPosition -= new Vector2(0f, 0.7f);
-            durability.value += Time.deltaTime * durRegen;
-        }
+            if(noteQueue.Count > 0 && noteQueue.Peek().GetComponent<RectTransform>().anchoredPosition.y <= -210) {
+                ReduceDur();
+                Destroy(noteQueue.Dequeue());
+            }
+        }   
+    }
 
-        fishRect.anchoredPosition = new Vector2(fishRect.anchoredPosition.x, Mathf.Clamp(fishRect.anchoredPosition.y, -280f, 260f));
+    private IEnumerator GenNote() {
+        // 랜덤 노트 생성
+        GameObject note; 
+    
+        float genTime = 0;
+        float reduceTime = 1.4f - (fishGrade * 0.3f);
+        float fallSpeed = fishSpeed / (fishSpeed + playerSpeed) * 1000f;
+        while(isFishing) {
+            genTime = UnityEngine.Random.Range(reduceTime, reduceTime * 2);
 
-        if(fishRect.anchoredPosition.y >= 260f && !isClosing) {
-            isClosing = true;
+            yield return new WaitForSeconds(genTime);
+            note = Instantiate(noteItemPrefab, noteArea);
+            note.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, 220f);
+            noteQueue.Enqueue(note);
+
+            Note noteSetting = note.GetComponent<Note>();
+            noteSetting.fallSpeed = fallSpeed;
+        }
+    }
+
+    public void UpFish() {
+        // 총 540f 크기 중 현재체력 / 최대체력 비율로 위치 설정
+        fishCurHealth -= playerPower;
+        Debug.Log("현재 체력 : " + fishCurHealth + " 최대 체력 : " + fishHealth);
+
+        fishRect.anchoredPosition += new Vector2(0f, upPos);
+        fishRect.anchoredPosition = new Vector2(0f, Mathf.Clamp(fishRect.anchoredPosition.y, -280f, 260f));
+
+        Destroy(noteQueue.Peek());
+        noteQueue.Dequeue();
+        Debug.Log("정확하게 누름");
+
+        // 물고기 체력 0 이하 체크
+        if(fishCurHealth <= 0) {
             StartCoroutine(CloseUISequence());
         }
+    }
+
+    public void ReduceDur() {
+        durability.value -= durability.maxValue * 0.1f + fishWeight / 2;
+
+        if(durability.value <= 0) {
+            StartCoroutine(FishingFail());
+        }
+        Debug.Log("잘못 누름");
     }
 
     private void SetFishProbabilities(int baitLevel) {
@@ -215,7 +226,8 @@ public class FishingManager : MonoBehaviour
         playerActing.SetStartFishing();
 
         fishID = SetRandomFish(fishList);
-        fishGrade = SetFishGrade();
+        fishGrade = fishID == 50 ? 3 : SetFishGrade();
+        grade.sprite = DataManager.Instance.gradeSprites[fishGrade];
         SetFishStat();
         SetPlayerStat();
         
@@ -241,13 +253,11 @@ public class FishingManager : MonoBehaviour
 
     public IEnumerator CalFishing() {
         float time = 0f;
-        float randomTime = UnityEngine.Random.Range(5f, 20f);
-        Debug.Log(randomTime);
+        float randomTime = UnityEngine.Random.Range(5f, 15f) * (1 - (biteTime / 100));
         while(time < randomTime) {
-            time += Time.deltaTime * (1 + playerActing.playerInventory.GetHookPower() / 500);
+            time += Time.deltaTime;
             yield return null;
         }
-        Debug.Log("입질이 왔습니다");
         yield return StartCoroutine(OpenGetFishUI());
         ResetStatus();
     }
@@ -284,40 +294,44 @@ public class FishingManager : MonoBehaviour
     public void SetFishStat() {
         // 내구성 관련 : 파워, 속도 관련 : 스피드, 저항 관련 : 무게
         FishData fish = DataManager.Instance.GetFishData(fishID);
-        fishPower = fish.power * (1 + (fishGrade * 0.5f));
-        fishSpeed = fish.speed * (1 + (fishGrade * 0.5f));
+
+        fishHealth = fish.power * (1 + (fishGrade * 0.5f)); // 물고기 체력
+        fishCurHealth = fishHealth;
+
+        fishSpeed = fish.speed * (1 + (fishGrade * 0.5f)); // 노트 떨어지는 속도
+
         float randomWeight = UnityEngine.Random.Range(fish.weightMin, fish.weightMax);
-        fishWeight = float.Parse(randomWeight.ToString("F2"));
+        fishWeight = float.Parse(randomWeight.ToString("F2")); // 내구도 삭제량 관련
     }
 
     public void SetPlayerStat() {
-        fishingSpeed = Math.Max(1 + (playerActing.playerInventory.GetReelSpeed() - fishSpeed) / 100f, 0.01f);
-        Debug.Log("낚시 속도 : " + fishSpeed + " 릴 속도 : " + playerActing.playerInventory.GetReelSpeed());
-        fishResist = Math.Max(1 + (playerActing.playerInventory.GetWirePower() - fishWeight) / 100f, 0.33f);
-        Debug.Log("낚시 저항 : " + fishResist);
         durability.maxValue = playerActing.playerInventory.GetRodDur();
         durability.value = durability.maxValue;
 
-        durRegen = durability.maxValue * 0.1f;
-    }
-
-    IEnumerator OpenFishingUIAnimation() {
-        animator.Play("Window_Open");
-        yield return new WaitForSeconds(animator.GetCurrentAnimatorStateInfo(0).length);
+        playerPower = playerActing.playerInventory.GetWirePower();
+        playerSpeed = playerActing.playerInventory.GetReelSpeed();
+        biteTime = playerActing.playerInventory.GetHookPower();
+        upPos = 540 * (playerPower / fishHealth);
     }
 
     IEnumerator OpenUISequence() {
-        yield return StartCoroutine(OpenFishingUIAnimation());
-        isOpening = false;
-    }
+        animator.Play("Window_Open");
+        yield return null;
+        yield return new WaitForSeconds(animator.GetCurrentAnimatorStateInfo(0).length + 1f);
+        isFishing = true;
 
-    IEnumerator CloseFishingUIAnimation() {
-        animator.Play("Window_Close");
-        yield return new WaitForSeconds(animator.GetCurrentAnimatorStateInfo(0).length);
+        noteCoroutine = StartCoroutine(GenNote());
     }
 
     IEnumerator CloseUISequence() {
-        yield return StartCoroutine(CloseFishingUIAnimation());
+        isFishing = false;
+        StopCoroutine(noteCoroutine);
+        noteCoroutine = null;
+
+        animator.Play("Window_Close");
+        yield return null;
+        yield return new WaitForSeconds(animator.GetCurrentAnimatorStateInfo(0).length);
+
         transform.GetChild(0).gameObject.SetActive(false);
         if(fishID == 50) {
             Cursor.lockState = CursorLockMode.None;
@@ -337,11 +351,13 @@ public class FishingManager : MonoBehaviour
     }
 
     private void EndFishing() {
-        isClosing = false;
+        foreach(GameObject gameObject in noteQueue) {
+            Debug.Log("노트 삭제");
+            Destroy(gameObject);
+        }
+        noteQueue.Clear();
+
         playerActing.SetStartFishing();
-        isOpening = true;
-        isResisting = false;
-        fishImage.color = Color.white;
         EventManager.Instance.EndFishing();
     }
 
@@ -367,7 +383,7 @@ public class FishingManager : MonoBehaviour
         float randomWeight = UnityEngine.Random.Range(relic.weightMin, relic.weightMax);
         float relicWeight = float.Parse(randomWeight.ToString("F2"));
 
-        playerActing.playerInventory.GetFish(id, relicWeight, 0);
+        playerActing.playerInventory.GetFish(id, relicWeight, 3);
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
         EndFishing();
@@ -398,7 +414,7 @@ public class FishingManager : MonoBehaviour
         image.SetNativeSize();
         detail.GetChild(2).GetComponent<TMP_Text>().text = fish.rarity.ToString();
         detail.GetChild(3).GetComponent<TMP_Text>().text = fish.desc;
-        detail.GetChild(4).GetComponent<Image>().sprite = gradeSprites[fishGrade];
+        detail.GetChild(4).GetComponent<Image>().sprite = DataManager.Instance.gradeSprites[fishGrade];
         
         animator.Play("Detail_Open");
         yield return null;
@@ -414,29 +430,12 @@ public class FishingManager : MonoBehaviour
         detail.gameObject.SetActive(false);
     }
 
-    IEnumerator FishResistance()
-    {
-        isResisting = true;
-        float shakeAmount = 5f;  // 흔들림 정도
-        
-        while(isResisting && Input.GetMouseButton(0)) {
-            // 빨간색으로 변경
-            fishImage.color = Color.red;
-            
-            // 좌우 흔들림
-            float randomX = UnityEngine.Random.Range(-shakeAmount, shakeAmount);
-            fishRect.anchoredPosition = new Vector2(randomX, fishRect.anchoredPosition.y);
-            
-            yield return new WaitForSeconds(0.05f);
-        }
-
-        // 원래 위치로 복귀
-        fishRect.anchoredPosition = new Vector2(0f, fishRect.anchoredPosition.y);
-        fishImage.color = Color.white;
-    }
-
     IEnumerator FishingFail()
     {
+        isFishing = false;
+        StopCoroutine(noteCoroutine);
+        noteCoroutine = null;
+        
         animator.Play("Window_Close");
         yield return new WaitForSeconds(animator.GetCurrentAnimatorStateInfo(0).length);
         

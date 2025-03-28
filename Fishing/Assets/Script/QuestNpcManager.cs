@@ -201,7 +201,6 @@ public class QuestNpcManager : MonoBehaviour
             GameObject quest;
             int index = i;
             int count = 0;
-            float yPos = 0f;
             // npc id와 퀘스트 완료 npc 아이디가 같을때만 출력하도록
             if(npcQuest[index].receive != npcID) continue;
 
@@ -211,16 +210,14 @@ public class QuestNpcManager : MonoBehaviour
                 Debug.Log("에픽 퀘스트 생성");
                 quest = Instantiate(questItemPrefab, epicQuestParent);
                 count = eCount++;
-                yPos = 230f;
             }
             else {
                 Debug.Log("노말 퀘스트 생성");
                 quest = Instantiate(questItemPrefab, normalQuestParent);
                 count = nCount++;
-                yPos = -115f;
             }
             RectTransform rectTransform = quest.GetComponent<RectTransform>();
-            rectTransform.anchoredPosition = new Vector2(0f, yPos - (count * (rectTransform.rect.height + 10f)));
+            rectTransform.anchoredPosition = new Vector2(0f, -(count * (rectTransform.rect.height + 10f)));
             rectTransform.GetChild(0).GetComponent<TMP_Text>().text = npcQuest[index].questName; 
             
             quest.GetComponent<Button>().onClick.AddListener(() => SetDetail(npcQuest[index], true));

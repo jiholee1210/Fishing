@@ -15,12 +15,12 @@ MonoBehaviour:
   fishName: "\uBD88\uAF43\uC544\uADC0"
   fishID: 2
   habitat: 4
-  rarity: 2
-  power: 5
-  speed: 60
+  rarity: 1
+  power: 100
+  speed: 20
   weightMin: 30
-  weightMax: 60
+  weightMax: 100
   desc: "\uBD88\uAF43\uC544\uADC0"
-  price: 100
+  price: 60
   fishDetail: {fileID: 21300000, guid: 59e84d07294ffaf4abb4c973382b797f, type: 3}
   fishIcon: {fileID: 21300000, guid: 57cbf217053d0f64797e2e43ac9c0500, type: 3}

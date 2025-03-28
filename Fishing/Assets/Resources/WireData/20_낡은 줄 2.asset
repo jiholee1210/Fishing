@@ -14,6 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   wireName: "\uB0A1\uC740 \uC904"
   wireID: 22
-  wirePower: 10
+  wirePower: 40
   wireRarity: "\uC77C\uBC18"
   wireDesc: "\uACE7 \uB04A\uC5B4\uC9C8 \uAC83 \uAC19\uC740 \uB0A1\uC740 \uC904"

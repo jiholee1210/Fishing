@@ -16,10 +16,10 @@ MonoBehaviour:
   fishID: 50
   habitat: 0
   rarity: 4
-  power: 5
-  speed: 1
-  weightMin: 1
-  weightMax: 1
+  power: 500
+  speed: 1280
+  weightMin: 200
+  weightMax: 220
   desc: "\uBCF4\uBB3C\uC0C1\uC790"
   price: 0
   fishDetail: {fileID: 0}

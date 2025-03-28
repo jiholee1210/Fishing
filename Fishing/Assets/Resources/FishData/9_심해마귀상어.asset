@@ -16,12 +16,12 @@ MonoBehaviour:
   fishID: 9
   habitat: 1
   rarity: 2
-  power: 5
-  speed: 50
-  weightMin: 30
-  weightMax: 50
+  power: 200
+  speed: 220
+  weightMin: 130
+  weightMax: 160
   desc: "\uBC14\uB2E4 \uAE4A\uC740 \uACF3\uC5D0\uC11C\uB9CC \uB098\uD0C0\uB098\uB294
     \uAD34\uBB3C"
-  price: 150
+  price: 200
   fishDetail: {fileID: 21300000, guid: 9a03d5e4bfecfd94eb29bb2035dc4dcb, type: 3}
   fishIcon: {fileID: 21300000, guid: c9244b6dc54fe4b46aae6d9e4f8014a5, type: 3}

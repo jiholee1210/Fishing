@@ -14,6 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hookName: "\uB098\uBB34 \uBC14\uB298"
   hookID: 32
-  hookPower: 40
+  hookPower: 20
   hookRarity: "\uC77C\uBC18"
   hookDesc: "\uB098\uBB34\uB85C \uB300\uCDA9 \uAE4E\uC740 \uBC14\uB298"
