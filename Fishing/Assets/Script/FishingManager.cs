@@ -34,6 +34,7 @@ public class FishingManager : MonoBehaviour
     private float fishCurHealth;
     private float fishSpeed;
     private float fishWeight;
+    private float fallSpeed;
 
     private float playerPower;
     private float playerSpeed;
@@ -69,7 +70,7 @@ public class FishingManager : MonoBehaviour
     void Update()
     {
         if(isFishing) {
-            reel.GetComponent<RectTransform>().Rotate(0f, 0f, -200f * Time.deltaTime);
+            reel.GetComponent<RectTransform>().Rotate(0f, 0f, fallSpeed * Time.deltaTime);
 
             if(Input.GetMouseButtonDown(0)) {
                 if(noteQueue.Count > 0) {
@@ -94,7 +95,8 @@ public class FishingManager : MonoBehaviour
     
         float genTime = 0;
         float reduceTime = 1.4f - (fishGrade * 0.3f);
-        float fallSpeed = fishSpeed / (fishSpeed + playerSpeed) * 1000f;
+        fallSpeed = fishSpeed / (fishSpeed + playerSpeed) * 1000f;
+        fallSpeed = Mathf.Clamp(fallSpeed, 200f, fallSpeed);
         while(isFishing) {
             genTime = UnityEngine.Random.Range(reduceTime, reduceTime * 2);
 

@@ -4,7 +4,6 @@ using UnityEngine;
 public class FishingZone : MonoBehaviour, IFishingZone
 {
     [SerializeField] int[] fishIDList;
-    [SerializeField] List<int> itemList;
     private List<FishData> fishList;
 
     void Start()
@@ -25,9 +24,5 @@ public class FishingZone : MonoBehaviour, IFishingZone
     public List<FishData> GetFishList()
     {
         return fishList;
-    }
-
-    public List<int> GetItemList() {
-        return itemList;
     }
 }

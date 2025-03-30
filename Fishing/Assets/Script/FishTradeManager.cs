@@ -48,7 +48,14 @@ public class FishTradeManager : MonoBehaviour, ISlotHandler
             fishList[indexA] = null;
 
             slots[indexB].GetComponent<Image>().sprite = slots[indexA].GetComponent<Image>().sprite;
+            slots[indexB].GetComponent<Image>().color = new Color(1f, 1f, 1f, 1f);
             slots[indexA].GetComponent<Image>().sprite = null;
+            slots[indexA].GetComponent<Image>().color = new Color(1f, 1f, 1f, 0f);
+
+            slots[indexB].transform.GetChild(0).GetComponent<Image>().sprite = slots[indexA].transform.GetChild(0).GetComponent<Image>().sprite;
+            slots[indexB].transform.GetChild(0).GetComponent<Image>().color = new Color(1f, 1f, 1f, 1f);
+            slots[indexA].transform.GetChild(0).GetComponent<Image>().sprite = null;
+            slots[indexA].transform.GetChild(0).GetComponent<Image>().color = new Color(1f, 1f, 1f, 0f);
 
             buttonA.onClick.RemoveAllListeners();
             buttonB.onClick.RemoveAllListeners();
@@ -67,6 +74,10 @@ public class FishTradeManager : MonoBehaviour, ISlotHandler
             slots[indexA].GetComponent<Image>().sprite = slots[indexB].GetComponent<Image>().sprite;
             slots[indexB].GetComponent<Image>().sprite = tempSprite;
 
+            Sprite tempGrade = slots[indexA].transform.GetChild(0).GetComponent<Image>().sprite;
+            slots[indexA].transform.GetChild(0).GetComponent<Image>().sprite = slots[indexB].transform.GetChild(0).GetComponent<Image>().sprite;
+            slots[indexB].transform.GetChild(0).GetComponent<Image>().sprite = tempGrade;
+
             buttonA.onClick.RemoveAllListeners();
             buttonB.onClick.RemoveAllListeners();
 
@@ -80,6 +91,9 @@ public class FishTradeManager : MonoBehaviour, ISlotHandler
         if(fishList[curIndex].fishID != -1 && curIndex != -1) {
             playerData.gold += fishList[curIndex].price;
             slots[curIndex].GetComponent<Image>().sprite = null;
+            slots[curIndex].transform.GetChild(0).GetComponent<Image>().sprite = null;
+            slots[curIndex].GetComponent<Image>().color = new Color(1f, 1f, 1f, 0f);
+            slots[curIndex].transform.GetChild(0).GetComponent<Image>().color = new Color(1f, 1f, 1f, 0f);
             slots[curIndex].GetComponent<Button>().onClick.RemoveAllListeners();
             fishList[curIndex] = null;
             SetGoldText();
@@ -94,9 +108,16 @@ public class FishTradeManager : MonoBehaviour, ISlotHandler
         for(int i = 0; i < slots.Length; i++) {
             int index = i;
             slots[index].GetComponent<Image>().sprite = null;
+            slots[index].transform.GetChild(0).GetComponent<Image>().sprite = null;
+            slots[index].GetComponent<Image>().color = new Color(1f, 1f, 1f, 0f);
+            slots[index].transform.GetChild(0).GetComponent<Image>().color = new Color(1f, 1f, 1f, 0f);
+
             slots[index].GetComponent<Button>().onClick.RemoveAllListeners();
             if(fishList[index].fishID != -1) {
-                slots[index].GetComponent<Image>().sprite = DataManager.Instance.GetFishData(fishList[i].fishID).fishIcon;
+                slots[index].GetComponent<Image>().sprite = DataManager.Instance.GetFishData(fishList[index].fishID).fishIcon;
+                slots[index].transform.GetChild(0).GetComponent<Image>().sprite = DataManager.Instance.gradeSprites[fishList[index].grade];
+                slots[index].GetComponent<Image>().color = new Color(1f, 1f, 1f, 1f);
+                slots[index].transform.GetChild(0).GetComponent<Image>().color = new Color(1f, 1f, 1f, 1f);
                 slots[index].GetComponent<Button>().onClick.AddListener(() => SetDetail(fishList[index], index));
                 slots[index].GetComponent<DraggableItem>().canDrag = true;
             }

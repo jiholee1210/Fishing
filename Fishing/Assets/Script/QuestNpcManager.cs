@@ -19,53 +19,58 @@ public class QuestNpcManager : MonoBehaviour
 
     private List<QuestData> npcQuest;
     private List<int> completeQuest;
+    private List<NormalQuest> normalQuests;
 
     private List<PlayerFish> playerFish;
     private PlayerData playerData;
-    private Sprite[] gradeSprites;
 
     private GameObject npcObject;
 
     private int npcID;
-    private int startID;
 
-    private float nextQuestReset = 600f;
+    private float nextQuestReset = 20f;
+    private float saveInterval = 60f;
     private float curTime = 0f;
+    private float saveTime = 0f;
     
     [SerializeField] private PlayerInventory playerInventory;
 
     void Update()
     {
         curTime += Time.deltaTime;
+        saveTime += Time.deltaTime;
         //10분마다 퀘스트 목록 초기화 시키는 기능
         if(curTime >= nextQuestReset) {
-            startID = completeQuest.Count > 0 && completeQuest.Max() >= 1000 ? completeQuest.Max() + 1 : 1000;
-            npcQuest.RemoveAll(item => !item.isEpic);
+            normalQuests.Clear();
             CreateQuest(1);
-            CreateQuest(2);
             CreateQuest(3);
+            CreateQuest(4);
             CreateQuestItems();
             questDetail.gameObject.SetActive(false);
             curTime = 0f;
             Debug.Log("노말 퀘스트 초기화");
             DataManager.Instance.SaveQuestNpcData();
         }
+
+        if(saveTime >= saveInterval) {
+            saveTime = 0f;
+            DataManager.Instance.npcQuest.timer = curTime;
+            DataManager.Instance.SaveQuestNpcData();
+        }
     }
 
     private void CreateQuest(int groundType) {
-        
         for(int i = 0; i < 5; i++) {
-            
-            int questID =  startID++;
             int fishCount = Random.Range(1, 4);
             int price = 0;
+            NormalQuest normalQuest = new();
             QuestRequirement[] reqFish = new QuestRequirement[fishCount];
             List<int> fishID = new(); 
 
             foreach(var fish in DataManager.Instance.fishDataDict) {
                 if(groundType == 1) {
                     if(fish.Value.habitat == (Habitat)groundType || fish.Value.habitat == (Habitat)(groundType+1)) {
-                    fishID.Add(fish.Key);
+                        fishID.Add(fish.Key);
                     }
                 }
                 else if(fish.Value.habitat == (Habitat)groundType) {
@@ -84,20 +89,16 @@ public class QuestNpcManager : MonoBehaviour
 
                 price += (int)(DataManager.Instance.GetFishData(randomID).price * 2.5f * (1 + grade * 0.5f));
             }
-            QuestData quest = ScriptableObject.CreateInstance<QuestData>();
-            quest.questID = questID;
-            quest.isEpic = false;
-            quest.questName = "마을의 부탁";
-            quest.receive = groundType;
-            quest.complete = groundType;
-            quest.requirements = reqFish;
-            quest.rewardGold = price;
-            npcQuest.Add(quest);
+            normalQuest.receive = groundType;
+            normalQuest.complete = groundType;
+            normalQuest.questRequirements = reqFish;
+            normalQuest.rewardGold = price;
+            normalQuests.Add(normalQuest);
             Debug.Log("노말 퀘스트 추가");
         }
     }
 
-    private void SetDetail(QuestData questData, bool isNpc) {
+    private void SetDetail(QuestData questData) {
         questDetail.gameObject.SetActive(true);
         questDetail.GetChild(5).gameObject.SetActive(false);
         questDetail.GetChild(6).gameObject.SetActive(false);
@@ -125,10 +126,10 @@ public class QuestNpcManager : MonoBehaviour
             GameObject questReq = Instantiate(reqFishPrefab, reqParent);
             RectTransform rect = questReq.GetComponent<RectTransform>();
 
-            questReq.transform.GetChild(0).GetComponent<Image>().sprite = gradeSprites[questData.requirements[i].grade];
+            questReq.transform.GetChild(0).GetComponent<Image>().sprite = DataManager.Instance.gradeSprites[questData.requirements[i].grade];
             questReq.transform.GetChild(1).GetComponent<Image>().sprite = DataManager.Instance.GetFishData(questData.requirements[i].fishID).fishIcon;
 
-            float xPos = (-90 * (len - 1)) + (160 * i);
+            float xPos = (-80 * (len - 1)) + (160 * i);
             rect.anchoredPosition = new Vector2(xPos, 0);
         }
     }
@@ -138,7 +139,7 @@ public class QuestNpcManager : MonoBehaviour
         playerFish = DataManager.Instance.inventory.fishList;
         playerData = DataManager.Instance.playerData;
         npcQuest = DataManager.Instance.npcQuestList;
-        gradeSprites = DataManager.Instance.gradeSprites;
+        normalQuests = DataManager.Instance.npcQuest.normalQuests;
     }
 
     public void CompleteQuest(QuestData questData) {
@@ -167,7 +168,9 @@ public class QuestNpcManager : MonoBehaviour
 
         playerData.gold += questData.rewardGold;
 
-        completeQuest.Add(questData.questID);
+        if(questData.questID < 1000) {
+            completeQuest.Add(questData.questID);
+        }
         npcQuest.Remove(questData);
         questDetail.gameObject.SetActive(false);
         foreach(var id in questData.nextQuest) {
@@ -192,35 +195,46 @@ public class QuestNpcManager : MonoBehaviour
         {
             Destroy(child.gameObject);
         }
-        int nCount = 0;
-        int eCount = 0;
         // 새로운 퀘스트 아이템 생성
         Debug.Log("퀘스트 개수 : " + npcQuest.Count);
         for(int i = 0; i < npcQuest.Count; i++)
         {
             GameObject quest;
             int index = i;
-            int count = 0;
             // npc id와 퀘스트 완료 npc 아이디가 같을때만 출력하도록
             if(npcQuest[index].receive != npcID) continue;
 
-            Debug.Log(npcQuest[index].questID);
-
-            if(npcQuest[index].isEpic) {
-                Debug.Log("에픽 퀘스트 생성");
-                quest = Instantiate(questItemPrefab, epicQuestParent);
-                count = eCount++;
-            }
-            else {
-                Debug.Log("노말 퀘스트 생성");
-                quest = Instantiate(questItemPrefab, normalQuestParent);
-                count = nCount++;
-            }
+            quest = Instantiate(questItemPrefab, epicQuestParent);
+            
             RectTransform rectTransform = quest.GetComponent<RectTransform>();
-            rectTransform.anchoredPosition = new Vector2(0f, -(count * (rectTransform.rect.height + 10f)));
+            rectTransform.anchoredPosition = new Vector2(0f, -(index * (rectTransform.rect.height + 10f)));
             rectTransform.GetChild(0).GetComponent<TMP_Text>().text = npcQuest[index].questName; 
             
-            quest.GetComponent<Button>().onClick.AddListener(() => SetDetail(npcQuest[index], true));
+            quest.GetComponent<Button>().onClick.AddListener(() => SetDetail(npcQuest[index]));
+        }
+
+        int count = 0;
+        for(int i = 0; i < normalQuests.Count; i++) {
+            GameObject quest;
+            int index = i;
+            QuestData questData = ScriptableObject.CreateInstance<QuestData>();
+            if(normalQuests[index].receive != npcID) continue;
+
+            questData.questID = 1001;
+            questData.isEpic = false;
+            questData.questName = "마을의 부탁";
+            questData.receive = normalQuests[index].receive;
+            questData.complete = normalQuests[index].complete;            
+            questData.requirements = normalQuests[index].questRequirements;
+            questData.rewardGold = normalQuests[index].rewardGold;
+
+            quest = Instantiate(questItemPrefab, normalQuestParent);
+
+            RectTransform rectTransform = quest.GetComponent<RectTransform>();
+            rectTransform.anchoredPosition = new Vector2(0f, -(count++ * (rectTransform.rect.height + 10f)));
+            rectTransform.GetChild(0).GetComponent<TMP_Text>().text = questData.questName; 
+
+            quest.GetComponent<Button>().onClick.AddListener(() => SetDetail(questData));
         }
     }
 

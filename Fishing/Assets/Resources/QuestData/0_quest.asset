@@ -14,12 +14,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   questID: 0
   isEpic: 1
-  questName: "\uC591\uC2DD\uC7A5 \uAC74\uC124"
-  desc: "\uBB3C\uACE0\uAE30\uB97C \uC591\uC2DD\uD558\uB294 \uC591\uC2DD\uC7A5 \uCD94\uAC00"
+  questName: "\uC138\uC6D4\uC744 \uB09A\uB294 \uBC95"
+  desc: "\uC5EC\uB7EC \uBB3C\uACE0\uAE30\uB97C \uB09A\uC544\uBCF4\uC790."
   receive: 1
   complete: 1
-  nextQuest: 01000000
+  nextQuest: 03000000
   requirements:
   - fishID: 11
+    grade: 0
+  - fishID: 0
+    grade: 0
+  - fishID: 1
     grade: 0
   rewardGold: 100

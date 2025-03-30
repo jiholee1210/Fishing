@@ -94,8 +94,28 @@ public class EventManager : MonoBehaviour
 
     public void ClearQuest(int id) {
         switch(id) {
-            case 0:
+            case 1:
                 Debug.Log("양식장 해금");
+                DataManager.Instance.playerData.farmUnlock[0] = true;
+                DataManager.Instance.playerData.farmUnlock[1] = true;
+                DataManager.Instance.SavePlayerData();
+                break;
+            case 2:
+                Debug.Log("박물관 해금");
+                break;
+            case 3:
+                Debug.Log("바위지대 해금");
+                break;
+            case 4:
+                Debug.Log("용암지대 해금");
+                break;
+            case 5:
+                Debug.Log("바위지대 양식 해금");
+                DataManager.Instance.playerData.farmUnlock[2] = true;
+                break;
+            case 6:
+                Debug.Log("용암지대 양식 해금");
+                DataManager.Instance.playerData.farmUnlock[3] = true;
                 break;
         }
     }

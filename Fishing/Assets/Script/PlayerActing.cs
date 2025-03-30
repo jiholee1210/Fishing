@@ -35,7 +35,6 @@ public class PlayerActing : MonoBehaviour
 
     public PlayerData playerData;
     private List<FishData> fishList;
-    private List<int> itemList;
 
     private Coroutine fishingCoroutine;
 
@@ -221,7 +220,6 @@ public class PlayerActing : MonoBehaviour
         bool isFishingZone = hit.point.y >= groundHit.point.y - 0.05f;
         if (isFishingZone) {
             fishList = hit.collider.GetComponent<IFishingZone>().GetFishList();
-            itemList = hit.collider.GetComponent<IFishingZone>().GetItemList();
             SetHighliterState("낚시하기");
             canFishing = isFishingZone;  
         } 

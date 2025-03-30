@@ -12,13 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dfa6d49a23ed6eb4bafa2053cc7e0e02, type: 3}
   m_Name: 1_quest
   m_EditorClassIdentifier: 
-  questID: 0
+  questID: 1
   isEpic: 1
   questName: "\uC591\uC2DD\uC7A5 \uAC74\uC124"
   desc: "\uBB3C\uACE0\uAE30\uB97C \uC591\uC2DD\uD558\uB294 \uC591\uC2DD\uC7A5 \uCD94\uAC00"
-  receive: 1
-  complete: 1
-  nextQuest: 01000000
+  receive: 2
+  complete: 2
+  nextQuest: 0500000004000000
   requirements:
   - fishID: 11
     grade: 0

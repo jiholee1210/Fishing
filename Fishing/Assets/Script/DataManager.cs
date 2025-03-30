@@ -197,11 +197,10 @@ public class DataManager : MonoBehaviour
     }
 
     public void SaveQuestNpcData() {
-        NpcQuest tmp = new();
+        npcQuest.questList.Clear();
         foreach(var item in npcQuestList) {
-            tmp.questList.Add(item.questID);
+            npcQuest.questList.Add(item.questID);
         }
-        npcQuest = tmp;
         string json = JsonUtility.ToJson(npcQuest, true);
         File.WriteAllText(questNpcPath, json);
         Debug.Log("퀘스트 진행상황 저장");
@@ -210,7 +209,6 @@ public class DataManager : MonoBehaviour
     public void LoadQuestNpcData() {
         string json = File.ReadAllText(questNpcPath);
         npcQuest = JsonUtility.FromJson<NpcQuest>(json);
-        npcQuest.questList.RemoveAll(item => item >= 1000); 
         foreach(var item in npcQuest.questList) {
             npcQuestList.Add(GetQuestData(item));
         }
@@ -277,6 +275,16 @@ public class PlayerData {
 [System.Serializable]
 public class NpcQuest {
     public List<int> questList = new();
+    public List<NormalQuest> normalQuests = new();
+    public float timer;
+}
+
+[Serializable]
+public class NormalQuest {
+    public int receive;
+    public int complete;
+    public QuestRequirement[] questRequirements;
+    public int rewardGold;
 }
 
 [System.Serializable]
