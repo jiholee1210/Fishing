@@ -6,6 +6,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float speed;
     [SerializeField] private float jumpForce;
     [SerializeField] private float gravity;
+    [SerializeField] Transform handPos;
 
     float inputValueX;
     float inputValueZ;
@@ -17,6 +18,8 @@ public class PlayerMovement : MonoBehaviour
 
     private Vector3 slidingVelocity;
     private bool isSliding = false;
+
+    private float time = 0f;
 
     private CharacterController characterController;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -43,6 +46,10 @@ public class PlayerMovement : MonoBehaviour
 
             Vector3 moveDirection = transform.TransformDirection(new Vector3(currentSpeedX, 0, currentSpeedZ));
             characterController.Move(moveDirection * Time.deltaTime);
+
+            if(inputValueX != 0 || inputValueZ != 0) {
+                WalkingAnimation();
+            }
         }
 
         velocity.y -= gravity * Time.deltaTime;
@@ -52,8 +59,18 @@ public class PlayerMovement : MonoBehaviour
 
     public void OnMove(InputValue value) {
         if(!cantMove) {
-            inputValueX = value.Get<Vector2>().x;
-            inputValueZ = value.Get<Vector2>().y;
+            Vector2 input = value.Get<Vector2>();
+            if(input != Vector2.zero) {
+                inputValueX = value.Get<Vector2>().x;
+                inputValueZ = value.Get<Vector2>().y;
+            }
+            else {
+                inputValueX = 0f;
+                inputValueZ = 0f;
+                handPos.GetChild(0).localPosition = new Vector3(0f, 0f, 0f);
+                handPos.GetChild(0).localEulerAngles = new Vector3(0f, 0f, 0f);
+                time = 0f;
+            }
         }
     }
 
@@ -98,6 +115,17 @@ public class PlayerMovement : MonoBehaviour
                 slidingVelocity = Vector3.zero;
             }
         }
-        
+    }
+
+    private void WalkingAnimation() {
+        if(handPos.childCount > 0) {
+            time += Time.deltaTime;
+
+            float yOffset = Mathf.Cos(time * 10f) * 0.1f;
+            float zRotation = -Mathf.Cos(time * 10f) * 7.5f + 7.5f;
+
+            handPos.GetChild(0).localPosition = new Vector3(0f, yOffset, 0f);
+            handPos.GetChild(0).localEulerAngles = new Vector3(0f, 0f, zRotation);
+        }
     }
 }

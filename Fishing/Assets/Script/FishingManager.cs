@@ -116,25 +116,63 @@ public class FishingManager : MonoBehaviour
         Debug.Log("현재 체력 : " + fishCurHealth + " 최대 체력 : " + fishHealth);
 
         fishRect.anchoredPosition += new Vector2(0f, upPos);
-        fishRect.anchoredPosition = new Vector2(0f, Mathf.Clamp(fishRect.anchoredPosition.y, -280f, 260f));
+        fishRect.anchoredPosition = new Vector2(0f, Mathf.Clamp(fishRect.anchoredPosition.y, -250f, 290f));
+
+        Vector3 curPos = fishRect.anchoredPosition;
 
         Destroy(noteQueue.Peek());
         noteQueue.Dequeue();
         Debug.Log("정확하게 누름");
-
+    
         // 물고기 체력 0 이하 체크
         if(fishCurHealth <= 0) {
             StartCoroutine(CloseUISequence());
         }
+
+        StartCoroutine(ShakeFish(curPos));
+    }
+
+    private IEnumerator ShakeFish(Vector3 pos) {
+        float time = 0f;
+        float shakeAngle = 15f;
+
+        Vector3 pivot = fishRect.position + Vector3.up * 30f;
+        Debug.Log(pivot);
+        while(time <= 0.3f) {
+            time += Time.deltaTime;
+
+            float angle = Mathf.Sin(time * 60f) * shakeAngle;
+            fishRect.rotation = Quaternion.Euler(0f, 0f, angle);
+            yield return null;
+        }
+        fishRect.rotation = Quaternion.Euler(0f, 0f, 0f);
+        fishRect.anchoredPosition = pos;
     }
 
     public void ReduceDur() {
         durability.value -= durability.maxValue * 0.1f + fishWeight / 2;
 
+        StartCoroutine(ShakeBar());
         if(durability.value <= 0) {
             StartCoroutine(FishingFail());
         }
         Debug.Log("잘못 누름");
+    }
+
+    private IEnumerator ShakeBar() {
+        float time = 0;
+        float shakeAmount = 10f;
+        durability.transform.GetChild(3).GetChild(0).GetComponent<Image>().color = new Color(1f, 0f, 0f);
+
+        while(time <= 0.3f) {
+            time += Time.deltaTime;
+            float xPos = Mathf.Sin(time * 60f) * shakeAmount;
+            durability.GetComponent<RectTransform>().anchoredPosition = new Vector2(xPos, durability.GetComponent<RectTransform>().anchoredPosition.y);
+
+            yield return null;
+        }
+        durability.transform.GetChild(3).GetChild(0).GetComponent<Image>().color = new Color(1f, 1f, 1f);
+        durability.GetComponent<RectTransform>().anchoredPosition = new Vector2(0f, durability.GetComponent<RectTransform>().anchoredPosition.y);
     }
 
     private void SetFishProbabilities(int baitLevel) {
@@ -233,7 +271,7 @@ public class FishingManager : MonoBehaviour
         SetFishStat();
         SetPlayerStat();
         
-        fishRect.anchoredPosition = new Vector2(0f, -280f);
+        fishRect.anchoredPosition = new Vector2(0f, -250f);
         reel.GetComponent<RectTransform>().rotation = Quaternion.Euler(0f, 0f, 0f);
         StartCoroutine(OpenUISequence());
     }
@@ -395,14 +433,16 @@ public class FishingManager : MonoBehaviour
 
     IEnumerator ShowDetail() {
         if(!DataManager.Instance.guide.fishID[fishID] || !DataManager.Instance.guide.fishGrade[fishID].grade[fishGrade]) {
+            detail.GetChild(6).gameObject.SetActive(true);
             DataManager.Instance.guide.fishID[fishID] = true;
             DataManager.Instance.guide.fishGrade[fishID].grade[fishGrade] = true;
             DataManager.Instance.SaveGuideData();
-            yield return StartCoroutine(FirstFishing());
         }
         else {
-            //yield return StartCoroutine()
+            detail.GetChild(6).gameObject.SetActive(false);
         }
+        
+        yield return StartCoroutine(FirstFishing());
     }
 
     IEnumerator FirstFishing() {
@@ -417,11 +457,12 @@ public class FishingManager : MonoBehaviour
         detail.GetChild(2).GetComponent<TMP_Text>().text = fish.rarity.ToString();
         detail.GetChild(3).GetComponent<TMP_Text>().text = fish.desc;
         detail.GetChild(4).GetComponent<Image>().sprite = DataManager.Instance.gradeSprites[fishGrade];
+        detail.GetChild(5).GetComponent<TMP_Text>().text = fishWeight + " kg";
         
         animator.Play("Detail_Open");
         yield return null;
         
-        float len = animator.GetCurrentAnimatorStateInfo(0).length + 1f;
+        float len = animator.GetCurrentAnimatorStateInfo(0).length + 2f;
         yield return new WaitForSeconds(len);
 
         animator.Play("Detail_Close");

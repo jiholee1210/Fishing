@@ -27,7 +27,7 @@ public class TooltipManager : MonoBehaviour
                 WireData wireData = DataManager.Instance.GetWireData(itemID);
                 tooltipObject.transform.GetChild(0).GetComponent<TMP_Text>().text = wireData.wireName;
                 tooltipObject.transform.GetChild(1).GetComponent<TMP_Text>().text = "파워 : " + wireData.wirePower;
-                tooltipObject.transform.GetChild(2).GetComponent<TMP_Text>().text = "물고기가 저항하는 힘을 감소";
+                tooltipObject.transform.GetChild(2).GetComponent<TMP_Text>().text = "물고기의 체력 감소량 증가";
                 break;
             case 3:
                 HookData hookData = DataManager.Instance.GetHookData(itemID);
