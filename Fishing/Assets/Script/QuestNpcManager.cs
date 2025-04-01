@@ -246,7 +246,6 @@ public class QuestNpcManager : MonoBehaviour
         npcObject = _npcObject;
         npcID = npcObject.GetComponent<IQuest>().GetNpcID();
         Debug.Log("NPCManager" + npcObject);
-        talkText.text = npcObject.GetComponent<INPC>().GetLine();
     }
 
     public void CloseWindow() {

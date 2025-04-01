@@ -270,6 +270,7 @@ public class PlayerData {
     public List<int> completeQuest = new();
     public Vector3 pos;
     public bool[] farmUnlock = new bool[4];
+    public int donateCount = 0;
 }
 
 [System.Serializable]

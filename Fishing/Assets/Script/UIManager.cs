@@ -15,10 +15,12 @@ public class UIManager : MonoBehaviour
     [SerializeField] GameObject fishMerchantUI;
     [SerializeField] GameObject questNpcUI;
     [SerializeField] GameObject fishFarmNpcUI;
+    [SerializeField] GameObject museumNpcUI;
 
     [SerializeField] FishTradeManager fishTradeManager;
     [SerializeField] QuestNpcManager questNpcManager;
     [SerializeField] FishFarmManager fishFarmManager;
+    [SerializeField] MuseumManager museumManager;
     [SerializeField] SignManager signManager;
 
     private GameObject npcObject;
@@ -89,12 +91,21 @@ public class UIManager : MonoBehaviour
 
     // 양식장 NPC 대화
     public void OpenFishFarmNpcUI() {
-        fishFarmNpcUI.gameObject.SetActive(true);
+        fishFarmNpcUI.SetActive(true);
         fishFarmManager.SetMainSlot();
     }
 
     public void CloseFishFarmNpcUI() {
-        fishFarmNpcUI.gameObject.SetActive(false);
+        fishFarmNpcUI.SetActive(false);
+    }
+
+    // 박물관 NPC 대화
+    public void OpenMuseumNpcUI() {
+        museumNpcUI.SetActive(true);
+    }
+
+    public void CloseMuseumNpcUI() {
+        museumNpcUI.SetActive(false);
     }
 
     public void OpenUpgradeNpcUI() {
@@ -164,6 +175,9 @@ public class UIManager : MonoBehaviour
 
         fishFarmManager.CloseWindow();
         CloseFishFarmNpcUI();
+
+        museumManager.CloseWindow();
+        CloseMuseumNpcUI();
 
         CloseSignUI();
 

@@ -54,6 +54,9 @@ public class EventManager : MonoBehaviour
             case 4:
                 uIManager.OpenFishFarmNpcUI();
                 break;
+            case 5:
+                uIManager.OpenMuseumNpcUI();
+                break;
         } 
     }
 
