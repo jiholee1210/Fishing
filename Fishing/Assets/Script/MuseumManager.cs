@@ -8,6 +8,8 @@ public class MuseumManager : MonoBehaviour
     [SerializeField] Transform[] inventorySlots;
     [SerializeField] private Transform[] rewardList;
     [SerializeField] private Transform detail;
+    [SerializeField] private GameObject statue;
+    [SerializeField] private TMP_Text count;
 
     [SerializeField] private GameObject selectIconPrefab;
     [SerializeField] private Transform selectIconParent;
@@ -17,6 +19,8 @@ public class MuseumManager : MonoBehaviour
 
     private List<PlayerFish> playerFish;
     private PlayerData playerData;
+
+    private int[] donate = {1, 10, 25, 50};
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -93,6 +97,40 @@ public class MuseumManager : MonoBehaviour
         }
     }
 
+    private void SetRewardButton() {
+        count.text = "기증 횟수 : " + playerData.donateCount + " 회";
+        // 아이콘 툴팁 기능도 추가하면 좋을듯
+        for(int i = 0; i < rewardList.Length; i++) {
+            int index = i;
+
+            rewardList[index].GetChild(2).GetComponent<Image>().color = new Color(0.3f, 0.3f, 0.3f);
+
+            if(playerData.donateCount > donate[index]) {
+                rewardList[index].GetChild(2).GetComponent<Image>().color = new Color(1f, 1f, 1f);
+                rewardList[index].GetChild(2).GetComponent<Button>().onClick.AddListener(() => GetReward(index));
+            }
+        }
+    }
+
+    private void GetReward(int index) {
+        switch(index) {
+            case 0:
+                playerData.gold += 2000;
+                break;
+            case 1:
+                playerData.getRelicReward = true;
+                break;
+            case 2:
+                //스킨 추가;
+                playerData.rodList.Add(4);
+                break;
+            case 3:
+                //동상 오브젝트 활성화
+                statue.SetActive(true);
+                break;
+        }
+    }
+
 
     private void DefaultSetting() {
         playerFish = DataManager.Instance.inventory.fishList;
@@ -125,6 +163,7 @@ public class MuseumManager : MonoBehaviour
     private void OpenRewardUI() {
         transform.GetChild(0).GetChild(0).gameObject.SetActive(false);
         transform.GetChild(0).GetChild(2).gameObject.SetActive(true);
+        SetRewardButton();
     }
 
     private void CloseDonateUI() {

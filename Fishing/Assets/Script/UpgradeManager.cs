@@ -55,11 +55,13 @@ public class UpgradeManager : MonoBehaviour
     private void UpgradeEquip(int type, int level) {
         playerData.gold -= DataManager.Instance.GetItemData(type * 10 + level).reqGold;
         equipType[type].GetChild(level).GetChild(0).gameObject.SetActive(false);
-        equipType[type].GetChild(level).GetChild(1).GetComponent<Image>().color = new Color(255, 255, 255, 255);
+        equipType[type].GetChild(level).GetChild(1).GetComponent<Image>().color = new Color(1f, 1f, 1f, 1f);
         equipList[type]++;
         if(type == 0) {
             Debug.Log(equipList[type]);
             playerInventory.SetEquip();
+            playerData.rodList.Add(level);
+            playerData.curRod = level;
         }
         DefaultSetting();
         DataManager.Instance.SavePlayerData();

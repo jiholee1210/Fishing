@@ -27,6 +27,7 @@ public class FishingManager : MonoBehaviour
 
     private List<FishData> fishList;
     private List<int> relicList;
+    private PlayerData playerData;
 
     private int fishID;
     private int fishGrade;
@@ -293,7 +294,8 @@ public class FishingManager : MonoBehaviour
 
     public IEnumerator CalFishing() {
         float time = 0f;
-        float randomTime = UnityEngine.Random.Range(5f, 15f) * (1 - (biteTime / 100));
+        float reductionRatio = playerData.getRelicReward ? 10f : 0f;
+        float randomTime = UnityEngine.Random.Range(5f, 15f) * (1 - (biteTime + reductionRatio / 100));
         while(time < randomTime) {
             time += Time.deltaTime;
             yield return null;
@@ -304,6 +306,7 @@ public class FishingManager : MonoBehaviour
     
     public void StartFishing(List<FishData> _fishList) {
         fishList = _fishList;
+        playerData = DataManager.Instance.playerData;
         foreach(FishData fish in fishList) {
             if(fish.fishID > 50) {
                 relicList.Add(fish.fishID);

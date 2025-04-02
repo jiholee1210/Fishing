@@ -62,6 +62,7 @@ public class DataManager : MonoBehaviour
         if(!File.Exists(playerPath)) {
             playerData = new();
             playerData.pos = new Vector3(1275.5f, -75.2f, 1921.3f);
+            playerData.rodList.Add(0);
             SavePlayerData();
             Debug.Log("데이터 새로 생성");
         }
@@ -271,6 +272,9 @@ public class PlayerData {
     public Vector3 pos;
     public bool[] farmUnlock = new bool[4];
     public int donateCount = 0;
+    public bool getRelicReward = false;
+    public int curRod = 0;
+    public List<int> rodList = new();
 }
 
 [System.Serializable]
