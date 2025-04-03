@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class UIManager : MonoBehaviour
@@ -8,6 +9,7 @@ public class UIManager : MonoBehaviour
 
     [SerializeField] GameObject fishInventoryUI;
     [SerializeField] GameObject guideUI;
+    [SerializeField] private GameObject skinUI;
     [SerializeField] GameObject signUI;
     [SerializeField] GameObject optionUI;
 
@@ -22,6 +24,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] FishFarmManager fishFarmManager;
     [SerializeField] MuseumManager museumManager;
     [SerializeField] SignManager signManager;
+    [SerializeField] private SkinManager skinManager;
 
     private GameObject npcObject;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -54,6 +57,16 @@ public class UIManager : MonoBehaviour
 
     public void CloseGuideUI() {
         guideUI.SetActive(false);
+    }
+
+    public void OpenSkinUI() {
+        skinUI.SetActive(true);
+        skinManager.SetSlots();
+    }
+
+    public void CloseSkinUI() {
+        skinUI.SetActive(false);
+        skinManager.CloseWindow();
     }
 
     // 장비 상인 대화
@@ -158,10 +171,12 @@ public class UIManager : MonoBehaviour
 
     public void CloseAllWindows() {
         fishInventoryUI.GetComponent<FishInvenManager>().CloseWindow();
-        fishInventoryUI.SetActive(false);
+        CloseFishInventoryUI();
 
         guideUI.GetComponent<GuideManager>().CloseWindow();
-        guideUI.SetActive(false);
+        CloseGuideUI();
+
+        CloseSkinUI();
 
         upgradeNpcUI.transform.GetChild(1).gameObject.SetActive(false);
         CloseUpgradeNpcTalkUI();

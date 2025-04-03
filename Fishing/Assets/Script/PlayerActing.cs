@@ -47,7 +47,8 @@ public class PlayerActing : MonoBehaviour
         Guide,
         Option,
         NPC,
-        Sign
+        Sign,
+        Skin
     }
 
     private enum Layer {
@@ -90,6 +91,14 @@ public class PlayerActing : MonoBehaviour
             }
             else if(currentUIState == UIState.None) {
                 OpenUI(UIState.Guide);
+            }
+        }
+        if(Input.GetKeyDown(KeyCode.K) && !isTalking) {
+            if(currentUIState == UIState.Skin) {
+                CloseUI();
+            }
+            else if(currentUIState == UIState.None) {
+                OpenUI(UIState.Skin);
             }
         }
 
@@ -279,6 +288,9 @@ public class PlayerActing : MonoBehaviour
             case UIState.Guide:
                 EventManager.Instance.OpenGuide();
                 break;
+            case UIState.Skin:
+                EventManager.Instance.OpenSkin();
+                break;
         }
     }
 
@@ -291,6 +303,9 @@ public class PlayerActing : MonoBehaviour
                 break;
             case UIState.Guide:
                 EventManager.Instance.CloseGuide();
+                break;
+            case UIState.Skin:
+                EventManager.Instance.CloseSkin();
                 break;
         }
 

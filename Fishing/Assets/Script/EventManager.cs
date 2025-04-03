@@ -7,7 +7,6 @@ public class EventManager : MonoBehaviour
 
     [SerializeField] PlayerActing playerActing;
     [SerializeField] UIManager uIManager;
-    [SerializeField] GameObject npcWindow;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -37,6 +36,14 @@ public class EventManager : MonoBehaviour
 
     public void CloseGuide() {
         uIManager.CloseGuideUI();
+    }
+
+    public void OpenSkin() {
+        uIManager.OpenSkinUI();
+    }
+
+    public void CloseSkin() {
+        uIManager.CloseSkinUI();
     }
 
     public void OpenNPCUI(int npcType, GameObject npcObject) {

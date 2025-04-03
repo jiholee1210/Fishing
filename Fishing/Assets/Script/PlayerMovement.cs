@@ -121,8 +121,8 @@ public class PlayerMovement : MonoBehaviour
         if(handPos.childCount > 0) {
             time += Time.deltaTime;
 
-            float yOffset = Mathf.Cos(time * 10f) * 0.1f;
-            float zRotation = -Mathf.Cos(time * 10f) * 7.5f + 7.5f;
+            float yOffset = Mathf.Cos(time * 7f) * 0.1f;
+            float zRotation = -Mathf.Cos(time * 7f) * 7.5f + 7.5f;
 
             handPos.GetChild(0).localPosition = new Vector3(0f, yOffset, 0f);
             handPos.GetChild(0).localEulerAngles = new Vector3(0f, 0f, zRotation);

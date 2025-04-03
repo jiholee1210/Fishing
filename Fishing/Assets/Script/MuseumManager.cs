@@ -20,7 +20,7 @@ public class MuseumManager : MonoBehaviour
     private List<PlayerFish> playerFish;
     private PlayerData playerData;
 
-    private int[] donate = {1, 10, 25, 50};
+    private int[] donate = {1, 5, 10, 20};
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -103,16 +103,24 @@ public class MuseumManager : MonoBehaviour
         for(int i = 0; i < rewardList.Length; i++) {
             int index = i;
 
-            rewardList[index].GetChild(2).GetComponent<Image>().color = new Color(0.3f, 0.3f, 0.3f);
-
+            rewardList[index].GetChild(2).GetComponent<Button>().onClick.RemoveAllListeners();
             if(playerData.donateCount > donate[index]) {
+                if(playerData.museumComplete.Contains(index)) {
+                    rewardList[index].GetChild(2).GetComponent<Image>().color = new Color(0.5f, 0.5f, 0.5f);
+                    rewardList[index].GetChild(2).GetChild(0).GetComponent<TMP_Text>().text = "수령 완료";
+                }
                 rewardList[index].GetChild(2).GetComponent<Image>().color = new Color(1f, 1f, 1f);
                 rewardList[index].GetChild(2).GetComponent<Button>().onClick.AddListener(() => GetReward(index));
+                rewardList[index].GetChild(2).GetChild(0).GetComponent<TMP_Text>().text = "수령";
+            }
+            else {
+                rewardList[index].GetChild(2).GetComponent<Image>().color = new Color(0.3f, 0.3f, 0.3f);
             }
         }
     }
 
     private void GetReward(int index) {
+        playerData.museumComplete.Add(index);
         switch(index) {
             case 0:
                 playerData.gold += 2000;
@@ -129,6 +137,8 @@ public class MuseumManager : MonoBehaviour
                 statue.SetActive(true);
                 break;
         }
+        DataManager.Instance.SavePlayerData();
+        SetRewardButton();
     }
 
 

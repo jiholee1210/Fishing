@@ -4,6 +4,8 @@ using UnityEngine;
 public class TooltipManager : MonoBehaviour
 {
     [SerializeField] GameObject tooltipObject;
+    [SerializeField] private GameObject rodToolTip;
+    [SerializeField] private GameObject[] rodObject;
 
     public void ShowTooltip(int itemID, Vector3 pos) {
         tooltipObject.SetActive(true);
@@ -46,5 +48,16 @@ public class TooltipManager : MonoBehaviour
 
     public void HideTooltip() {
         tooltipObject.SetActive(false);
+    }
+
+    public void ShowRod(int id, Vector3 pos) {
+        rodToolTip.SetActive(true);
+        rodToolTip.transform.position = pos;
+        rodObject[id].SetActive(true);
+    }
+
+    public void HideRod(int id) {
+        rodToolTip.SetActive(false);
+        rodObject[id].SetActive(false);
     }
 }

@@ -59,9 +59,9 @@ public class UpgradeManager : MonoBehaviour
         equipList[type]++;
         if(type == 0) {
             Debug.Log(equipList[type]);
-            playerInventory.SetEquip();
             playerData.rodList.Add(level);
             playerData.curRod = level;
+            playerInventory.SetEquip();
         }
         DefaultSetting();
         DataManager.Instance.SavePlayerData();

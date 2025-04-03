@@ -273,6 +273,7 @@ public class PlayerData {
     public bool[] farmUnlock = new bool[4];
     public int donateCount = 0;
     public bool getRelicReward = false;
+    public List<int> museumComplete = new();
     public int curRod = 0;
     public List<int> rodList = new();
 }
