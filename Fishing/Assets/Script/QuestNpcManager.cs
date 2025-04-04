@@ -13,8 +13,6 @@ public class QuestNpcManager : MonoBehaviour
     [SerializeField] private Transform epicQuestParent;
     [SerializeField] Transform reqParent;
 
-    [SerializeField] TMP_Text talkText;
-
     [SerializeField] Transform questDetail;
 
     private List<QuestData> npcQuest;
@@ -24,8 +22,6 @@ public class QuestNpcManager : MonoBehaviour
     private List<PlayerFish> playerFish;
     private PlayerData playerData;
 
-    private GameObject npcObject;
-
     private int npcID;
 
     private float nextQuestReset = 20f;
@@ -34,6 +30,15 @@ public class QuestNpcManager : MonoBehaviour
     private float saveTime = 0f;
     
     [SerializeField] private PlayerInventory playerInventory;
+
+    void Start()
+    {
+        completeQuest = DataManager.Instance.playerData.completeQuest;
+        playerFish = DataManager.Instance.inventory.fishList;
+        playerData = DataManager.Instance.playerData;
+        npcQuest = DataManager.Instance.npcQuestList;
+        normalQuests = DataManager.Instance.npcQuest.normalQuests;
+    }
 
     void Update()
     {
@@ -134,14 +139,6 @@ public class QuestNpcManager : MonoBehaviour
         }
     }
 
-    public void DefaultSetting() {
-        completeQuest = DataManager.Instance.playerData.completeQuest;
-        playerFish = DataManager.Instance.inventory.fishList;
-        playerData = DataManager.Instance.playerData;
-        npcQuest = DataManager.Instance.npcQuestList;
-        normalQuests = DataManager.Instance.npcQuest.normalQuests;
-    }
-
     public void CompleteQuest(QuestData questData) {
         List<PlayerFish> available = new(playerFish);
         List<int> list = new();
@@ -238,14 +235,9 @@ public class QuestNpcManager : MonoBehaviour
         }
     }
 
-    public void SetQuest() {
+    public void SetQuest(GameObject _npcObject) {
+        npcID = _npcObject.GetComponent<IQuest>().GetNpcID();
         CreateQuestItems();
-    }
-
-    public void SetTalk(GameObject _npcObject) {
-        npcObject = _npcObject;
-        npcID = npcObject.GetComponent<IQuest>().GetNpcID();
-        Debug.Log("NPCManager" + npcObject);
     }
 
     public void CloseWindow() {

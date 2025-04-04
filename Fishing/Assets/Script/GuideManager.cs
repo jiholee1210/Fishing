@@ -23,7 +23,8 @@ public class GuideManager : MonoBehaviour
     // 도감 데이터 상 true 인 물고기 데이터만 출력
     // 필터에 따라 서식지가 동일한 물고기 데이터만 출력
 
-    public void DefaultSetting() {
+    void Start()
+    {
         guideList = DataManager.Instance.guide.fishID;
         catchGrades = DataManager.Instance.guide.fishGrade;
 
@@ -107,11 +108,6 @@ public class GuideManager : MonoBehaviour
         isDetailOpen = false;
         detail.SetActive(false);
         closeButton.gameObject.SetActive(false);
-    }
-
-    void OnDisable()
-    {
-        CloseWindow();
     }
 }
 

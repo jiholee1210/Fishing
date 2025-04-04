@@ -9,6 +9,7 @@ public class SkinManager : MonoBehaviour
     [SerializeField] private Transform handPos;
     [SerializeField] private GameObject[] rodPrefab;
     [SerializeField] private TooltipManager tooltipManager;
+    [SerializeField] private PlayerActing playerActing;
 
     private List<int> rodList;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -51,6 +52,7 @@ public class SkinManager : MonoBehaviour
         }
         DataManager.Instance.playerData.curRod = index;
         Instantiate(rodPrefab[index], handPos);
+        StartCoroutine(playerActing.SetAnimator());
 
         DataManager.Instance.SavePlayerData();
         SetSlots();

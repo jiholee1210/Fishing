@@ -15,6 +15,24 @@ public class FishTradeManager : MonoBehaviour, ISlotHandler
 
     private int curIndex = -1;
 
+    void Start()
+    {
+        fishList = DataManager.Instance.inventory.fishList;
+        playerData = DataManager.Instance.playerData;
+        gradeSprites = DataManager.Instance.gradeSprites;
+
+        for (int i = 0; i < slots.Length; i++) {
+            DraggableItem draggable = slots[i].AddComponent<DraggableItem>();
+            draggable.itemIndex = i;
+            draggable.slotType = 0;
+            
+            DropSlot dropSlot = slots[i].AddComponent<DropSlot>();
+            dropSlot.slotIndex = i;
+            dropSlot.slotType = 0;
+            dropSlot.slotHandler = this;
+        }
+    }
+
     private void SetDetail(PlayerFish fishData, int index) {
         detail.gameObject.SetActive(true);
         curIndex = index;
@@ -128,32 +146,9 @@ public class FishTradeManager : MonoBehaviour, ISlotHandler
         gold.text = playerData.gold + " 코인";
     }
 
-    void OnEnable()
-    {
+    public void DefaultSetting() {
         SetSlots();
         SetGoldText();
-    }
-
-    public void DefaultSetting() {
-        fishList = DataManager.Instance.inventory.fishList;
-        playerData = DataManager.Instance.playerData;
-        gradeSprites = DataManager.Instance.gradeSprites;
-
-        for (int i = 0; i < slots.Length; i++) {
-            DraggableItem draggable = slots[i].AddComponent<DraggableItem>();
-            draggable.itemIndex = i;
-            draggable.slotType = 0;
-            
-            DropSlot dropSlot = slots[i].AddComponent<DropSlot>();
-            dropSlot.slotIndex = i;
-            dropSlot.slotType = 0;
-            dropSlot.slotHandler = this;
-        }
-    }
-
-    void OnDisable()
-    {
-        detail.gameObject.SetActive(false);
     }
 
     public void CloseWindow() {

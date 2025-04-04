@@ -152,9 +152,6 @@ public class MuseumManager : MonoBehaviour
         transform.GetChild(0).GetChild(1).GetChild(3).GetComponent<Button>().onClick.AddListener(() => CloseDonateUI());
 
         transform.GetChild(0).GetChild(2).GetChild(1).GetComponent<Button>().onClick.AddListener(() => CloseRewardUI());
-        foreach(Transform reward in rewardList) {
-            reward.GetChild(2).GetComponent<Button>().onClick.AddListener(() => {});
-        }
     }
 
     public void CloseWindow() {

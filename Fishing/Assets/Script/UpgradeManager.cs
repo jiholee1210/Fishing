@@ -71,9 +71,8 @@ public class UpgradeManager : MonoBehaviour
     private void SetGoldText() {
         goldText.text = playerData.gold.ToString() + " C";
     }
-
-    void OnDisable()
-    {
+    
+    public void CloseWindow() {
         tooltipManager.HideTooltip();
     }
 }

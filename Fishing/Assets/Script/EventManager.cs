@@ -50,13 +50,13 @@ public class EventManager : MonoBehaviour
         uIManager.SetNpcObject(npcObject);
         switch(npcType) {
             case 1:
-                uIManager.OpenUpgradeNpcTalkUI();
+                uIManager.OpenUpgradeNpcUI();
                 break;
             case 2:
-                uIManager.OpenFishMerchantTalkUI();
+                uIManager.OpenFishMerchantUI();
                 break;
             case 3:
-                uIManager.OpenQuestNpcTalkUI();
+                uIManager.OpenQuestNpcUI();
                 break;
             case 4:
                 uIManager.OpenFishFarmNpcUI();
@@ -70,13 +70,13 @@ public class EventManager : MonoBehaviour
     public void CloseNpcUI(int npcType) {
         switch(npcType) {
             case 1:
-                uIManager.CloseUpgradeNpcTalkUI();
+                uIManager.CloseUpgradeNpcUI();
                 break;
             case 2:
-                uIManager.CloseFishMerchantTalkUI();
+                uIManager.CloseFishMerchantUI();
                 break;
             case 3:
-                uIManager.CloseQuestNpcTalkUI();
+                uIManager.CloseQuestNpcUI();
                 break;
             case 4:
                 uIManager.CloseFishFarmNpcUI();
@@ -138,10 +138,6 @@ public class EventManager : MonoBehaviour
         DataManager.Instance.SaveInventoryData();
         DataManager.Instance.SaveQuestNpcData();
 
-        #if UNITY_EDITOR
-            UnityEditor.EditorApplication.isPlaying = false;
-        #else
-            Application.Quit();
-        #endif
+        SceneChanger.Instance.BackToMain();
     }
 }

@@ -16,6 +16,24 @@ public class FishInvenManager : MonoBehaviour, ISlotHandler
     private int[] equipList = new int[5];
     private PlayerData playerData;
 
+    void Start()
+    {
+        fishList = DataManager.Instance.inventory.fishList;
+        equipList = DataManager.Instance.inventory.equip;
+        playerData = DataManager.Instance.playerData;
+
+        for (int i = 0; i < slots.Length; i++) {
+            DraggableItem draggable = slots[i].AddComponent<DraggableItem>();
+            draggable.itemIndex = i;
+            draggable.slotType = 0;
+            
+            DropSlot dropSlot = slots[i].AddComponent<DropSlot>();
+            dropSlot.slotIndex = i;
+            dropSlot.slotType = 0;
+            dropSlot.slotHandler = this;
+        }
+    }
+
     private void SetDetail(PlayerFish fishData) {
         detail.gameObject.SetActive(true);
 
@@ -123,37 +141,10 @@ public class FishInvenManager : MonoBehaviour, ISlotHandler
         }
     }
 
-    void OnEnable()
-    {
-        SetSlots();
-        SetGoldText();
-        SetEquipSlots();
-    }
-
     public void DefaultSetting() {
-        fishList = DataManager.Instance.inventory.fishList;
-        equipList = DataManager.Instance.inventory.equip;
-        playerData = DataManager.Instance.playerData;
-
-        for (int i = 0; i < slots.Length; i++) {
-            DraggableItem draggable = slots[i].AddComponent<DraggableItem>();
-            draggable.itemIndex = i;
-            draggable.slotType = 0;
-            
-            DropSlot dropSlot = slots[i].AddComponent<DropSlot>();
-            dropSlot.slotIndex = i;
-            dropSlot.slotType = 0;
-            dropSlot.slotHandler = this;
-        }
         SetSlots();
         SetEquipSlots();
         SetGoldText();
-    }
-
-    void OnDisable()
-    {
-        detail.gameObject.SetActive(false);
-        tooltipManager.HideTooltip();
     }
 
     public void CloseWindow() {
