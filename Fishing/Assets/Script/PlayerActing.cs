@@ -14,6 +14,8 @@ public class PlayerActing : MonoBehaviour
     [SerializeField] float rayRange;
     [SerializeField] Transform handPos;
     [SerializeField] GameObject highlighter;
+    [SerializeField] private Animator inventoryFullError;
+    [SerializeField] private Animator notClearQuestError;
 
     public event Action OnFishingEnd;
 
@@ -31,7 +33,7 @@ public class PlayerActing : MonoBehaviour
     private int layer;
 
     private GameObject npcObject;
-    private GameObject curNpcObject;
+    private GameObject curObject;
 
     public PlayerData playerData;
     private List<FishData> fishList;
@@ -136,6 +138,7 @@ public class PlayerActing : MonoBehaviour
         if(value.isPressed && canFishing && currentUIState == UIState.None) {
             if(playerInventory.isFishFull()) {
                 Debug.Log("낚시 가방이 꽉 찼습니다.");
+                inventoryFullError.Play("InventoryFullError");
                 return;
             }
             currentUIState = UIState.Fishing;
@@ -149,20 +152,20 @@ public class PlayerActing : MonoBehaviour
 
     public void OnInteract(InputValue value) {
         if(value.isPressed && canTalk && !isTalking) {
-            curNpcObject = npcObject;
+            curObject = npcObject;
             currentLayer = (Layer)layer;
             switch(currentLayer) {
                 case Layer.Npc:
-                    npcType = curNpcObject.GetComponent<INPC>().GetNpcType();
+                    npcType = curObject.GetComponent<INPC>().GetNpcType();
                     currentUIState = UIState.NPC;
-                    EventManager.Instance.OpenNPCUI(npcType, curNpcObject);
+                    EventManager.Instance.OpenNPCUI(npcType, curObject);
                     break;
                 case Layer.Sign:
                     currentUIState = UIState.Sign;
                     EventManager.Instance.OpenSignUI();
                     break;
                 case Layer.Portal:
-                    CheckEnable(curNpcObject);
+                    CheckEnable(curObject);
                     return;
             }
             cameraRot.StartOtherJob();
@@ -263,13 +266,13 @@ public class PlayerActing : MonoBehaviour
 
     private void CheckEnable(GameObject npcObject) {
         int reqQeustID = npcObject.GetComponent<IPortal>().GetReqQuestID();
-        QuestData quest = DataManager.Instance.GetQuestData(reqQeustID);
         
         if(playerData.completeQuest.Contains(reqQeustID)) {
-            playerMovement.SetPos(curNpcObject.GetComponent<IPortal>().GetTelPosition());
+            playerMovement.SetPos(curObject.GetComponent<IPortal>().GetTelPosition());
         }
         else {
             Debug.Log("요구 퀘스트 : " + DataManager.Instance.GetQuestData(reqQeustID).questName);
+            notClearQuestError.Play("NotClearQuestError");
         }
     }
 

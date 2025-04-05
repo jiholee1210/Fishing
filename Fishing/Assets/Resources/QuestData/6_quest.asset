@@ -17,8 +17,8 @@ MonoBehaviour:
   questName: "\uC6A9\uC554\uC9C0\uB300 \uC591\uC2DD\uC7A5 \uCD94\uAC00"
   desc: "\uC0C8\uB85C\uC6B4 \uB09A\uC2DC\uC9C0\uB300 : \uC6A9\uC554\uC9C0\uB300 \uC591\uC2DD\uC7A5
     \uCD94\uAC00"
-  receive: 3
-  complete: 3
+  receive: 4
+  complete: 4
   nextQuest: 
   requirements:
   - fishID: 1

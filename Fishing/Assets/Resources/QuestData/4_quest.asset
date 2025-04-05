@@ -16,8 +16,8 @@ MonoBehaviour:
   isEpic: 1
   questName: "\uC6A9\uC554\uC9C0\uB300 \uD56D\uB85C \uAC1C\uCC99"
   desc: "\uC0C8\uB85C\uC6B4 \uB09A\uC2DC\uC9C0\uB300 : \uC6A9\uC554\uC9C0\uB300 \uCD94\uAC00"
-  receive: 2
-  complete: 2
+  receive: 3
+  complete: 3
   nextQuest: 0200000006000000
   requirements:
   - fishID: 1

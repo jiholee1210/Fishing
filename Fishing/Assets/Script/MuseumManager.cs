@@ -104,14 +104,14 @@ public class MuseumManager : MonoBehaviour
             int index = i;
 
             rewardList[index].GetChild(2).GetComponent<Button>().onClick.RemoveAllListeners();
-            if(playerData.donateCount > donate[index]) {
+            if(playerData.donateCount >= donate[index]) {
                 if(playerData.museumComplete.Contains(index)) {
                     rewardList[index].GetChild(2).GetComponent<Image>().color = new Color(0.5f, 0.5f, 0.5f);
                     rewardList[index].GetChild(2).GetChild(0).GetComponent<TMP_Text>().text = "수령 완료";
+                    continue;
                 }
                 rewardList[index].GetChild(2).GetComponent<Image>().color = new Color(1f, 1f, 1f);
                 rewardList[index].GetChild(2).GetComponent<Button>().onClick.AddListener(() => GetReward(index));
-                rewardList[index].GetChild(2).GetChild(0).GetComponent<TMP_Text>().text = "수령";
             }
             else {
                 rewardList[index].GetChild(2).GetComponent<Image>().color = new Color(0.3f, 0.3f, 0.3f);
@@ -145,6 +145,10 @@ public class MuseumManager : MonoBehaviour
     private void DefaultSetting() {
         playerFish = DataManager.Instance.inventory.fishList;
         playerData = DataManager.Instance.playerData;
+
+        if(playerData.museumComplete.Contains(3)) {
+            statue.SetActive(true);
+        }
 
         transform.GetChild(0).GetChild(0).GetChild(0).GetChild(0).GetComponent<Button>().onClick.AddListener(() => OpenDonateUI());
         transform.GetChild(0).GetChild(0).GetChild(0).GetChild(1).GetComponent<Button>().onClick.AddListener(() => OpenRewardUI());
