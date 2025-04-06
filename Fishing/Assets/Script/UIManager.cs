@@ -12,6 +12,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] private GameObject skinUI;
     [SerializeField] GameObject signUI;
     [SerializeField] GameObject optionUI;
+    [SerializeField] private GameObject volumeUI;
 
     [SerializeField] GameObject upgradeNpcUI;
     [SerializeField] GameObject fishMerchantUI;
@@ -28,6 +29,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] private SkinManager skinManager;
     [SerializeField] private GuideManager guideManager;
     [SerializeField] private FishInvenManager fishInvenManager;
+    [SerializeField] private OptionManager optionManager;
 
     private GameObject npcObject;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -143,7 +145,7 @@ public class UIManager : MonoBehaviour
     }
 
     public void CloseOptionUI() {
-        optionUI.SetActive(false);
+        optionManager.CloseWindow();
     }
 
     public void CloseAllWindows() {
