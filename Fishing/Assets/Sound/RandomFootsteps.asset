@@ -1,0 +1,137 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1233149941 &-6203402282260584207
+AudioContainerElement:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Footsteps_DirtyGround_Walk_08_{-6203402282260584207}
+  m_AudioClip: {fileID: 8300000, guid: f1547ad8fbfa4f24d83e5a445aee860d, type: 3}
+  m_Volume: 0
+  m_Enabled: 1
+--- !u!1233149941 &-3268417098931072943
+AudioContainerElement:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Footsteps_DirtyGround_Walk_06_{-3268417098931072943}
+  m_AudioClip: {fileID: 8300000, guid: 001f691d110d55648871a03f446ffa08, type: 3}
+  m_Volume: 0
+  m_Enabled: 1
+--- !u!1233149941 &-3120429647308830386
+AudioContainerElement:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Footsteps_DirtyGround_Walk_01_{-3120429647308830386}
+  m_AudioClip: {fileID: 8300000, guid: 9ea11a2d13d536e4e8441a0f5895995c, type: 3}
+  m_Volume: 0
+  m_Enabled: 1
+--- !u!1233149941 &-2703668089543049419
+AudioContainerElement:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Footsteps_DirtyGround_Walk_03_{-2703668089543049419}
+  m_AudioClip: {fileID: 8300000, guid: ac6649006dbee9e4685752e124111da7, type: 3}
+  m_Volume: 0
+  m_Enabled: 1
+--- !u!1233149941 &-2172742711645618381
+AudioContainerElement:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Footsteps_DirtyGround_Walk_09_{-2172742711645618381}
+  m_AudioClip: {fileID: 8300000, guid: 47832b56ccba5bc408b1d5aac1871746, type: 3}
+  m_Volume: 0
+  m_Enabled: 1
+--- !u!1233149941 &-1640496744926837387
+AudioContainerElement:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Footsteps_DirtyGround_Walk_04_{-1640496744926837387}
+  m_AudioClip: {fileID: 8300000, guid: f42914d98b070f741b2feee96a2988ee, type: 3}
+  m_Volume: 0
+  m_Enabled: 1
+--- !u!1233149941 &474896351546151505
+AudioContainerElement:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Footsteps_DirtyGround_Walk_10_{474896351546151505}
+  m_AudioClip: {fileID: 8300000, guid: 3d132da7af60f1145a3deb6a8bc42a08, type: 3}
+  m_Volume: 0
+  m_Enabled: 1
+--- !u!1233149941 &1726411125751141279
+AudioContainerElement:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Footsteps_DirtyGround_Walk_07_{1726411125751141279}
+  m_AudioClip: {fileID: 8300000, guid: 6478d7fb30f301b4fa8f74d5d1dad094, type: 3}
+  m_Volume: 0
+  m_Enabled: 1
+--- !u!1307931743 &6418180475301049370
+AudioRandomContainer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: RandomFootsteps
+  m_Volume: -10
+  m_Pitch: 0
+  m_AutomaticTriggerTime: 0.5
+  m_LoopCount: 1
+  m_VolumeRandomizationRange: {x: 0, y: 0}
+  m_PitchRandomizationRange: {x: 0, y: 0}
+  m_AutomaticTriggerTimeRandomizationRange: {x: 0, y: 0}
+  m_LoopCountRandomizationRange: {x: 0, y: 0}
+  m_Elements:
+  - {fileID: -3120429647308830386}
+  - {fileID: 6903789632337276675}
+  - {fileID: -2703668089543049419}
+  - {fileID: -1640496744926837387}
+  - {fileID: 7756316648269687801}
+  - {fileID: -3268417098931072943}
+  - {fileID: 1726411125751141279}
+  - {fileID: -6203402282260584207}
+  - {fileID: -2172742711645618381}
+  - {fileID: 474896351546151505}
+  m_AvoidRepeatingLast: 0
+  m_PlaybackMode: 1
+  m_TriggerMode: 1
+  m_AutomaticTriggerMode: 0
+  m_LoopMode: 0
+  m_VolumeRandomizationEnabled: 0
+  m_PitchRandomizationEnabled: 0
+  m_AutomaticTriggerTimeRandomizationEnabled: 0
+  m_LoopCountRandomizationEnabled: 0
+--- !u!1233149941 &6903789632337276675
+AudioContainerElement:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Footsteps_DirtyGround_Walk_02_{6903789632337276675}
+  m_AudioClip: {fileID: 8300000, guid: 203ac8b6f07070e4f93f1c1a6fff06c3, type: 3}
+  m_Volume: 0
+  m_Enabled: 1
+--- !u!1233149941 &7756316648269687801
+AudioContainerElement:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Footsteps_DirtyGround_Walk_05_{7756316648269687801}
+  m_AudioClip: {fileID: 8300000, guid: feb62160ad1f8334ab037017b843d162, type: 3}
+  m_Volume: 0
+  m_Enabled: 1

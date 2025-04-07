@@ -66,18 +66,6 @@ AudioMixerEffectController:
   m_SendTarget: {fileID: 0}
   m_EnableWetMix: 0
   m_Bypass: 0
---- !u!245 &-1962184682946258978
-AudioMixerSnapshotController:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: FadeOut
-  m_AudioMixer: {fileID: 24100000}
-  m_SnapshotID: 4f7840ddf783a9c4e9b151477557d510
-  m_FloatValues:
-    98068c0c119ce9f4281028fd72f87ae5: -80
-  m_TransitionOverrides: {}
 --- !u!241 &24100000
 AudioMixerController:
   m_ObjectHideFlags: 0
@@ -89,8 +77,6 @@ AudioMixerController:
   m_MasterGroup: {fileID: 24300002}
   m_Snapshots:
   - {fileID: 24500006}
-  - {fileID: 3367230537009895238}
-  - {fileID: -1962184682946258978}
   m_StartSnapshot: {fileID: 24500006}
   m_SuspendThreshold: -80
   m_EnableSuspend: 1
@@ -156,16 +142,4 @@ AudioMixerSnapshotController:
   m_SnapshotID: 2d42732be0c38fc49869253dcb0b3fc4
   m_FloatValues:
     98068c0c119ce9f4281028fd72f87ae5: 0
-  m_TransitionOverrides: {}
---- !u!245 &3367230537009895238
-AudioMixerSnapshotController:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: FadeIn
-  m_AudioMixer: {fileID: 24100000}
-  m_SnapshotID: e2d758d1e55cf5f4d850a705b3ebb83d
-  m_FloatValues:
-    2b3cdca54e08ce54589325aac008c267: -0.002441872
   m_TransitionOverrides: {}

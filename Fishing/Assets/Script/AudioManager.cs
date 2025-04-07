@@ -42,6 +42,7 @@ public class AudioManager : MonoBehaviour
         audioMixer.SetFloat(audioMixerType.ToString(), Mathf.Log10(vol) * 20);
     }
 
+    // 이후 UI매니저로 넘기기
     private void DefaultSetting() {
         for(int i = 0; i < 3; i++) {
             AudioMixerType audioMixerType = (AudioMixerType)i;
@@ -52,6 +53,5 @@ public class AudioManager : MonoBehaviour
             volSliders[i].value = vol;
             volText[i].text = ((int)Mathf.Clamp(vol * 100f, 0, 100)).ToString();
         }
-
     }
 }

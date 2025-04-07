@@ -1,0 +1,71 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1233149941 &-7976354715359242011
+AudioContainerElement:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: wave_04_cc0-11505__transitking__wavesound_{-7976354715359242011}
+  m_AudioClip: {fileID: 8300000, guid: 896d5c9d12a5b864089ea3860a8cea79, type: 3}
+  m_Volume: 0
+  m_Enabled: 1
+--- !u!1233149941 &262735612605802945
+AudioContainerElement:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: wave_01_cc0-11505__transitking__wavesound_{262735612605802945}
+  m_AudioClip: {fileID: 8300000, guid: 414219f437a41a4439456a53211cd4c2, type: 3}
+  m_Volume: 0
+  m_Enabled: 1
+--- !u!1233149941 &3249875988281407379
+AudioContainerElement:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: wave_02_cc0-11505__transitking__wavesound_{3249875988281407379}
+  m_AudioClip: {fileID: 8300000, guid: aed564788a3aef248bb62cd84d7ae9c4, type: 3}
+  m_Volume: 0
+  m_Enabled: 1
+--- !u!1307931743 &6418180475301049370
+AudioRandomContainer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: RandomWater
+  m_Volume: -10
+  m_Pitch: 0
+  m_AutomaticTriggerTime: 1.2
+  m_LoopCount: 1
+  m_VolumeRandomizationRange: {x: 0, y: 0}
+  m_PitchRandomizationRange: {x: 0, y: 0}
+  m_AutomaticTriggerTimeRandomizationRange: {x: 0, y: 0}
+  m_LoopCountRandomizationRange: {x: 0, y: 0}
+  m_Elements:
+  - {fileID: 262735612605802945}
+  - {fileID: 3249875988281407379}
+  - {fileID: 8674870232623301891}
+  - {fileID: -7976354715359242011}
+  m_AvoidRepeatingLast: 0
+  m_PlaybackMode: 1
+  m_TriggerMode: 1
+  m_AutomaticTriggerMode: 0
+  m_LoopMode: 0
+  m_VolumeRandomizationEnabled: 0
+  m_PitchRandomizationEnabled: 0
+  m_AutomaticTriggerTimeRandomizationEnabled: 0
+  m_LoopCountRandomizationEnabled: 0
+--- !u!1233149941 &8674870232623301891
+AudioContainerElement:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: wave_03_cc0-11505__transitking__wavesound_{8674870232623301891}
+  m_AudioClip: {fileID: 8300000, guid: 6fd1f2a07a7978a45b7289f2f286ec07, type: 3}
+  m_Volume: 0
+  m_Enabled: 1

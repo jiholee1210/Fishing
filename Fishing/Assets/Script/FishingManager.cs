@@ -21,6 +21,7 @@ public class FishingManager : MonoBehaviour
     [SerializeField] Transform noteArea;
 
     [SerializeField] PlayerActing playerActing;
+    [SerializeField] private SoundManager soundManager;
 
     private Dictionary<int, float> fishProbabilities = new();
     private Dictionary<int, float> gradeProbabilities = new();
@@ -362,7 +363,7 @@ public class FishingManager : MonoBehaviour
         yield return null;
         yield return new WaitForSeconds(animator.GetCurrentAnimatorStateInfo(0).length + 1f);
         isFishing = true;
-
+        soundManager.PlayReelSound();
         noteCoroutine = StartCoroutine(GenNote());
     }
 
@@ -371,6 +372,7 @@ public class FishingManager : MonoBehaviour
         StopCoroutine(noteCoroutine);
         noteCoroutine = null;
 
+        soundManager.StopReelSound();
         animator.Play("Window_Close");
         yield return null;
         yield return new WaitForSeconds(animator.GetCurrentAnimatorStateInfo(0).length);
@@ -481,6 +483,7 @@ public class FishingManager : MonoBehaviour
         isFishing = false;
         StopCoroutine(noteCoroutine);
         noteCoroutine = null;
+        soundManager.StopReelSound();
         
         animator.Play("Window_Close");
         yield return new WaitForSeconds(animator.GetCurrentAnimatorStateInfo(0).length);

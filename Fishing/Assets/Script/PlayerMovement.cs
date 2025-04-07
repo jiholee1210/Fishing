@@ -7,6 +7,8 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float jumpForce;
     [SerializeField] private float gravity;
     [SerializeField] Transform handPos;
+    [SerializeField] private SoundManager soundManager;
+
 
     float inputValueX;
     float inputValueZ;
@@ -18,6 +20,7 @@ public class PlayerMovement : MonoBehaviour
 
     private Vector3 slidingVelocity;
     private bool isSliding = false;
+    private bool isWalking = false;
 
     private float time = 0f;
 
@@ -49,6 +52,7 @@ public class PlayerMovement : MonoBehaviour
 
             if(inputValueX != 0 || inputValueZ != 0) {
                 WalkingAnimation();
+                PlayWalkingSound();
             }
         }
 
@@ -70,6 +74,7 @@ public class PlayerMovement : MonoBehaviour
                 handPos.GetChild(0).localPosition = new Vector3(0f, 0f, 0f);
                 handPos.GetChild(0).localEulerAngles = new Vector3(0f, 0f, 0f);
                 time = 0f;
+                StopWalkingSound();
             }
         }
     }
@@ -81,6 +86,7 @@ public class PlayerMovement : MonoBehaviour
     }
 
     public void StartOtherJob() {
+        StopWalkingSound();
         cantMove = true;
         inputValueX = 0f;
         inputValueZ = 0f;
@@ -121,11 +127,23 @@ public class PlayerMovement : MonoBehaviour
         if(handPos.childCount > 0) {
             time += Time.deltaTime;
 
-            float yOffset = Mathf.Cos(time * 7f) * 0.1f;
-            float zRotation = -Mathf.Cos(time * 7f) * 7.5f + 7.5f;
+            float yOffset = Mathf.Cos(time * 2 * Mathf.PI) * 0.1f;
+            float zRotation = -Mathf.Cos(time * 2 * Mathf.PI) * 7.5f + 7.5f;
 
             handPos.GetChild(0).localPosition = new Vector3(0f, yOffset, 0f);
             handPos.GetChild(0).localEulerAngles = new Vector3(0f, 0f, zRotation);
         }
+    }
+
+    private void PlayWalkingSound() {
+        if(!isWalking) {
+            soundManager.PlayWalkingSound();
+            isWalking = true;
+        }
+    }
+
+    private void StopWalkingSound() {
+        isWalking = false;
+        soundManager.StopWalkingSound();
     }
 }

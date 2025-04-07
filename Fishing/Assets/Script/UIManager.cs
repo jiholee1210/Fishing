@@ -14,6 +14,9 @@ public class UIManager : MonoBehaviour
     [SerializeField] GameObject optionUI;
     [SerializeField] private GameObject volumeUI;
 
+    [SerializeField] private Animator inventoryFullError;
+    [SerializeField] private Animator notClearQuestError;
+
     [SerializeField] GameObject upgradeNpcUI;
     [SerializeField] GameObject fishMerchantUI;
     [SerializeField] GameObject questNpcUI;
@@ -146,6 +149,14 @@ public class UIManager : MonoBehaviour
 
     public void CloseOptionUI() {
         optionManager.CloseWindow();
+    }
+
+    public void InventoryFull() {
+        inventoryFullError.Play("InventoryFullError");
+    }
+
+    public void NotClearQuest() {
+        notClearQuestError.Play("NotClearQuestError");
     }
 
     public void CloseAllWindows() {
