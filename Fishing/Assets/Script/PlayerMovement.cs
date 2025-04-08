@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -15,7 +16,7 @@ public class PlayerMovement : MonoBehaviour
     float currentSpeedX;
     float currentSpeedZ;
     Vector3 velocity;
-    bool isGrounded;
+    public bool isGrounded;
     bool cantMove = false;
 
     private Vector3 slidingVelocity;
@@ -50,7 +51,7 @@ public class PlayerMovement : MonoBehaviour
             Vector3 moveDirection = transform.TransformDirection(new Vector3(currentSpeedX, 0, currentSpeedZ));
             characterController.Move(moveDirection * Time.deltaTime);
 
-            if(inputValueX != 0 || inputValueZ != 0) {
+            if((inputValueX != 0 || inputValueZ  != 0) && isGrounded && velocity.y <= 0) {
                 WalkingAnimation();
                 PlayWalkingSound();
             }
@@ -82,6 +83,10 @@ public class PlayerMovement : MonoBehaviour
     public void OnJump(InputValue value) {
         if(value.isPressed && isGrounded && !cantMove && !isSliding) {
             velocity.y = jumpForce;
+            handPos.GetChild(0).localPosition = new Vector3(0f, 0f, 0f);
+            handPos.GetChild(0).localEulerAngles = new Vector3(0f, 0f, 0f);
+            time = 0f;
+            StopWalkingSound();
         }
     }
 
@@ -109,8 +114,6 @@ public class PlayerMovement : MonoBehaviour
         if(Physics.Raycast(transform.position, Vector3.down, out hit, 10f)) {
             Debug.DrawLine(transform.position, hit.point, Color.red);
             if(Vector3.Angle(hit.normal, Vector3.up) > characterController.slopeLimit) {
-                
-                Debug.Log("경사면 감지");
                 isSliding = true;
                 Vector3 slopeDir = Vector3.ProjectOnPlane(Vector3.down, hit.normal).normalized;
                 slidingVelocity += slopeDir * gravity * Time.deltaTime;

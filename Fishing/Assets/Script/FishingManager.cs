@@ -116,6 +116,7 @@ public class FishingManager : MonoBehaviour
         // 총 540f 크기 중 현재체력 / 최대체력 비율로 위치 설정
         fishCurHealth -= playerPower;
         Debug.Log("현재 체력 : " + fishCurHealth + " 최대 체력 : " + fishHealth);
+        soundManager.NoteSuccess();
 
         fishRect.anchoredPosition += new Vector2(0f, upPos);
         fishRect.anchoredPosition = new Vector2(0f, Mathf.Clamp(fishRect.anchoredPosition.y, -250f, 290f));
@@ -154,10 +155,13 @@ public class FishingManager : MonoBehaviour
     public void ReduceDur() {
         durability.value -= durability.maxValue * 0.1f + fishWeight / 2;
 
+        
         StartCoroutine(ShakeBar());
         if(durability.value <= 0) {
             StartCoroutine(FishingFail());
+            return;
         }
+        soundManager.NoteFail();
         Debug.Log("잘못 누름");
     }
 
@@ -373,6 +377,7 @@ public class FishingManager : MonoBehaviour
         noteCoroutine = null;
 
         soundManager.StopReelSound();
+        soundManager.FishingSuccess();
         animator.Play("Window_Close");
         yield return null;
         yield return new WaitForSeconds(animator.GetCurrentAnimatorStateInfo(0).length);
@@ -452,6 +457,7 @@ public class FishingManager : MonoBehaviour
 
     IEnumerator FirstFishing() {
         detail.gameObject.SetActive(true);
+        soundManager.FishingDetail();
         Animator animator = detail.GetComponent<Animator>();
         FishData fish = DataManager.Instance.GetFishData(fishID);
 
@@ -484,6 +490,7 @@ public class FishingManager : MonoBehaviour
         StopCoroutine(noteCoroutine);
         noteCoroutine = null;
         soundManager.StopReelSound();
+        soundManager.FishingFail();
         
         animator.Play("Window_Close");
         yield return new WaitForSeconds(animator.GetCurrentAnimatorStateInfo(0).length);

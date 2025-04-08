@@ -46319,6 +46319,12 @@ MonoBehaviour:
   clickUI: {fileID: 8300000, guid: d49ce35139b4fa646a32f06e29c6fa47, type: 3}
   actingFail: {fileID: 8300000, guid: 07755e8cd29f14f479da8f136bc8bfa4, type: 3}
   swing: {fileID: 8300000, guid: 763d5a3fd0a3be442a6b4a0dd04acd8a, type: 3}
+  noteSuccess: {fileID: 8300000, guid: 29bde6326b4c34ad8a12da475f79b50a, type: 3}
+  noteFail: {fileID: 8300000, guid: 127163d7c8604f145b3fcc464fafc0b9, type: 3}
+  fishingSuccess: {fileID: 8300000, guid: 40f9c6bf9f852a14ab5aa49b1f3bfc9f, type: 3}
+  fishingFail: {fileID: 8300000, guid: 5fdb13d3756c84fecac96f5a2d124370, type: 3}
+  fishingDetail: {fileID: 8300000, guid: 657578e4be6b64dbf9b09deada272e55, type: 3}
+  upgradeClick: {fileID: 8300000, guid: cf6c0e7fbef9449c98a0cdb5ea0c4d9f, type: 3}
 --- !u!4 &871922101
 Transform:
   m_ObjectHideFlags: 0
@@ -67504,6 +67510,7 @@ MonoBehaviour:
   goldText: {fileID: 1072657172}
   playerInventory: {fileID: 2079678078}
   tooltipManager: {fileID: 1457486942}
+  soundManager: {fileID: 871922100}
 --- !u!1 &1235649036
 GameObject:
   m_ObjectHideFlags: 0
@@ -75314,6 +75321,7 @@ MonoBehaviour:
   - {fileID: 1740755591}
   gold: {fileID: 635859613}
   detail: {fileID: 1380025648}
+  sellButton: {fileID: 1155798293}
 --- !u!1 &1371804610
 GameObject:
   m_ObjectHideFlags: 0

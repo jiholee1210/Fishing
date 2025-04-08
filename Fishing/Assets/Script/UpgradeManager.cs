@@ -8,6 +8,7 @@ public class UpgradeManager : MonoBehaviour
     [SerializeField] TMP_Text goldText;
     [SerializeField] PlayerInventory playerInventory;
     [SerializeField] TooltipManager tooltipManager;
+    [SerializeField] private SoundManager soundManager;
 
     private int[] equipList = new int[5];
     private PlayerData playerData;
@@ -53,6 +54,7 @@ public class UpgradeManager : MonoBehaviour
     }
 
     private void UpgradeEquip(int type, int level) {
+        soundManager.UpgradeClick();
         playerData.gold -= DataManager.Instance.GetItemData(type * 10 + level).reqGold;
         equipType[type].GetChild(level).GetChild(0).gameObject.SetActive(false);
         equipType[type].GetChild(level).GetChild(1).GetComponent<Image>().color = new Color(1f, 1f, 1f, 1f);

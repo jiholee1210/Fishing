@@ -8,6 +8,7 @@ public class FishTradeManager : MonoBehaviour, ISlotHandler
     [SerializeField] GameObject[] slots;
     [SerializeField] TMP_Text gold;
     [SerializeField] Transform detail;
+    [SerializeField] private Button sellButton;
 
     private List<PlayerFish> fishList;
     private PlayerData playerData;
@@ -31,6 +32,8 @@ public class FishTradeManager : MonoBehaviour, ISlotHandler
             dropSlot.slotType = 0;
             dropSlot.slotHandler = this;
         }
+
+        sellButton.onClick.AddListener(() => SellFish());
     }
 
     private void SetDetail(PlayerFish fishData, int index) {
@@ -153,5 +156,6 @@ public class FishTradeManager : MonoBehaviour, ISlotHandler
 
     public void CloseWindow() {
         detail.gameObject.SetActive(false);
+        curIndex = -1;
     }
 }

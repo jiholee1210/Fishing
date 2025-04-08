@@ -25,4 +25,10 @@ public class FishingZone : MonoBehaviour, IFishingZone
     {
         return fishList;
     }
+
+    private void OnTriggerEnter(Collider other) {
+        if(other.gameObject.layer == 3) {
+            other.GetComponent<PlayerMovement>().SetPos(new Vector3(1275.5f, -75.2f, 1921.3f));
+        }
+    }
 }

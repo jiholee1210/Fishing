@@ -11,6 +11,12 @@ public class SoundManager : MonoBehaviour
     [SerializeField] private AudioClip clickUI;
     [SerializeField] private AudioClip actingFail;
     [SerializeField] private AudioClip swing;
+    [SerializeField] private AudioClip noteSuccess;
+    [SerializeField] private AudioClip noteFail;
+    [SerializeField] private AudioClip fishingSuccess;
+    [SerializeField] private AudioClip fishingFail;
+    [SerializeField] private AudioClip fishingDetail;
+    [SerializeField] private AudioClip upgradeClick;
 
 
     public void ClickSound() {
@@ -21,12 +27,36 @@ public class SoundManager : MonoBehaviour
         UI.PlayOneShot(actingFail);
     }
 
+    public void UpgradeClick() {
+        UI.PlayOneShot(upgradeClick);
+    }
+
     private IEnumerator SwingWithDelay(float delay) {
         yield return new WaitForSeconds(delay);
         UI.PlayOneShot(swing);
     }
     public void SwingRod() {
         StartCoroutine(SwingWithDelay(0.3f));
+    }
+
+    public void NoteSuccess() {
+        UI.PlayOneShot(noteSuccess);
+    }
+
+    public void NoteFail() {
+        UI.PlayOneShot(noteFail);
+    }
+
+    public void FishingSuccess() {
+        UI.PlayOneShot(fishingSuccess);
+    }
+    
+    public void FishingFail() {
+        UI.PlayOneShot(fishingFail);
+    }
+
+    public void FishingDetail() {
+        UI.PlayOneShot(fishingDetail);
     }
 
     public void PlayReelSound() {

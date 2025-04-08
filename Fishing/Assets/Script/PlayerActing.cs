@@ -124,12 +124,11 @@ public class PlayerActing : MonoBehaviour
             } 
         }
     }
-
+    
     public IEnumerator SetAnimator() {
         yield return new WaitForEndOfFrame();
 
         if(handPos.childCount > 0) {
-            Debug.Log("애니메이터 설정됨");
             animator = handPos.GetChild(0).GetComponent<Animator>();
         }
     }
@@ -138,11 +137,14 @@ public class PlayerActing : MonoBehaviour
         if(value.isPressed && canFishing && currentUIState == UIState.None) {
             if(playerInventory.isFishFull()) {
                 Debug.Log("낚시 가방이 꽉 찼습니다.");
+                EventManager.Instance.InventoryFull();
                 soundManager.ActingFailSound();
                 return;
             }
-            currentUIState = UIState.Fishing;
-            StartFishing();
+            else if(playerMovement.isGrounded) {
+                currentUIState = UIState.Fishing;
+                StartFishing();
+            } 
         }
         else if(value.isPressed && currentUIState == UIState.Fishing && !isFishing) {
             EndFishing();
@@ -274,6 +276,7 @@ public class PlayerActing : MonoBehaviour
         }
         else {
             Debug.Log("요구 퀘스트 : " + DataManager.Instance.GetQuestData(reqQeustID).questName);
+            EventManager.Instance.NotClearQuest();
             soundManager.ActingFailSound();
         }
     }

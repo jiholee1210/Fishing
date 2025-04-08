@@ -98,6 +98,14 @@ public class EventManager : MonoBehaviour
         uIManager.OpenOptionUI();
     }
 
+    public void InventoryFull() {
+        uIManager.InventoryFull();
+    }
+
+    public void NotClearQuest() {
+        uIManager.NotClearQuest();
+    }
+
     public void CloseAllWindows() {
         uIManager.CloseAllWindows();
     }
