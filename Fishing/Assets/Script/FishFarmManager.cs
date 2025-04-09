@@ -39,6 +39,7 @@ public class FishFarmManager : MonoBehaviour
 
     WaitForSeconds waitOneSecond = new WaitForSeconds(1f);
     // Start is called once before the first execution of Update after the MonoBehaviour is created
+    private Color[] rarityColor = {new Color(0f, 0f, 0f), new Color(0f, 0.6f, 0.9f), new Color(0.7f, 0f, 1f), new Color(1f, 0.3f, 0.1f), new Color(0f, 0.8f, 0.6f)};
     void Start()
     {
         DefaultSetting();
@@ -55,6 +56,7 @@ public class FishFarmManager : MonoBehaviour
     // 조회된 단계의 panel만 비활성화(1, 2)
 
     public void OpenFarmDetail(int groundType) {
+        SoundManager.Instance.ButtonClick();
         detail.gameObject.SetActive(true);
         main.gameObject.SetActive(false);
 
@@ -202,6 +204,7 @@ public class FishFarmManager : MonoBehaviour
         
 
     private void GetFish(int groundType, int index) {
+        SoundManager.Instance.ButtonClick();
         playerInventory.GetFish(newFishList[groundType].list[index]);
         newFishList[groundType].list[index] = null;
 
@@ -215,6 +218,7 @@ public class FishFarmManager : MonoBehaviour
     }
 
     private void SellFishInBulk(int groundType) {
+        SoundManager.Instance.SellFish();
         int gold = 0;
         for(int i = 0; i < newFishList[groundType].list.Count; i++) {
             int index = i;
@@ -230,12 +234,14 @@ public class FishFarmManager : MonoBehaviour
             fishFarmSlots[index].GetComponent<Button>().enabled = false;
         }
         playerData.gold += gold;
+        SetGoldText(groundType);
 
         DataManager.Instance.SavePlayerData();
         DataManager.Instance.SaveInventoryData();
     }
 
     public void OpenFishSlotSetting(int groundType, int id) {
+        SoundManager.Instance.ButtonClick();
         select.gameObject.SetActive(true);
         select.GetChild(0).GetChild(1).GetChild(0).gameObject.SetActive(false);
         detail.gameObject.SetActive(false);
@@ -252,7 +258,7 @@ public class FishFarmManager : MonoBehaviour
             if(fishList[index].fishID != -1) {
                 fishInvenSlots[index].GetComponent<Image>().sprite = DataManager.Instance.GetFishData(fishList[index].fishID).fishIcon;
                 fishInvenSlots[index].transform.GetChild(0).GetComponent<Image>().sprite = DataManager.Instance.gradeSprites[fishList[index].grade];
-                fishInvenSlots[index].GetComponent<Image>().color = new Color(0.3f, 0.3f, 0.3f, 1f);
+                fishInvenSlots[index].GetComponent<Image>().color = new Color(0.1f, 0.1f, 0.1f, 1f);
                 fishInvenSlots[index].transform.GetChild(0).GetComponent<Image>().color = new Color(1f, 1f, 1f, 1f);
                 if(DataManager.Instance.GetFishData(fishList[index].fishID).habitat == (Habitat)groundType+1) {
                     fishInvenSlots[index].GetComponent<Image>().color = new Color(1f, 1f, 1f);
@@ -292,6 +298,7 @@ public class FishFarmManager : MonoBehaviour
     }
 
     private void SelectFish(PlayerFish playerFish, int id, Vector2 pos) {
+        SoundManager.Instance.ButtonClick();
         if(!prevID.Contains(id) && selectedFish.Count < 2) {
             selectedFish.Add(playerFish.Clone());
             prevID.Add(id);
@@ -317,7 +324,7 @@ public class FishFarmManager : MonoBehaviour
                 ActiveSameFish(playerFish.fishID);
             }
             select.GetChild(0).GetChild(2).GetComponent<Button>().enabled = false;
-            select.GetChild(0).GetChild(2).GetComponent<Image>().color = new Color(0.3f, 0.3f, 0.3f);
+            select.GetChild(0).GetChild(2).GetComponent<Image>().color = new Color(0.1f, 0.1f, 0.1f);
         }
         Transform detailTransform = select.GetChild(0).GetChild(1).GetChild(0);
         detailTransform.gameObject.SetActive(true);
@@ -334,6 +341,7 @@ public class FishFarmManager : MonoBehaviour
         FishData fishData = DataManager.Instance.GetFishData(playerFish.fishID);
         name.text = fishData.fishName;
         rarity.text = fishData.rarity.ToString();
+        rarity.color = rarityColor[(int)fishData.rarity];
         desc.text = fishData.desc;
         weight.text = playerFish.weight + "kg";
         price.text = playerFish.price + " C";
@@ -356,13 +364,14 @@ public class FishFarmManager : MonoBehaviour
         for(int i = 0; i < fishList.Count; i++) {
             if(fishList[i].fishID != -1 && fishList[i].fishID != fishID) {
                 fishInvenSlots[i].GetComponent<Button>().enabled = false;
-                fishInvenSlots[i].GetComponent<Image>().color = new Color(0.3f, 0.3f, 0.3f);
+                fishInvenSlots[i].GetComponent<Image>().color = new Color(0.1f, 0.1f, 0.1f);
             }
         }
     }
 
     private void ChangeFishInFarm(int groundType, int id) {
         //selectedFish를 FishinFarm에 그대로 복사 후 리스트 초기화 이후 UI 초기화
+        SoundManager.Instance.FishfarmSet();
         int count = groundType * 6 + id * 2;
         int timerIndex = groundType * 3 + id;
 
@@ -391,6 +400,7 @@ public class FishFarmManager : MonoBehaviour
     }
 
     private void CollectFish(int groundType, int id) {
+        SoundManager.Instance.ButtonClick();
         int count = groundType * 6 + id * 2;
         int timerIndex = groundType * 3 + id;
         for(int i = count; i < count + 2; i++) {
@@ -417,6 +427,7 @@ public class FishFarmManager : MonoBehaviour
     }
 
     public void CloseFarmDetail() {
+        SoundManager.Instance.ButtonClick();
         detail.gameObject.SetActive(false);
         main.gameObject.SetActive(true);
 
@@ -424,6 +435,7 @@ public class FishFarmManager : MonoBehaviour
     }
 
     public void CloseFishSlotSetting() {
+        SoundManager.Instance.ButtonClick();
         select.gameObject.SetActive(false);
         detail.gameObject.SetActive(true);
 

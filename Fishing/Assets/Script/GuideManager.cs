@@ -36,6 +36,7 @@ public class GuideManager : MonoBehaviour
     }
 
     private void SetGuide(Habitat habitat) {
+        SoundManager.Instance.ButtonClick();
         foreach(Transform child in parent) {
             Destroy(child.gameObject);
         }
@@ -70,6 +71,7 @@ public class GuideManager : MonoBehaviour
 
     private void SetDetail(FishData fishData) {
         if(!isDetailOpen) {
+            SoundManager.Instance.ButtonClick();
             detail.SetActive(true);
             closeButton.gameObject.SetActive(true);
 

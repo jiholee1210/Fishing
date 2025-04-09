@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using TMPro;
@@ -14,6 +15,7 @@ public class QuestNpcManager : MonoBehaviour
     [SerializeField] Transform reqParent;
 
     [SerializeField] Transform questDetail;
+    [SerializeField] private TMP_Text timer;
 
     private List<QuestData> npcQuest;
     private List<int> completeQuest;
@@ -24,12 +26,14 @@ public class QuestNpcManager : MonoBehaviour
 
     private int npcID;
 
-    private float nextQuestReset = 20f;
+    private int nextQuestReset = 120;
     private float saveInterval = 60f;
-    private float curTime = 0f;
+    private int curTime = 0;
     private float saveTime = 0f;
     
     [SerializeField] private PlayerInventory playerInventory;
+
+    WaitForSeconds waitOneSecond = new WaitForSeconds(1f);
 
     void Start()
     {
@@ -38,29 +42,49 @@ public class QuestNpcManager : MonoBehaviour
         playerData = DataManager.Instance.playerData;
         npcQuest = DataManager.Instance.npcQuestList;
         normalQuests = DataManager.Instance.npcQuest.normalQuests;
+        StartCoroutine(QuestTimer());
     }
 
     void Update()
     {
-        curTime += Time.deltaTime;
         saveTime += Time.deltaTime;
-        //10분마다 퀘스트 목록 초기화 시키는 기능
-        if(curTime >= nextQuestReset) {
-            normalQuests.Clear();
-            CreateQuest(1);
-            CreateQuest(3);
-            CreateQuest(4);
-            CreateQuestItems();
-            questDetail.gameObject.SetActive(false);
-            curTime = 0f;
-            Debug.Log("노말 퀘스트 초기화");
-            DataManager.Instance.SaveQuestNpcData();
-        }
 
         if(saveTime >= saveInterval) {
             saveTime = 0f;
             DataManager.Instance.npcQuest.timer = curTime;
             DataManager.Instance.SaveQuestNpcData();
+        }
+    }
+
+    private IEnumerator QuestTimer() {
+        yield return new WaitForSeconds(0);
+
+        // curtime 을 1씩 증가시켜서 nextQuestReset 보다 커지거나 같게 되었을 때 퀘스트 생성
+        // 1초마다 반복하는 식으로 진행
+        curTime = DataManager.Instance.npcQuest.timer;
+        int remainTime = nextQuestReset - curTime;
+        int min;
+        int sec;
+        while(true) {
+            if(remainTime == 0) {
+                normalQuests.Clear();
+                CreateQuest(1);
+                CreateQuest(3);
+                CreateQuest(4);
+                CreateQuestItems();
+                questDetail.gameObject.SetActive(false);
+                curTime = -1;
+                Debug.Log("노말 퀘스트 초기화");
+                DataManager.Instance.SaveQuestNpcData();
+            }
+
+            curTime += 1;
+            remainTime = nextQuestReset - curTime;
+            
+            min = remainTime / 60;
+            sec = remainTime % 60;
+            timer.text = min.ToString("D2") + ":" + sec.ToString("D2");
+            yield return waitOneSecond;
         }
     }
 
@@ -103,7 +127,8 @@ public class QuestNpcManager : MonoBehaviour
         }
     }
 
-    private void SetDetail(QuestData questData) {
+    private void SetDetail(QuestData questData, int index) {
+        SoundManager.Instance.ButtonClick();
         questDetail.gameObject.SetActive(true);
         questDetail.GetChild(5).gameObject.SetActive(false);
         questDetail.GetChild(6).gameObject.SetActive(false);
@@ -115,7 +140,7 @@ public class QuestNpcManager : MonoBehaviour
         Button btn = questDetail.GetChild(5).GetComponent<Button>();
         questDetail.GetChild(5).gameObject.SetActive(true);
         btn.onClick.RemoveAllListeners();
-        btn.onClick.AddListener(() => CompleteQuest(questData));
+        btn.onClick.AddListener(() => CompleteQuest(questData, index));
       
         name.text = questData.questName;
         desc.text = questData.desc;
@@ -139,7 +164,7 @@ public class QuestNpcManager : MonoBehaviour
         }
     }
 
-    public void CompleteQuest(QuestData questData) {
+    public void CompleteQuest(QuestData questData, int index) {
         List<PlayerFish> available = new(playerFish);
         List<int> list = new();
 
@@ -155,9 +180,11 @@ public class QuestNpcManager : MonoBehaviour
             }
             if(!fishFound) {
                 Debug.Log("필요한 물고기가 부족합니다.");
+                SoundManager.Instance.QuestFail();
                 return;
             }
         }
+        SoundManager.Instance.QuestClear();
         foreach(int i in list) {
             playerFish[i] = null;
         }
@@ -168,10 +195,15 @@ public class QuestNpcManager : MonoBehaviour
         if(questData.questID < 1000) {
             completeQuest.Add(questData.questID);
         }
-        npcQuest.Remove(questData);
         questDetail.gameObject.SetActive(false);
-        foreach(var id in questData.nextQuest) {
-            npcQuest.Add(DataManager.Instance.GetQuestData(id));
+        if(questData.isEpic) {
+            npcQuest.Remove(questData);
+            foreach(var id in questData.nextQuest) {
+                npcQuest.Add(DataManager.Instance.GetQuestData(id));
+            }
+        }
+        else {
+            normalQuests.RemoveAt(index);
         }
         CreateQuestItems();
         DataManager.Instance.SavePlayerData();
@@ -207,7 +239,7 @@ public class QuestNpcManager : MonoBehaviour
             rectTransform.anchoredPosition = new Vector2(0f, -(index * (rectTransform.rect.height + 10f)));
             rectTransform.GetChild(0).GetComponent<TMP_Text>().text = npcQuest[index].questName; 
             
-            quest.GetComponent<Button>().onClick.AddListener(() => SetDetail(npcQuest[index]));
+            quest.GetComponent<Button>().onClick.AddListener(() => SetDetail(npcQuest[index], index));
         }
 
         int count = 0;
@@ -231,7 +263,7 @@ public class QuestNpcManager : MonoBehaviour
             rectTransform.anchoredPosition = new Vector2(0f, -(count++ * (rectTransform.rect.height + 10f)));
             rectTransform.GetChild(0).GetComponent<TMP_Text>().text = questData.questName; 
 
-            quest.GetComponent<Button>().onClick.AddListener(() => SetDetail(questData));
+            quest.GetComponent<Button>().onClick.AddListener(() => SetDetail(questData, index));
         }
     }
 

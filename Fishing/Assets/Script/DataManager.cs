@@ -276,7 +276,7 @@ public class PlayerData {
 public class NpcQuest {
     public List<int> questList = new();
     public List<NormalQuest> normalQuests = new();
-    public float timer;
+    public int timer;
 }
 
 [Serializable]

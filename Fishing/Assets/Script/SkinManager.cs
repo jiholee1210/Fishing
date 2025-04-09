@@ -47,6 +47,7 @@ public class SkinManager : MonoBehaviour
     }
 
     private void ChangeRodSkin(int index) {
+        SoundManager.Instance.SkinChange();
         if(handPos.childCount > 0) {
             Destroy(handPos.GetChild(0).gameObject);
         }

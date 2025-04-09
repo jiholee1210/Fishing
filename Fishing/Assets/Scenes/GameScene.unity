@@ -15240,7 +15240,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -40, y: 320}
+  m_AnchoredPosition: {x: -50, y: 320}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &277073671
@@ -34719,7 +34719,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   telPos: {fileID: 2080944790}
-  skybox: {fileID: 2100000, guid: 96124a214ba4a3044a46945a251bfdc0, type: 2}
   highlight: "\uC774\uB3D9\uD558\uAE30"
   reqQeustID: 3
 --- !u!65 &655321359
@@ -35445,8 +35444,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4278190080
-  m_fontColor: {r: 0, g: 0, b: 0, a: 1}
+    rgba: 4288269312
+  m_fontColor: {r: 0, g: 0.8, b: 0.6, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -37822,7 +37821,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &723184001
 RectTransform:
   m_ObjectHideFlags: 0
@@ -46316,15 +46315,22 @@ MonoBehaviour:
   UI: {fileID: 46061007}
   reel: {fileID: 1545591577}
   walk: {fileID: 1082113078}
-  clickUI: {fileID: 8300000, guid: d49ce35139b4fa646a32f06e29c6fa47, type: 3}
+  openUI: {fileID: 8300000, guid: d49ce35139b4fa646a32f06e29c6fa47, type: 3}
+  buttonClick: {fileID: 8300000, guid: baeef39a19e463b4a9ca63af760f83dd, type: 3}
   actingFail: {fileID: 8300000, guid: 07755e8cd29f14f479da8f136bc8bfa4, type: 3}
   swing: {fileID: 8300000, guid: 763d5a3fd0a3be442a6b4a0dd04acd8a, type: 3}
   noteSuccess: {fileID: 8300000, guid: 29bde6326b4c34ad8a12da475f79b50a, type: 3}
   noteFail: {fileID: 8300000, guid: 127163d7c8604f145b3fcc464fafc0b9, type: 3}
+  fishBite: {fileID: 8300000, guid: 1c5868c3c8342ae45b2ecd84db2a56e9, type: 3}
   fishingSuccess: {fileID: 8300000, guid: 40f9c6bf9f852a14ab5aa49b1f3bfc9f, type: 3}
   fishingFail: {fileID: 8300000, guid: 5fdb13d3756c84fecac96f5a2d124370, type: 3}
   fishingDetail: {fileID: 8300000, guid: 657578e4be6b64dbf9b09deada272e55, type: 3}
-  upgradeClick: {fileID: 8300000, guid: cf6c0e7fbef9449c98a0cdb5ea0c4d9f, type: 3}
+  upgradeClick: {fileID: 8300000, guid: 056aeeb7119a8fb4d88dbb2c2a259d12, type: 3}
+  sellFish: {fileID: 8300000, guid: 447591ac9bae73644ab925b8ec3de2ac, type: 3}
+  fishfarmSet: {fileID: 8300000, guid: f0b9efbec3837194784d8b8bbfe1842a, type: 3}
+  skinChange: {fileID: 8300000, guid: 24660bbb2d7fa9a4e82174f90fad8167, type: 3}
+  questClear: {fileID: 8300000, guid: f4fa90c46547d314db0ad23e028ef639, type: 3}
+  questFail: {fileID: 8300000, guid: d8d04c6f80a1140db85ede568dab1f51, type: 3}
 --- !u!4 &871922101
 Transform:
   m_ObjectHideFlags: 0
@@ -53925,7 +53931,6 @@ MonoBehaviour:
   noteItemPrefab: {fileID: 7891801706686052033, guid: 96341f6146fd7584ba33c9a1d0ee8e28, type: 3}
   noteArea: {fileID: 1029863643}
   playerActing: {fileID: 2079678079}
-  soundManager: {fileID: 871922100}
 --- !u!4 &1016574259 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4526639233385326896, guid: badc44c4b6c2d724ebd93ea1f9b938fb, type: 3}
@@ -77446,7 +77451,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   telPos: {fileID: 434981023}
-  skybox: {fileID: 2100000, guid: 96124a214ba4a3044a46945a251bfdc0, type: 2}
   highlight: "\uC774\uB3D9\uD558\uAE30"
   reqQeustID: 3
 --- !u!65 &1403410845
@@ -88099,6 +88103,142 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1594761189}
   m_CullTransparentMesh: 1
+--- !u!1 &1594832240
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1594832241}
+  - component: {fileID: 1594832243}
+  - component: {fileID: 1594832242}
+  m_Layer: 5
+  m_Name: Text (TMP)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1594832241
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1594832240}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2008222352}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 174.6, y: 0}
+  m_SizeDelta: {x: 200, y: 50}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1594832242
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1594832240}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_text: 00:00
+  m_isRightToLeft: 0
+  m_fontAsset: {fileID: 11400000, guid: 23a696c76ff244640ad845f5fb79aa9a, type: 2}
+  m_sharedMaterial: {fileID: -3229828018247645682, guid: 23a696c76ff244640ad845f5fb79aa9a, type: 2}
+  m_fontSharedMaterials: []
+  m_fontMaterial: {fileID: 0}
+  m_fontMaterials: []
+  m_fontColor32:
+    serializedVersion: 2
+    rgba: 4294935296
+  m_fontColor: {r: 0, g: 0.51349497, b: 1, a: 1}
+  m_enableVertexGradient: 0
+  m_colorMode: 3
+  m_fontColorGradient:
+    topLeft: {r: 1, g: 1, b: 1, a: 1}
+    topRight: {r: 1, g: 1, b: 1, a: 1}
+    bottomLeft: {r: 1, g: 1, b: 1, a: 1}
+    bottomRight: {r: 1, g: 1, b: 1, a: 1}
+  m_fontColorGradientPreset: {fileID: 0}
+  m_spriteAsset: {fileID: 0}
+  m_tintAllSprites: 0
+  m_StyleSheet: {fileID: 0}
+  m_TextStyleHashCode: -1183493901
+  m_overrideHtmlColors: 0
+  m_faceColor:
+    serializedVersion: 2
+    rgba: 4294967295
+  m_fontSize: 36
+  m_fontSizeBase: 36
+  m_fontWeight: 400
+  m_enableAutoSizing: 0
+  m_fontSizeMin: 18
+  m_fontSizeMax: 72
+  m_fontStyle: 0
+  m_HorizontalAlignment: 2
+  m_VerticalAlignment: 512
+  m_textAlignment: 65535
+  m_characterSpacing: 0
+  m_wordSpacing: 0
+  m_lineSpacing: 0
+  m_lineSpacingMax: 0
+  m_paragraphSpacing: 0
+  m_charWidthMaxAdj: 0
+  m_TextWrappingMode: 0
+  m_wordWrappingRatios: 0.4
+  m_overflowMode: 0
+  m_linkedTextComponent: {fileID: 0}
+  parentLinkedComponent: {fileID: 0}
+  m_enableKerning: 0
+  m_ActiveFontFeatures: 6e72656b
+  m_enableExtraPadding: 0
+  checkPaddingRequired: 0
+  m_isRichText: 1
+  m_EmojiFallbackSupport: 1
+  m_parseCtrlCharacters: 1
+  m_isOrthographic: 1
+  m_isCullingEnabled: 0
+  m_horizontalMapping: 0
+  m_verticalMapping: 0
+  m_uvLineOffset: 0
+  m_geometrySortingOrder: 0
+  m_IsTextObjectScaleStatic: 0
+  m_VertexBufferAutoSizeReduction: 0
+  m_useMaxVisibleDescender: 1
+  m_pageToDisplay: 1
+  m_margin: {x: 0, y: 0, z: 0, w: 0}
+  m_isUsingLegacyAnimationComponent: 0
+  m_isVolumetricText: 0
+  m_hasFontAssetChanged: 0
+  m_baseMaterial: {fileID: 0}
+  m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!222 &1594832243
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1594832240}
+  m_CullTransparentMesh: 1
 --- !u!1 &1594870158
 GameObject:
   m_ObjectHideFlags: 0
@@ -92349,7 +92489,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   telPos: {fileID: 290726272}
-  skybox: {fileID: 2100000, guid: 96124a214ba4a3044a46945a251bfdc0, type: 2}
   highlight: "\uC774\uB3D9\uD558\uAE30"
   reqQeustID: 3
 --- !u!65 &1653475003
@@ -109634,12 +109773,13 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 1594832241}
   m_Father: {fileID: 1253783119}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -40, y: 80}
+  m_AnchoredPosition: {x: -50, y: 80}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2008222353
@@ -114341,6 +114481,7 @@ MonoBehaviour:
   epicQuestParent: {fileID: 1823043066}
   reqParent: {fileID: 748662964}
   questDetail: {fileID: 723184001}
+  timer: {fileID: 1594832242}
   playerInventory: {fileID: 2079678078}
 --- !u!1001 &2072877521
 PrefabInstance:
@@ -114786,6 +114927,7 @@ MonoBehaviour:
   gravity: 10
   handPos: {fileID: 2127720921}
   soundManager: {fileID: 871922100}
+  isGrounded: 0
 --- !u!114 &2079678076
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -115217,7 +115359,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   telPos: {fileID: 777998070}
-  skybox: {fileID: 2100000, guid: 96124a214ba4a3044a46945a251bfdc0, type: 2}
   highlight: "\uC774\uB3D9\uD558\uAE30"
   reqQeustID: 4
 --- !u!65 &2081390139

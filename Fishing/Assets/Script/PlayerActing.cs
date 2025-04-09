@@ -105,7 +105,7 @@ public class PlayerActing : MonoBehaviour
 
         if(Input.GetKeyDown(KeyCode.Escape) && currentUIState != UIState.Fishing) {
             if(currentUIState != UIState.None) {
-                soundManager.ClickSound();
+                soundManager.OpenUI();
                 EventManager.Instance.CloseAllWindows();
                 Cursor.lockState = CursorLockMode.Locked;
                 Cursor.visible = false;
@@ -158,7 +158,7 @@ public class PlayerActing : MonoBehaviour
             currentLayer = (Layer)layer;
             switch(currentLayer) {
                 case Layer.Npc:
-                    soundManager.ClickSound();
+                    soundManager.OpenUI();
                     npcType = curObject.GetComponent<INPC>().GetNpcType();
                     currentUIState = UIState.NPC;
                     EventManager.Instance.OpenNPCUI(npcType, curObject);
@@ -287,7 +287,7 @@ public class PlayerActing : MonoBehaviour
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
         cameraRot.StartOtherJob();
-        soundManager.ClickSound();
+        soundManager.OpenUI();
         switch(newState)
         {
             case UIState.Inventory:
@@ -316,7 +316,7 @@ public class PlayerActing : MonoBehaviour
                 EventManager.Instance.CloseSkin();
                 break;
         }
-        soundManager.ClickSound();
+        soundManager.OpenUI();
         currentUIState = UIState.None;
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;

@@ -21,7 +21,6 @@ public class FishingManager : MonoBehaviour
     [SerializeField] Transform noteArea;
 
     [SerializeField] PlayerActing playerActing;
-    [SerializeField] private SoundManager soundManager;
 
     private Dictionary<int, float> fishProbabilities = new();
     private Dictionary<int, float> gradeProbabilities = new();
@@ -116,7 +115,7 @@ public class FishingManager : MonoBehaviour
         // 총 540f 크기 중 현재체력 / 최대체력 비율로 위치 설정
         fishCurHealth -= playerPower;
         Debug.Log("현재 체력 : " + fishCurHealth + " 최대 체력 : " + fishHealth);
-        soundManager.NoteSuccess();
+        SoundManager.Instance.NoteSuccess();
 
         fishRect.anchoredPosition += new Vector2(0f, upPos);
         fishRect.anchoredPosition = new Vector2(0f, Mathf.Clamp(fishRect.anchoredPosition.y, -250f, 290f));
@@ -161,7 +160,7 @@ public class FishingManager : MonoBehaviour
             StartCoroutine(FishingFail());
             return;
         }
-        soundManager.NoteFail();
+        SoundManager.Instance.NoteFail();
         Debug.Log("잘못 누름");
     }
 
@@ -275,7 +274,6 @@ public class FishingManager : MonoBehaviour
         fishGrade = fishID == 50 ? 3 : SetFishGrade();
         grade.sprite = DataManager.Instance.gradeSprites[fishGrade];
         SetFishStat();
-        SetPlayerStat();
         
         fishRect.anchoredPosition = new Vector2(0f, -250f);
         reel.GetComponent<RectTransform>().rotation = Quaternion.Euler(0f, 0f, 0f);
@@ -300,7 +298,8 @@ public class FishingManager : MonoBehaviour
     public IEnumerator CalFishing() {
         float time = 0f;
         float reductionRatio = playerData.getRelicReward ? 10f : 0f;
-        float randomTime = UnityEngine.Random.Range(5f, 15f) * (1 - (biteTime + reductionRatio / 100));
+        float randomTime = UnityEngine.Random.Range(5f, 15f) * (1 - ((biteTime + reductionRatio) / 100));
+        Debug.Log(time + " " + randomTime);
         while(time < randomTime) {
             time += Time.deltaTime;
             yield return null;
@@ -312,6 +311,7 @@ public class FishingManager : MonoBehaviour
     public void StartFishing(List<FishData> _fishList) {
         fishList = _fishList;
         playerData = DataManager.Instance.playerData;
+        SetPlayerStat();
         foreach(FishData fish in fishList) {
             if(fish.fishID > 50) {
                 relicList.Add(fish.fishID);
@@ -330,6 +330,7 @@ public class FishingManager : MonoBehaviour
 
     public IEnumerator OpenGetFishUI() {
         getFishIcon.SetActive(true);
+        SoundManager.Instance.FishBite();
         Animator animator = getFishIcon.GetComponent<Animator>();
         animator.Play("Get_Fish");
         yield return null;
@@ -350,6 +351,7 @@ public class FishingManager : MonoBehaviour
 
         float randomWeight = UnityEngine.Random.Range(fish.weightMin, fish.weightMax);
         fishWeight = float.Parse(randomWeight.ToString("F2")); // 내구도 삭제량 관련
+        upPos = 540 * (playerPower / fishHealth);
     }
 
     public void SetPlayerStat() {
@@ -359,7 +361,6 @@ public class FishingManager : MonoBehaviour
         playerPower = playerActing.playerInventory.GetWirePower();
         playerSpeed = playerActing.playerInventory.GetReelSpeed();
         biteTime = playerActing.playerInventory.GetHookPower();
-        upPos = 540 * (playerPower / fishHealth);
     }
 
     IEnumerator OpenUISequence() {
@@ -367,7 +368,7 @@ public class FishingManager : MonoBehaviour
         yield return null;
         yield return new WaitForSeconds(animator.GetCurrentAnimatorStateInfo(0).length + 1f);
         isFishing = true;
-        soundManager.PlayReelSound();
+        SoundManager.Instance.PlayReelSound();
         noteCoroutine = StartCoroutine(GenNote());
     }
 
@@ -376,8 +377,8 @@ public class FishingManager : MonoBehaviour
         StopCoroutine(noteCoroutine);
         noteCoroutine = null;
 
-        soundManager.StopReelSound();
-        soundManager.FishingSuccess();
+        SoundManager.Instance.StopReelSound();
+        SoundManager.Instance.FishingSuccess();
         animator.Play("Window_Close");
         yield return null;
         yield return new WaitForSeconds(animator.GetCurrentAnimatorStateInfo(0).length);
@@ -457,7 +458,7 @@ public class FishingManager : MonoBehaviour
 
     IEnumerator FirstFishing() {
         detail.gameObject.SetActive(true);
-        soundManager.FishingDetail();
+        SoundManager.Instance.FishingDetail();
         Animator animator = detail.GetComponent<Animator>();
         FishData fish = DataManager.Instance.GetFishData(fishID);
 
@@ -489,8 +490,8 @@ public class FishingManager : MonoBehaviour
         isFishing = false;
         StopCoroutine(noteCoroutine);
         noteCoroutine = null;
-        soundManager.StopReelSound();
-        soundManager.FishingFail();
+        SoundManager.Instance.StopReelSound();
+        SoundManager.Instance.FishingFail();
         
         animator.Play("Window_Close");
         yield return new WaitForSeconds(animator.GetCurrentAnimatorStateInfo(0).length);

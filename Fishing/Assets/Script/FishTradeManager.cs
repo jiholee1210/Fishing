@@ -14,6 +14,7 @@ public class FishTradeManager : MonoBehaviour, ISlotHandler
     private PlayerData playerData;
     private Sprite[] gradeSprites;
 
+    private Color[] rarityColor = {new Color(0f, 0f, 0f), new Color(0f, 0.6f, 0.9f), new Color(0.7f, 0f, 1f), new Color(1f, 0.3f, 0.1f), new Color(0f, 0.8f, 0.6f)};
     private int curIndex = -1;
 
     void Start()
@@ -37,6 +38,7 @@ public class FishTradeManager : MonoBehaviour, ISlotHandler
     }
 
     private void SetDetail(PlayerFish fishData, int index) {
+        SoundManager.Instance.ButtonClick();
         detail.gameObject.SetActive(true);
         curIndex = index;
         FishData fish = DataManager.Instance.GetFishData(fishData.fishID);
@@ -55,6 +57,7 @@ public class FishTradeManager : MonoBehaviour, ISlotHandler
 
         name.text = fish.fishName;
         rarity.text = fish.rarity.ToString();
+        rarity.color = rarityColor[(int)fish.rarity];
         desc.text = fish.desc;
         weight.text = fishData.weight + "kg";
         price.text = fishData.price + " 골드";
@@ -109,6 +112,7 @@ public class FishTradeManager : MonoBehaviour, ISlotHandler
     }
 
     public void SellFish() {
+        SoundManager.Instance.SellFish();
         if(fishList[curIndex].fishID != -1 && curIndex != -1) {
             playerData.gold += fishList[curIndex].price;
             slots[curIndex].GetComponent<Image>().sprite = null;
