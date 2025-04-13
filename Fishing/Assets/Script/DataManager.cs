@@ -85,7 +85,7 @@ public class DataManager : MonoBehaviour
         }
 
         if(!File.Exists(guidePath)) {
-            guide = new();
+            guide = new(fishDataDict.Count);
             SaveGuideData();
             Debug.Log("도감 생성");
         }
@@ -330,9 +330,9 @@ public class Guide {
     public List<bool> fishID;
     public List<CatchGrade> fishGrade; 
 
-    public Guide() {
-        fishID = new(new bool[22]);
-        fishGrade = new(new CatchGrade[22]);
+    public Guide(int size) {
+        fishID = new(new bool[size]);
+        fishGrade = new(new CatchGrade[size]);
 
         for(int i = 0; i < fishID.Count; i++) {
             fishID[i] = false;

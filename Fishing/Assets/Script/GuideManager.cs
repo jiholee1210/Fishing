@@ -13,7 +13,7 @@ public class GuideManager : MonoBehaviour
     [SerializeField] Transform parent;
     [SerializeField] Sprite none;
 
-    private readonly Habitat[] habitats = { Habitat.None, Habitat.Freshwater, Habitat.Sea, Habitat.Lava, Habitat.Rock};
+    private readonly Habitat[] habitats = { Habitat.None, Habitat.Freshwater, Habitat.Sea, Habitat.Rock, Habitat.Lava};
 
     private List<bool> guideList;
     private List<CatchGrade> catchGrades;
@@ -43,24 +43,25 @@ public class GuideManager : MonoBehaviour
 
         if(guideList != null) {
             for(int i = 0; i < guideList.Count; i++) {
-                if(i == 50) continue; // 보물상자는 도감 제외
-                FishData fish = DataManager.Instance.GetFishData(i);
+                int index = i;
+                FishData fish = DataManager.Instance.GetFishData(index);
 
-                if(habitat == Habitat.None || fish.habitat == habitat) {
+                if(index >= 40) continue;
+
+                if(fish.habitat == habitat || habitat == Habitat.None) {
                     GameObject fishItem = Instantiate(guidePrefab, parent);
-                    if(guideList[i]) {
-                        fishItem.transform.GetChild(0).GetComponent<TMP_Text>().text = "No." + (fish.fishID + 1);
+                    fishItem.transform.GetChild(0).GetComponent<TMP_Text>().text = "No." + (fish.fishID + 1);
+                    if(guideList[index]) {
                         fishItem.transform.GetChild(1).GetComponent<Image>().sprite = fish.fishIcon;
                         fishItem.transform.GetChild(2).GetComponent<TMP_Text>().text = fish.fishName;
                         for(int j = 0; j < 4; j++) {
-                            if(catchGrades[i].grade[j]) {
+                            if(catchGrades[index].grade[j]) {
                                 fishItem.transform.GetChild(j + 3).GetComponent<Image>().color = new Color(1f, 1f, 1f);
                             }
                         }
                         fishItem.GetComponent<Button>().onClick.AddListener(() => SetDetail(fish));
                     }
                     else {
-                        fishItem.transform.GetChild(0).GetComponent<TMP_Text>().text = "No." + (fish.fishID + 1);
                         fishItem.transform.GetChild(1).GetComponent<Image>().sprite = none;
                         fishItem.transform.GetChild(2).GetComponent<TMP_Text>().text = "???";
                     }

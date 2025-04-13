@@ -5258,7 +5258,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &79442785
 RectTransform:
   m_ObjectHideFlags: 0
@@ -13510,6 +13510,7 @@ GameObject:
   - component: {fileID: 241504247}
   - component: {fileID: 241504246}
   - component: {fileID: 241504245}
+  - component: {fileID: 241504248}
   m_Layer: 0
   m_Name: LavaZoneB
   m_TagString: Untagged
@@ -13606,6 +13607,19 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 241504242}
   m_Mesh: {fileID: 4300000, guid: 500a4753236312648951141227acc8e2, type: 2}
+--- !u!114 &241504248
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 241504242}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 707bc8ddf36cacd4e837d4ea87e5f3c0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fishIDList: 1e0000001f0000002000000021000000220000002300000024000000250000002600000027000000
 --- !u!1001 &242199583
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -14730,7 +14744,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -458.39, y: 30}
+  m_AnchoredPosition: {x: -458.39, y: -60}
   m_SizeDelta: {x: 80, y: 80}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &268619182
@@ -29721,7 +29735,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 707bc8ddf36cacd4e837d4ea87e5f3c0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fishIDList: 000000000100000003000000050000000700000008000000090000000a000000
+  fishIDList: 1e0000001f0000002000000021000000220000002300000024000000250000002600000027000000
 --- !u!65 &578038998
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -30857,7 +30871,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 707bc8ddf36cacd4e837d4ea87e5f3c0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fishIDList: 02000000130000001400000015000000
+  fishIDList: 1e0000001f0000002000000021000000220000002300000024000000250000002600000027000000
 --- !u!1 &600213346
 GameObject:
   m_ObjectHideFlags: 0
@@ -43400,7 +43414,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 707bc8ddf36cacd4e837d4ea87e5f3c0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fishIDList: 040000000b0000000c0000000d0000000e00000032000000
+  fishIDList: 00000000010000000200000003000000040000000500000006000000070000000800000009000000
 --- !u!1 &819315912
 GameObject:
   m_ObjectHideFlags: 0
@@ -69942,7 +69956,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 707bc8ddf36cacd4e837d4ea87e5f3c0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fishIDList: 060000000f000000100000001100000012000000
+  fishIDList: 1400000015000000160000001700000018000000190000001a0000001b0000001c0000001d000000
 --- !u!4 &1257664411 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4595419663852338021, guid: a1ce882976f269448b2736c192bb72ca, type: 3}
@@ -83590,8 +83604,8 @@ RectTransform:
   - {fileID: 1573957529}
   - {fileID: 1918136874}
   - {fileID: 885926894}
-  - {fileID: 268619181}
   - {fileID: 1957392404}
+  - {fileID: 268619181}
   m_Father: {fileID: 1333347109}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
@@ -87173,7 +87187,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1586092883
 RectTransform:
   m_ObjectHideFlags: 0
@@ -91850,7 +91864,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 707bc8ddf36cacd4e837d4ea87e5f3c0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fishIDList: 000000000100000003000000050000000700000008000000090000000a00000032000000
+  fishIDList: 0a0000000b0000000c0000000d0000000e0000000f00000010000000110000001200000013000000
 --- !u!1001 &1638540360
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -97791,8 +97805,8 @@ MonoBehaviour:
   - {fileID: 1573957530}
   - {fileID: 1918136875}
   - {fileID: 885926895}
-  - {fileID: 268619182}
   - {fileID: 1957392405}
+  - {fileID: 268619182}
   closeButton: {fileID: 1908863840}
   guidePrefab: {fileID: 316634321403663532, guid: 4dd2ef77e98a00e4dba86594e54b679d, type: 3}
   detail: {fileID: 1473148125}
@@ -107538,7 +107552,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -458.39, y: -60}
+  m_AnchoredPosition: {x: -458.39, y: 30}
   m_SizeDelta: {x: 80, y: 80}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1957392405
@@ -113917,7 +113931,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 707bc8ddf36cacd4e837d4ea87e5f3c0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fishIDList: 040000000b0000000c0000000d0000000e00000032000000
+  fishIDList: 00000000010000000200000003000000040000000500000006000000070000000800000009000000
 --- !u!1 &2066563129
 GameObject:
   m_ObjectHideFlags: 0
