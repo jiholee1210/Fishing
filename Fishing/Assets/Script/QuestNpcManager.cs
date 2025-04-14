@@ -159,7 +159,7 @@ public class QuestNpcManager : MonoBehaviour
             questReq.transform.GetChild(0).GetComponent<Image>().sprite = DataManager.Instance.gradeSprites[questData.requirements[i].grade];
             questReq.transform.GetChild(1).GetComponent<Image>().sprite = DataManager.Instance.GetFishData(questData.requirements[i].fishID).fishIcon;
 
-            float xPos = (-80 * (len - 1)) + (160 * i);
+            float xPos = (-60 * (len - 1)) + (120 * i);
             rect.anchoredPosition = new Vector2(xPos, 0);
         }
     }

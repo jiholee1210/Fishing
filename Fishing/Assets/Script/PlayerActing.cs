@@ -14,7 +14,6 @@ public class PlayerActing : MonoBehaviour
     [SerializeField] float rayRange;
     [SerializeField] Transform handPos;
     [SerializeField] GameObject highlighter;
-    [SerializeField] private SoundManager soundManager;
 
     public event Action OnFishingEnd;
 
@@ -105,7 +104,6 @@ public class PlayerActing : MonoBehaviour
 
         if(Input.GetKeyDown(KeyCode.Escape) && currentUIState != UIState.Fishing) {
             if(currentUIState != UIState.None) {
-                soundManager.OpenUI();
                 EventManager.Instance.CloseAllWindows();
                 Cursor.lockState = CursorLockMode.Locked;
                 Cursor.visible = false;
@@ -115,6 +113,7 @@ public class PlayerActing : MonoBehaviour
                 isTalking = false;
             }
             else {
+                SoundManager.Instance.OpenUI();
                 EventManager.Instance.OpenOptionUI();
                 cameraRot.StartOtherJob();
                 playerMovement.StartOtherJob();
@@ -138,7 +137,7 @@ public class PlayerActing : MonoBehaviour
             if(playerInventory.isFishFull()) {
                 Debug.Log("낚시 가방이 꽉 찼습니다.");
                 EventManager.Instance.InventoryFull();
-                soundManager.ActingFailSound();
+                SoundManager.Instance.ActingFailSound();
                 return;
             }
             else if(playerMovement.isGrounded) {
@@ -158,7 +157,7 @@ public class PlayerActing : MonoBehaviour
             currentLayer = (Layer)layer;
             switch(currentLayer) {
                 case Layer.Npc:
-                    soundManager.OpenUI();
+                    SoundManager.Instance.OpenUI();
                     npcType = curObject.GetComponent<INPC>().GetNpcType();
                     currentUIState = UIState.NPC;
                     EventManager.Instance.OpenNPCUI(npcType, curObject);
@@ -194,7 +193,7 @@ public class PlayerActing : MonoBehaviour
     }
 
     IEnumerator FishingSequence() {
-        soundManager.SwingRod();
+        SoundManager.Instance.SwingRod();
         yield return StartCoroutine(PlayFishingAnimation());
         EventManager.Instance.StartFishing(fishList);
     }
@@ -277,7 +276,7 @@ public class PlayerActing : MonoBehaviour
         else {
             Debug.Log("요구 퀘스트 : " + DataManager.Instance.GetQuestData(reqQeustID).questName);
             EventManager.Instance.NotClearQuest();
-            soundManager.ActingFailSound();
+            SoundManager.Instance.ActingFailSound();
         }
     }
 
@@ -287,7 +286,7 @@ public class PlayerActing : MonoBehaviour
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
         cameraRot.StartOtherJob();
-        soundManager.OpenUI();
+        SoundManager.Instance.OpenUI();
         switch(newState)
         {
             case UIState.Inventory:
@@ -316,7 +315,7 @@ public class PlayerActing : MonoBehaviour
                 EventManager.Instance.CloseSkin();
                 break;
         }
-        soundManager.OpenUI();
+        SoundManager.Instance.OpenUI();
         currentUIState = UIState.None;
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;

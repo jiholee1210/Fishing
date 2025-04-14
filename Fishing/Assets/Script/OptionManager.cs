@@ -11,12 +11,18 @@ public class OptionManager : MonoBehaviour
     {
         optionButton.onClick.AddListener(() => OpenVolumeSetting());
         exitButton.onClick.AddListener(() => EventManager.Instance.SaveAndExit());
-        confirmButton.onClick.AddListener(() => CloseVolumeSetting());
+        confirmButton.onClick.AddListener(() => CloseVolumeButton());
     }
 
     private void OpenVolumeSetting() {
+        SoundManager.Instance.ButtonClick();
         transform.GetChild(0).GetChild(0).gameObject.SetActive(false);
         transform.GetChild(0).GetChild(1).gameObject.SetActive(true);
+    }
+
+    private void CloseVolumeButton() {
+        CloseVolumeSetting();
+        SoundManager.Instance.ButtonClick();
     }
 
     private void CloseVolumeSetting() {

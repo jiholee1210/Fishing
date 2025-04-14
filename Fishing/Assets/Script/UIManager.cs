@@ -160,7 +160,7 @@ public class UIManager : MonoBehaviour
     }
 
     public void CloseAllWindows() {
-        
+        SoundManager.Instance.OpenUI();
         CloseFishInventoryUI();
 
         CloseGuideUI();

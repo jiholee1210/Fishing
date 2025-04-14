@@ -53,6 +53,7 @@ public class MuseumManager : MonoBehaviour
     }
 
     private void SelectRelic(int index, Vector2 pos) {
+        SoundManager.Instance.ButtonClick();
         SetDetail(index);
         if(relics.Contains(index)) {
             Debug.Log(index);
@@ -82,6 +83,7 @@ public class MuseumManager : MonoBehaviour
 
     private void DonateRelics() {
         if(relics.Count > 0) {
+            SoundManager.Instance.ButtonClick();
             playerData.donateCount += relics.Count;
 
             foreach(int index in relics) {
@@ -120,6 +122,7 @@ public class MuseumManager : MonoBehaviour
     }
 
     private void GetReward(int index) {
+        SoundManager.Instance.ButtonClick();
         playerData.museumComplete.Add(index);
         switch(index) {
             case 0:
@@ -165,6 +168,7 @@ public class MuseumManager : MonoBehaviour
     }
 
     private void OpenDonateUI() {
+        SoundManager.Instance.ButtonClick();
         transform.GetChild(0).GetChild(0).gameObject.SetActive(false);
         transform.GetChild(0).GetChild(1).gameObject.SetActive(true);
 
@@ -172,12 +176,14 @@ public class MuseumManager : MonoBehaviour
     }
 
     private void OpenRewardUI() {
+        SoundManager.Instance.ButtonClick();
         transform.GetChild(0).GetChild(0).gameObject.SetActive(false);
         transform.GetChild(0).GetChild(2).gameObject.SetActive(true);
         SetRewardButton();
     }
 
     private void CloseDonateUI() {
+        SoundManager.Instance.ButtonClick();
         detail.gameObject.SetActive(false);
 
         transform.GetChild(0).GetChild(0).gameObject.SetActive(true);
@@ -191,6 +197,7 @@ public class MuseumManager : MonoBehaviour
     }
 
     private void CloseRewardUI() {
+        SoundManager.Instance.ButtonClick();
         transform.GetChild(0).GetChild(0).gameObject.SetActive(true);
         transform.GetChild(0).GetChild(2).gameObject.SetActive(false);
     }
