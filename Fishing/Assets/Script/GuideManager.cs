@@ -14,6 +14,7 @@ public class GuideManager : MonoBehaviour
     [SerializeField] Sprite none;
 
     private readonly Habitat[] habitats = { Habitat.None, Habitat.Freshwater, Habitat.Sea, Habitat.Rock, Habitat.Lava};
+    private Color[] rarityColor = {new Color(0f, 0f, 0f), new Color(0f, 0.6f, 0.9f), new Color(0.7f, 0f, 1f), new Color(1f, 0.3f, 0.1f), new Color(0f, 0.8f, 0.6f)};
 
     private List<bool> guideList;
     private List<CatchGrade> catchGrades;
@@ -80,6 +81,7 @@ public class GuideManager : MonoBehaviour
 
             detail.transform.GetChild(0).GetComponent<TMP_Text>().text = fishData.fishName;
             detail.transform.GetChild(1).GetComponent<TMP_Text>().text = fishData.rarity.ToString();
+            detail.transform.GetChild(1).GetComponent<TMP_Text>().color = rarityColor[(int)fishData.rarity];
             
             Image fishImage = detail.transform.GetChild(2).GetComponent<Image>();
             fishImage.sprite = fishData.fishDetail;

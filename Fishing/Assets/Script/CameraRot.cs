@@ -3,7 +3,7 @@ using UnityEngine.InputSystem;
 
 public class CameraRot : MonoBehaviour
 {
-    [SerializeField] private float rotSpeed = 4f;
+    [SerializeField] public float rotSpeed;
 
     private Vector2 lookInput;
     private float currentYAngle = 0f;

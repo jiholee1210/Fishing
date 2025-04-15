@@ -7,6 +7,7 @@ using UnityEngine.UI;
 public enum AudioMixerType {
     Master,
     BGM,
+    Ambient,
     SFX
 }
 public class AudioManager : MonoBehaviour
@@ -28,6 +29,10 @@ public class AudioManager : MonoBehaviour
         SetAudioVol(AudioMixerType.BGM, vol);
     }
 
+    public void ChangeAmbientVolume(float vol) {
+        SetAudioVol(AudioMixerType.Ambient, vol);
+    }
+
     public void ChangeSFXVolume(float vol) {
         SetAudioVol(AudioMixerType.SFX, vol);
     }
@@ -44,7 +49,7 @@ public class AudioManager : MonoBehaviour
 
     // 이후 UI매니저로 넘기기
     private void DefaultSetting() {
-        for(int i = 0; i < 3; i++) {
+        for(int i = 0; i < 4; i++) {
             AudioMixerType audioMixerType = (AudioMixerType)i;
 
             string tag = audioMixerType.ToString();

@@ -26,7 +26,7 @@ public class QuestNpcManager : MonoBehaviour
 
     private int npcID;
 
-    private int nextQuestReset = 120;
+    private int nextQuestReset = 300;
     private float saveInterval = 60f;
     private int curTime = 0;
     private float saveTime = 0f;

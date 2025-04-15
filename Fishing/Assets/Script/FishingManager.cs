@@ -51,6 +51,7 @@ public class FishingManager : MonoBehaviour
     private Coroutine noteCoroutine;
     private Queue<GameObject> noteQueue = new();
 
+    private Color[] rarityColor = {new Color(0f, 0f, 0f), new Color(0f, 0.6f, 0.9f), new Color(0.7f, 0f, 1f), new Color(1f, 0.3f, 0.1f), new Color(0f, 0.8f, 0.6f)};
     void Awake()
     {
         fishRect = fish.GetComponent<RectTransform>();
@@ -392,6 +393,7 @@ public class FishingManager : MonoBehaviour
             chest.gameObject.SetActive(true);
             chest.GetComponent<Animator>().Play("ChestPanel_Open");
             chest.GetChild(1).GetComponent<Animator>().Play("Chest_Open");
+            chest.GetChild(1).GetComponent<Button>().onClick.RemoveAllListeners();
             chest.GetChild(1).GetComponent<Button>().onClick.AddListener(() => OpenChest(relicID));
         }
         else {
@@ -414,6 +416,7 @@ public class FishingManager : MonoBehaviour
 
     private void OpenChest(int id) {
         chest.GetChild(2).gameObject.SetActive(true);
+        chest.GetChild(2).GetComponent<Button>().onClick.RemoveAllListeners();
         chest.GetChild(2).GetComponent<Button>().onClick.AddListener(() => StartCoroutine(CloseChest(id)));
 
         chest.GetChild(1).GetComponent<Animator>().Play("Chest_Close");
@@ -467,6 +470,7 @@ public class FishingManager : MonoBehaviour
         image.sprite = fish.fishDetail;
         image.SetNativeSize();
         detail.GetChild(2).GetComponent<TMP_Text>().text = fish.rarity.ToString();
+        detail.GetChild(2).GetComponent<TMP_Text>().color = rarityColor[(int)fish.rarity];
         detail.GetChild(3).GetComponent<TMP_Text>().text = fish.desc;
         detail.GetChild(4).GetComponent<Image>().sprite = DataManager.Instance.gradeSprites[fishGrade];
         detail.GetChild(5).GetComponent<TMP_Text>().text = fishWeight + " kg";
