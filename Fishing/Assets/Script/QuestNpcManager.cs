@@ -156,8 +156,8 @@ public class QuestNpcManager : MonoBehaviour
             GameObject questReq = Instantiate(reqFishPrefab, reqParent);
             RectTransform rect = questReq.GetComponent<RectTransform>();
 
-            questReq.transform.GetChild(0).GetComponent<Image>().sprite = DataManager.Instance.gradeSprites[questData.requirements[i].grade];
-            questReq.transform.GetChild(1).GetComponent<Image>().sprite = DataManager.Instance.GetFishData(questData.requirements[i].fishID).fishIcon;
+            questReq.transform.GetChild(1).GetComponent<Image>().sprite = DataManager.Instance.gradeSprites[questData.requirements[i].grade];
+            questReq.transform.GetChild(0).GetComponent<Image>().sprite = DataManager.Instance.GetFishData(questData.requirements[i].fishID).fishIcon;
 
             float xPos = (-60 * (len - 1)) + (120 * i);
             rect.anchoredPosition = new Vector2(xPos, 0);

@@ -20,7 +20,8 @@ MonoBehaviour:
   speed: 250
   weightMin: 100
   weightMax: 120
-  desc: "\uB2FF\uAE30\uB9CC \uD574\uB3C4 \uD654\uC0C1\uC774 \uC785\uB294 \uD574\uD30C\uB9AC"
+  desc: "\uBD88\uAF43\uCC98\uB7FC \uBC18\uC9DD\uC774\uB294 \uBE44\uB298\uC744 \uAC00\uC9C4
+    \uC0DD\uBB3C"
   price: 300
   fishDetail: {fileID: 21300000, guid: a49f42e7756c4b64c9d87e94c3491c40, type: 3}
   fishIcon: {fileID: 21300000, guid: 77847fa83d552254bb811623986f8eb1, type: 3}
