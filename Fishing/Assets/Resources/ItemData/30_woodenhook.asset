@@ -15,4 +15,4 @@ MonoBehaviour:
   itemID: 30
   itemType: 3
   reqGold: 100
-  itemImage: {fileID: 21300000, guid: cedd2590b0261fa40beec63f3588b33e, type: 3}
+  itemImage: {fileID: 21300000, guid: 5d57649922135a44281162e5b988d523, type: 3}

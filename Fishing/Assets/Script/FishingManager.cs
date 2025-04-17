@@ -272,6 +272,7 @@ public class FishingManager : MonoBehaviour
         playerActing.SetStartFishing();
 
         fishID = SetRandomFish(fishList);
+        fishID = 50;
         fishGrade = fishID == 50 ? 3 : SetFishGrade();
         grade.sprite = DataManager.Instance.gradeSprites[fishGrade];
         SetFishStat();
@@ -389,12 +390,11 @@ public class FishingManager : MonoBehaviour
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;
 
-            int relicID = relicList[UnityEngine.Random.Range(0, relicList.Count)];
             chest.gameObject.SetActive(true);
             chest.GetComponent<Animator>().Play("ChestPanel_Open");
             chest.GetChild(1).GetComponent<Animator>().Play("Chest_Open");
             chest.GetChild(1).GetComponent<Button>().onClick.RemoveAllListeners();
-            chest.GetChild(1).GetComponent<Button>().onClick.AddListener(() => OpenChest(relicID));
+            chest.GetChild(1).GetComponent<Button>().onClick.AddListener(() => OpenChest());
         }
         else {
             yield return StartCoroutine(ShowDetail());
@@ -414,18 +414,18 @@ public class FishingManager : MonoBehaviour
         EventManager.Instance.EndFishing();
     }
 
-    private void OpenChest(int id) {
+    private void OpenChest() {
         chest.GetChild(2).gameObject.SetActive(true);
         chest.GetChild(2).GetComponent<Button>().onClick.RemoveAllListeners();
-        chest.GetChild(2).GetComponent<Button>().onClick.AddListener(() => StartCoroutine(CloseChest(id)));
+        chest.GetChild(2).GetComponent<Button>().onClick.AddListener(() => StartCoroutine(CloseChest()));
 
         chest.GetChild(1).GetComponent<Animator>().Play("Chest_Close");
 
-        chest.GetChild(3).GetComponent<Image>().sprite = DataManager.Instance.GetItemData(id).itemImage;
+        chest.GetChild(3).GetComponent<Image>().sprite = DataManager.Instance.GetFishData(50).fishDetail;
         chest.GetChild(3).GetComponent<Animator>().Play("Inside_Open");
     }
 
-    private IEnumerator CloseChest(int id) {
+    private IEnumerator CloseChest() {
         chest.GetChild(3).GetComponent<Animator>().Play("Inside_Close");
         chest.GetComponent<Animator>().Play("ChestPanel_Close");
         yield return null;
@@ -433,11 +433,11 @@ public class FishingManager : MonoBehaviour
         float len = chest.GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).length;
         yield return new WaitForSeconds(len);
 
-        FishData relic = DataManager.Instance.GetFishData(id);
+        FishData relic = DataManager.Instance.GetFishData(50);
         float randomWeight = UnityEngine.Random.Range(relic.weightMin, relic.weightMax);
         float relicWeight = float.Parse(randomWeight.ToString("F2"));
 
-        playerActing.playerInventory.GetFish(id, relicWeight, 3);
+        playerActing.playerInventory.GetFish(50, relicWeight, fishGrade);
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
         EndFishing();

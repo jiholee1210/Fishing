@@ -21,6 +21,7 @@ public class MuseumManager : MonoBehaviour
     private PlayerData playerData;
 
     private int[] donate = {1, 5, 10, 20};
+    private Color[] rarityColor = {new Color(0f, 0f, 0f), new Color(0f, 0.6f, 0.9f), new Color(0.7f, 0f, 1f), new Color(1f, 0.3f, 0.1f), new Color(0f, 0.8f, 0.6f)};
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -77,8 +78,10 @@ public class MuseumManager : MonoBehaviour
         detail.GetChild(0).GetComponent<TMP_Text>().text = fishData.fishName;
         detail.GetChild(1).GetComponent<Image>().sprite = fishData.fishDetail;
         detail.GetChild(2).GetComponent<TMP_Text>().text = fishData.rarity.ToString();
+        detail.GetChild(2).GetComponent<TMP_Text>().color = rarityColor[(int)fishData.rarity];
         detail.GetChild(3).GetComponent<TMP_Text>().text = playerFish[index].weight + " kg";
         detail.GetChild(4).GetComponent<TMP_Text>().text = playerFish[index].price + " C";
+        detail.GetChild(5).GetComponent<Image>().sprite = DataManager.Instance.gradeSprites[playerFish[index].grade];
     }
 
     private void DonateRelics() {
@@ -126,7 +129,7 @@ public class MuseumManager : MonoBehaviour
         playerData.museumComplete.Add(index);
         switch(index) {
             case 0:
-                playerData.gold += 2000;
+                playerData.gold += 15000;
                 break;
             case 1:
                 playerData.getRelicReward = true;

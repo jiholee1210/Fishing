@@ -17,13 +17,13 @@ public class TooltipManager : MonoBehaviour
                 RodData rodData = DataManager.Instance.GetRodData(itemID);
                 tooltipObject.transform.GetChild(0).GetComponent<TMP_Text>().text = rodData.rodName;
                 tooltipObject.transform.GetChild(1).GetComponent<TMP_Text>().text = "내구도 : " + rodData.rodDur;
-                tooltipObject.transform.GetChild(2).GetComponent<TMP_Text>().text = "낚시를 지속할 수 있는 시간 증가";
+                tooltipObject.transform.GetChild(2).GetComponent<TMP_Text>().text = "낚시 총 내구도 증가";
                 break;
             case 1:
                 ReelData reelData = DataManager.Instance.GetReelData(itemID);
                 tooltipObject.transform.GetChild(0).GetComponent<TMP_Text>().text = reelData.reelName;
                 tooltipObject.transform.GetChild(1).GetComponent<TMP_Text>().text = "스피드 : " + reelData.reelSpeed;
-                tooltipObject.transform.GetChild(2).GetComponent<TMP_Text>().text = "물고기를 끌어올리는 속도 증가";
+                tooltipObject.transform.GetChild(2).GetComponent<TMP_Text>().text = "낚시 노트 속도 감소";
                 break;
             case 2:
                 WireData wireData = DataManager.Instance.GetWireData(itemID);
