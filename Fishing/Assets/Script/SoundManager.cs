@@ -26,6 +26,9 @@ public class SoundManager : MonoBehaviour
     [SerializeField] private AudioClip skinChange;
     [SerializeField] private AudioClip questClear;
     [SerializeField] private AudioClip questFail;
+    [SerializeField] private AudioClip fallWater;
+    [SerializeField] private AudioClip chestOpen;
+    [SerializeField] private AudioClip genChest;
     
 
     void Start()
@@ -99,6 +102,18 @@ public class SoundManager : MonoBehaviour
 
     public void FishingDetail() {
         UI.PlayOneShot(fishingDetail);
+    }
+
+    public void FallWater() {
+        UI.PlayOneShot(fallWater);
+    }
+
+    public void GenChest() {
+        UI.PlayOneShot(genChest);
+    }
+
+    public void ChestOpen() {
+        UI.PlayOneShot(chestOpen);
     }
 
     public void PlayReelSound() {

@@ -186,32 +186,32 @@ public class FishingManager : MonoBehaviour
         Debug.Log("미끼 레벨 : " + baitLevel);
         switch(baitLevel) {
             case 1:
-                fishProbabilities.Add(0, 70f);
-                fishProbabilities.Add(1, 29f);
-                fishProbabilities.Add(2, 0.8f);
-                fishProbabilities.Add(3, 0.1f);
-                fishProbabilities.Add(4, 0.1f);
+                fishProbabilities.Add(0, 65f);
+                fishProbabilities.Add(1, 30f);
+                fishProbabilities.Add(2, 3f);
+                fishProbabilities.Add(3, 1f);
+                fishProbabilities.Add(4, 1f);
                 break;
             case 2:
-                fishProbabilities.Add(0, 65f);
-                fishProbabilities.Add(1, 32f);
-                fishProbabilities.Add(2, 2f);
-                fishProbabilities.Add(3, 0.5f);
-                fishProbabilities.Add(4, 0.5f);
+                fishProbabilities.Add(0, 55f);
+                fishProbabilities.Add(1, 30f);
+                fishProbabilities.Add(2, 7f);
+                fishProbabilities.Add(3, 4f);
+                fishProbabilities.Add(4, 4f);
                 break;
             case 3:
-                fishProbabilities.Add(0, 55f);
-                fishProbabilities.Add(1, 36f);
-                fishProbabilities.Add(2, 5f);
-                fishProbabilities.Add(3, 2f);
-                fishProbabilities.Add(4, 2f);
-                break;
-            case 4:
-                fishProbabilities.Add(0, 40f);
-                fishProbabilities.Add(1, 40f);
+                fishProbabilities.Add(0, 45f);
+                fishProbabilities.Add(1, 35f);
                 fishProbabilities.Add(2, 10f);
                 fishProbabilities.Add(3, 5f);
                 fishProbabilities.Add(4, 5f);
+                break;
+            case 4:
+                fishProbabilities.Add(0, 30f);
+                fishProbabilities.Add(1, 35f);
+                fishProbabilities.Add(2, 15f);
+                fishProbabilities.Add(3, 10f);
+                fishProbabilities.Add(4, 10f);
                 break;
             default:
                 break;
@@ -225,19 +225,19 @@ public class FishingManager : MonoBehaviour
                 gradeProbabilities.Add(0, 100f);
                 break;
             case 2:
-                gradeProbabilities.Add(0, 70f);
-                gradeProbabilities.Add(1, 30f);
+                gradeProbabilities.Add(0, 60f);
+                gradeProbabilities.Add(1, 40f);
                 break;
             case 3:
                 gradeProbabilities.Add(0, 50f);
-                gradeProbabilities.Add(1, 35f);
-                gradeProbabilities.Add(2, 15f);
+                gradeProbabilities.Add(1, 30f);
+                gradeProbabilities.Add(2, 20f);
                 break;
             case 4:
                 gradeProbabilities.Add(0, 30f);
-                gradeProbabilities.Add(1, 40f);
-                gradeProbabilities.Add(2, 20f);
-                gradeProbabilities.Add(3, 10f);
+                gradeProbabilities.Add(1, 30f);
+                gradeProbabilities.Add(2, 25f);
+                gradeProbabilities.Add(3, 15f);
                 break;
         }
     }
@@ -272,7 +272,7 @@ public class FishingManager : MonoBehaviour
         playerActing.SetStartFishing();
 
         fishID = SetRandomFish(fishList);
-        fishID = 50;
+        fishID= 50;
         fishGrade = fishID == 50 ? 3 : SetFishGrade();
         grade.sprite = DataManager.Instance.gradeSprites[fishGrade];
         SetFishStat();
@@ -390,6 +390,7 @@ public class FishingManager : MonoBehaviour
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;
 
+            SoundManager.Instance.GenChest();
             chest.gameObject.SetActive(true);
             chest.GetComponent<Animator>().Play("ChestPanel_Open");
             chest.GetChild(1).GetComponent<Animator>().Play("Chest_Open");
@@ -415,6 +416,7 @@ public class FishingManager : MonoBehaviour
     }
 
     private void OpenChest() {
+        SoundManager.Instance.ChestOpen();
         chest.GetChild(2).gameObject.SetActive(true);
         chest.GetChild(2).GetComponent<Button>().onClick.RemoveAllListeners();
         chest.GetChild(2).GetComponent<Button>().onClick.AddListener(() => StartCoroutine(CloseChest()));

@@ -9,6 +9,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float gravity;
     [SerializeField] Transform handPos;
     [SerializeField] private SoundManager soundManager;
+    [SerializeField] private WipeController wipeController;
 
 
     float inputValueX;
@@ -104,6 +105,18 @@ public class PlayerMovement : MonoBehaviour
     public void SetPos(Vector3 pos) {
         characterController.enabled = false;
         transform.position = pos;
+        characterController.enabled = true;
+    }
+
+    public IEnumerator FallIntoWater() {
+        soundManager.FallWater();
+        characterController.enabled = false;
+        yield return StartCoroutine(wipeController.CircleIn());
+        transform.position = new Vector3(1275.5f, -75.2f, 1921.3f);
+        yield return StartCoroutine(wipeController.CircleOut());
+        Debug.Log("효과 끝남");
+        inputValueX = 0f;
+        inputValueZ = 0f;
         characterController.enabled = true;
     }
 

@@ -7,7 +7,7 @@ public class MouseManager : MonoBehaviour
     [SerializeField] private Slider sensitivity;
     [SerializeField] private CameraRot cameraRot;   
     [SerializeField] private TMP_Text valueText;
-    private string tag = "Mouse";
+    private new readonly string tag = "Mouse";
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -19,15 +19,15 @@ public class MouseManager : MonoBehaviour
     }
 
     private void SetMouseSenstivity(float value) {
-        int input = (int)value;
+        float input = value;
         cameraRot.rotSpeed = value;
-        valueText.text = input.ToString();
+        valueText.text = input.ToString("F2");
         PlayerPrefs.SetFloat(tag, value);
     }
 
     private void DefaultSetting() {
-        int value = (int)PlayerPrefs.GetFloat(tag);
+        float value = PlayerPrefs.GetFloat(tag);
         sensitivity.value = value;
-        valueText.text = value.ToString();
+        valueText.text = value.ToString("F2");
     }
 }
