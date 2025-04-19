@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -180,6 +179,7 @@ public class QuestNpcManager : MonoBehaviour
             }
             if(!fishFound) {
                 Debug.Log("필요한 물고기가 부족합니다.");
+                EventManager.Instance.ReqFish();
                 SoundManager.Instance.QuestFail();
                 return;
             }

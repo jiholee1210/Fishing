@@ -8,6 +8,10 @@ public class OptionManager : MonoBehaviour
     [SerializeField] private Button exitButton;
     [SerializeField] private Button soundConfirmButton;
     [SerializeField] private Button mouseConfirmButton;
+    [SerializeField] private Button posResetButton;
+
+    [SerializeField] private PlayerActing playerActing;
+    [SerializeField] private PlayerMovement playerMovement;
 
     void Start()
     {
@@ -16,6 +20,7 @@ public class OptionManager : MonoBehaviour
         exitButton.onClick.AddListener(() => EventManager.Instance.SaveAndExit());
         soundConfirmButton.onClick.AddListener(() => CloseVolumeButton());
         mouseConfirmButton.onClick.AddListener(() => CloseMouseButton());
+        posResetButton.onClick.AddListener(() => ResetPos());
     }
 
     private void OpenVolumeSetting() {
@@ -48,6 +53,12 @@ public class OptionManager : MonoBehaviour
     private void CloseMouseSetting() {
         transform.GetChild(0).GetChild(0).gameObject.SetActive(true);
         transform.GetChild(0).GetChild(2).gameObject.SetActive(false);
+    }
+
+    private void ResetPos() {
+        playerActing.CloseAllWindows();
+        StartCoroutine(playerMovement.FallIntoWater());
+        transform.GetChild(0).gameObject.SetActive(false);
     }
 
     public void CloseWindow() {

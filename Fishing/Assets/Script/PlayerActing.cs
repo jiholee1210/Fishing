@@ -1,8 +1,6 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
-using Microsoft.Unity.VisualStudio.Editor;
 using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -104,13 +102,7 @@ public class PlayerActing : MonoBehaviour
 
         if(Input.GetKeyDown(KeyCode.Escape) && currentUIState != UIState.Fishing) {
             if(currentUIState != UIState.None) {
-                EventManager.Instance.CloseAllWindows();
-                Cursor.lockState = CursorLockMode.Locked;
-                Cursor.visible = false;
-                currentUIState = UIState.None;
-                cameraRot.StopOtherJob();
-                playerMovement.StopOtherJob();
-                isTalking = false;
+                CloseAllWindows();
             }
             else {
                 SoundManager.Instance.OpenUI();
@@ -122,6 +114,16 @@ public class PlayerActing : MonoBehaviour
                 currentUIState = UIState.Option;
             } 
         }
+    }
+
+    public void CloseAllWindows() {
+        EventManager.Instance.CloseAllWindows();
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
+        currentUIState = UIState.None;
+        cameraRot.StopOtherJob();
+        playerMovement.StopOtherJob();
+        isTalking = false;
     }
     
     public IEnumerator SetAnimator() {

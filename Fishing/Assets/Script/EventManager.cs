@@ -106,6 +106,14 @@ public class EventManager : MonoBehaviour
         uIManager.NotClearQuest();
     }
 
+    public void ReqFish() {
+        uIManager.ReqFish();
+    }
+
+    public void SelectFish() {
+        uIManager.SelectFish();
+    }
+
     public void CloseAllWindows() {
         uIManager.CloseAllWindows();
     }

@@ -1,6 +1,4 @@
-using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class UIManager : MonoBehaviour
@@ -14,8 +12,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] GameObject optionUI;
     [SerializeField] private GameObject volumeUI;
 
-    [SerializeField] private Animator inventoryFullError;
-    [SerializeField] private Animator notClearQuestError;
+    [SerializeField] private Animator errorText;
 
     [SerializeField] GameObject upgradeNpcUI;
     [SerializeField] GameObject fishMerchantUI;
@@ -152,11 +149,19 @@ public class UIManager : MonoBehaviour
     }
 
     public void InventoryFull() {
-        inventoryFullError.Play("InventoryFullError");
+        errorText.Play("InventoryFullError");
     }
 
     public void NotClearQuest() {
-        notClearQuestError.Play("NotClearQuestError");
+        errorText.Play("NotClearQuestError");
+    }
+
+    public void ReqFish() {
+        errorText.Play("ReqFish");
+    }
+
+    public void SelectFish() {
+        errorText.Play("SelectFish");
     }
 
     public void CloseAllWindows() {

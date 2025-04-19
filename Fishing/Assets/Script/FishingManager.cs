@@ -1,9 +1,7 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using TMPro;
-using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -272,7 +270,6 @@ public class FishingManager : MonoBehaviour
         playerActing.SetStartFishing();
 
         fishID = SetRandomFish(fishList);
-        fishID= 50;
         fishGrade = fishID == 50 ? 3 : SetFishGrade();
         grade.sprite = DataManager.Instance.gradeSprites[fishGrade];
         SetFishStat();

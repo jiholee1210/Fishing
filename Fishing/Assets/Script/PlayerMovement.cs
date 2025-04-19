@@ -111,12 +111,14 @@ public class PlayerMovement : MonoBehaviour
     public IEnumerator FallIntoWater() {
         soundManager.FallWater();
         characterController.enabled = false;
+        cantMove = true;
         yield return StartCoroutine(wipeController.CircleIn());
         transform.position = new Vector3(1275.5f, -75.2f, 1921.3f);
         yield return StartCoroutine(wipeController.CircleOut());
         Debug.Log("효과 끝남");
         inputValueX = 0f;
         inputValueZ = 0f;
+        cantMove = false;
         characterController.enabled = true;
     }
 
