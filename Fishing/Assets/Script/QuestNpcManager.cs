@@ -135,6 +135,7 @@ public class QuestNpcManager : MonoBehaviour
         TMP_Text name = questDetail.GetChild(0).GetComponent<TMP_Text>();
         TMP_Text desc = questDetail.GetChild(1).GetComponent<TMP_Text>();
         TMP_Text gold = questDetail.GetChild(3).GetComponent<TMP_Text>();
+        TMP_Text reward = questDetail.GetChild(7).GetComponent<TMP_Text>();
         
         Button btn = questDetail.GetChild(5).GetComponent<Button>();
         questDetail.GetChild(5).gameObject.SetActive(true);
@@ -144,6 +145,7 @@ public class QuestNpcManager : MonoBehaviour
         name.text = questData.questName;
         desc.text = questData.desc;
         gold.text = questData.rewardGold + " 코인";
+        reward.text = questData.reward;
 
         foreach(Transform req in reqParent) {
             Destroy(req.gameObject);
@@ -252,6 +254,7 @@ public class QuestNpcManager : MonoBehaviour
             questData.questID = 1001;
             questData.isEpic = false;
             questData.questName = "마을의 부탁";
+            questData.desc = "마을 일거리를 해결하자.";
             questData.receive = normalQuests[index].receive;
             questData.complete = normalQuests[index].complete;            
             questData.requirements = normalQuests[index].questRequirements;

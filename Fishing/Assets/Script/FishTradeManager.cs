@@ -69,7 +69,7 @@ public class FishTradeManager : MonoBehaviour
         rarity.color = rarityColor[(int)fish.rarity];
         desc.text = fish.desc;
         weight.text = fishData.weight + "kg";
-        price.text = fishData.price + " 골드";
+        price.text = fishData.price + " 코인";
     }
 
     public void SellFish() {
@@ -128,7 +128,7 @@ public class FishTradeManager : MonoBehaviour
     }
 
     public void SetGoldText() {
-        gold.text = playerData.gold + " 코인";
+        gold.text = playerData.gold + " C";
     }
 
     public void DefaultSetting() {

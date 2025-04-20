@@ -14,10 +14,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   questID: 3
   isEpic: 1
-  questName: "\uBC14\uC704\uC9C0\uB300 \uD56D\uB85C \uAC1C\uCC99"
-  desc: "\uC0C8\uB85C\uC6B4 \uB09A\uC2DC\uC9C0\uB300 : \uBC14\uC704\uC9C0\uB300 \uCD94\uAC00"
+  questName: "\uBC14\uC704\uC9C0\uB300 \uD130\uB110 \uAC1C\uBC29"
+  desc: "\uBC14\uC704\uC9C0\uB300\uB85C \uAC00\uB294 \uD130\uB110\uC744 \uB6AB\uC5B4\uBCF4\uC790."
   receive: 1
   complete: 1
   nextQuest: 01000000
   requirements: []
   rewardGold: 100
+  reward: "\uC0C8\uB85C\uC6B4 \uB09A\uC2DC\uC9C0\uB300 : \uBC14\uC704\uC9C0\uB300
+    \uCD94\uAC00"

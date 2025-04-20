@@ -59,7 +59,7 @@ public class FishInvenManager : MonoBehaviour, ISlotHandler
         rarity.color = rarityColor[(int)fish.rarity];
         desc.text = fish.desc;
         weight.text = fishData.weight + "kg";
-        price.text = fishData.price + " 골드";
+        price.text = fishData.price + " 코인";
     }
     
     public void SwapItem(int indexA, int indexB)

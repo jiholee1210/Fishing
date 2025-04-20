@@ -237,7 +237,8 @@ public class PlayerActing : MonoBehaviour
         bool isFishingZone = hit.point.y >= groundHit.point.y - 0.05f;
         if (isFishingZone) {
             fishList = hit.collider.GetComponent<IFishingZone>().GetFishList();
-            SetHighliterState("낚시하기");
+            string highlight = hit.collider.GetComponent<IFishingZone>().GetHighlighter();
+            SetHighliterState(highlight);
             canFishing = isFishingZone;  
         } 
         else {

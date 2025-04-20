@@ -1,0 +1,324 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5b11a58205ec3474ca216360e9fa74a8, type: 3}
+  m_Name: DialogTable Shared Data
+  m_EditorClassIdentifier: 
+  m_TableCollectionName: DialogTable
+  m_TableCollectionNameGuidString: 8ad57e306aab4c04db1e0f7327176e4d
+  m_Entries:
+  - m_Id: 67123527680
+    m_Key: inventory
+    m_Metadata:
+      m_Items: []
+  - m_Id: 10476744327168
+    m_Key: gamestart
+    m_Metadata:
+      m_Items: []
+  - m_Id: 10592725221376
+    m_Key: language
+    m_Metadata:
+      m_Items: []
+  - m_Id: 10594390360064
+    m_Key: exit
+    m_Metadata:
+      m_Items: []
+  - m_Id: 10596147773440
+    m_Key: back
+    m_Metadata:
+      m_Items: []
+  - m_Id: 30484589428736
+    m_Key: highlight_fish
+    m_Metadata:
+      m_Items: []
+  - m_Id: 30484631371776
+    m_Key: highlight_tel
+    m_Metadata:
+      m_Items: []
+  - m_Id: 30484631371777
+    m_Key: highlight_talk
+    m_Metadata:
+      m_Items: []
+  - m_Id: 30484631371778
+    m_Key: fishing_dur
+    m_Metadata:
+      m_Items: []
+  - m_Id: 30484631371779
+    m_Key: chest
+    m_Metadata:
+      m_Items: []
+  - m_Id: 30484631371780
+    m_Key: upgrade_title
+    m_Metadata:
+      m_Items: []
+  - m_Id: 30484631371781
+    m_Key: upgrade_rod
+    m_Metadata:
+      m_Items: []
+  - m_Id: 30484631371782
+    m_Key: upgrade_reel
+    m_Metadata:
+      m_Items: []
+  - m_Id: 30484631371783
+    m_Key: upgrade_wire
+    m_Metadata:
+      m_Items: []
+  - m_Id: 30484631371784
+    m_Key: upgrade_hook
+    m_Metadata:
+      m_Items: []
+  - m_Id: 30484631371785
+    m_Key: upgrade_bait
+    m_Metadata:
+      m_Items: []
+  - m_Id: 30484631371786
+    m_Key: trade_title
+    m_Metadata:
+      m_Items: []
+  - m_Id: 30484631371787
+    m_Key: trade_gold
+    m_Metadata:
+      m_Items: []
+  - m_Id: 30484631371788
+    m_Key: trade_sell
+    m_Metadata:
+      m_Items: []
+  - m_Id: 30484631371789
+    m_Key: quest_title
+    m_Metadata:
+      m_Items: []
+  - m_Id: 30484631371790
+    m_Key: quest_main
+    m_Metadata:
+      m_Items: []
+  - m_Id: 30484631371791
+    m_Key: quest_normal
+    m_Metadata:
+      m_Items: []
+  - m_Id: 30484631371792
+    m_Key: quest_req
+    m_Metadata:
+      m_Items: []
+  - m_Id: 30484631371793
+    m_Key: quest_reward
+    m_Metadata:
+      m_Items: []
+  - m_Id: 30484631371794
+    m_Key: farm_title
+    m_Metadata:
+      m_Items: []
+  - m_Id: 30484631371795
+    m_Key: farm_sea
+    m_Metadata:
+      m_Items: []
+  - m_Id: 30484631371796
+    m_Key: farm_fresh
+    m_Metadata:
+      m_Items: []
+  - m_Id: 30484631371797
+    m_Key: farm_rock
+    m_Metadata:
+      m_Items: []
+  - m_Id: 30484631371798
+    m_Key: farm_lava
+    m_Metadata:
+      m_Items: []
+  - m_Id: 30484631371799
+    m_Key: farm_lock
+    m_Metadata:
+      m_Items: []
+  - m_Id: 30484631371800
+    m_Key: farm_gold
+    m_Metadata:
+      m_Items: []
+  - m_Id: 30484631371801
+    m_Key: farm_sell
+    m_Metadata:
+      m_Items: []
+  - m_Id: 30484631371802
+    m_Key: farm_back
+    m_Metadata:
+      m_Items: []
+  - m_Id: 30484631371803
+    m_Key: farm_collect
+    m_Metadata:
+      m_Items: []
+  - m_Id: 30484631371804
+    m_Key: farm_confirm
+    m_Metadata:
+      m_Items: []
+  - m_Id: 30484631371805
+    m_Key: museum_title
+    m_Metadata:
+      m_Items: []
+  - m_Id: 30484631371806
+    m_Key: museum_donate
+    m_Metadata:
+      m_Items: []
+  - m_Id: 30484631371807
+    m_Key: museum_checkreward
+    m_Metadata:
+      m_Items: []
+  - m_Id: 30484631371808
+    m_Key: museum_confirm
+    m_Metadata:
+      m_Items: []
+  - m_Id: 30484631371809
+    m_Key: museum_1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 30484631371810
+    m_Key: museum_5
+    m_Metadata:
+      m_Items: []
+  - m_Id: 30484631371811
+    m_Key: museum_10
+    m_Metadata:
+      m_Items: []
+  - m_Id: 30484631371812
+    m_Key: museum_20
+    m_Metadata:
+      m_Items: []
+  - m_Id: 30484631371813
+    m_Key: museum_get
+    m_Metadata:
+      m_Items: []
+  - m_Id: 30484631371814
+    m_Key: museum_reward
+    m_Metadata:
+      m_Items: []
+  - m_Id: 30484631371815
+    m_Key: museum_count
+    m_Metadata:
+      m_Items: []
+  - m_Id: 30484631371816
+    m_Key: museum_5reward
+    m_Metadata:
+      m_Items: []
+  - m_Id: 30484631371817
+    m_Key: museum_10reward
+    m_Metadata:
+      m_Items: []
+  - m_Id: 30484631371818
+    m_Key: museum_20reward
+    m_Metadata:
+      m_Items: []
+  - m_Id: 30484631371819
+    m_Key: museum_complete
+    m_Metadata:
+      m_Items: []
+  - m_Id: 30484631371820
+    m_Key: setting_sound
+    m_Metadata:
+      m_Items: []
+  - m_Id: 30484631371821
+    m_Key: setting_mouse
+    m_Metadata:
+      m_Items: []
+  - m_Id: 30484631371822
+    m_Key: setting_exit
+    m_Metadata:
+      m_Items: []
+  - m_Id: 30484631371823
+    m_Key: setting_resetpos
+    m_Metadata:
+      m_Items: []
+  - m_Id: 30484631371824
+    m_Key: setting_master
+    m_Metadata:
+      m_Items: []
+  - m_Id: 30484631371825
+    m_Key: setting_ambient
+    m_Metadata:
+      m_Items: []
+  - m_Id: 30484631371826
+    m_Key: setting_sensitivity
+    m_Metadata:
+      m_Items: []
+  - m_Id: 30484631371827
+    m_Key: skin_wood
+    m_Metadata:
+      m_Items: []
+  - m_Id: 30484631371828
+    m_Key: skin_iron
+    m_Metadata:
+      m_Items: []
+  - m_Id: 30484631371829
+    m_Key: skin_hellstone
+    m_Metadata:
+      m_Items: []
+  - m_Id: 30484631371830
+    m_Key: skin_aetherium
+    m_Metadata:
+      m_Items: []
+  - m_Id: 30484631371831
+    m_Key: skin_rainbow
+    m_Metadata:
+      m_Items: []
+  - m_Id: 30484631371832
+    m_Key: skin_change
+    m_Metadata:
+      m_Items: []
+  - m_Id: 30484631371833
+    m_Key: skin_cantuse
+    m_Metadata:
+      m_Items: []
+  - m_Id: 30484631371834
+    m_Key: skin_use
+    m_Metadata:
+      m_Items: []
+  - m_Id: 30484631371835
+    m_Key: guide_title
+    m_Metadata:
+      m_Items: []
+  - m_Id: 30484631371836
+    m_Key: error_full
+    m_Metadata:
+      m_Items: []
+  - m_Id: 30484631371837
+    m_Key: error_quest
+    m_Metadata:
+      m_Items: []
+  - m_Id: 30484631371838
+    m_Key: error_req
+    m_Metadata:
+      m_Items: []
+  - m_Id: 30484631371839
+    m_Key: error_select
+    m_Metadata:
+      m_Items: []
+  - m_Id: 30484631371840
+    m_Key: island
+    m_Metadata:
+      m_Items: []
+  - m_Id: 30484631371841
+    m_Key: lava
+    m_Metadata:
+      m_Items: []
+  - m_Id: 30484631371842
+    m_Key: rock
+    m_Metadata:
+      m_Items: []
+  - m_Id: 49501274357760
+    m_Key: setting_confirm
+    m_Metadata:
+      m_Items: []
+  m_Metadata:
+    m_Items: []
+  m_KeyGenerator:
+    rid: 7780275578568704310
+  references:
+    version: 2
+    RefIds:
+    - rid: 7780275578568704310
+      type: {class: DistributedUIDGenerator, ns: UnityEngine.Localization.Tables, asm: Unity.Localization}
+      data:
+        m_CustomEpoch: 1745138789333

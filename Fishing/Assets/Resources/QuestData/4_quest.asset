@@ -15,7 +15,7 @@ MonoBehaviour:
   questID: 4
   isEpic: 1
   questName: "\uC6A9\uC554\uC9C0\uB300 \uD56D\uB85C \uAC1C\uCC99"
-  desc: "\uC0C8\uB85C\uC6B4 \uB09A\uC2DC\uC9C0\uB300 : \uC6A9\uC554\uC9C0\uB300 \uCD94\uAC00"
+  desc: "\uC6A9\uC554\uC9C0\uB300\uB85C \uAC00\uB294 \uD56D\uB85C\uB97C \uAC1C\uCC99\uD558\uC790."
   receive: 3
   complete: 3
   nextQuest: 0200000006000000
@@ -25,3 +25,5 @@ MonoBehaviour:
   - fishID: 2
     grade: 0
   rewardGold: 300
+  reward: "\uC0C8\uB85C\uC6B4 \uB09A\uC2DC\uC9C0\uB300 : \uC6A9\uC554\uC9C0\uB300
+    \uCD94\uAC00"

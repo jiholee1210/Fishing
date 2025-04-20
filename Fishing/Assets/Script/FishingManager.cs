@@ -56,12 +56,12 @@ public class FishingManager : MonoBehaviour
         animator = transform.GetChild(0).GetComponent<Animator>();
     }
 
-    void OnEnable()
+    void Start()
     {
         playerActing.OnFishingEnd += StopFishing;
     }
 
-    void OnDisable()
+    void OnDestroy()
     {
         playerActing.OnFishingEnd -= StopFishing;
     }

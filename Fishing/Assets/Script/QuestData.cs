@@ -19,4 +19,5 @@ public class QuestData : ScriptableObject {
     public int[] nextQuest;
     public QuestRequirement[] requirements;  // 필요한 물고기와 수량
     public int rewardGold;
+    public string reward;
 }

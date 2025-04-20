@@ -80,7 +80,7 @@ public class MuseumManager : MonoBehaviour
         detail.GetChild(2).GetComponent<TMP_Text>().text = fishData.rarity.ToString();
         detail.GetChild(2).GetComponent<TMP_Text>().color = rarityColor[(int)fishData.rarity];
         detail.GetChild(3).GetComponent<TMP_Text>().text = playerFish[index].weight + " kg";
-        detail.GetChild(4).GetComponent<TMP_Text>().text = playerFish[index].price + " C";
+        detail.GetChild(4).GetComponent<TMP_Text>().text = playerFish[index].price + " 코인";
         detail.GetChild(5).GetComponent<Image>().sprite = DataManager.Instance.gradeSprites[playerFish[index].grade];
     }
 
@@ -168,6 +168,14 @@ public class MuseumManager : MonoBehaviour
         transform.GetChild(0).GetChild(0).gameObject.SetActive(true);
         transform.GetChild(0).GetChild(1).gameObject.SetActive(false);
         transform.GetChild(0).GetChild(2).gameObject.SetActive(false);
+
+        detail.gameObject.SetActive(false);
+
+        relics.Clear();
+        icon.Clear();
+        foreach(Transform select in selectIconParent) {
+            Destroy(select.gameObject);
+        }
     }
 
     private void OpenDonateUI() {
