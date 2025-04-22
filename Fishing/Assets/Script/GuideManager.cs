@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Localization.Settings;
 using UnityEngine.UI;
 
 public class GuideManager : MonoBehaviour
@@ -80,7 +81,7 @@ public class GuideManager : MonoBehaviour
             isDetailOpen = true;
 
             detail.transform.GetChild(0).GetComponent<TMP_Text>().text = fishData.fishName;
-            detail.transform.GetChild(1).GetComponent<TMP_Text>().text = fishData.rarity.ToString();
+            detail.transform.GetChild(1).GetComponent<TMP_Text>().text = fishData.rarityLocalized;
             detail.transform.GetChild(1).GetComponent<TMP_Text>().color = rarityColor[(int)fishData.rarity];
             
             Image fishImage = detail.transform.GetChild(2).GetComponent<Image>();
@@ -88,7 +89,7 @@ public class GuideManager : MonoBehaviour
             fishImage.SetNativeSize();
 
             detail.transform.GetChild(3).GetComponent<TMP_Text>().text = fishData.weightMin + " ~ " + fishData.weightMax + " kg";
-            detail.transform.GetChild(4).GetComponent<TMP_Text>().text = fishData.price + " 코인";
+            detail.transform.GetChild(4).GetComponent<TMP_Text>().text = fishData.price + " " + LocalizationSettings.StringDatabase.GetLocalizedString("DialogTable", "coin");
             detail.transform.GetChild(5).GetComponent<TMP_Text>().text = fishData.desc;
 
             detail.GetComponent<Animator>().Play("Detail_Open");

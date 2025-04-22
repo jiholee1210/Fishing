@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Localization.Settings;
 using UnityEngine.UI;
 
 public class FishFarmManager : MonoBehaviour
@@ -338,11 +339,11 @@ public class FishFarmManager : MonoBehaviour
 
         FishData fishData = DataManager.Instance.GetFishData(playerFish.fishID);
         name.text = fishData.fishName;
-        rarity.text = fishData.rarity.ToString();
+        rarity.text = fishData.rarityLocalized;
         rarity.color = rarityColor[(int)fishData.rarity];
         desc.text = fishData.desc;
         weight.text = playerFish.weight + "kg";
-        price.text = playerFish.price + " C";
+        price.text = playerFish.price + " " + LocalizationSettings.StringDatabase.GetLocalizedString("DialogTable", "coin");
 
         image.sprite = fishData.fishDetail;
         image.SetNativeSize();

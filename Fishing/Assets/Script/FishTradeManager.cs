@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Localization.Settings;
 using UnityEngine.UI;
 
 public class FishTradeManager : MonoBehaviour
@@ -65,11 +66,11 @@ public class FishTradeManager : MonoBehaviour
         grade.sprite = gradeSprites[fishData.grade];
 
         name.text = fish.fishName;
-        rarity.text = fish.rarity.ToString();
+        rarity.text = fish.rarityLocalized;
         rarity.color = rarityColor[(int)fish.rarity];
         desc.text = fish.desc;
         weight.text = fishData.weight + "kg";
-        price.text = fishData.price + " 코인";
+        price.text = fishData.price + " " + LocalizationSettings.StringDatabase.GetLocalizedString("DialogTable", "coin");
     }
 
     public void SellFish() {

@@ -311,6 +311,10 @@ MonoBehaviour:
     m_Key: setting_confirm
     m_Metadata:
       m_Items: []
+  - m_Id: 694654695620608
+    m_Key: coin
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

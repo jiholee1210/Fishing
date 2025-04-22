@@ -468,7 +468,7 @@ public class FishingManager : MonoBehaviour
         Image image = detail.GetChild(1).GetComponent<Image>();
         image.sprite = fish.fishDetail;
         image.SetNativeSize();
-        detail.GetChild(2).GetComponent<TMP_Text>().text = fish.rarity.ToString();
+        detail.GetChild(2).GetComponent<TMP_Text>().text = fish.rarityLocalized;
         detail.GetChild(2).GetComponent<TMP_Text>().color = rarityColor[(int)fish.rarity];
         detail.GetChild(3).GetComponent<TMP_Text>().text = fish.desc;
         detail.GetChild(4).GetComponent<Image>().sprite = DataManager.Instance.gradeSprites[fishGrade];

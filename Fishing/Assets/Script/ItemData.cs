@@ -10,6 +10,11 @@ public enum ItemType {
     Bait,
     Relic
 }
+
+public static class ItemConstants {
+    public static readonly string ItemTable = "Item Table";
+}
+
 [Serializable]
 [CreateAssetMenu(fileName = "NewItem", menuName = "Fishing/Item Data")]
 public class ItemData : ScriptableObject

@@ -15,7 +15,7 @@ MonoBehaviour:
   m_StartupSelectors:
   - rid: 7780275578568704286
   - rid: 7780275578568704287
-  - rid: 7780275578568704288
+  - rid: 7780275620564172918
   m_AvailableLocales:
     rid: 7780275578568704289
   m_AssetDatabase:
@@ -40,11 +40,6 @@ MonoBehaviour:
     - rid: 7780275578568704287
       type: {class: SystemLocaleSelector, ns: UnityEngine.Localization.Settings, asm: Unity.Localization}
       data: 
-    - rid: 7780275578568704288
-      type: {class: SpecificLocaleSelector, ns: UnityEngine.Localization.Settings, asm: Unity.Localization}
-      data:
-        m_LocaleId:
-          m_Code: ko
     - rid: 7780275578568704289
       type: {class: LocalesProvider, ns: UnityEngine.Localization.Settings, asm: Unity.Localization}
       data: 
@@ -205,3 +200,8 @@ MonoBehaviour:
         - default
         - d
         - 
+    - rid: 7780275620564172918
+      type: {class: SpecificLocaleSelector, ns: UnityEngine.Localization.Settings, asm: Unity.Localization}
+      data:
+        m_LocaleId:
+          m_Code: ko

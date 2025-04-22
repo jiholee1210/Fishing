@@ -92,7 +92,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 30484631371788
-    m_Localized: SALE
+    m_Localized: SELL
     m_Metadata:
       m_Items: []
   - m_Id: 30484631371789
@@ -144,7 +144,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 30484631371801
-    m_Localized: BULK SALE
+    m_Localized: BULK SELL
     m_Metadata:
       m_Items: []
   - m_Id: 30484631371802
@@ -164,7 +164,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 30484631371806
-    m_Localized: DONATE ARTIFACTS
+    m_Localized: DONATE RELICS
     m_Metadata:
       m_Items: []
   - m_Id: 30484631371807
@@ -172,7 +172,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 30484631371808
-    m_Localized: DONATE
+    m_Localized: CHECK
     m_Metadata:
       m_Items: []
   - m_Id: 30484631371809
@@ -200,7 +200,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 30484631371815
-    m_Localized: 'NUMBER OF DONATIONS: {COUNT} TIMES'
+    m_Localized: 'NUBER OF DONATIONS: {0} TIMES'
     m_Metadata:
       m_Items:
       - rid: 7780275578568704341
@@ -217,7 +217,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 30484631371819
-    m_Localized: COMPLETE
+    m_Localized: RECEIVED
     m_Metadata:
       m_Items: []
   - m_Id: 30484631371820
@@ -314,6 +314,10 @@ MonoBehaviour:
       m_Items: []
   - m_Id: 49501274357760
     m_Localized: CONFIRM
+    m_Metadata:
+      m_Items: []
+  - m_Id: 694654695620608
+    m_Localized: COIN
     m_Metadata:
       m_Items: []
   references:

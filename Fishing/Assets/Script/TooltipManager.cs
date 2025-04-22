@@ -1,5 +1,6 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.Localization.Settings;
 
 public class TooltipManager : MonoBehaviour
 {
@@ -16,32 +17,32 @@ public class TooltipManager : MonoBehaviour
             case 0:
                 RodData rodData = DataManager.Instance.GetRodData(itemID);
                 tooltipObject.transform.GetChild(0).GetComponent<TMP_Text>().text = rodData.rodName;
-                tooltipObject.transform.GetChild(1).GetComponent<TMP_Text>().text = "내구도 : " + rodData.rodDur;
-                tooltipObject.transform.GetChild(2).GetComponent<TMP_Text>().text = "낚시 총 내구도 증가";
+                tooltipObject.transform.GetChild(1).GetComponent<TMP_Text>().text = LocalizationSettings.StringDatabase.GetLocalizedString(ItemConstants.ItemTable, "rod") + rodData.rodDur;
+                tooltipObject.transform.GetChild(2).GetComponent<TMP_Text>().text = LocalizationSettings.StringDatabase.GetLocalizedString(ItemConstants.ItemTable, "rod_desc");
                 break;
             case 1:
                 ReelData reelData = DataManager.Instance.GetReelData(itemID);
                 tooltipObject.transform.GetChild(0).GetComponent<TMP_Text>().text = reelData.reelName;
-                tooltipObject.transform.GetChild(1).GetComponent<TMP_Text>().text = "스피드 : " + reelData.reelSpeed;
-                tooltipObject.transform.GetChild(2).GetComponent<TMP_Text>().text = "낚시 노트 속도 감소";
+                tooltipObject.transform.GetChild(1).GetComponent<TMP_Text>().text = LocalizationSettings.StringDatabase.GetLocalizedString(ItemConstants.ItemTable, "reel") + reelData.reelSpeed;
+                tooltipObject.transform.GetChild(2).GetComponent<TMP_Text>().text = LocalizationSettings.StringDatabase.GetLocalizedString(ItemConstants.ItemTable, "reel_desc");
                 break;
             case 2:
                 WireData wireData = DataManager.Instance.GetWireData(itemID);
                 tooltipObject.transform.GetChild(0).GetComponent<TMP_Text>().text = wireData.wireName;
-                tooltipObject.transform.GetChild(1).GetComponent<TMP_Text>().text = "파워 : " + wireData.wirePower;
-                tooltipObject.transform.GetChild(2).GetComponent<TMP_Text>().text = "물고기의 체력 감소량 증가";
+                tooltipObject.transform.GetChild(1).GetComponent<TMP_Text>().text = LocalizationSettings.StringDatabase.GetLocalizedString(ItemConstants.ItemTable, "wire") + wireData.wirePower;
+                tooltipObject.transform.GetChild(2).GetComponent<TMP_Text>().text = LocalizationSettings.StringDatabase.GetLocalizedString(ItemConstants.ItemTable, "wire_desc");
                 break;
             case 3:
                 HookData hookData = DataManager.Instance.GetHookData(itemID);
                 tooltipObject.transform.GetChild(0).GetComponent<TMP_Text>().text = hookData.hookName;
-                tooltipObject.transform.GetChild(1).GetComponent<TMP_Text>().text = "파워 : " + hookData.hookPower;
-                tooltipObject.transform.GetChild(2).GetComponent<TMP_Text>().text = "물고기가 미끼를 무는 시간 감소";
+                tooltipObject.transform.GetChild(1).GetComponent<TMP_Text>().text = LocalizationSettings.StringDatabase.GetLocalizedString(ItemConstants.ItemTable, "hook") + hookData.hookPower;
+                tooltipObject.transform.GetChild(2).GetComponent<TMP_Text>().text = LocalizationSettings.StringDatabase.GetLocalizedString(ItemConstants.ItemTable, "hook_desc");
                 break;
             case 4:
                 BaitData baitData = DataManager.Instance.GetBaitData(itemID);
                 tooltipObject.transform.GetChild(0).GetComponent<TMP_Text>().text = baitData.baitName;
-                tooltipObject.transform.GetChild(1).GetComponent<TMP_Text>().text = "미끼 레벨 : " + baitData.baitLevel;
-                tooltipObject.transform.GetChild(2).GetComponent<TMP_Text>().text = "높은 레어도 물고기 등장 확률 업 / 더 높은 등급의 물고기 등장";
+                tooltipObject.transform.GetChild(1).GetComponent<TMP_Text>().text = LocalizationSettings.StringDatabase.GetLocalizedString(ItemConstants.ItemTable, "bait") + baitData.baitLevel;
+                tooltipObject.transform.GetChild(2).GetComponent<TMP_Text>().text = LocalizationSettings.StringDatabase.GetLocalizedString(ItemConstants.ItemTable, "bait_desc");
                 break;
         }
     }

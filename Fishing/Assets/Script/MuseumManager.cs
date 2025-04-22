@@ -1,6 +1,8 @@
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Localization;
+using UnityEngine.Localization.Settings;
 using UnityEngine.UI;
 
 public class MuseumManager : MonoBehaviour
@@ -19,6 +21,8 @@ public class MuseumManager : MonoBehaviour
 
     private List<PlayerFish> playerFish;
     private PlayerData playerData;
+
+    private LocalizedString donateCount = new LocalizedString("DialogTable", "museum_count");
 
     private int[] donate = {1, 5, 10, 20};
     private Color[] rarityColor = {new Color(0f, 0f, 0f), new Color(0f, 0.6f, 0.9f), new Color(0.7f, 0f, 1f), new Color(1f, 0.3f, 0.1f), new Color(0f, 0.8f, 0.6f)};
@@ -77,10 +81,10 @@ public class MuseumManager : MonoBehaviour
         FishData fishData = DataManager.Instance.GetFishData(playerFish[index].fishID);
         detail.GetChild(0).GetComponent<TMP_Text>().text = fishData.fishName;
         detail.GetChild(1).GetComponent<Image>().sprite = fishData.fishDetail;
-        detail.GetChild(2).GetComponent<TMP_Text>().text = fishData.rarity.ToString();
+        detail.GetChild(2).GetComponent<TMP_Text>().text = fishData.rarityLocalized;
         detail.GetChild(2).GetComponent<TMP_Text>().color = rarityColor[(int)fishData.rarity];
         detail.GetChild(3).GetComponent<TMP_Text>().text = playerFish[index].weight + " kg";
-        detail.GetChild(4).GetComponent<TMP_Text>().text = playerFish[index].price + " 코인";
+        detail.GetChild(4).GetComponent<TMP_Text>().text = playerFish[index].price + " " + LocalizationSettings.StringDatabase.GetLocalizedString("DialogTable", "coin");
         detail.GetChild(5).GetComponent<Image>().sprite = DataManager.Instance.gradeSprites[playerFish[index].grade];
     }
 
@@ -103,7 +107,8 @@ public class MuseumManager : MonoBehaviour
     }
 
     private void SetRewardButton() {
-        count.text = "기증 횟수 : " + playerData.donateCount + " 회";
+        donateCount.Arguments = new object[] {playerData.donateCount};
+        count.text = donateCount.GetLocalizedString();
         // 아이콘 툴팁 기능도 추가하면 좋을듯
         for(int i = 0; i < rewardList.Length; i++) {
             int index = i;
@@ -112,7 +117,7 @@ public class MuseumManager : MonoBehaviour
             if(playerData.donateCount >= donate[index]) {
                 if(playerData.museumComplete.Contains(index)) {
                     rewardList[index].GetChild(2).GetComponent<Image>().color = new Color(0.5f, 0.5f, 0.5f);
-                    rewardList[index].GetChild(2).GetChild(0).GetComponent<TMP_Text>().text = "수령 완료";
+                    rewardList[index].GetChild(2).GetChild(0).GetComponent<TMP_Text>().text = LocalizationSettings.StringDatabase.GetLocalizedString("DialogTable", "museum_complete");
                     continue;
                 }
                 rewardList[index].GetChild(2).GetComponent<Image>().color = new Color(1f, 1f, 1f);

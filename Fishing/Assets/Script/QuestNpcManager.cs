@@ -130,7 +130,6 @@ public class QuestNpcManager : MonoBehaviour
         SoundManager.Instance.ButtonClick();
         questDetail.gameObject.SetActive(true);
         questDetail.GetChild(5).gameObject.SetActive(false);
-        questDetail.GetChild(6).gameObject.SetActive(false);
         
         TMP_Text name = questDetail.GetChild(0).GetComponent<TMP_Text>();
         TMP_Text desc = questDetail.GetChild(1).GetComponent<TMP_Text>();
@@ -253,8 +252,6 @@ public class QuestNpcManager : MonoBehaviour
 
             questData.questID = 1001;
             questData.isEpic = false;
-            questData.questName = "마을의 부탁";
-            questData.desc = "마을 일거리를 해결하자.";
             questData.receive = normalQuests[index].receive;
             questData.complete = normalQuests[index].complete;            
             questData.requirements = normalQuests[index].questRequirements;
