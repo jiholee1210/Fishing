@@ -32,8 +32,18 @@ public class SceneChanger : MonoBehaviour
         yield return StartCoroutine(wipeController.CircleOut());
     }
 
-    public void BackToMain() {
+    public void GameExit() {
+        StartCoroutine(BackToMain());
+    }
+
+    public IEnumerator BackToMain() {
+        yield return StartCoroutine(wipeController.CircleIn());
         SceneManager.LoadScene(mainScene);
+        Debug.Log("씬 로드함");
+        yield return new WaitForSeconds(1f);
+        Debug.Log("1초 기다림");
+        yield return StartCoroutine(wipeController.CircleOut());
+        Debug.Log("애니메이션 실행");
     }
 
     public void ExitGame() {

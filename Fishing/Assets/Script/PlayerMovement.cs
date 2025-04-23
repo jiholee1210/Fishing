@@ -59,7 +59,9 @@ public class PlayerMovement : MonoBehaviour
         }
 
         velocity.y -= gravity * Time.deltaTime;
-        characterController.Move(velocity * Time.deltaTime);
+        if(characterController.enabled) {
+            characterController.Move(velocity * Time.deltaTime);
+        }
         ApplySliding();
     }
 
@@ -119,6 +121,14 @@ public class PlayerMovement : MonoBehaviour
         inputValueX = 0f;
         inputValueZ = 0f;
         cantMove = false;
+        characterController.enabled = true;
+    }
+
+    public void LockControl() {
+        characterController.enabled = false;
+    }
+
+    public void UnlockControl() {
         characterController.enabled = true;
     }
 

@@ -216,9 +216,13 @@ public class FishFarmManager : MonoBehaviour
         DataManager.Instance.SaveInventoryData();
     }
 
-    private void SellFishInBulk(int groundType) {
-        SoundManager.Instance.SellFish();
+    private void SellFishInBulk(int groundType) {        
+        if(newFishList[groundType].list.Count <= 0) {
+            SoundManager.Instance.ActingFailSound();
+            EventManager.Instance.DontHaveFish();
+        }
         int gold = 0;
+        SoundManager.Instance.SellFish();
         for(int i = 0; i < newFishList[groundType].list.Count; i++) {
             int index = i;
 
@@ -323,7 +327,7 @@ public class FishFarmManager : MonoBehaviour
                 ActiveSameFish(playerFish.fishID);
             }
             select.GetChild(0).GetChild(2).GetComponent<Button>().enabled = false;
-            select.GetChild(0).GetChild(2).GetComponent<Image>().color = new Color(0.1f, 0.1f, 0.1f);
+            select.GetChild(0).GetChild(2).GetComponent<Image>().color = new Color(0.3f, 0.3f, 0.3f);
         }
         Transform detailTransform = select.GetChild(0).GetChild(1).GetChild(0);
         detailTransform.gameObject.SetActive(true);

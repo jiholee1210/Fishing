@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Localization.Settings;
 using UnityEngine.UI;
 
 public class QuestNpcManager : MonoBehaviour
@@ -143,7 +144,7 @@ public class QuestNpcManager : MonoBehaviour
       
         name.text = questData.questName;
         desc.text = questData.desc;
-        gold.text = questData.rewardGold + " 코인";
+        gold.text = questData.rewardGold + " " + LocalizationSettings.StringDatabase.GetLocalizedString("DialogTable", "coin");
         reward.text = questData.reward;
 
         foreach(Transform req in reqParent) {

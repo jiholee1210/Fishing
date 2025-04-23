@@ -19,6 +19,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] GameObject questNpcUI;
     [SerializeField] GameObject fishFarmNpcUI;
     [SerializeField] GameObject museumNpcUI;
+    [SerializeField] private GameObject endingNpcUI;
 
     [SerializeField] FishTradeManager fishTradeManager;
     [SerializeField] QuestNpcManager questNpcManager;
@@ -30,6 +31,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] private GuideManager guideManager;
     [SerializeField] private FishInvenManager fishInvenManager;
     [SerializeField] private OptionManager optionManager;
+    [SerializeField] private EndingManager endingManager;
 
     private GameObject npcObject;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -89,6 +91,7 @@ public class UIManager : MonoBehaviour
     // 박물관 NPC
     public void OpenMuseumNpcUI() {
         museumNpcUI.SetActive(true);
+        museumManager.SetLocked();
     }
 
     public void CloseMuseumNpcUI() {
@@ -129,6 +132,15 @@ public class UIManager : MonoBehaviour
         questNpcManager.CloseWindow();
     }
 
+    // 엔딩 NPC
+    public void OpenEndingNpcUI() {
+        endingNpcUI.SetActive(true);
+    }
+
+    public void CloseEndingNpcUI() {
+        endingNpcUI.SetActive(false);
+    }
+
     // 표지판
     public void OpenSignUI() {
         signUI.SetActive(true);
@@ -163,6 +175,14 @@ public class UIManager : MonoBehaviour
     public void SelectFish() {
         errorText.Play("SelectFish");
     }
+    
+    public void DontHaveFish() {
+        errorText.Play("DontHaveFish");
+    }
+
+    public void NotEnoughGold() {
+        errorText.Play("NotEnoughGold");
+    }
 
     public void CloseAllWindows() {
         SoundManager.Instance.OpenUI();
@@ -181,6 +201,8 @@ public class UIManager : MonoBehaviour
         CloseFishFarmNpcUI();
 
         CloseMuseumNpcUI();
+
+        CloseEndingNpcUI();
 
         CloseSignUI();
 

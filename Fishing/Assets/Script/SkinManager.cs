@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Localization.Settings;
 using UnityEngine.UI;
 
 public class SkinManager : MonoBehaviour
@@ -27,20 +28,20 @@ public class SkinManager : MonoBehaviour
             if(rodList.Contains(index)) {
                 if(DataManager.Instance.playerData.curRod == index) {
                     buttons[index].GetComponent<Image>().color = new Color(0.5f, 0.5f, 0.5f);
-                    buttons[index].transform.GetChild(0).GetComponent<TMP_Text>().text = "착용 중";
+                    buttons[index].transform.GetChild(0).GetComponent<TMP_Text>().text = LocalizationSettings.StringDatabase.GetLocalizedString("DialogTable", "skin_use");
                     buttons[index].GetComponent<Button>().enabled = false;
                     continue;
                 }
                 buttons[index].GetComponent<Image>().color = new Color(1f, 1f, 1f);
                 buttons[index].GetComponent<Button>().enabled = true;
                 buttons[index].GetComponent<Button>().onClick.AddListener(() => ChangeRodSkin(index));
-                buttons[index].transform.GetChild(0).GetComponent<TMP_Text>().text = "변경";
+                buttons[index].transform.GetChild(0).GetComponent<TMP_Text>().text = LocalizationSettings.StringDatabase.GetLocalizedString("DialogTable", "skin_change");
                 buttons[index].transform.GetChild(0).GetComponent<TMP_Text>().color = new Color(0.3f, 0.1f, 0f);
             }
             else {
                 buttons[index].GetComponent<Image>().color = new Color(0.3f, 0.3f, 0.3f);
                 buttons[index].GetComponent<Button>().enabled = false;
-                buttons[index].transform.GetChild(0).GetComponent<TMP_Text>().text = "사용 불가";
+                buttons[index].transform.GetChild(0).GetComponent<TMP_Text>().text = LocalizationSettings.StringDatabase.GetLocalizedString("DialogTable", "skin_cantuse");
                 buttons[index].transform.GetChild(0).GetComponent<TMP_Text>().color = new Color(0f, 0f, 0f);
             }
         }

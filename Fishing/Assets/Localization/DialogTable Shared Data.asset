@@ -315,6 +315,50 @@ MonoBehaviour:
     m_Key: coin
     m_Metadata:
       m_Items: []
+  - m_Id: 1057163063574528
+    m_Key: newfish
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1115832325226496
+    m_Key: error_nofish
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1124970979639296
+    m_Key: ending_title
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1124972682526720
+    m_Key: ending_yes
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1124974083424256
+    m_Key: ending_no
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1124975308161024
+    m_Key: ending_req
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1129092516659200
+    m_Key: ending_con
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1129093825282048
+    m_Key: ending_guide
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1129095725301760
+    m_Key: ending_hope
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1129097310748672
+    m_Key: ending_main
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1144525068156928
+    m_Key: error_gold
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

@@ -53,6 +53,7 @@ public class AudioManager : MonoBehaviour
 
             string tag = audioMixerType.ToString();
             float vol = PlayerPrefs.GetFloat(tag);
+            Debug.Log(vol + "볼륨");
 
             volSliders[i].value = vol;
             volText[i].text = ((int)Mathf.Clamp(vol * 100f, 0, 100)).ToString();

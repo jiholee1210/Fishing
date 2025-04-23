@@ -320,6 +320,51 @@ MonoBehaviour:
     m_Localized: COIN
     m_Metadata:
       m_Items: []
+  - m_Id: 1057163063574528
+    m_Localized: '!NEW FISH!'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1115832325226496
+    m_Localized: NO FISH AVAILABLE FOR SALE!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1124970979639296
+    m_Localized: DID YOU HAVE A RELAXING AND HAPPY TIME FISHING?
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1124972682526720
+    m_Localized: YES
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1124974083424256
+    m_Localized: NOT YET
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1124975308161024
+    m_Localized: 'REQUIREMENT : 100K COINS'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1129093825282048
+    m_Localized: 'GUIDE COMPLETENESS : {0} %'
+    m_Metadata:
+      m_Items:
+      - rid: 7780275578568704341
+  - m_Id: 1129092516659200
+    m_Localized: '!CONGRATULATIONS!'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1129095725301760
+    m_Localized: I HOPE YOU HAD A SHORT BUT ENJOYFUL FISHING LIFE.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1129097310748672
+    m_Localized: MAIN MENU
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1144525068156928
+    m_Localized: YOU DO NOT HAVE ENOUGH GOLD!
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds:
@@ -329,3 +374,4 @@ MonoBehaviour:
         m_Entries: 
         m_SharedEntries:
         - id: 30484631371815
+        - id: 1129093825282048

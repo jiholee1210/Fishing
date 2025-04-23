@@ -7,7 +7,7 @@ public class WipeController : MonoBehaviour
     private Animator animator;
     private Image image;
 
-    public float circleSize = 1.5f;
+    public float circleSize = 1.2f;
     private bool intoWater = false;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -25,7 +25,7 @@ public class WipeController : MonoBehaviour
     }
 
     public IEnumerator CircleIn() {
-        animator.Play("Circle_In");
+        animator.SetTrigger("in");
         yield return null;
         intoWater = true;
         float len = animator.GetCurrentAnimatorStateInfo(0).length;
@@ -34,9 +34,8 @@ public class WipeController : MonoBehaviour
     }
 
     public IEnumerator CircleOut() {
-        animator.Play("Circle_Out");
+        animator.SetTrigger("out");
         yield return null;
-
         float len = animator.GetCurrentAnimatorStateInfo(0).length;
         yield return new WaitForSeconds(len);
         intoWater = false;

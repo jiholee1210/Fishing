@@ -64,25 +64,10 @@ public class EventManager : MonoBehaviour
             case 5:
                 uIManager.OpenMuseumNpcUI();
                 break;
+            case 6:
+                uIManager.OpenEndingNpcUI();
+                break;
         } 
-    }
-
-    public void CloseNpcUI(int npcType) {
-        switch(npcType) {
-            case 1:
-                uIManager.CloseUpgradeNpcUI();
-                break;
-            case 2:
-                uIManager.CloseFishMerchantUI();
-                break;
-            case 3:
-                uIManager.CloseQuestNpcUI();
-                break;
-            case 4:
-                uIManager.CloseFishFarmNpcUI();
-                break;
-        }
-        playerActing.EndTalk();
     }
 
     public void OpenSignUI() {
@@ -114,6 +99,14 @@ public class EventManager : MonoBehaviour
         uIManager.SelectFish();
     }
 
+    public void DontHaveFish() {
+        uIManager.DontHaveFish();
+    }
+
+    public void NotEnoughGold() {
+        uIManager.NotEnoughGold();
+    }
+
     public void CloseAllWindows() {
         uIManager.CloseAllWindows();
     }
@@ -121,27 +114,23 @@ public class EventManager : MonoBehaviour
     public void ClearQuest(int id) {
         switch(id) {
             case 1:
-                Debug.Log("양식장 해금");
                 DataManager.Instance.playerData.farmUnlock[0] = true;
                 DataManager.Instance.playerData.farmUnlock[1] = true;
                 DataManager.Instance.SavePlayerData();
                 break;
             case 2:
-                Debug.Log("박물관 해금");
                 break;
             case 3:
-                Debug.Log("바위지대 해금");
                 break;
             case 4:
-                Debug.Log("용암지대 해금");
                 break;
             case 5:
-                Debug.Log("바위지대 양식 해금");
                 DataManager.Instance.playerData.farmUnlock[2] = true;
+                DataManager.Instance.SavePlayerData();
                 break;
             case 6:
-                Debug.Log("용암지대 양식 해금");
                 DataManager.Instance.playerData.farmUnlock[3] = true;
+                DataManager.Instance.SavePlayerData();
                 break;
         }
     }
@@ -154,6 +143,6 @@ public class EventManager : MonoBehaviour
         DataManager.Instance.SaveInventoryData();
         DataManager.Instance.SaveQuestNpcData();
 
-        SceneChanger.Instance.BackToMain();
+        SceneChanger.Instance.GameExit();
     }
 }

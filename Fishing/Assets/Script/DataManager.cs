@@ -55,8 +55,8 @@ public class DataManager : MonoBehaviour
             playerData = new();
             playerData.pos = new Vector3(1275.5f, -75.2f, 1921.3f);
             playerData.rodList.Add(0);
+            SetPref();
             SavePlayerData();
-            Debug.Log("데이터 새로 생성");
         }
         else {
             LoadPlayerData();
@@ -66,7 +66,6 @@ public class DataManager : MonoBehaviour
             inventory = new();
             SaveInventoryData();
             LoadInventoryData();
-            Debug.Log("인벤토리 생성");
         }
         else {
             LoadInventoryData();
@@ -76,7 +75,6 @@ public class DataManager : MonoBehaviour
             npcQuest = new();
             SetBaseQuest();
             SaveQuestNpcData();
-            Debug.Log("퀘스트 상황 생성");
         }
         else {
             LoadQuestNpcData();
@@ -85,11 +83,18 @@ public class DataManager : MonoBehaviour
         if(!File.Exists(guidePath)) {
             guide = new(fishDataDict.Count);
             SaveGuideData();
-            Debug.Log("도감 생성");
         }
         else {
             LoadGuideData();
         }        
+    }
+
+    private void SetPref() {
+        PlayerPrefs.SetFloat("Master", 0.5f);
+        PlayerPrefs.SetFloat("BGM", 0.5f);
+        PlayerPrefs.SetFloat("Ambient", 0.5f);
+        PlayerPrefs.SetFloat("SFX", 0.5f);
+        PlayerPrefs.SetFloat("Mouse", 1f);
     }
 
     public void SetBaseQuest() {
@@ -103,7 +108,6 @@ public class DataManager : MonoBehaviour
         foreach(FishData fish in fishDataArray) {
             fishDataDict[fish.fishID] = fish;
         }
-        Debug.Log("물고기 데이터 불러오기");
     }
 
     private void LoadRodDataFromSo() {
@@ -112,7 +116,6 @@ public class DataManager : MonoBehaviour
         foreach(RodData rod in rodDataArray) {
             rodDataDict[rod.rodID] = rod;
         }
-        Debug.Log("낚싯대 데이터 불러오기");
     }
 
     private void LoadReelDataFromSo() {
@@ -121,7 +124,6 @@ public class DataManager : MonoBehaviour
         foreach(ReelData reel in reelDataArray) {
             reelDataDict[reel.reelID] = reel;
         }
-        Debug.Log("낚시 릴 데이터 불러오기");
     }
 
     private void LoadWireDataFromSo() {
@@ -154,7 +156,6 @@ public class DataManager : MonoBehaviour
         foreach(ItemData item in itemDataArray) {
             itemDataDict[item.itemID] = item;
         }
-        Debug.Log("아이템 데이터 불러오기");
     }
 
     private void LoadQuestDataFromSo() {
@@ -168,25 +169,21 @@ public class DataManager : MonoBehaviour
     public void SavePlayerData() {
         string json = JsonUtility.ToJson(playerData, true);
         File.WriteAllText(playerPath, json);
-        Debug.Log("데이터 저장");
     }
 
     public void LoadPlayerData() {
         string json = File.ReadAllText(playerPath);
         playerData = JsonUtility.FromJson<PlayerData>(json);
-        Debug.Log("데이터 로드");
     }
 
     public void SaveInventoryData() {
         string json = JsonUtility.ToJson(inventory, true);
         File.WriteAllText(inventoryPath, json);
-        Debug.Log("인벤토리 저장");
     }
 
     public void LoadInventoryData() {
         string json = File.ReadAllText(inventoryPath);
         inventory = JsonUtility.FromJson<Inventory>(json);
-        Debug.Log("인벤토리 로드");
     }
 
     public void SaveQuestNpcData() {
@@ -196,7 +193,6 @@ public class DataManager : MonoBehaviour
         }
         string json = JsonUtility.ToJson(npcQuest, true);
         File.WriteAllText(questNpcPath, json);
-        Debug.Log("퀘스트 진행상황 저장");
     }
 
     public void LoadQuestNpcData() {
@@ -205,13 +201,11 @@ public class DataManager : MonoBehaviour
         foreach(var item in npcQuest.questList) {
             npcQuestList.Add(GetQuestData(item));
         }
-        Debug.Log("퀘스트 진행상황 로드");
     }
 
     public void SaveGuideData() {
         string json = JsonUtility.ToJson(guide, true);
         File.WriteAllText(guidePath, json);
-        Debug.Log("도감 저장");
     }
 
     public void LoadGuideData() {
@@ -265,6 +259,7 @@ public class PlayerData {
     public bool[] farmUnlock = new bool[4];
     public int donateCount = 0;
     public bool getRelicReward = false;
+    public bool getStatue = false;
     public List<int> museumComplete = new();
     public int curRod = 0;
     public List<int> rodList = new();

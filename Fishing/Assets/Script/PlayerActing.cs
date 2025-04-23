@@ -24,6 +24,7 @@ public class PlayerActing : MonoBehaviour
     private bool canTalk = false;
     private bool isTalking = false;
     private bool isFishing = false;
+    private bool isEnding = false;
 
     private int npcType;
     private int layer;
@@ -100,7 +101,7 @@ public class PlayerActing : MonoBehaviour
             }
         }
 
-        if(Input.GetKeyDown(KeyCode.Escape) && currentUIState != UIState.Fishing) {
+        if(Input.GetKeyDown(KeyCode.Escape) && currentUIState != UIState.Fishing && !isEnding) {
             if(currentUIState != UIState.None) {
                 CloseAllWindows();
             }
@@ -220,6 +221,10 @@ public class PlayerActing : MonoBehaviour
     public void SetStartFishing() {
         isFishing = !isFishing;
         Debug.Log("현재 낚시중 : " + isFishing);
+    }
+
+    public void SetEndingState() {
+        isEnding = true;
     }
 
     private void CheckFishingZone() {

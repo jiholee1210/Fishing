@@ -30,6 +30,9 @@ public class MuseumManager : MonoBehaviour
     void Start()
     {
         DefaultSetting();
+        if(playerData.getStatue) {
+            statue.SetActive(true);
+        }
     }
 
     private void SetInventorySlots() {
@@ -109,7 +112,7 @@ public class MuseumManager : MonoBehaviour
     private void SetRewardButton() {
         donateCount.Arguments = new object[] {playerData.donateCount};
         count.text = donateCount.GetLocalizedString();
-        // 아이콘 툴팁 기능도 추가하면 좋을듯
+        
         for(int i = 0; i < rewardList.Length; i++) {
             int index = i;
 
@@ -145,6 +148,7 @@ public class MuseumManager : MonoBehaviour
                 break;
             case 3:
                 //동상 오브젝트 활성화
+                playerData.getStatue = true;
                 statue.SetActive(true);
                 break;
         }
@@ -167,6 +171,12 @@ public class MuseumManager : MonoBehaviour
         transform.GetChild(0).GetChild(1).GetChild(3).GetComponent<Button>().onClick.AddListener(() => CloseDonateUI());
 
         transform.GetChild(0).GetChild(2).GetChild(1).GetComponent<Button>().onClick.AddListener(() => CloseRewardUI());
+    }
+
+    public void SetLocked() {
+        if(playerData.completeQuest.Contains(2)) {
+            transform.GetChild(0).GetChild(0).GetChild(0).GetChild(2).gameObject.SetActive(false);
+        }
     }
 
     public void CloseWindow() {
