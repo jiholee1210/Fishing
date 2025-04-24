@@ -365,6 +365,10 @@ MonoBehaviour:
     m_Localized: YOU DO NOT HAVE ENOUGH GOLD!
     m_Metadata:
       m_Items: []
+  - m_Id: 1442436687577088
+    m_Localized: CHOOSE THE RELIC TO DONATE!
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds:

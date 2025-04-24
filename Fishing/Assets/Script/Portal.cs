@@ -16,7 +16,6 @@ public class Portal : MonoBehaviour, IPortal, IScannable
 
     public Vector3 GetTelPosition()
     {
-        Debug.Log("위치 반환" + telPos);
         return telPos.position;
     }
 

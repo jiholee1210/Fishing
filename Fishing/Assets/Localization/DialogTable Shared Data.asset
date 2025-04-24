@@ -359,6 +359,10 @@ MonoBehaviour:
     m_Key: error_gold
     m_Metadata:
       m_Items: []
+  - m_Id: 1442436687577088
+    m_Key: error_relic
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

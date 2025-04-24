@@ -64,7 +64,6 @@ public class MuseumManager : MonoBehaviour
         SoundManager.Instance.ButtonClick();
         SetDetail(index);
         if(relics.Contains(index)) {
-            Debug.Log(index);
             int id = relics.IndexOf(index);
             relics.Remove(index);
             Destroy(icon[id]);
@@ -105,7 +104,8 @@ public class MuseumManager : MonoBehaviour
             CloseDonateUI();
         }
         else {
-            Debug.Log("유물을 선택하지 않았습니다.");
+            SoundManager.Instance.ActingFailSound();
+            EventManager.Instance.SelectRelic();
         }
     }
 
@@ -137,7 +137,7 @@ public class MuseumManager : MonoBehaviour
         playerData.museumComplete.Add(index);
         switch(index) {
             case 0:
-                playerData.gold += 15000;
+                playerData.gold += 10000;
                 break;
             case 1:
                 playerData.getRelicReward = true;

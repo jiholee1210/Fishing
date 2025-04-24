@@ -94,7 +94,6 @@ public class FishTradeManager : MonoBehaviour
         else {
             SoundManager.Instance.ActingFailSound();
             EventManager.Instance.SelectFish();
-            Debug.Log("선택한 물고기가 없습니다.");
         }
     }
 

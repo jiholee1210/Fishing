@@ -107,10 +107,14 @@ public class EventManager : MonoBehaviour
         uIManager.NotEnoughGold();
     }
 
+    public void SelectRelic() {
+        uIManager.SelectRelic();
+    }
+
     public void CloseAllWindows() {
         uIManager.CloseAllWindows();
     }
-
+    
     public void ClearQuest(int id) {
         switch(id) {
             case 1:

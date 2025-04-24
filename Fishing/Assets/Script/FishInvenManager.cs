@@ -68,7 +68,6 @@ public class FishInvenManager : MonoBehaviour, ISlotHandler
         Button buttonA = slots[indexA].GetComponent<Button>();
         Button buttonB = slots[indexB].GetComponent<Button>();
         if(fishList[indexB].fishID == -1) {
-            Debug.Log("빈칸에 스왑");
             fishList[indexB] = fishList[indexA].Clone();
             fishList[indexA] = null;
 

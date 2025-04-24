@@ -1,7 +1,9 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Threading.Tasks;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
 
 public class DataManager : MonoBehaviour
 {
@@ -42,7 +44,7 @@ public class DataManager : MonoBehaviour
         questNpcPath = Path.Combine(Application.persistentDataPath, "questNpc.json");
         guidePath = Path.Combine(Application.persistentDataPath, "guide.json");
 
-        LoadFishDataFromSo();
+        LoadFishDataFromAddressables();
         LoadRodDataFromSo();
         LoadReelDataFromSo();
         LoadWireDataFromSo();
@@ -102,11 +104,18 @@ public class DataManager : MonoBehaviour
     }
 
     // 데이터 불러오기
-    private void LoadFishDataFromSo() {
-        FishData[] fishDataArray = Resources.LoadAll<FishData>("FishData");
+    private async void LoadFishDataFromAddressables() {
         fishDataDict = new Dictionary<int, FishData>();
-        foreach(FishData fish in fishDataArray) {
+        var handle = Addressables.LoadAssetsAsync<FishData>("FishData", fish => {
             fishDataDict[fish.fishID] = fish;
+        });
+
+        await handle.Task;
+    }
+
+    public async Task WaitForFishData() {
+        while (fishDataDict == null || fishDataDict.Count == 0) {
+            await Task.Yield();
         }
     }
 
@@ -243,10 +252,6 @@ public class DataManager : MonoBehaviour
 
     public QuestData GetQuestData(int id) {
         return questDataDict.TryGetValue(id, out QuestData quest) ? quest : null;
-    }
-
-    public void SaveAndExit() {
-
     }
 }
 

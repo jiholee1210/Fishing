@@ -184,6 +184,10 @@ public class UIManager : MonoBehaviour
         errorText.Play("NotEnoughGold");
     }
 
+    public void SelectRelic() {
+        errorText.Play("SelectRelic");
+    }
+
     public void CloseAllWindows() {
         SoundManager.Instance.OpenUI();
         CloseFishInventoryUI();

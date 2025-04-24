@@ -41,14 +41,11 @@ public class UpgradeManager : MonoBehaviour
         equipType[type].GetChild(level).GetChild(0).gameObject.SetActive(true);
         equipType[type].GetChild(level).GetChild(0).GetChild(0).GetComponent<TMP_Text>().text = DataManager.Instance.GetItemData(type * 10 + level).reqGold + " C";
         equipType[type].GetChild(level).GetChild(0).GetComponent<Button>().onClick.RemoveAllListeners();
-        Debug.Log(playerData.gold + " " + DataManager.Instance.GetItemData(type * 10 + level).reqGold);
         if(playerData.gold >= DataManager.Instance.GetItemData(type * 10 + level).reqGold) {
-            Debug.Log("진입1");
             equipType[type].GetChild(level).GetChild(0).GetComponent<Image>().color = new Color(1f, 1f, 1f);
             equipType[type].GetChild(level).GetChild(0).GetComponent<Button>().onClick.AddListener(() => UpgradeEquip(type, level));
         }
         else {
-            Debug.Log("진입2");
             equipType[type].GetChild(level).GetChild(0).GetComponent<Image>().color = new Color(0.4f, 0.4f, 0.4f);
         }
     }
@@ -60,7 +57,6 @@ public class UpgradeManager : MonoBehaviour
         equipType[type].GetChild(level).GetChild(1).GetComponent<Image>().color = new Color(1f, 1f, 1f, 1f);
         equipList[type]++;
         if(type == 0) {
-            Debug.Log(equipList[type]);
             playerData.rodList.Add(level);
             playerData.curRod = level;
             playerInventory.SetEquip();

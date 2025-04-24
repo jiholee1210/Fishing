@@ -138,7 +138,6 @@ public class PlayerActing : MonoBehaviour
     public void OnAttack(InputValue value) {
         if(value.isPressed && canFishing && currentUIState == UIState.None) {
             if(playerInventory.isFishFull()) {
-                Debug.Log("낚시 가방이 꽉 찼습니다.");
                 EventManager.Instance.InventoryFull();
                 SoundManager.Instance.ActingFailSound();
                 return;
@@ -178,7 +177,6 @@ public class PlayerActing : MonoBehaviour
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;
             isTalking = true;
-            Debug.Log("NPC와 상호작용");
         }
     }
 
@@ -220,7 +218,6 @@ public class PlayerActing : MonoBehaviour
 
     public void SetStartFishing() {
         isFishing = !isFishing;
-        Debug.Log("현재 낚시중 : " + isFishing);
     }
 
     public void SetEndingState() {
@@ -282,7 +279,6 @@ public class PlayerActing : MonoBehaviour
             playerMovement.SetPos(curObject.GetComponent<IPortal>().GetTelPosition());
         }
         else {
-            Debug.Log("요구 퀘스트 : " + DataManager.Instance.GetQuestData(reqQeustID).questName);
             EventManager.Instance.NotClearQuest();
             SoundManager.Instance.ActingFailSound();
         }

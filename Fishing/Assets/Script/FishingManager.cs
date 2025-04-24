@@ -113,7 +113,6 @@ public class FishingManager : MonoBehaviour
     public void UpFish() {
         // 총 540f 크기 중 현재체력 / 최대체력 비율로 위치 설정
         fishCurHealth -= playerPower;
-        Debug.Log("현재 체력 : " + fishCurHealth + " 최대 체력 : " + fishHealth);
         SoundManager.Instance.NoteSuccess();
 
         fishRect.anchoredPosition += new Vector2(0f, upPos);
@@ -123,7 +122,6 @@ public class FishingManager : MonoBehaviour
 
         Destroy(noteQueue.Peek());
         noteQueue.Dequeue();
-        Debug.Log("정확하게 누름");
     
         // 물고기 체력 0 이하 체크
         if(fishCurHealth <= 0) {
@@ -138,7 +136,6 @@ public class FishingManager : MonoBehaviour
         float shakeAngle = 15f;
 
         Vector3 pivot = fishRect.position + Vector3.up * 30f;
-        Debug.Log(pivot);
         while(time <= 0.3f) {
             time += Time.deltaTime;
 
@@ -160,7 +157,6 @@ public class FishingManager : MonoBehaviour
             return;
         }
         SoundManager.Instance.NoteFail();
-        Debug.Log("잘못 누름");
     }
 
     private IEnumerator ShakeBar() {
@@ -181,7 +177,6 @@ public class FishingManager : MonoBehaviour
 
     private void SetFishProbabilities(int baitLevel) {
         fishProbabilities.Clear();
-        Debug.Log("미끼 레벨 : " + baitLevel);
         switch(baitLevel) {
             case 1:
                 fishProbabilities.Add(0, 65f);
@@ -245,8 +240,7 @@ public class FishingManager : MonoBehaviour
         
         List<FishData> fish = new();
         int rarity = 0;
-        float randomProb = UnityEngine.Random.Range(0, 100f);
-        Debug.Log(randomProb);
+        float randomProb = Random.Range(0, 100f);
         float curProb = 0;
         foreach(var prob in fishProbabilities) {
             curProb += prob.Value;
@@ -258,7 +252,7 @@ public class FishingManager : MonoBehaviour
 
         fish = fishList.Where(x => (int)x.rarity == rarity).ToList();
         
-        int randomIndex = UnityEngine.Random.Range(0, fish.Count);
+        int randomIndex = Random.Range(0, fish.Count);
         return fish[randomIndex].fishID;
     }
 
@@ -280,8 +274,7 @@ public class FishingManager : MonoBehaviour
     }
 
     private int SetFishGrade() {
-        float randomProb = UnityEngine.Random.Range(0, 100f);
-        Debug.Log("랜덤 등급 : " + randomProb);
+        float randomProb = Random.Range(0, 100f);
         float curProb = 0f;
         int grade = 0;
         foreach(var prob in gradeProbabilities) {
@@ -297,8 +290,7 @@ public class FishingManager : MonoBehaviour
     public IEnumerator CalFishing() {
         float time = 0f;
         float reductionRatio = playerData.getRelicReward ? 10f : 0f;
-        float randomTime = UnityEngine.Random.Range(5f, 15f) * (1 - ((biteTime + reductionRatio) / 100));
-        Debug.Log(time + " " + randomTime);
+        float randomTime = Random.Range(5f, 15f) * (1 - ((biteTime + reductionRatio) / 100));
         while(time < randomTime) {
             time += Time.deltaTime;
             yield return null;
@@ -320,7 +312,6 @@ public class FishingManager : MonoBehaviour
         fishingCoroutine = StartCoroutine(CalFishing());
     }
     public void StopFishing() {
-        Debug.Log("낚시 중단");
         if(fishingCoroutine != null) {
             StopCoroutine(fishingCoroutine);
             fishingCoroutine = null;
@@ -403,7 +394,6 @@ public class FishingManager : MonoBehaviour
 
     private void EndFishing() {
         foreach(GameObject gameObject in noteQueue) {
-            Debug.Log("노트 삭제");
             Destroy(gameObject);
         }
         noteQueue.Clear();

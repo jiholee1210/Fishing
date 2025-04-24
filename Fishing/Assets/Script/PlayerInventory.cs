@@ -52,7 +52,6 @@ public class PlayerInventory : MonoBehaviour
     public void SetEquip() {
         int rodID = DataManager.Instance.playerData.curRod;
         GameObject prefab = DataManager.Instance.GetRodData(rodID).rodPrefab;
-        Debug.Log("낚시대 설정");
         if(handPos.childCount > 0) {
             Destroy(handPos.GetChild(0).gameObject);
         }
@@ -62,7 +61,6 @@ public class PlayerInventory : MonoBehaviour
 
     public float GetRodDur() {
         float rodDur = DataManager.Instance.GetRodData(inventory.equip[0]).rodDur;
-        Debug.Log("플레이어 낚시 파워 : " + rodDur);
         return rodDur;
     }
 

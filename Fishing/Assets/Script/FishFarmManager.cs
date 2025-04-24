@@ -136,10 +136,8 @@ public class FishFarmManager : MonoBehaviour
         }
         float curTime = fishFarmTimer[timeIndex].timer;
         bool isFull = false;
-        Debug.Log("물고기 생성 : " +  timeIndex);
         while(fishFarmTimer[timeIndex].isFullFarm) {
             yield return waitOneSecond;
-            Debug.Log("생산중 : " + curTime + " " + genTime);
 
             isFull = newFishList[groundType].list.All(x => x.fishID != -1);
 
@@ -174,7 +172,6 @@ public class FishFarmManager : MonoBehaviour
             }
             fishFarmTimer[timeIndex].timer = curTime;  
         }
-        Debug.Log("생산 종료");
     }
 
     private void SetGoldText(int groundType) {
@@ -320,7 +317,6 @@ public class FishFarmManager : MonoBehaviour
             int index = prevID.IndexOf(id);
             selectedFish.RemoveAt(index);
             prevID.Remove(id);
-            Debug.Log("재선택");
             Destroy(activeIcons[index]);
             activeIcons.RemoveAt(index);
             if(prevID.Count == 0){
@@ -390,7 +386,6 @@ public class FishFarmManager : MonoBehaviour
             fishInFarm[i + count] = selectedFish[i].Clone();
         }
 
-        Debug.Log("타이머 인덱스 " + timerIndex);
         fishFarmTimer[timerIndex].isFullFarm = true;
         fishFarmTimer[timerIndex].timer = 0f;
         if(coroutines[timerIndex] != null) {
@@ -414,13 +409,11 @@ public class FishFarmManager : MonoBehaviour
                     break;
                 }
                 if(j == fishList.Count - 1 && i == count + 1) {
-                    Debug.Log("낚시 가방이 꽉 찼습니다.");
                     return;
                 }
             }
         }
         
-        Debug.Log("타이머 인덱스 회수 : "+ timerIndex);
         fishFarmTimer[timerIndex].isFullFarm = false;
         fishFarmTimer[timerIndex].timer = 0f;
         coroutines[timerIndex] = null;
@@ -474,7 +467,6 @@ public class FishFarmManager : MonoBehaviour
                     Transform fishSlot = fishFarmType[index].GetChild(j).GetChild(k);
                     fishSlot.GetComponent<Image>().sprite = null;
                     fishSlot.GetChild(0).GetComponent<Image>().sprite = null;
-                    Debug.Log(count);
                     if(fishInFarm[count].fishID != -1) {
                         fishSlot.GetComponent<Image>().sprite = DataManager.Instance.GetFishData(fishInFarm[count].fishID).fishIcon;
                         fishSlot.GetChild(0).GetComponent<Image>().sprite = DataManager.Instance.gradeSprites[fishInFarm[count++].grade];

@@ -117,7 +117,6 @@ public class PlayerMovement : MonoBehaviour
         yield return StartCoroutine(wipeController.CircleIn());
         transform.position = new Vector3(1275.5f, -75.2f, 1921.3f);
         yield return StartCoroutine(wipeController.CircleOut());
-        Debug.Log("효과 끝남");
         inputValueX = 0f;
         inputValueZ = 0f;
         cantMove = false;
@@ -137,7 +136,6 @@ public class PlayerMovement : MonoBehaviour
         
         RaycastHit hit;
         if(Physics.Raycast(transform.position, Vector3.down, out hit, 10f)) {
-            Debug.DrawLine(transform.position, hit.point, Color.red);
             if(Vector3.Angle(hit.normal, Vector3.up) > characterController.slopeLimit) {
                 isSliding = true;
                 Vector3 slopeDir = Vector3.ProjectOnPlane(Vector3.down, hit.normal).normalized;

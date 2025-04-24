@@ -74,7 +74,6 @@ public class QuestNpcManager : MonoBehaviour
                 CreateQuestItems();
                 questDetail.gameObject.SetActive(false);
                 curTime = -1;
-                Debug.Log("노말 퀘스트 초기화");
                 DataManager.Instance.SaveQuestNpcData();
             }
 
@@ -123,7 +122,6 @@ public class QuestNpcManager : MonoBehaviour
             normalQuest.questRequirements = reqFish;
             normalQuest.rewardGold = price;
             normalQuests.Add(normalQuest);
-            Debug.Log("노말 퀘스트 추가");
         }
     }
 
@@ -180,7 +178,6 @@ public class QuestNpcManager : MonoBehaviour
                 }   
             }
             if(!fishFound) {
-                Debug.Log("필요한 물고기가 부족합니다.");
                 EventManager.Instance.ReqFish();
                 SoundManager.Instance.QuestFail();
                 return;
@@ -227,7 +224,6 @@ public class QuestNpcManager : MonoBehaviour
             Destroy(child.gameObject);
         }
         // 새로운 퀘스트 아이템 생성
-        Debug.Log("퀘스트 개수 : " + npcQuest.Count);
         for(int i = 0; i < npcQuest.Count; i++)
         {
             GameObject quest;
