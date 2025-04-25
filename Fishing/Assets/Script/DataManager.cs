@@ -21,8 +21,6 @@ public class DataManager : MonoBehaviour
     public NpcQuest npcQuest;
     public Guide guide;
 
-    public List<QuestData> npcQuestList;
-
     public Dictionary<int, FishData> fishDataDict;
     public Dictionary<int, RodData> rodDataDict;
     public Dictionary<int, ReelData> reelDataDict;
@@ -44,14 +42,7 @@ public class DataManager : MonoBehaviour
         questNpcPath = Path.Combine(Application.persistentDataPath, "questNpc.json");
         guidePath = Path.Combine(Application.persistentDataPath, "guide.json");
 
-        LoadFishDataFromAddressables();
-        LoadRodDataFromSo();
-        LoadReelDataFromSo();
-        LoadWireDataFromSo();
-        LoadHookDataFromSo();
-        LoadBaitDataFromSo();
-        LoadItemDataFromSo();
-        LoadQuestDataFromSo();
+        LoadDatas();
 
         if(!File.Exists(playerPath)) {
             playerData = new();
@@ -75,7 +66,6 @@ public class DataManager : MonoBehaviour
 
         if(!File.Exists(questNpcPath)) {
             npcQuest = new();
-            SetBaseQuest();
             SaveQuestNpcData();
         }
         else {
@@ -83,7 +73,7 @@ public class DataManager : MonoBehaviour
         }
 
         if(!File.Exists(guidePath)) {
-            guide = new(fishDataDict.Count);
+            guide = new(40);
             SaveGuideData();
         }
         else {
@@ -98,9 +88,16 @@ public class DataManager : MonoBehaviour
         PlayerPrefs.SetFloat("SFX", 0.5f);
         PlayerPrefs.SetFloat("Mouse", 1f);
     }
-
-    public void SetBaseQuest() {
-        npcQuestList.Add(GetQuestData(0));
+    
+    private void LoadDatas() {
+        LoadFishDataFromAddressables();
+        LoadRodDataFromSo();
+        LoadReelDataFromSo();
+        LoadWireDataFromSo();
+        LoadHookDataFromSo();
+        LoadBaitDataFromSo();
+        LoadItemDataFromSo();
+        LoadQuestDataFromSo();
     }
 
     // 데이터 불러오기
@@ -119,59 +116,78 @@ public class DataManager : MonoBehaviour
         }
     }
 
-    private void LoadRodDataFromSo() {
-        RodData[] rodDataArray = Resources.LoadAll<RodData>("RodData");
+    private async void LoadRodDataFromSo() {
         rodDataDict = new Dictionary<int, RodData>();
-        foreach(RodData rod in rodDataArray) {
+        var handle = Addressables.LoadAssetsAsync<RodData>("RodData", rod => {
             rodDataDict[rod.rodID] = rod;
+        });
+
+        await handle.Task;
+    }
+
+    public async Task WaitForRodData() {
+        while (rodDataDict == null || rodDataDict.Count == 0) {
+            await Task.Yield();
         }
     }
 
-    private void LoadReelDataFromSo() {
-        ReelData[] reelDataArray = Resources.LoadAll<ReelData>("ReelData");
+    private async void LoadReelDataFromSo() {
         reelDataDict = new Dictionary<int, ReelData>();
-        foreach(ReelData reel in reelDataArray) {
+        var handle = Addressables.LoadAssetsAsync<ReelData>("ReelData", reel => {
             reelDataDict[reel.reelID] = reel;
-        }
+        });
+
+        await handle.Task;
     }
 
-    private void LoadWireDataFromSo() {
-        WireData[] wireDataArray = Resources.LoadAll<WireData>("WireData");
+    private async void LoadWireDataFromSo() {
         wireDataDict = new Dictionary<int, WireData>();
-        foreach(WireData wire in wireDataArray) {
+        var handle = Addressables.LoadAssetsAsync<WireData>("WireData", wire => {
             wireDataDict[wire.wireID] = wire;
-        }
+        });
+
+        await handle.Task;
     }
 
-    private void LoadHookDataFromSo() {
-        HookData[] hookDataArray = Resources.LoadAll<HookData>("HookData");
+    private async void LoadHookDataFromSo() {
         hookDataDict = new Dictionary<int, HookData>();
-        foreach(HookData hook in hookDataArray) {
+        var handle = Addressables.LoadAssetsAsync<HookData>("HookData", hook => {
             hookDataDict[hook.hookID] = hook;
-        }
+        });
+
+        await handle.Task;
     }
 
-    private void LoadBaitDataFromSo() {
-        BaitData[] baitDataArray = Resources.LoadAll<BaitData>("BaitData");
+    private async void LoadBaitDataFromSo() {
         baitDataDict = new Dictionary<int, BaitData>();
-        foreach (BaitData bait in baitDataArray) {
+        var handle = Addressables.LoadAssetsAsync<BaitData>("BaitData", bait => {
             baitDataDict[bait.baitID] = bait;
-        }
+        });
+
+        await handle.Task;
     }
     
-    private void LoadItemDataFromSo() {
-        ItemData[] itemDataArray = Resources.LoadAll<ItemData>("ItemData");
+    private async void LoadItemDataFromSo() {
         itemDataDict = new Dictionary<int, ItemData>();
-        foreach(ItemData item in itemDataArray) {
+        var handle = Addressables.LoadAssetsAsync<ItemData>("ItemData", item => {
             itemDataDict[item.itemID] = item;
-        }
+        });
+
+        await handle.Task;
     }
 
-    private void LoadQuestDataFromSo() {
-        QuestData[] questDataArray = Resources.LoadAll<QuestData>("QuestData");
+    private async void LoadQuestDataFromSo() {
         questDataDict = new Dictionary<int, QuestData>();
-        foreach(QuestData quest in questDataArray) {
+        var handle = Addressables.LoadAssetsAsync<QuestData>("QuestData", quest => {
             questDataDict[quest.questID] = quest;
+        });
+
+        await handle.Task;
+    }
+
+    public async Task WaitForQuestData() {
+        while (questDataDict == null || questDataDict.Count == 0) {
+            await Task.Yield();
         }
     }
 
@@ -196,10 +212,6 @@ public class DataManager : MonoBehaviour
     }
 
     public void SaveQuestNpcData() {
-        npcQuest.questList.Clear();
-        foreach(var item in npcQuestList) {
-            npcQuest.questList.Add(item.questID);
-        }
         string json = JsonUtility.ToJson(npcQuest, true);
         File.WriteAllText(questNpcPath, json);
     }
@@ -207,9 +219,6 @@ public class DataManager : MonoBehaviour
     public void LoadQuestNpcData() {
         string json = File.ReadAllText(questNpcPath);
         npcQuest = JsonUtility.FromJson<NpcQuest>(json);
-        foreach(var item in npcQuest.questList) {
-            npcQuestList.Add(GetQuestData(item));
-        }
     }
 
     public void SaveGuideData() {
@@ -275,6 +284,10 @@ public class NpcQuest {
     public List<int> questList = new();
     public List<NormalQuest> normalQuests = new();
     public int timer;
+
+    public NpcQuest() {
+        questList.Add(0);
+    }
 }
 
 [Serializable]

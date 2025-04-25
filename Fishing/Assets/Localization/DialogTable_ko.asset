@@ -373,6 +373,43 @@ MonoBehaviour:
     m_Localized: "\uAE30\uC99D\uD560 \uC720\uBB3C\uC744 \uC120\uD0DD\uD558\uC138\uC694!"
     m_Metadata:
       m_Items: []
+  - m_Id: 1885135244869632
+    m_Localized: "\uC644\uB8CC"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1893209619808256
+    m_Localized: "\uD29C\uD1A0\uB9AC\uC5BC"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1893213998661632
+    m_Localized: "\uC774\uB3D9 : WASD"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1893215399559168
+    m_Localized: "NPC \uC0C1\uD638\uC791\uC6A9 : E"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1893216670433280
+    m_Localized: "\uC778\uBCA4\uD1A0\uB9AC : E"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1893304822120448
+    m_Localized: "\uBB3C\uACE0\uAE30 \uB3C4\uAC10 : G"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1893306415955968
+    m_Localized: "\uB09A\uC2EF\uB300 \uC678\uD615 \uBCC0\uACBD : K"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1893307590361088
+    m_Localized: "\uBA54\uB274 : ESC"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1893356999262208
+    m_Localized: "\uB09A\uC2DC \uC2DC\uC791 \uBC0F \uC911\uB2E8 : \uB9C8\uC6B0\uC2A4
+      \uC88C\uD074\uB9AD"
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds:

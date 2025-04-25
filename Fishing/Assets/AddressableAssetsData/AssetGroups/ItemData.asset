@@ -1,0 +1,143 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: ItemData
+  m_EditorClassIdentifier: 
+  m_GroupName: ItemData
+  m_GUID: e2fdf0842d7fa994a89b2fb2eabe696b
+  m_SerializeEntries:
+  - m_GUID: 07895ecd48b58d643abbc22743b0aef3
+    m_Address: ItemData/32_bonehook
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - ItemData
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 10d17876c6400c341b7c6781bc6b9afd
+    m_Address: ItemData/43_grub
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - ItemData
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 4199574eeffbec14e801b80e9c8c58ac
+    m_Address: ItemData/22_flexilverwire
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - ItemData
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 49b0dffe55b31e04a95d03228560c999
+    m_Address: ItemData/12_mythrilreel
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - ItemData
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 4a0d9ff5dbda2874cbc076031ebcb82c
+    m_Address: ItemData/40_worm
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - ItemData
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 5a240f8ea9bfe9f43af2102d3e55864a
+    m_Address: ItemData/10_woodenreel
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - ItemData
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 5aaf4c365330e4e48bb05518f8dae110
+    m_Address: ItemData/42_snail
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - ItemData
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 5ae9856d431803448ae5340419168ad1
+    m_Address: ItemData/31_ironhook
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - ItemData
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 674dceb4bd5a12041800f52c2a2011ae
+    m_Address: ItemData/23_abysswire
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - ItemData
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 690a760a1b0af164784be8425280ec53
+    m_Address: ItemData/11_steelreel
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - ItemData
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 8e53765b56f712146a8d874788c7d17a
+    m_Address: ItemData/13_adamantiumreel
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - ItemData
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 91f8c5cca4121fd45a50cd320d7025a3
+    m_Address: ItemData/33_aquamarinehook
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - ItemData
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 93b8b06dc546a4d4fa67316f13828f21
+    m_Address: ItemData/21_spiderwire
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - ItemData
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: ba6d1c70df6fbeb48b36ae8f0c2cfeff
+    m_Address: ItemData/1_ironrod
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - ItemData
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: cf6ecf9cc7be2c84ca25cf9718a14de2
+    m_Address: ItemData/2_rubyrod
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - ItemData
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: d10e3a7eaf740a9439252d5070368be6
+    m_Address: ItemData/3_emeraldrod
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - ItemData
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: e1d21d8b68a604b4c964096035a3fae5
+    m_Address: ItemData/20_fiberwire
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - ItemData
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: ef0cdb94b99a56c42907d546d0c4b33b
+    m_Address: ItemData/41_shrimp
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - ItemData
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: f52cabf7c178d4a48817e1423b8322a4
+    m_Address: ItemData/30_woodenhook
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - ItemData
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: ffb1f8da60fe4214b9bf4061a3658485
+    m_Address: ItemData/0_woodenrod
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - ItemData
+    FlaggedDuringContentUpdateRestriction: 0
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: f33290ce6dcf26e4189ac6fe62a07bcb, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: 5ae5da834b99c7643b55dac51ddfee0f, type: 2}
+    - {fileID: 11400000, guid: 090a342a86f220645ab3e6aea46ae8c4, type: 2}

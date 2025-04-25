@@ -1,0 +1,47 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: WireData
+  m_EditorClassIdentifier: 
+  m_GroupName: WireData
+  m_GUID: 722c9a2ee4e91a5478cfd7de4602f3aa
+  m_SerializeEntries:
+  - m_GUID: 44333766b743845449ca66ed74302b17
+    m_Address: "WireData/21_\uAC70\uBBF8\uC904 \uC640\uC774\uC5B4"
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - WireData
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 8f82a65cacb8bf344a1cb0b15fbd89b1
+    m_Address: "WireData/23_\uC2EC\uC5F0 \uC640\uC774\uC5B4"
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - WireData
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: a1614f8cafd9e6245b9d91b210c4e606
+    m_Address: "WireData/22_\uD50C\uB809\uC2E4\uBC84 \uC640\uC774\uC5B4"
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - WireData
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: a168807e9dd48a045a19237513c0eb3e
+    m_Address: "WireData/20_\uC2DD\uBB3C \uC904\uAE30 \uC640\uC774\uC5B4"
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - WireData
+    FlaggedDuringContentUpdateRestriction: 0
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: f33290ce6dcf26e4189ac6fe62a07bcb, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: c6e74165d8918b049b087779d6c2e8a1, type: 2}
+    - {fileID: 11400000, guid: 415bda31677c95d41a45f8913b5bd39c, type: 2}

@@ -34,6 +34,7 @@ public class ButtonManager : MonoBehaviour
 
     private void SetLanguage(int id) {
         LocalizationSettings.SelectedLocale = LocalizationSettings.AvailableLocales.Locales[id];
+        PlayerPrefs.SetInt("lang", id);
         CloseLanguage();
     }
 }

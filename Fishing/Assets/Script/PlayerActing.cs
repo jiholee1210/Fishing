@@ -46,14 +46,13 @@ public class PlayerActing : MonoBehaviour
         Guide,
         Option,
         NPC,
-        Sign,
-        Skin
+        Skin,
+        Tuto
     }
 
     private enum Layer {
         None = 0,
         Npc = 7,
-        Sign = 9,
         Portal = 10
     }
 
@@ -67,7 +66,13 @@ public class PlayerActing : MonoBehaviour
         playerMovement = GetComponent<PlayerMovement>();
         cameraRot = GetComponent<CameraRot>();
 
-        playerData = DataManager.Instance.playerData;;
+        playerData = DataManager.Instance.playerData;
+
+        if(!PlayerPrefs.HasKey("TutorialShown")) {
+            EventManager.Instance.ShowTutorial();
+            SetTutorial();
+            PlayerPrefs.SetInt("TutorialShown", 1);
+        }
     }
 
     // Update is called once per frame
@@ -164,10 +169,6 @@ public class PlayerActing : MonoBehaviour
                     currentUIState = UIState.NPC;
                     EventManager.Instance.OpenNPCUI(npcType, curObject);
                     break;
-                case Layer.Sign:
-                    currentUIState = UIState.Sign;
-                    EventManager.Instance.OpenSignUI();
-                    break;
                 case Layer.Portal:
                     CheckEnable(curObject);
                     return;
@@ -222,6 +223,14 @@ public class PlayerActing : MonoBehaviour
 
     public void SetEndingState() {
         isEnding = true;
+    }
+
+    public void SetTutorial() {
+        cameraRot.StartOtherJob();
+        playerMovement.StartOtherJob();
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+        currentUIState = UIState.Tuto;
     }
 
     private void CheckFishingZone() {

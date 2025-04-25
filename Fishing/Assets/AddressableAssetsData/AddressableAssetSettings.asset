@@ -15,7 +15,7 @@ MonoBehaviour:
   m_DefaultGroup: 15e7eb2d2f597c548bc86853a92f1e1d
   m_currentHash:
     serializedVersion: 2
-    Hash: ee0b02a7fa39ac50033da749518c6a87
+    Hash: 4ce2a4645e49f6533365f14df3dca2a9
   m_OptimizeCatalogSize: 0
   m_BuildRemoteCatalog: 0
   m_CatalogRequestsTimeout: 0
@@ -61,12 +61,19 @@ MonoBehaviour:
   m_GroupAssets:
   - {fileID: 11400000, guid: ba6347da6da7bdb44851bee3b3a86aed, type: 2}
   - {fileID: 11400000, guid: 812c7bb88382717499c06f535c10b920, type: 2}
+  - {fileID: 11400000, guid: 1ef65863864383d4ca08006a9c60dd4e, type: 2}
+  - {fileID: 11400000, guid: 9a3be99343264f24797a4ed460fffb7b, type: 2}
   - {fileID: 11400000, guid: edefcad265feabb4d9c975b5201de4d3, type: 2}
   - {fileID: 11400000, guid: 205434f15fc9fcd4897fc42ab71a8635, type: 2}
+  - {fileID: 11400000, guid: 30430edd281c3ed4eb129084f65aa723, type: 2}
   - {fileID: 11400000, guid: fecace0e2b41e7440a783f0a548e5627, type: 2}
   - {fileID: 11400000, guid: dbd2cca1dfd3d934f90732c1dbbd8f3c, type: 2}
   - {fileID: 11400000, guid: 6102034c17f1e774e9a21b6116a30c61, type: 2}
+  - {fileID: 11400000, guid: cdcf22a51a60b304ca963d5a7ba7967e, type: 2}
   - {fileID: 11400000, guid: c1bd650304e6b4c4ab8a14708ea9fc19, type: 2}
+  - {fileID: 11400000, guid: e8c60e5a0656f61499dd31628a622f17, type: 2}
+  - {fileID: 11400000, guid: 4efef01dfec338c438e1cfe57c085b3d, type: 2}
+  - {fileID: 11400000, guid: 367fbdd8b862fbe4c94dc7ee185cb118, type: 2}
   m_BuildSettings:
     m_LogResourceManagerExceptions: 1
     m_BundleBuildPath: Temp/com.unity.addressables/AssetBundles
@@ -114,6 +121,13 @@ MonoBehaviour:
     - UI
     - SO
     - FishData
+    - BaitData
+    - ItemData
+    - RodData
+    - WireData
+    - ReelData
+    - HookData
+    - QuestData
   m_SchemaTemplates: []
   m_GroupTemplateObjects:
   - {fileID: 11400000, guid: 8aa7874fab144e14bbdf791b27daee7d, type: 2}

@@ -70,15 +70,6 @@ public class EventManager : MonoBehaviour
         } 
     }
 
-    public void OpenSignUI() {
-        uIManager.OpenSignUI();
-    }
-
-    public void CloseSignUI() {
-        uIManager.CloseSignUI();
-        playerActing.EndTalk();
-    }
-
     public void OpenOptionUI() {
         uIManager.OpenOptionUI();
     }
@@ -109,6 +100,10 @@ public class EventManager : MonoBehaviour
 
     public void SelectRelic() {
         uIManager.SelectRelic();
+    }
+
+    public void ShowTutorial() {
+        uIManager.OpenTutorial();
     }
 
     public void CloseAllWindows() {

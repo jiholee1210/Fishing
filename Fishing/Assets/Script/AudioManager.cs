@@ -47,7 +47,7 @@ public class AudioManager : MonoBehaviour
     }
 
     // 이후 UI매니저로 넘기기
-    private void DefaultSetting() {
+    public void DefaultSetting() {
         for(int i = 0; i < 4; i++) {
             AudioMixerType audioMixerType = (AudioMixerType)i;
 

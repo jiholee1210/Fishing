@@ -8,7 +8,6 @@ public class UIManager : MonoBehaviour
     [SerializeField] GameObject fishInventoryUI;
     [SerializeField] GameObject guideUI;
     [SerializeField] private GameObject skinUI;
-    [SerializeField] GameObject signUI;
     [SerializeField] GameObject optionUI;
     [SerializeField] private GameObject volumeUI;
 
@@ -20,13 +19,13 @@ public class UIManager : MonoBehaviour
     [SerializeField] GameObject fishFarmNpcUI;
     [SerializeField] GameObject museumNpcUI;
     [SerializeField] private GameObject endingNpcUI;
+    [SerializeField] private GameObject tutorialUI;
 
     [SerializeField] FishTradeManager fishTradeManager;
     [SerializeField] QuestNpcManager questNpcManager;
     [SerializeField] private UpgradeManager upgradeManager;
     [SerializeField] FishFarmManager fishFarmManager;
     [SerializeField] MuseumManager museumManager;
-    [SerializeField] SignManager signManager;
     [SerializeField] private SkinManager skinManager;
     [SerializeField] private GuideManager guideManager;
     [SerializeField] private FishInvenManager fishInvenManager;
@@ -141,16 +140,6 @@ public class UIManager : MonoBehaviour
         endingNpcUI.SetActive(false);
     }
 
-    // 표지판
-    public void OpenSignUI() {
-        signUI.SetActive(true);
-        signManager.ShowFirstImage();
-    }
-
-    public void CloseSignUI() {
-        signUI.SetActive(false);
-    }
-
     // 옵션
     public void OpenOptionUI() {
         optionUI.SetActive(true);
@@ -188,6 +177,14 @@ public class UIManager : MonoBehaviour
         errorText.Play("SelectRelic");
     }
 
+    public void OpenTutorial() {
+        tutorialUI.SetActive(true);
+    }
+
+    public void CloseTutorial() {
+        tutorialUI.SetActive(false);
+    }
+
     public void CloseAllWindows() {
         SoundManager.Instance.OpenUI();
         CloseFishInventoryUI();
@@ -208,9 +205,9 @@ public class UIManager : MonoBehaviour
 
         CloseEndingNpcUI();
 
-        CloseSignUI();
-
         CloseOptionUI();
+
+        CloseTutorial();
     }
 
     public void SetNpcObject(GameObject _npcObject) {

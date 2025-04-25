@@ -17,7 +17,7 @@ public class QuestNpcManager : MonoBehaviour
     [SerializeField] Transform questDetail;
     [SerializeField] private TMP_Text timer;
 
-    private List<QuestData> npcQuest;
+    private List<int> npcQuest;
     private List<int> completeQuest;
     private List<NormalQuest> normalQuests;
 
@@ -35,13 +35,15 @@ public class QuestNpcManager : MonoBehaviour
 
     WaitForSeconds waitOneSecond = new WaitForSeconds(1f);
 
-    void Start()
+    async void Start()
     {
         completeQuest = DataManager.Instance.playerData.completeQuest;
         playerFish = DataManager.Instance.inventory.fishList;
         playerData = DataManager.Instance.playerData;
-        npcQuest = DataManager.Instance.npcQuestList;
+        npcQuest = DataManager.Instance.npcQuest.questList;
         normalQuests = DataManager.Instance.npcQuest.normalQuests;
+
+        await DataManager.Instance.WaitForQuestData();
         StartCoroutine(QuestTimer());
     }
 
@@ -170,7 +172,7 @@ public class QuestNpcManager : MonoBehaviour
         foreach(var requirement in questData.requirements) {
             bool fishFound = false;
             for(int i = 0; i < available.Count; i++) {
-                if(available[i].fishID == requirement.fishID && available[i].grade == requirement.grade) {
+                if(available[i].fishID == requirement.fishID && available[i].grade >= requirement.grade) {
                     available.RemoveAt(i);
                     list.Add(i);
                     fishFound = true;
@@ -196,9 +198,9 @@ public class QuestNpcManager : MonoBehaviour
         }
         questDetail.gameObject.SetActive(false);
         if(questData.isEpic) {
-            npcQuest.Remove(questData);
+            npcQuest.Remove(questData.questID);
             foreach(var id in questData.nextQuest) {
-                npcQuest.Add(DataManager.Instance.GetQuestData(id));
+                npcQuest.Add(id);
             }
         }
         else {
@@ -227,17 +229,19 @@ public class QuestNpcManager : MonoBehaviour
         for(int i = 0; i < npcQuest.Count; i++)
         {
             GameObject quest;
+            
             int index = i;
+            QuestData questData = DataManager.Instance.GetQuestData(npcQuest[index]);
             // npc id와 퀘스트 완료 npc 아이디가 같을때만 출력하도록
-            if(npcQuest[index].receive != npcID) continue;
+            if(questData.receive != npcID) continue;
 
             quest = Instantiate(questItemPrefab, epicQuestParent);
             
             RectTransform rectTransform = quest.GetComponent<RectTransform>();
             rectTransform.anchoredPosition = new Vector2(0f, -(index * (rectTransform.rect.height + 10f)));
-            rectTransform.GetChild(0).GetComponent<TMP_Text>().text = npcQuest[index].questName; 
+            rectTransform.GetChild(0).GetComponent<TMP_Text>().text = questData.questName; 
             
-            quest.GetComponent<Button>().onClick.AddListener(() => SetDetail(npcQuest[index], index));
+            quest.GetComponent<Button>().onClick.AddListener(() => SetDetail(questData, index));
         }
 
         int count = 0;

@@ -369,6 +369,42 @@ MonoBehaviour:
     m_Localized: CHOOSE THE RELIC TO DONATE!
     m_Metadata:
       m_Items: []
+  - m_Id: 1885135244869632
+    m_Localized: COMPLETE
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1893209619808256
+    m_Localized: TUTORIAL
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1893213998661632
+    m_Localized: 'MOVE : WASD'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1893215399559168
+    m_Localized: 'NPC INTERACTION : E'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1893216670433280
+    m_Localized: 'INVENTORY : E'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1893304822120448
+    m_Localized: 'FISH GUIDE : G'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1893306415955968
+    m_Localized: 'CHANGE ROD APPEARANCE : K'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1893307590361088
+    m_Localized: 'MENU : ESC'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1893356999262208
+    m_Localized: 'START AND STOP FISHING : LEFT CLICK'
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds:

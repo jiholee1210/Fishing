@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Localization.Settings;
 
 public class GameManager : MonoBehaviour
 {
@@ -16,5 +17,9 @@ public class GameManager : MonoBehaviour
 
         QualitySettings.vSyncCount = 1;
         Application.targetFrameRate = -1;
+
+        int lang = PlayerPrefs.GetInt("lang", 1);
+
+        LocalizationSettings.SelectedLocale = LocalizationSettings.AvailableLocales.Locales[lang];
     }
 }

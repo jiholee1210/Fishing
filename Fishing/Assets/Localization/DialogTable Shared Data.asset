@@ -363,6 +363,42 @@ MonoBehaviour:
     m_Key: error_relic
     m_Metadata:
       m_Items: []
+  - m_Id: 1885135244869632
+    m_Key: quest_complete
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1893209619808256
+    m_Key: tuto_title
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1893213998661632
+    m_Key: tuto_move
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1893215399559168
+    m_Key: tuto_interact
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1893216670433280
+    m_Key: tuto_inven
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1893304822120448
+    m_Key: tuto_guide
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1893306415955968
+    m_Key: tuto_rod
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1893307590361088
+    m_Key: tuto_menu
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1893356999262208
+    m_Key: tuto_fishing
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

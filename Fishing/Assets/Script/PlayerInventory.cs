@@ -1,4 +1,5 @@
 using System.Linq;
+using System.Threading.Tasks;
 using UnityEngine;
 
 public class PlayerInventory : MonoBehaviour
@@ -9,8 +10,9 @@ public class PlayerInventory : MonoBehaviour
     private PlayerActing playerActing;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    async void Start()
     {
+        await DataManager.Instance.WaitForRodData();
         playerActing = GetComponent<PlayerActing>();
         ResetInventory();
         SetEquip();

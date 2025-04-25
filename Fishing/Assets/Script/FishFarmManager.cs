@@ -39,9 +39,10 @@ public class FishFarmManager : MonoBehaviour
     WaitForSeconds waitOneSecond = new WaitForSeconds(1f);
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     private Color[] rarityColor = {new Color(0f, 0f, 0f), new Color(0f, 0.6f, 0.9f), new Color(0.7f, 0f, 1f), new Color(1f, 0.3f, 0.1f), new Color(0f, 0.8f, 0.6f)};
-    void Start()
+    async void Start()
     {
         DefaultSetting();
+        await DataManager.Instance.WaitForFishData();
         int cid = 0;
         for(int i = 0; i < 4; i++) {
             int groundType = i;
@@ -214,9 +215,10 @@ public class FishFarmManager : MonoBehaviour
     }
 
     private void SellFishInBulk(int groundType) {        
-        if(newFishList[groundType].list.Count <= 0) {
+        if(newFishList[groundType].list.All(x => x.fishID == -1)) {
             SoundManager.Instance.ActingFailSound();
             EventManager.Instance.DontHaveFish();
+            return;
         }
         int gold = 0;
         SoundManager.Instance.SellFish();

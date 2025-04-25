@@ -1,0 +1,47 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: BaitData
+  m_EditorClassIdentifier: 
+  m_GroupName: BaitData
+  m_GUID: fba51c7fbcb74c144a310795850ab424
+  m_SerializeEntries:
+  - m_GUID: 01d043886dbd062469b201fd3c3bb4a1
+    m_Address: "BaitData/42_\uC57C\uAD11 \uB2EC\uD33D\uC774"
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - BaitData
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 730a5994103048a48849ccead6168023
+    m_Address: "BaitData/43_\uBC14\uC704\uBC8C\uB808"
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - BaitData
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: ddb0c58b20411d84197a302b89cbbc78
+    m_Address: "BaitData/41_\uC810\uD551 \uC0C8\uC6B0"
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - BaitData
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: ff4ab405e191d844e957c9745285ded0
+    m_Address: "BaitData/40_\uC9C0\uB801\uC774"
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - BaitData
+    FlaggedDuringContentUpdateRestriction: 0
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: f33290ce6dcf26e4189ac6fe62a07bcb, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: d03039eda7d83e34bbef5338e45ba4e8, type: 2}
+    - {fileID: 11400000, guid: 1a1d27fadf5733144b8ce568e6241b5e, type: 2}

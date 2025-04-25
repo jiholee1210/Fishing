@@ -13,6 +13,8 @@ public class OptionManager : MonoBehaviour
     [SerializeField] private PlayerActing playerActing;
     [SerializeField] private PlayerMovement playerMovement;
 
+    [SerializeField] private AudioManager audioManager;
+    [SerializeField] private MouseManager mouseManager;
     void Start()
     {
         soundButton.onClick.AddListener(() => OpenVolumeSetting());
@@ -27,6 +29,7 @@ public class OptionManager : MonoBehaviour
         SoundManager.Instance.ButtonClick();
         transform.GetChild(0).GetChild(0).gameObject.SetActive(false);
         transform.GetChild(0).GetChild(1).gameObject.SetActive(true);
+        audioManager.DefaultSetting();
     }
 
     private void CloseVolumeButton() {
@@ -43,6 +46,7 @@ public class OptionManager : MonoBehaviour
         SoundManager.Instance.ButtonClick();
         transform.GetChild(0).GetChild(0).gameObject.SetActive(false);
         transform.GetChild(0).GetChild(2).gameObject.SetActive(true);
+        mouseManager.DefaultSetting();
     }
 
     private void CloseMouseButton() {

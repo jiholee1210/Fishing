@@ -25,9 +25,10 @@ public class MouseManager : MonoBehaviour
         PlayerPrefs.SetFloat(tag, value);
     }
 
-    private void DefaultSetting() {
+    public void DefaultSetting() {
         float value = PlayerPrefs.GetFloat(tag);
         sensitivity.value = value;
+        cameraRot.rotSpeed = value;
         valueText.text = value.ToString("F2");
     }
 }
