@@ -170,15 +170,16 @@ public class QuestNpcManager : MonoBehaviour
         List<int> list = new();
 
         foreach(var requirement in questData.requirements) {
-            bool fishFound = false;
+        bool fishFound = false;
             for(int i = 0; i < available.Count; i++) {
                 if(available[i].fishID == requirement.fishID && available[i].grade >= requirement.grade) {
-                    available.RemoveAt(i);
+                    available[i].fishID = -1;
                     list.Add(i);
                     fishFound = true;
                     break;
-                }   
+                }
             }
+
             if(!fishFound) {
                 EventManager.Instance.ReqFish();
                 SoundManager.Instance.QuestFail();
@@ -226,6 +227,7 @@ public class QuestNpcManager : MonoBehaviour
             Destroy(child.gameObject);
         }
         // 새로운 퀘스트 아이템 생성
+        int count = 0;
         for(int i = 0; i < npcQuest.Count; i++)
         {
             GameObject quest;
@@ -238,13 +240,13 @@ public class QuestNpcManager : MonoBehaviour
             quest = Instantiate(questItemPrefab, epicQuestParent);
             
             RectTransform rectTransform = quest.GetComponent<RectTransform>();
-            rectTransform.anchoredPosition = new Vector2(0f, -(index * (rectTransform.rect.height + 10f)));
+            rectTransform.anchoredPosition = new Vector2(0f, -(count++ * (rectTransform.rect.height + 10f)));
             rectTransform.GetChild(0).GetComponent<TMP_Text>().text = questData.questName; 
             
             quest.GetComponent<Button>().onClick.AddListener(() => SetDetail(questData, index));
         }
 
-        int count = 0;
+        count = 0;
         for(int i = 0; i < normalQuests.Count; i++) {
             GameObject quest;
             int index = i;

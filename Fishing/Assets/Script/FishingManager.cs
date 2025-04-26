@@ -93,12 +93,12 @@ public class FishingManager : MonoBehaviour
         // 랜덤 노트 생성
         GameObject note; 
     
-        float genTime = 0;
-        float reduceTime = 1.4f - (fishGrade * 0.3f);
+        float genTime;
+        float reduceTime = 1.1f - (fishGrade * 0.2f);
         fallSpeed = fishSpeed / (fishSpeed + playerSpeed) * 1000f;
         fallSpeed = Mathf.Clamp(fallSpeed, 200f, fallSpeed);
         while(isFishing) {
-            genTime = UnityEngine.Random.Range(reduceTime, reduceTime * 2);
+            genTime = Random.Range(reduceTime, reduceTime * 2);
 
             yield return new WaitForSeconds(genTime);
             note = Instantiate(noteItemPrefab, noteArea);

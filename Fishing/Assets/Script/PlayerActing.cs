@@ -68,7 +68,7 @@ public class PlayerActing : MonoBehaviour
 
         playerData = DataManager.Instance.playerData;
 
-        if(!PlayerPrefs.HasKey("TutorialShown")) {
+        if(PlayerPrefs.GetInt("TutorialShown").Equals(0)) {
             EventManager.Instance.ShowTutorial();
             SetTutorial();
             PlayerPrefs.SetInt("TutorialShown", 1);

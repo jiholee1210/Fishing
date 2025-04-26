@@ -87,6 +87,7 @@ public class DataManager : MonoBehaviour
         PlayerPrefs.SetFloat("Ambient", 0.5f);
         PlayerPrefs.SetFloat("SFX", 0.5f);
         PlayerPrefs.SetFloat("Mouse", 1f);
+        PlayerPrefs.SetInt("TutorialShown", 0);
     }
     
     private void LoadDatas() {

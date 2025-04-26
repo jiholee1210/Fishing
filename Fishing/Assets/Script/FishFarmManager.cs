@@ -132,8 +132,8 @@ public class FishFarmManager : MonoBehaviour
 
         for(int i = 0; i < 2; i++) {
             grade[i] = fishInFarm[fishFarmIndex + i].grade;
-            genTime += (grade[i] + 1) * 120f + 
-                       ((int)DataManager.Instance.GetFishData(fishInFarm[fishFarmIndex].fishID).rarity + 1) * 120f;
+            genTime += (grade[i] + 1) * 60f + 
+                       ((int)DataManager.Instance.GetFishData(fishInFarm[fishFarmIndex].fishID).rarity + 1) * 60f;
         }
         float curTime = fishFarmTimer[timeIndex].timer;
         bool isFull = false;
