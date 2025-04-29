@@ -1,0 +1,417 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9620f8c34305754d8cc9a7e49e852d9, type: 3}
+  m_Name: DialogTable_en
+  m_EditorClassIdentifier: 
+  m_LocaleId:
+    m_Code: en
+  m_SharedData: {fileID: 11400000, guid: 8ad57e306aab4c04db1e0f7327176e4d, type: 2}
+  m_Metadata:
+    m_Items:
+    - rid: 7780275578568704341
+  m_TableData:
+  - m_Id: 67123527680
+    m_Localized: INVENTORY
+    m_Metadata:
+      m_Items: []
+  - m_Id: 10476744327168
+    m_Localized: GAME START
+    m_Metadata:
+      m_Items: []
+  - m_Id: 10594390360064
+    m_Localized: EXIT GAME
+    m_Metadata:
+      m_Items: []
+  - m_Id: 10592725221376
+    m_Localized: LANGUAGE
+    m_Metadata:
+      m_Items: []
+  - m_Id: 10596147773440
+    m_Localized: BACK
+    m_Metadata:
+      m_Items: []
+  - m_Id: 30484589428736
+    m_Localized: FISHING
+    m_Metadata:
+      m_Items: []
+  - m_Id: 30484631371776
+    m_Localized: MOVE
+    m_Metadata:
+      m_Items: []
+  - m_Id: 30484631371777
+    m_Localized: TALK
+    m_Metadata:
+      m_Items: []
+  - m_Id: 30484631371778
+    m_Localized: DURABILITY
+    m_Metadata:
+      m_Items: []
+  - m_Id: 30484631371779
+    m_Localized: YOU CAUGHT A TREASURE!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 30484631371780
+    m_Localized: UPGRADE
+    m_Metadata:
+      m_Items: []
+  - m_Id: 30484631371781
+    m_Localized: ROD
+    m_Metadata:
+      m_Items: []
+  - m_Id: 30484631371782
+    m_Localized: REEL
+    m_Metadata:
+      m_Items: []
+  - m_Id: 30484631371783
+    m_Localized: WIRE
+    m_Metadata:
+      m_Items: []
+  - m_Id: 30484631371784
+    m_Localized: HOOK
+    m_Metadata:
+      m_Items: []
+  - m_Id: 30484631371785
+    m_Localized: BAIT
+    m_Metadata:
+      m_Items: []
+  - m_Id: 30484631371786
+    m_Localized: FISH SALE
+    m_Metadata:
+      m_Items: []
+  - m_Id: 30484631371787
+    m_Localized: TOTAL PRICE
+    m_Metadata:
+      m_Items: []
+  - m_Id: 30484631371788
+    m_Localized: SELL
+    m_Metadata:
+      m_Items: []
+  - m_Id: 30484631371789
+    m_Localized: QUEST
+    m_Metadata:
+      m_Items: []
+  - m_Id: 30484631371790
+    m_Localized: IMPORTANT QUEST
+    m_Metadata:
+      m_Items: []
+  - m_Id: 30484631371791
+    m_Localized: NORMAL QUEST
+    m_Metadata:
+      m_Items: []
+  - m_Id: 30484631371792
+    m_Localized: REQUEST FISH
+    m_Metadata:
+      m_Items: []
+  - m_Id: 30484631371793
+    m_Localized: QUEST REWARD
+    m_Metadata:
+      m_Items: []
+  - m_Id: 30484631371794
+    m_Localized: FISH FARM
+    m_Metadata:
+      m_Items: []
+  - m_Id: 30484631371795
+    m_Localized: OCEAN
+    m_Metadata:
+      m_Items: []
+  - m_Id: 30484631371796
+    m_Localized: FRESH WATER
+    m_Metadata:
+      m_Items: []
+  - m_Id: 30484631371797
+    m_Localized: ROCKY AREA
+    m_Metadata:
+      m_Items: []
+  - m_Id: 30484631371798
+    m_Localized: LAVA FIELD
+    m_Metadata:
+      m_Items: []
+  - m_Id: 30484631371799
+    m_Localized: LOCKED
+    m_Metadata:
+      m_Items: []
+  - m_Id: 30484631371800
+    m_Localized: TOTAL PRICE
+    m_Metadata:
+      m_Items: []
+  - m_Id: 30484631371801
+    m_Localized: BULK SELL
+    m_Metadata:
+      m_Items: []
+  - m_Id: 30484631371802
+    m_Localized: BACK
+    m_Metadata:
+      m_Items: []
+  - m_Id: 30484631371803
+    m_Localized: COLLECT
+    m_Metadata:
+      m_Items: []
+  - m_Id: 30484631371804
+    m_Localized: CHECK
+    m_Metadata:
+      m_Items: []
+  - m_Id: 30484631371805
+    m_Localized: MUSEUM
+    m_Metadata:
+      m_Items: []
+  - m_Id: 30484631371806
+    m_Localized: DONATE RELICS
+    m_Metadata:
+      m_Items: []
+  - m_Id: 30484631371807
+    m_Localized: CHECK REWARDS
+    m_Metadata:
+      m_Items: []
+  - m_Id: 30484631371808
+    m_Localized: CHECK
+    m_Metadata:
+      m_Items: []
+  - m_Id: 30484631371809
+    m_Localized: DONATED 1 TIMES
+    m_Metadata:
+      m_Items: []
+  - m_Id: 30484631371810
+    m_Localized: DONATED 5 TIMES
+    m_Metadata:
+      m_Items: []
+  - m_Id: 30484631371811
+    m_Localized: DONATED 10 TIMES
+    m_Metadata:
+      m_Items: []
+  - m_Id: 30484631371812
+    m_Localized: DONATED 20 TIMES
+    m_Metadata:
+      m_Items: []
+  - m_Id: 30484631371813
+    m_Localized: RECEIVE
+    m_Metadata:
+      m_Items: []
+  - m_Id: 30484631371814
+    m_Localized: REWARD
+    m_Metadata:
+      m_Items: []
+  - m_Id: 30484631371815
+    m_Localized: 'NUBER OF DONATIONS: {0} TIMES'
+    m_Metadata:
+      m_Items:
+      - rid: 7780275578568704341
+  - m_Id: 30484631371816
+    m_Localized: FISH HOOK EFFECT + 10%
+    m_Metadata:
+      m_Items: []
+  - m_Id: 30484631371817
+    m_Localized: FISHING ROD APPEARANCE
+    m_Metadata:
+      m_Items: []
+  - m_Id: 30484631371818
+    m_Localized: AWESOME MONUMENT!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 30484631371819
+    m_Localized: RECEIVED
+    m_Metadata:
+      m_Items: []
+  - m_Id: 30484631371820
+    m_Localized: SOUND SETTINGS
+    m_Metadata:
+      m_Items: []
+  - m_Id: 30484631371821
+    m_Localized: MOUSE SETTINGS
+    m_Metadata:
+      m_Items: []
+  - m_Id: 30484631371822
+    m_Localized: SAVE AND EXIT
+    m_Metadata:
+      m_Items: []
+  - m_Id: 30484631371823
+    m_Localized: POSITION RESET
+    m_Metadata:
+      m_Items: []
+  - m_Id: 30484631371824
+    m_Localized: MASTER
+    m_Metadata:
+      m_Items: []
+  - m_Id: 30484631371825
+    m_Localized: AMBIENT
+    m_Metadata:
+      m_Items: []
+  - m_Id: 30484631371826
+    m_Localized: SENSITIVITY
+    m_Metadata:
+      m_Items: []
+  - m_Id: 30484631371827
+    m_Localized: WOODEN ROD
+    m_Metadata:
+      m_Items: []
+  - m_Id: 30484631371828
+    m_Localized: IRON ROD
+    m_Metadata:
+      m_Items: []
+  - m_Id: 30484631371829
+    m_Localized: HELLSTONE ROD
+    m_Metadata:
+      m_Items: []
+  - m_Id: 30484631371830
+    m_Localized: AETHERIUM ROD
+    m_Metadata:
+      m_Items: []
+  - m_Id: 30484631371831
+    m_Localized: RAINBOW ROD
+    m_Metadata:
+      m_Items: []
+  - m_Id: 30484631371832
+    m_Localized: CHANGE
+    m_Metadata:
+      m_Items: []
+  - m_Id: 30484631371833
+    m_Localized: NOT AVAILABLE
+    m_Metadata:
+      m_Items: []
+  - m_Id: 30484631371834
+    m_Localized: WEARING
+    m_Metadata:
+      m_Items: []
+  - m_Id: 30484631371835
+    m_Localized: FISH GUIDE
+    m_Metadata:
+      m_Items: []
+  - m_Id: 30484631371836
+    m_Localized: FISHING BAG IS FULL!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 30484631371837
+    m_Localized: YOU HAVE NOT CLEARED THE REQUIRED QUEST!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 30484631371838
+    m_Localized: NOT ENOUGH FISH!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 30484631371839
+    m_Localized: NO FISH SELECTED!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 30484631371840
+    m_Localized: ISLAND VILLAGE
+    m_Metadata:
+      m_Items: []
+  - m_Id: 30484631371841
+    m_Localized: LAVA FIELD
+    m_Metadata:
+      m_Items: []
+  - m_Id: 30484631371842
+    m_Localized: ROCKY AREA
+    m_Metadata:
+      m_Items: []
+  - m_Id: 49501274357760
+    m_Localized: CONFIRM
+    m_Metadata:
+      m_Items: []
+  - m_Id: 694654695620608
+    m_Localized: COIN
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1057163063574528
+    m_Localized: '!NEW FISH!'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1115832325226496
+    m_Localized: NO FISH AVAILABLE FOR SALE!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1124970979639296
+    m_Localized: DID YOU HAVE A RELAXING AND HAPPY TIME FISHING?
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1124972682526720
+    m_Localized: YES
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1124974083424256
+    m_Localized: NOT YET
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1124975308161024
+    m_Localized: 'REQUIREMENT : 100K COINS'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1129093825282048
+    m_Localized: 'GUIDE COMPLETENESS : {0} %'
+    m_Metadata:
+      m_Items:
+      - rid: 7780275578568704341
+  - m_Id: 1129092516659200
+    m_Localized: '!CONGRATULATIONS!'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1129095725301760
+    m_Localized: I HOPE YOU HAD A SHORT BUT ENJOYFUL FISHING LIFE.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1129097310748672
+    m_Localized: MAIN MENU
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1144525068156928
+    m_Localized: YOU DO NOT HAVE ENOUGH GOLD!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1442436687577088
+    m_Localized: CHOOSE THE RELIC TO DONATE!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1885135244869632
+    m_Localized: COMPLETE
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1893209619808256
+    m_Localized: TUTORIAL
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1893213998661632
+    m_Localized: 'MOVE : WASD'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1893215399559168
+    m_Localized: 'NPC INTERACTION : E'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1893216670433280
+    m_Localized: 'INVENTORY : E'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1893304822120448
+    m_Localized: 'FISH GUIDE : G'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1893306415955968
+    m_Localized: 'CHANGE ROD APPEARANCE : K'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1893307590361088
+    m_Localized: 'MENU : ESC'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1893356999262208
+    m_Localized: 'START AND STOP FISHING : LEFT CLICK'
+    m_Metadata:
+      m_Items: []
+  references:
+    version: 2
+    RefIds:
+    - rid: 7780275578568704341
+      type: {class: SmartFormatTag, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
+      data:
+        m_Entries: 
+        m_SharedEntries:
+        - id: 30484631371815
+        - id: 1129093825282048

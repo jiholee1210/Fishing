@@ -1,0 +1,152 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5b11a58205ec3474ca216360e9fa74a8, type: 3}
+  m_Name: Item Table Shared Data
+  m_EditorClassIdentifier: 
+  m_TableCollectionName: Item Table
+  m_TableCollectionNameGuidString: bb097c0580836d641ac7f75e58f77595
+  m_Entries:
+  - m_Id: 12333334528
+    m_Key: rod0
+    m_Metadata:
+      m_Items: []
+  - m_Id: 10982531252224
+    m_Key: rod1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 10982535446528
+    m_Key: rod2
+    m_Metadata:
+      m_Items: []
+  - m_Id: 10982535446529
+    m_Key: rod3
+    m_Metadata:
+      m_Items: []
+  - m_Id: 10982535446530
+    m_Key: rod4
+    m_Metadata:
+      m_Items: []
+  - m_Id: 10982535446531
+    m_Key: reel0
+    m_Metadata:
+      m_Items: []
+  - m_Id: 10982535446532
+    m_Key: reel1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 10982535446533
+    m_Key: reel2
+    m_Metadata:
+      m_Items: []
+  - m_Id: 10982535446534
+    m_Key: reel3
+    m_Metadata:
+      m_Items: []
+  - m_Id: 10982535446535
+    m_Key: wire0
+    m_Metadata:
+      m_Items: []
+  - m_Id: 10982535446536
+    m_Key: wire1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 10982535446537
+    m_Key: wire2
+    m_Metadata:
+      m_Items: []
+  - m_Id: 10982535446538
+    m_Key: wire3
+    m_Metadata:
+      m_Items: []
+  - m_Id: 10982535446539
+    m_Key: hook0
+    m_Metadata:
+      m_Items: []
+  - m_Id: 10982535446540
+    m_Key: hook1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 10982535446541
+    m_Key: hook2
+    m_Metadata:
+      m_Items: []
+  - m_Id: 10982535446542
+    m_Key: hook3
+    m_Metadata:
+      m_Items: []
+  - m_Id: 10982535446543
+    m_Key: bait0
+    m_Metadata:
+      m_Items: []
+  - m_Id: 10982535446544
+    m_Key: bait1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 10982535446545
+    m_Key: bait2
+    m_Metadata:
+      m_Items: []
+  - m_Id: 10982535446546
+    m_Key: bait3
+    m_Metadata:
+      m_Items: []
+  - m_Id: 10982535446547
+    m_Key: rod
+    m_Metadata:
+      m_Items: []
+  - m_Id: 10982535446548
+    m_Key: rod_desc
+    m_Metadata:
+      m_Items: []
+  - m_Id: 10982535446549
+    m_Key: reel
+    m_Metadata:
+      m_Items: []
+  - m_Id: 10982535446550
+    m_Key: reel_desc
+    m_Metadata:
+      m_Items: []
+  - m_Id: 10982535446551
+    m_Key: wire
+    m_Metadata:
+      m_Items: []
+  - m_Id: 10982535446552
+    m_Key: wire_desc
+    m_Metadata:
+      m_Items: []
+  - m_Id: 10982535446553
+    m_Key: hook
+    m_Metadata:
+      m_Items: []
+  - m_Id: 10982535446554
+    m_Key: hook_desc
+    m_Metadata:
+      m_Items: []
+  - m_Id: 10982535446555
+    m_Key: bait
+    m_Metadata:
+      m_Items: []
+  - m_Id: 10982535446556
+    m_Key: bait_desc
+    m_Metadata:
+      m_Items: []
+  m_Metadata:
+    m_Items: []
+  m_KeyGenerator:
+    rid: 7780275620564172800
+  references:
+    version: 2
+    RefIds:
+    - rid: 7780275620564172800
+      type: {class: DistributedUIDGenerator, ns: UnityEngine.Localization.Tables, asm: Unity.Localization}
+      data:
+        m_CustomEpoch: 1745288599447

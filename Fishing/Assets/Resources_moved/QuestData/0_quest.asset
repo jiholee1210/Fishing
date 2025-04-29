@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dfa6d49a23ed6eb4bafa2053cc7e0e02, type: 3}
+  m_Name: 0_quest
+  m_EditorClassIdentifier: 
+  questID: 0
+  isEpic: 1
+  questName: "\uC138\uC6D4\uC744 \uB09A\uB294 \uBC95"
+  desc: "\uC5EC\uB7EC \uBB3C\uACE0\uAE30\uB97C \uB09A\uC544\uBCF4\uC790."
+  receive: 1
+  complete: 1
+  nextQuest: 03000000
+  requirements:
+  - fishID: 11
+    grade: 0
+  - fishID: 0
+    grade: 0
+  - fishID: 1
+    grade: 0
+  rewardGold: 100

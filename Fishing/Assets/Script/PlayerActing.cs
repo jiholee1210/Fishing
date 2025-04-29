@@ -1,7 +1,6 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using Microsoft.Unity.VisualStudio.Editor;
 using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -25,12 +24,13 @@ public class PlayerActing : MonoBehaviour
     private bool canTalk = false;
     private bool isTalking = false;
     private bool isFishing = false;
+    private bool isEnding = false;
 
     private int npcType;
     private int layer;
 
     private GameObject npcObject;
-    private GameObject curNpcObject;
+    private GameObject curObject;
 
     public PlayerData playerData;
     private List<FishData> fishList;
@@ -40,17 +40,19 @@ public class PlayerActing : MonoBehaviour
     private enum UIState
     {
         None,
-        Equipment,
-        FishInventory,
+        Inventory,
         Quest,
         Fishing,
-        Guide
+        Guide,
+        Option,
+        NPC,
+        Skin,
+        Tuto
     }
 
     private enum Layer {
         None = 0,
         Npc = 7,
-        Sign = 9,
         Portal = 10
     }
 
@@ -65,6 +67,12 @@ public class PlayerActing : MonoBehaviour
         cameraRot = GetComponent<CameraRot>();
 
         playerData = DataManager.Instance.playerData;
+
+        if(PlayerPrefs.GetInt("TutorialShown").Equals(0)) {
+            EventManager.Instance.ShowTutorial();
+            SetTutorial();
+            PlayerPrefs.SetInt("TutorialShown", 1);
+        }
     }
 
     // Update is called once per frame
@@ -73,29 +81,11 @@ public class PlayerActing : MonoBehaviour
         CheckFishingZone();
         CheckNPC();
         if(Input.GetKeyDown(KeyCode.Tab) && !isTalking) {
-            if(currentUIState == UIState.Equipment) {
+            if(currentUIState == UIState.Inventory) {
                 CloseUI();
             }
             else if(currentUIState == UIState.None) {
-                OpenUI(UIState.Equipment);
-            }
-        }
-
-        if(Input.GetKeyDown(KeyCode.I) && !isTalking) {
-            if(currentUIState == UIState.FishInventory) {
-                CloseUI();
-            }
-            else if(currentUIState == UIState.None) {
-                OpenUI(UIState.FishInventory);
-            }
-        }
-
-        if(Input.GetKeyDown(KeyCode.Q) && !isTalking) {
-            if(currentUIState == UIState.Quest) {
-                CloseUI();
-            }
-            else if(currentUIState == UIState.None) {
-                OpenUI(UIState.Quest);
+                OpenUI(UIState.Inventory);
             }
         }
 
@@ -107,58 +97,80 @@ public class PlayerActing : MonoBehaviour
                 OpenUI(UIState.Guide);
             }
         }
+        if(Input.GetKeyDown(KeyCode.K) && !isTalking) {
+            if(currentUIState == UIState.Skin) {
+                CloseUI();
+            }
+            else if(currentUIState == UIState.None) {
+                OpenUI(UIState.Skin);
+            }
+        }
 
-        if(Input.GetKeyDown(KeyCode.Escape)) {
-            EventManager.Instance.CloseAllWindows();
-            Cursor.lockState = CursorLockMode.Locked;
-            Cursor.visible = false;
-            currentUIState = UIState.None;
-            cameraRot.StopOtherJob();
-            playerMovement.StopOtherJob();
-            isTalking = false;
+        if(Input.GetKeyDown(KeyCode.Escape) && currentUIState != UIState.Fishing && !isEnding) {
+            if(currentUIState != UIState.None) {
+                CloseAllWindows();
+            }
+            else {
+                SoundManager.Instance.OpenUI();
+                EventManager.Instance.OpenOptionUI();
+                cameraRot.StartOtherJob();
+                playerMovement.StartOtherJob();
+                Cursor.lockState = CursorLockMode.None;
+                Cursor.visible = true;
+                currentUIState = UIState.Option;
+            } 
         }
     }
 
+    public void CloseAllWindows() {
+        EventManager.Instance.CloseAllWindows();
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
+        currentUIState = UIState.None;
+        cameraRot.StopOtherJob();
+        playerMovement.StopOtherJob();
+        isTalking = false;
+    }
+    
     public IEnumerator SetAnimator() {
         yield return new WaitForEndOfFrame();
 
         if(handPos.childCount > 0) {
-            Debug.Log("애니메이터 설정됨");
             animator = handPos.GetChild(0).GetComponent<Animator>();
         }
     }
 
     public void OnAttack(InputValue value) {
-        if(playerInventory.HaveRod() && playerInventory.HaveBait()) {
-            if(value.isPressed && canFishing && currentUIState == UIState.None) {
-                if(playerInventory.isFishFull()) {
-                    Debug.Log("낚시 가방이 꽉 찼습니다.");
-                    return;
-                }
+        if(value.isPressed && canFishing && currentUIState == UIState.None) {
+            if(playerInventory.isFishFull()) {
+                EventManager.Instance.InventoryFull();
+                SoundManager.Instance.ActingFailSound();
+                return;
+            }
+            else if(playerMovement.isGrounded) {
                 currentUIState = UIState.Fishing;
                 StartFishing();
-            }
-            else if(value.isPressed && currentUIState == UIState.Fishing && !isFishing) {
-                EndFishing();
-                OnFishingEnd?.Invoke();
-            }
+            } 
+        }
+        else if(value.isPressed && currentUIState == UIState.Fishing && !isFishing) {
+            EndFishing();
+            OnFishingEnd?.Invoke();
         }
     }
 
     public void OnInteract(InputValue value) {
         if(value.isPressed && canTalk && !isTalking) {
-            curNpcObject = npcObject;
+            curObject = npcObject;
             currentLayer = (Layer)layer;
             switch(currentLayer) {
                 case Layer.Npc:
-                    npcType = curNpcObject.GetComponent<INPC>().GetNpcType();
-                    EventManager.Instance.OpenNPCUI(npcType, curNpcObject);
-                    break;
-                case Layer.Sign:
-                    EventManager.Instance.OpenSignUI();
+                    SoundManager.Instance.OpenUI();
+                    npcType = curObject.GetComponent<INPC>().GetNpcType();
+                    currentUIState = UIState.NPC;
+                    EventManager.Instance.OpenNPCUI(npcType, curObject);
                     break;
                 case Layer.Portal:
-                    playerMovement.Teleport(curNpcObject.GetComponent<IPortal>().GetTelPosition());
+                    CheckEnable(curObject);
                     return;
             }
             cameraRot.StartOtherJob();
@@ -166,7 +178,6 @@ public class PlayerActing : MonoBehaviour
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;
             isTalking = true;
-            Debug.Log("NPC와 상호작용");
         }
     }
 
@@ -184,6 +195,7 @@ public class PlayerActing : MonoBehaviour
     }
 
     IEnumerator FishingSequence() {
+        SoundManager.Instance.SwingRod();
         yield return StartCoroutine(PlayFishingAnimation());
         EventManager.Instance.StartFishing(fishList);
     }
@@ -209,11 +221,23 @@ public class PlayerActing : MonoBehaviour
         isFishing = !isFishing;
     }
 
+    public void SetEndingState() {
+        isEnding = true;
+    }
+
+    public void SetTutorial() {
+        cameraRot.StartOtherJob();
+        playerMovement.StartOtherJob();
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+        currentUIState = UIState.Tuto;
+    }
+
     private void CheckFishingZone() {
         RaycastHit hit;
         Vector3 origin = Camera.main.transform.position + Camera.main.transform.forward * rayRange + Vector3.up * 3f;
         
-        if (!Physics.Raycast(origin, Vector3.down, out hit, 6f, fishingLayer)) {
+        if (!Physics.Raycast(origin, Vector3.down, out hit, 10f, fishingLayer)) {
             SetHighliterState("");
             canFishing = false;
             return;
@@ -224,7 +248,8 @@ public class PlayerActing : MonoBehaviour
         bool isFishingZone = hit.point.y >= groundHit.point.y - 0.05f;
         if (isFishingZone) {
             fishList = hit.collider.GetComponent<IFishingZone>().GetFishList();
-            SetHighliterState("낚시하기");
+            string highlight = hit.collider.GetComponent<IFishingZone>().GetHighlighter();
+            SetHighliterState(highlight);
             canFishing = isFishingZone;  
         } 
         else {
@@ -256,26 +281,35 @@ public class PlayerActing : MonoBehaviour
         }
     }
 
+    private void CheckEnable(GameObject npcObject) {
+        int reqQeustID = npcObject.GetComponent<IPortal>().GetReqQuestID();
+        
+        if(playerData.completeQuest.Contains(reqQeustID)) {
+            playerMovement.SetPos(curObject.GetComponent<IPortal>().GetTelPosition());
+        }
+        else {
+            EventManager.Instance.NotClearQuest();
+            SoundManager.Instance.ActingFailSound();
+        }
+    }
+
     private void OpenUI(UIState newState)
     {
         currentUIState = newState;
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
         cameraRot.StartOtherJob();
-
+        SoundManager.Instance.OpenUI();
         switch(newState)
         {
-            case UIState.Equipment:
-                EventManager.Instance.OpenInventory();
-                break;
-            case UIState.FishInventory:
+            case UIState.Inventory:
                 EventManager.Instance.OpenFishInventory();
-                break;
-            case UIState.Quest:
-                EventManager.Instance.OpenQuest();
                 break;
             case UIState.Guide:
                 EventManager.Instance.OpenGuide();
+                break;
+            case UIState.Skin:
+                EventManager.Instance.OpenSkin();
                 break;
         }
     }
@@ -284,23 +318,24 @@ public class PlayerActing : MonoBehaviour
     {
         switch(currentUIState)
         {
-            case UIState.Equipment:
-                EventManager.Instance.CloseInventory();
-                break;
-            case UIState.FishInventory:
+            case UIState.Inventory:
                 EventManager.Instance.CloseFishInventory();
-                break;
-            case UIState.Quest:
-                EventManager.Instance.CloseQuest();
                 break;
             case UIState.Guide:
                 EventManager.Instance.CloseGuide();
                 break;
+            case UIState.Skin:
+                EventManager.Instance.CloseSkin();
+                break;
         }
-
+        SoundManager.Instance.OpenUI();
         currentUIState = UIState.None;
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
         cameraRot.StopOtherJob();
+    }
+
+    public Vector3 GetPos() {
+        return transform.position;
     }
 }

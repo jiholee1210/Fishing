@@ -1,0 +1,47 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: ReelData
+  m_EditorClassIdentifier: 
+  m_GroupName: ReelData
+  m_GUID: 5fe8981c7cb7ee248820f5b7e3b975f7
+  m_SerializeEntries:
+  - m_GUID: 00807799249c5fa44a97b25468a9570b
+    m_Address: "ReelData/13_\uC544\uB2E4\uB9CC\uD2F0\uC6C0 \uB9B4"
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - ReelData
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 4c10a8fa950e4994298af7c92d1d7c32
+    m_Address: "ReelData/11_\uAC15\uCCA0 \uB9B4"
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - ReelData
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: e3336fd8aa18ef84b9959cb1f011e469
+    m_Address: "ReelData/12_\uBBF8\uC2A4\uB9B4 \uB9B4"
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - ReelData
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: f1550b5cf6a020949bba413f3e4558ad
+    m_Address: "ReelData/10_\uB098\uBB34 \uB9B4"
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - ReelData
+    FlaggedDuringContentUpdateRestriction: 0
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: f33290ce6dcf26e4189ac6fe62a07bcb, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: 715f6815ecbddcb4bb26f2e7d70fcb2d, type: 2}
+    - {fileID: 11400000, guid: 0aac340b9998f2149b03152f636d7d8f, type: 2}

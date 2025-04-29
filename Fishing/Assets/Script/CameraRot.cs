@@ -3,7 +3,7 @@ using UnityEngine.InputSystem;
 
 public class CameraRot : MonoBehaviour
 {
-    [SerializeField] private float rotSpeed = 4f;
+    [SerializeField] public float rotSpeed;
 
     private Vector2 lookInput;
     private float currentYAngle = 0f;
@@ -18,7 +18,7 @@ public class CameraRot : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void LateUpdate()
     {
         if(cantMove) {
             lookInput = Vector2.zero;
@@ -29,8 +29,8 @@ public class CameraRot : MonoBehaviour
         }
 
         else {
-            float mouseX = lookInput.x * rotSpeed * Time.deltaTime;
-            float mouseY = lookInput.y * rotSpeed * Time.deltaTime;
+            float mouseX = lookInput.x * rotSpeed;
+            float mouseY = lookInput.y * rotSpeed;
             
             currentYAngle -= mouseY;
             currentYAngle = Mathf.Clamp(currentYAngle, -90f, 90f);

@@ -7,7 +7,6 @@ public class EventManager : MonoBehaviour
 
     [SerializeField] PlayerActing playerActing;
     [SerializeField] UIManager uIManager;
-    [SerializeField] GameObject npcWindow;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -23,28 +22,12 @@ public class EventManager : MonoBehaviour
         playerActing.EndFishing();
     }
 
-    public void OpenInventory() {
-        uIManager.OpenInventoryUI();
-    }
-
-    public void CloseInventory() {
-        uIManager.CloseInventoryUI();
-    }
-
     public void OpenFishInventory() {
         uIManager.OpenFishInventoryUI();
     }
 
     public void CloseFishInventory() {
         uIManager.CloseFishInventoryUI();
-    }
-
-    public void OpenQuest() {
-        uIManager.OpenQuestUI();
-    }
-
-    public void CloseQuest() {
-        uIManager.CloseQuestUI();
     }
 
     public void OpenGuide() {
@@ -55,46 +38,110 @@ public class EventManager : MonoBehaviour
         uIManager.CloseGuideUI();
     }
 
+    public void OpenSkin() {
+        uIManager.OpenSkinUI();
+    }
+
+    public void CloseSkin() {
+        uIManager.CloseSkinUI();
+    }
+
     public void OpenNPCUI(int npcType, GameObject npcObject) {
         uIManager.SetNpcObject(npcObject);
         switch(npcType) {
             case 1:
-                uIManager.OpenEquipMerchantTalkUI();
+                uIManager.OpenUpgradeNpcUI();
                 break;
             case 2:
-                uIManager.OpenFishMerchantTalkUI();
+                uIManager.OpenFishMerchantUI();
                 break;
             case 3:
-                uIManager.OpenQuestNpcTalkUI();
+                uIManager.OpenQuestNpcUI();
+                break;
+            case 4:
+                uIManager.OpenFishFarmNpcUI();
+                break;
+            case 5:
+                uIManager.OpenMuseumNpcUI();
+                break;
+            case 6:
+                uIManager.OpenEndingNpcUI();
                 break;
         } 
     }
 
-    public void CloseNpcUI(int npcType) {
-        switch(npcType) {
-            case 1:
-                uIManager.CloseEquipMerchantTalkUI();
-                break;
-            case 2:
-                uIManager.CloseFishMerchantTalkUI();
-                break;
-            case 3:
-                uIManager.CloseQuestNpcTalkUI();
-                break;
-        }
-        playerActing.EndTalk();
+    public void OpenOptionUI() {
+        uIManager.OpenOptionUI();
     }
 
-    public void OpenSignUI() {
-        uIManager.OpenSignUI();
+    public void InventoryFull() {
+        uIManager.InventoryFull();
     }
 
-    public void CloseSignUI() {
-        uIManager.CloseSignUI();
-        playerActing.EndTalk();
+    public void NotClearQuest() {
+        uIManager.NotClearQuest();
+    }
+
+    public void ReqFish() {
+        uIManager.ReqFish();
+    }
+
+    public void SelectFish() {
+        uIManager.SelectFish();
+    }
+
+    public void DontHaveFish() {
+        uIManager.DontHaveFish();
+    }
+
+    public void NotEnoughGold() {
+        uIManager.NotEnoughGold();
+    }
+
+    public void SelectRelic() {
+        uIManager.SelectRelic();
+    }
+
+    public void ShowTutorial() {
+        uIManager.OpenTutorial();
     }
 
     public void CloseAllWindows() {
         uIManager.CloseAllWindows();
+    }
+    
+    public void ClearQuest(int id) {
+        switch(id) {
+            case 1:
+                DataManager.Instance.playerData.farmUnlock[0] = true;
+                DataManager.Instance.playerData.farmUnlock[1] = true;
+                DataManager.Instance.SavePlayerData();
+                break;
+            case 2:
+                break;
+            case 3:
+                break;
+            case 4:
+                break;
+            case 5:
+                DataManager.Instance.playerData.farmUnlock[2] = true;
+                DataManager.Instance.SavePlayerData();
+                break;
+            case 6:
+                DataManager.Instance.playerData.farmUnlock[3] = true;
+                DataManager.Instance.SavePlayerData();
+                break;
+        }
+    }
+
+    public void SaveAndExit() {
+        Vector3 playerPos = playerActing.GetPos();
+        DataManager.Instance.playerData.pos = playerPos;
+        DataManager.Instance.SavePlayerData();
+        DataManager.Instance.SaveGuideData();
+        DataManager.Instance.SaveInventoryData();
+        DataManager.Instance.SaveQuestNpcData();
+
+        SceneChanger.Instance.GameExit();
     }
 }

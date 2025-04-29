@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 79907794405da954fa8de9ecde5f4604, type: 3}
+  m_Name: "22_\uB3CC\uBE44\uB298 \uBCD1\uC5B4"
+  m_EditorClassIdentifier: 
+  fishName: "\uB3CC\uBE44\uB298 \uBCD1\uC5B4"
+  fishID: 22
+  habitat: 3
+  rarity: 0
+  power: 50
+  speed: 11
+  weightMin: 9
+  weightMax: 10
+  desc: "\uB3CC\uCC98\uB7FC \uB2E8\uB2E8\uD55C \uBE44\uB298\uC744 \uC9C0\uB2CC \uC0AC\uAC01\uD615
+    \uC5B4\uC885"
+  price: 17
+  fishDetail: {fileID: 21300000, guid: f0c67c1bbb468574694fc8ef0e01daef, type: 3}
+  fishIcon: {fileID: 21300000, guid: 0e2bca29725ad8943b617d4c13c098fa, type: 3}

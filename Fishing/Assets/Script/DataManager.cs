@@ -1,12 +1,15 @@
+using System;
 using System.Collections.Generic;
 using System.IO;
-using Mono.Cecil;
-using Unity.VisualScripting;
+using System.Threading.Tasks;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
 
 public class DataManager : MonoBehaviour
 {
     public static DataManager Instance { get; private set;}
+
+    [SerializeField] public Sprite[] gradeSprites;
     
     string playerPath;
     string inventoryPath;
@@ -17,14 +20,6 @@ public class DataManager : MonoBehaviour
     public Inventory inventory;
     public NpcQuest npcQuest;
     public Guide guide;
-
-    public List<ItemData> slotList;
-    public List<ItemData> equipList;
-    public List<QuestData> playerQuest;
-    public List<QuestData> tutorial;
-    public List<QuestData> island;
-    public List<QuestData> rock;
-    public List<QuestData> lava;
 
     public Dictionary<int, FishData> fishDataDict;
     public Dictionary<int, RodData> rodDataDict;
@@ -37,13 +32,7 @@ public class DataManager : MonoBehaviour
 
     void Awake()
     {
-        if(Instance == null) {
-            Instance = this;
-            DontDestroyOnLoad(gameObject);
-        }
-        else {
-            Destroy(gameObject);
-        }
+        Instance = this;
         Init();
     }
 
@@ -53,19 +42,14 @@ public class DataManager : MonoBehaviour
         questNpcPath = Path.Combine(Application.persistentDataPath, "questNpc.json");
         guidePath = Path.Combine(Application.persistentDataPath, "guide.json");
 
-        LoadFishDataFromSo();
-        LoadRodDataFromSo();
-        LoadReelDataFromSo();
-        LoadWireDataFromSo();
-        LoadHookDataFromSo();
-        LoadBaitDataFromSo();
-        LoadItemDataFromSo();
-        LoadQuestDataFromSo();
+        LoadDatas();
 
         if(!File.Exists(playerPath)) {
             playerData = new();
+            playerData.pos = new Vector3(1275.5f, -75.2f, 1921.3f);
+            playerData.rodList.Add(0);
+            SetPref();
             SavePlayerData();
-            Debug.Log("데이터 새로 생성");
         }
         else {
             LoadPlayerData();
@@ -75,7 +59,6 @@ public class DataManager : MonoBehaviour
             inventory = new();
             SaveInventoryData();
             LoadInventoryData();
-            Debug.Log("인벤토리 생성");
         }
         else {
             LoadInventoryData();
@@ -83,184 +66,165 @@ public class DataManager : MonoBehaviour
 
         if(!File.Exists(questNpcPath)) {
             npcQuest = new();
-            SetBaseQuest();
             SaveQuestNpcData();
-            Debug.Log("퀘스트 상황 생성");
         }
         else {
             LoadQuestNpcData();
         }
 
         if(!File.Exists(guidePath)) {
-            guide = new();
+            guide = new(40);
             SaveGuideData();
-            Debug.Log("도감 생성");
         }
         else {
             LoadGuideData();
         }        
     }
 
-    public void SetBaseQuest() {
-        tutorial.Add(GetQuestData(0));
-        island.Add(GetQuestData(1));
+    private void SetPref() {
+        PlayerPrefs.SetFloat("Master", 0.5f);
+        PlayerPrefs.SetFloat("BGM", 0.5f);
+        PlayerPrefs.SetFloat("Ambient", 0.5f);
+        PlayerPrefs.SetFloat("SFX", 0.5f);
+        PlayerPrefs.SetFloat("Mouse", 1f);
+        PlayerPrefs.SetInt("TutorialShown", 0);
+    }
+    
+    private void LoadDatas() {
+        LoadFishDataFromAddressables();
+        LoadRodDataFromSo();
+        LoadReelDataFromSo();
+        LoadWireDataFromSo();
+        LoadHookDataFromSo();
+        LoadBaitDataFromSo();
+        LoadItemDataFromSo();
+        LoadQuestDataFromSo();
     }
 
     // 데이터 불러오기
-    private void LoadFishDataFromSo() {
-        FishData[] fishDataArray = Resources.LoadAll<FishData>("FishData");
+    private async void LoadFishDataFromAddressables() {
         fishDataDict = new Dictionary<int, FishData>();
-        foreach(FishData fish in fishDataArray) {
+        var handle = Addressables.LoadAssetsAsync<FishData>("FishData", fish => {
             fishDataDict[fish.fishID] = fish;
-        }
-        Debug.Log("물고기 데이터 불러오기");
+        });
+
+        await handle.Task;
     }
 
-    private void LoadRodDataFromSo() {
-        RodData[] rodDataArray = Resources.LoadAll<RodData>("RodData");
+    public async Task WaitForFishData() {
+        while (fishDataDict == null || fishDataDict.Count == 0) {
+            await Task.Yield();
+        }
+    }
+
+    private async void LoadRodDataFromSo() {
         rodDataDict = new Dictionary<int, RodData>();
-        foreach(RodData rod in rodDataArray) {
+        var handle = Addressables.LoadAssetsAsync<RodData>("RodData", rod => {
             rodDataDict[rod.rodID] = rod;
-        }
-        Debug.Log("낚싯대 데이터 불러오기");
+        });
+
+        await handle.Task;
     }
 
-    private void LoadReelDataFromSo() {
-        ReelData[] reelDataArray = Resources.LoadAll<ReelData>("ReelData");
+    public async Task WaitForRodData() {
+        while (rodDataDict == null || rodDataDict.Count == 0) {
+            await Task.Yield();
+        }
+    }
+
+    private async void LoadReelDataFromSo() {
         reelDataDict = new Dictionary<int, ReelData>();
-        foreach(ReelData reel in reelDataArray) {
+        var handle = Addressables.LoadAssetsAsync<ReelData>("ReelData", reel => {
             reelDataDict[reel.reelID] = reel;
-        }
-        Debug.Log("낚시 릴 데이터 불러오기");
+        });
+
+        await handle.Task;
     }
 
-    private void LoadWireDataFromSo() {
-        WireData[] wireDataArray = Resources.LoadAll<WireData>("WireData");
+    private async void LoadWireDataFromSo() {
         wireDataDict = new Dictionary<int, WireData>();
-        foreach(WireData wire in wireDataArray) {
+        var handle = Addressables.LoadAssetsAsync<WireData>("WireData", wire => {
             wireDataDict[wire.wireID] = wire;
-        }
+        });
+
+        await handle.Task;
     }
 
-    private void LoadHookDataFromSo() {
-        HookData[] hookDataArray = Resources.LoadAll<HookData>("HookData");
+    private async void LoadHookDataFromSo() {
         hookDataDict = new Dictionary<int, HookData>();
-        foreach(HookData hook in hookDataArray) {
+        var handle = Addressables.LoadAssetsAsync<HookData>("HookData", hook => {
             hookDataDict[hook.hookID] = hook;
-        }
+        });
+
+        await handle.Task;
     }
 
-    private void LoadBaitDataFromSo() {
-        BaitData[] baitDataArray = Resources.LoadAll<BaitData>("BaitData");
+    private async void LoadBaitDataFromSo() {
         baitDataDict = new Dictionary<int, BaitData>();
-        foreach (BaitData bait in baitDataArray) {
+        var handle = Addressables.LoadAssetsAsync<BaitData>("BaitData", bait => {
             baitDataDict[bait.baitID] = bait;
-        }
+        });
+
+        await handle.Task;
     }
     
-    private void LoadItemDataFromSo() {
-        ItemData[] itemDataArray = Resources.LoadAll<ItemData>("ItemData");
+    private async void LoadItemDataFromSo() {
         itemDataDict = new Dictionary<int, ItemData>();
-        foreach(ItemData item in itemDataArray) {
+        var handle = Addressables.LoadAssetsAsync<ItemData>("ItemData", item => {
             itemDataDict[item.itemID] = item;
-        }
-        Debug.Log("아이템 데이터 불러오기");
+        });
+
+        await handle.Task;
     }
 
-    private void LoadQuestDataFromSo() {
-        QuestData[] questDataArray = Resources.LoadAll<QuestData>("QuestData");
+    private async void LoadQuestDataFromSo() {
         questDataDict = new Dictionary<int, QuestData>();
-        foreach(QuestData quest in questDataArray) {
+        var handle = Addressables.LoadAssetsAsync<QuestData>("QuestData", quest => {
             questDataDict[quest.questID] = quest;
+        });
+
+        await handle.Task;
+    }
+
+    public async Task WaitForQuestData() {
+        while (questDataDict == null || questDataDict.Count == 0) {
+            await Task.Yield();
         }
     }
 
     public void SavePlayerData() {
-        List<int> quest = new();
-        foreach(var item in playerQuest) {
-            quest.Add(item.questID);
-        }
-        playerData.questList = quest;
         string json = JsonUtility.ToJson(playerData, true);
         File.WriteAllText(playerPath, json);
-        Debug.Log("데이터 저장");
     }
 
     public void LoadPlayerData() {
         string json = File.ReadAllText(playerPath);
         playerData = JsonUtility.FromJson<PlayerData>(json);
-        foreach(var item in playerData.questList) {
-            playerQuest.Add(GetQuestData(item));
-        }
-        Debug.Log("데이터 로드");
     }
 
     public void SaveInventoryData() {
-        for(int i = 0; i < slotList.Count; i++) {
-            inventory.slots[i] = slotList[i] != null ? slotList[i].itemID : -1;
-        }
-        for(int i = 0; i < equipList.Count; i++) {
-            inventory.equip[i] = equipList[i] != null ? equipList[i].itemID : -1;
-        }
         string json = JsonUtility.ToJson(inventory, true);
         File.WriteAllText(inventoryPath, json);
-        Debug.Log("인벤토리 저장");
     }
 
     public void LoadInventoryData() {
         string json = File.ReadAllText(inventoryPath);
         inventory = JsonUtility.FromJson<Inventory>(json);
-        foreach(var item in inventory.slots) {
-            slotList.Add(GetItemData(item));
-        }
-        foreach(var item in inventory.equip) {
-            equipList.Add(GetItemData(item));
-        }
-        Debug.Log("인벤토리 로드");
     }
 
     public void SaveQuestNpcData() {
-        NpcQuest tmp = new();
-        foreach(var item in tutorial) {
-            tmp.tutorial.Add(item.questID);
-        }
-        foreach(var item in island) {
-            tmp.island.Add(item.questID);
-        }
-        foreach(var item in rock) {
-            tmp.rock.Add(item.questID);
-        }
-        foreach(var item in lava) {
-            tmp.lava.Add(item.questID);
-        }
-        npcQuest = tmp;
         string json = JsonUtility.ToJson(npcQuest, true);
         File.WriteAllText(questNpcPath, json);
-        Debug.Log("퀘스트 진행상황 저장");
     }
 
     public void LoadQuestNpcData() {
         string json = File.ReadAllText(questNpcPath);
         npcQuest = JsonUtility.FromJson<NpcQuest>(json);
-        foreach(var item in npcQuest.tutorial) {
-            tutorial.Add(GetQuestData(item));
-        }
-        foreach(var item in npcQuest.island) {
-            island.Add(GetQuestData(item));
-        }
-        foreach(var item in npcQuest.rock) {
-            rock.Add(GetQuestData(item));
-        }
-        foreach(var item in npcQuest.lava) {
-            lava.Add(GetQuestData(item));
-        }
-        Debug.Log("퀘스트 진행상황 로드");
     }
 
     public void SaveGuideData() {
         string json = JsonUtility.ToJson(guide, true);
         File.WriteAllText(guidePath, json);
-        Debug.Log("도감 저장");
     }
 
     public void LoadGuideData() {
@@ -305,45 +269,56 @@ public class DataManager : MonoBehaviour
 public class PlayerData {
     // 스테미나, 인벤토리
     public int gold = 0;
-    public List<int> questList = new();
+    public List<int> completeQuest = new();
+    public Vector3 pos;
+    public bool[] farmUnlock = new bool[4];
+    public int donateCount = 0;
+    public bool getRelicReward = false;
+    public bool getStatue = false;
+    public List<int> museumComplete = new();
+    public int curRod = 0;
+    public List<int> rodList = new();
 }
 
 [System.Serializable]
 public class NpcQuest {
-    public List<int> tutorial = new();
-    public List<int> island = new();
-    public List<int> rock = new();
-    public List<int> lava = new();
+    public List<int> questList = new();
+    public List<NormalQuest> normalQuests = new();
+    public int timer;
+
+    public NpcQuest() {
+        questList.Add(0);
+    }
+}
+
+[Serializable]
+public class NormalQuest {
+    public int receive;
+    public int complete;
+    public QuestRequirement[] questRequirements;
+    public int rewardGold;
 }
 
 [System.Serializable]
 public class Inventory {
     public List<PlayerFish> fishList = new(new PlayerFish[36]);
-    public List<int> slots;
-    public List<int> equip;
-
-    public Inventory() {
-        slots = new List<int>(new int[36]);
-        equip = new List<int>(new int[5]);
-
-        for (int i = 0; i < slots.Count; i++) {
-            slots[i] = -1;
-        }
-        for (int i = 0; i < equip.Count; i++) {
-            equip[i] = -1;
-        }
-    }
+    public int[] equip = new int[5];
+    public List<PlayerFish> fishInFarm = new(new PlayerFish[24]);
+    public NewFish[] newFishList = new NewFish[4];
+    public FishFarmTimer[] fishFarmTimer = new FishFarmTimer[12];
 }
 
 [System.Serializable]
 public class PlayerFish {
-    public int fishID;
+    public int fishID = -1;
+    public int grade;
     public float weight;
     public int price;
 
     public PlayerFish Clone() {
         PlayerFish playerFish = new PlayerFish();
         playerFish.fishID = this.fishID;
+        playerFish.grade = this.grade;
         playerFish.weight = this.weight;
         playerFish.price = this.price;
 
@@ -352,14 +327,32 @@ public class PlayerFish {
 }
 
 [System.Serializable]
+public class NewFish {
+    public List<PlayerFish> list = new(new PlayerFish[24]);
+}
+
+[Serializable]
+public class FishFarmTimer {
+    public float timer;
+    public bool isFullFarm;
+} 
+
+[System.Serializable]
 public class Guide {
     public List<bool> fishID;
+    public List<CatchGrade> fishGrade; 
 
-    public Guide() {
-        fishID = new(new bool[22]);
+    public Guide(int size) {
+        fishID = new(new bool[size]);
+        fishGrade = new(new CatchGrade[size]);
 
         for(int i = 0; i < fishID.Count; i++) {
             fishID[i] = false;
         }
     }
+}
+
+[System.Serializable]
+public class CatchGrade {
+    public bool[] grade = new bool[4];
 }

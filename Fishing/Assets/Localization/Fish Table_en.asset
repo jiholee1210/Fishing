@@ -1,0 +1,371 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9620f8c34305754d8cc9a7e49e852d9, type: 3}
+  m_Name: Fish Table_en
+  m_EditorClassIdentifier: 
+  m_LocaleId:
+    m_Code: en
+  m_SharedData: {fileID: 11400000, guid: 0ceb4b93634790a41866116f812fd01d, type: 2}
+  m_Metadata:
+    m_Items: []
+  m_TableData:
+  - m_Id: 8050950144
+    m_Localized: FRESHWATER MINNOW
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9690396213248
+    m_Localized: A SMALL FRESHWATER FISH SWIMMING IN CALM WATER
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9690396213249
+    m_Localized: SILVERFIN
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9690396213250
+    m_Localized: AN ELEGANT FISH WITH SHIMMERING SILVER FINS
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9690400407552
+    m_Localized: SNAKEHEAD
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9690400407553
+    m_Localized: PREDATOR WITH STRONG JAWS
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9690400407554
+    m_Localized: CATFISH
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9690400407555
+    m_Localized: BOTTOM-DWELLING FISH WITH WHISKERS
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9690400407556
+    m_Localized: RAINBOW TROUT
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9690400407557
+    m_Localized: A RARE FISH THAT SHINES LIKE A RAINBOW AFTER THE RAIN
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9690400407558
+    m_Localized: CRYSTAL HORN
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9690400407559
+    m_Localized: A MYTHICAL FISH SAID TO HAVE A SPARKLING HORN MADE OF CRYSTAL
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9690400407560
+    m_Localized: BLACK RIVER EEL
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9690400407561
+    m_Localized: A AGILE EEL SWIMMING IN THE BLACK RIVER
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9690400407562
+    m_Localized: GOLDEN CARP
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9690400407563
+    m_Localized: A RARE FISH WITH SHIMMERING GOLDEN SCALES, BELIEVED TO BRING LUCK
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9690400407564
+    m_Localized: MOONLIGHT CARP
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9690400407565
+    m_Localized: MYSTERIOUS CARP SHINING SOFTLY UNDER THE MOONLIGHT
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9690400407566
+    m_Localized: SPIRITFISH
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9690404601856
+    m_Localized: A MYSTICAL FISH SAID TO CARRY THE WHISPERS OF THE FOREST SPIRITS
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9690404601857
+    m_Localized: SALMON
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9690404601858
+    m_Localized: A FISH SPECIES THAT SWIMS AGAINST STRONG CURRENTS
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9690404601859
+    m_Localized: TUNA
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9690404601860
+    m_Localized: NICKNAMED THE BULLET OF THE SEA FOR ITS SPEED
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9690404601861
+    m_Localized: BLUE SEA BREAM
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9690404601862
+    m_Localized: A NIMBLE SEA HUNTER WITH GLEAMING BLUE SCALES
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9690404601863
+    m_Localized: THUNDER BARRACUDA
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9690404601864
+    m_Localized: A PREDATOR THAT CATCHES ITS PREY LIKE LIGHTNING
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9690404601865
+    m_Localized: SILVER CUTLASSFISH
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9690404601866
+    m_Localized: A SLEEK SILVER FISH THAT SLICES THROUGH THE WAVES LIKE A BLADE
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9690404601867
+    m_Localized: GRAY SQUID
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9690404601868
+    m_Localized: A RECLUSIVE CREATURE THAT DISAPPEARS LEAVING BEHIND INK.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9690404601869
+    m_Localized: HAMMERHEAD SHARK
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9690404601870
+    m_Localized: A TERRIFYING PREDATOR LURKING IN THE ABYSSAL DEPTHS
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9690404601871
+    m_Localized: LEVIATHAN
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9690404601872
+    m_Localized: DESCENDANTS OF THE SEA DRAGONS THAT RULED THE ANCIENT SEAS
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9690404601873
+    m_Localized: CROWN OF THE SEA
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9690404601874
+    m_Localized: A SACRED FISH WITH CROWN-SHAPED CORAL GROWING ON ITS HEAD
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9690404601875
+    m_Localized: GALAXY STINGRAY
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9690404601876
+    m_Localized: A SACRED FISH WITH CORAL SHAPED LIKE A CROWN GROWING ATOP ITS HEAD
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9690404601877
+    m_Localized: OBSIDIAN MINNOW
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9690404601878
+    m_Localized: A FISH WITH OBSIDIAN-BLACK SCALES, SMALL BUT RESILIENT
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9690404601879
+    m_Localized: ROCK MACKEREL
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9690404601880
+    m_Localized: A MACKEREL WITH A RUGGED SHELL HARDENED BY ROCKY CURRENTS
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9690404601881
+    m_Localized: STONE SCALE FISH
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9690404601882
+    m_Localized: FISH THAT LIVE AMONG RIVER ROCKS, FEEDING ON MOSS AND ALGAE
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9690404601883
+    m_Localized: ROCK CARP
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9690404601884
+    m_Localized: A BOTTOM-DWELLING CARP OFTEN FOUND AMONG SUBMERGED STONES
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9690404601885
+    m_Localized: FOSSIL BREAM
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9690404601886
+    m_Localized: AN ANCIENT FISH WITH A DOME-SHAPED FOSSILIZED SHELL
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9690404601887
+    m_Localized: STONE CRAYFISH
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9690404601888
+    m_Localized: A CRAYFISH THAT MIMICS STONE TO EVADE PREDATORS
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9690404601889
+    m_Localized: IRONCLAD SWORDFISH
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9690404601890
+    m_Localized: A FIERCE FISH WITH ARMORED SCALES AND A BLADE-LIKE SNOUT
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9690404601891
+    m_Localized: ABYSSAL COIL
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9690404601892
+    m_Localized: A MYSTERIOUS DEEP-SEA CREATURE THAT CRUSHES PREY WITH ARMORED TENTACLES
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9690404601893
+    m_Localized: BASILISK
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9690404601894
+    m_Localized: AN ANCIENT EEL SAID TO PARALYZE PREY WITH A SINGLE STARE
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9690404601895
+    m_Localized: AWAKENED LEVIATHAN
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9690404601896
+    m_Localized: A LEGENDARY FISH THAT REEMERGED AFTER CENTURIES OF SLUMBER
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9690404601897
+    m_Localized: FLAME CARP
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9690404601898
+    m_Localized: A HARDY CARP THAT THRIVES IN BOILING WATERS
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9690404601899
+    m_Localized: FLAME TROUT
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9690404601900
+    m_Localized: A SWIFT TROUT WITH SCALES GLOWING LIKE EMBERS
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9690404601901
+    m_Localized: FLAMEFIN
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9690404601902
+    m_Localized: A FISH WHOSE FIN TIPS BURN WITH ETERNAL FLAME
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9690404601903
+    m_Localized: FLAMEMAW
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9690404601904
+    m_Localized: A BLAZING CREATURE THAT EXHALES FIRE WITH EACH BREATH
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9690404601905
+    m_Localized: LAVAFIN SPEAR
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9690404601906
+    m_Localized: A FISH THAT PIERCES LAVA CURRENTS WITH ITS SPEAR-SHAPED FINS
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9690404601907
+    m_Localized: GRANITE CRAYFISH
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9690404601908
+    m_Localized: A LAVA-DWELLING CRAYFISH WITH A ROCK-SOLID SHELL
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9690404601909
+    m_Localized: FLAME JELLYFISH
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9690404601910
+    m_Localized: A FLOATING CREATURE TRAILING EMBERS FROM ITS MOLTEN CORE
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9690404601911
+    m_Localized: LAVA SCALE EEL
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9690404601912
+    m_Localized: AN EEL WHOSE SHIMMERING SCALES RESEMBLE FLOWING MAGMA
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9690404601913
+    m_Localized: DRAGON FISH
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9690404601914
+    m_Localized: A MYTHICAL FISH INFUSED WITH ANCIENT DRAGON FIRE
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9690404601915
+    m_Localized: VOLCANIC WHALE
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9690404601916
+    m_Localized: A GIANT FISH FLOATING ON THE LAKE WITH A CRATER ON ITS BACK
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9690404601917
+    m_Localized: ANCIENT ARTIFACTS
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9690404601918
+    m_Localized: ANCIENT UNDERWATER ARTIFACTS SUNK DEEP INTO THE SEA
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9690404601919
+    m_Localized: COMMON
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9690404601920
+    m_Localized: RARE
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9690404601921
+    m_Localized: EPIC
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9690404601922
+    m_Localized: LEGEND
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9690404601923
+    m_Localized: TREASURE
+    m_Metadata:
+      m_Items: []
+  references:
+    version: 2
+    RefIds: []

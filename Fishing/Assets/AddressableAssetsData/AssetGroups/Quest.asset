@@ -1,0 +1,65 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: Quest
+  m_EditorClassIdentifier: 
+  m_GroupName: Quest
+  m_GUID: 16e583c0d014a074391a593ae22bfbfe
+  m_SerializeEntries:
+  - m_GUID: 372f7f46b1b2baf4092c0feb1a434629
+    m_Address: QuestData/1_quest
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - QuestData
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 45cf30306d9f5a44f8e7a6b236db4d15
+    m_Address: QuestData/0_quest
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - QuestData
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 5aeedfed43980584e89933b93fbba057
+    m_Address: QuestData/5_quest
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - QuestData
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 6a25365e12917354faed042af912224d
+    m_Address: QuestData/4_quest
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - QuestData
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 712f2f8f64edd6e408599a2af892c9f2
+    m_Address: QuestData/3_quest
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - QuestData
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 831475e1d9d711e40992dcb8971d7375
+    m_Address: QuestData/6_quest
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - QuestData
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: f6da2d945ee54874bad1599b17c4d5eb
+    m_Address: QuestData/2_quest
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - QuestData
+    FlaggedDuringContentUpdateRestriction: 0
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: f33290ce6dcf26e4189ac6fe62a07bcb, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: 852d8b2eace510c43a9e72a9781d3ddb, type: 2}
+    - {fileID: 11400000, guid: 105c63465ae3e0444a30036ac9d7e59e, type: 2}

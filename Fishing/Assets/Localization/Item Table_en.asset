@@ -1,0 +1,148 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9620f8c34305754d8cc9a7e49e852d9, type: 3}
+  m_Name: Item Table_en
+  m_EditorClassIdentifier: 
+  m_LocaleId:
+    m_Code: en
+  m_SharedData: {fileID: 11400000, guid: bb097c0580836d641ac7f75e58f77595, type: 2}
+  m_Metadata:
+    m_Items: []
+  m_TableData:
+  - m_Id: 12333334528
+    m_Localized: Wooden Rod
+    m_Metadata:
+      m_Items: []
+  - m_Id: 10982531252224
+    m_Localized: Iron Rod
+    m_Metadata:
+      m_Items: []
+  - m_Id: 10982535446528
+    m_Localized: Hellstone Rod
+    m_Metadata:
+      m_Items: []
+  - m_Id: 10982535446529
+    m_Localized: Aetherium Rod
+    m_Metadata:
+      m_Items: []
+  - m_Id: 10982535446530
+    m_Localized: Rainbow Rod
+    m_Metadata:
+      m_Items: []
+  - m_Id: 10982535446531
+    m_Localized: Wooden Reel
+    m_Metadata:
+      m_Items: []
+  - m_Id: 10982535446532
+    m_Localized: Steel Reel
+    m_Metadata:
+      m_Items: []
+  - m_Id: 10982535446533
+    m_Localized: Mythril Reel
+    m_Metadata:
+      m_Items: []
+  - m_Id: 10982535446534
+    m_Localized: Adamantium Reel
+    m_Metadata:
+      m_Items: []
+  - m_Id: 10982535446535
+    m_Localized: Fiber Wire
+    m_Metadata:
+      m_Items: []
+  - m_Id: 10982535446536
+    m_Localized: Spider Wire
+    m_Metadata:
+      m_Items: []
+  - m_Id: 10982535446537
+    m_Localized: Flexilver Wire
+    m_Metadata:
+      m_Items: []
+  - m_Id: 10982535446538
+    m_Localized: Abyss Wire
+    m_Metadata:
+      m_Items: []
+  - m_Id: 10982535446539
+    m_Localized: Wooden Hook
+    m_Metadata:
+      m_Items: []
+  - m_Id: 10982535446540
+    m_Localized: Iron Hook
+    m_Metadata:
+      m_Items: []
+  - m_Id: 10982535446541
+    m_Localized: Bone Hook
+    m_Metadata:
+      m_Items: []
+  - m_Id: 10982535446542
+    m_Localized: Aquamarine Hook
+    m_Metadata:
+      m_Items: []
+  - m_Id: 10982535446543
+    m_Localized: Worm
+    m_Metadata:
+      m_Items: []
+  - m_Id: 10982535446544
+    m_Localized: Jumping Shrimp
+    m_Metadata:
+      m_Items: []
+  - m_Id: 10982535446545
+    m_Localized: Glow Snail
+    m_Metadata:
+      m_Items: []
+  - m_Id: 10982535446546
+    m_Localized: Rock Bug
+    m_Metadata:
+      m_Items: []
+  - m_Id: 10982535446547
+    m_Localized: 'Durability : '
+    m_Metadata:
+      m_Items: []
+  - m_Id: 10982535446548
+    m_Localized: Increased Fishing Durability
+    m_Metadata:
+      m_Items: []
+  - m_Id: 10982535446549
+    m_Localized: 'Speed : '
+    m_Metadata:
+      m_Items: []
+  - m_Id: 10982535446550
+    m_Localized: Reduced Fishing Note Speed
+    m_Metadata:
+      m_Items: []
+  - m_Id: 10982535446551
+    m_Localized: 'Power : '
+    m_Metadata:
+      m_Items: []
+  - m_Id: 10982535446552
+    m_Localized: Increased Stamina Reduction Of Fish
+    m_Metadata:
+      m_Items: []
+  - m_Id: 10982535446553
+    m_Localized: 'Power : '
+    m_Metadata:
+      m_Items: []
+  - m_Id: 10982535446554
+    m_Localized: Reduced Time To Bait
+    m_Metadata:
+      m_Items: []
+  - m_Id: 10982535446555
+    m_Localized: 'Bait Level : '
+    m_Metadata:
+      m_Items: []
+  - m_Id: 10982535446556
+    m_Localized: Increased Probability Of High Level Fish Appearing / Higher Level
+      Fish Appearing
+    m_Metadata:
+      m_Items: []
+  references:
+    version: 2
+    RefIds: []

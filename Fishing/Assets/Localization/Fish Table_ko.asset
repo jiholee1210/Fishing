@@ -1,0 +1,408 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9620f8c34305754d8cc9a7e49e852d9, type: 3}
+  m_Name: Fish Table_ko
+  m_EditorClassIdentifier: 
+  m_LocaleId:
+    m_Code: ko
+  m_SharedData: {fileID: 11400000, guid: 0ceb4b93634790a41866116f812fd01d, type: 2}
+  m_Metadata:
+    m_Items: []
+  m_TableData:
+  - m_Id: 8050950144
+    m_Localized: "\uBBFC\uBB3C\uC1A1\uC0AC\uB9AC"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9690396213248
+    m_Localized: "\uC794\uC794\uD55C \uBB3C\uC0B4 \uC18D\uC744 \uB204\uBE44\uB294
+      \uC791\uC740 \uBBFC\uBB3C\uACE0\uAE30"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9690396213249
+    m_Localized: "\uC2E4\uBC84\uD540"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9690396213250
+    m_Localized: "\uC740\uBE5B \uC9C0\uB290\uB7EC\uBBF8\uAC00 \uBC18\uC9DD\uC774\uB294
+      \uC6B0\uC544\uD55C \uC5B4\uC885"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9690400407552
+    m_Localized: "\uAC00\uBB3C\uCE58"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9690400407553
+    m_Localized: "\uAC15\uD55C \uD131\uC744 \uAC00\uC9C4 \uD3EC\uC2DD\uC790"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9690400407554
+    m_Localized: "\uBA54\uAE30"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9690400407555
+    m_Localized: "\uAE4A\uC740 \uAC15\uBC14\uB2E5\uC744 \uB5A0\uB3C4\uB294 \uC0DD\uBB3C"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9690400407556
+    m_Localized: "\uBB34\uC9C0\uAC1C\uC1A1\uC5B4"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9690400407557
+    m_Localized: "\uBE44 \uC628 \uB4A4 \uBB34\uC9C0\uAC1C\uCC98\uB7FC \uBE5B\uB098\uB294
+      \uD76C\uADC0\uC5B4"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9690400407558
+    m_Localized: "\uC218\uC815\uBFD4"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9690400407559
+    m_Localized: "\uC774\uB9C8\uC5D0 \uC218\uC815\uAC19\uC740 \uBFD4\uC774 \uB3CB\uC740
+      \uC2E0\uBE44\uD55C \uBB3C\uACE0\uAE30"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9690400407560
+    m_Localized: "\uD751\uAC15\uBC40\uC7A5\uC5B4"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9690400407561
+    m_Localized: "\uAC80\uC740 \uAC15\uC744 \uC720\uC601\uD558\uB294 \uB0A0\uB835\uD55C
+      \uC7A5\uC5B4"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9690400407562
+    m_Localized: "\uD669\uAE08\uC5B4"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9690400407563
+    m_Localized: "\uD669\uAE08\uBE5B \uBE44\uB298\uC758 \uBCF5\uC744 \uBD80\uB974\uB294
+      \uBB3C\uACE0\uAE30"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9690400407564
+    m_Localized: "\uB2EC\uBE5B \uC789\uC5B4"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9690400407565
+    m_Localized: "\uB2EC\uBE5B \uC544\uB798\uC5D0\uC11C \uC740\uC740\uD788 \uBE5B\uB098\uB294
+      \uC2E0\uBE44\uD55C \uC789\uC5B4"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9690400407566
+    m_Localized: "\uC815\uB839\uC5B4"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9690404601856
+    m_Localized: "\uC232\uC758 \uC815\uB839\uC774 \uAE43\uB4E0 \uC0DD\uBA85\uCCB4"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9690404601857
+    m_Localized: "\uC5F0\uC5B4"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9690404601858
+    m_Localized: "\uAC70\uC13C \uBB3C\uC0C1\uC744 \uAC70\uC2AC\uB7EC \uC62C\uB77C\uAC00\uB294
+      \uC5B4\uC885"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9690404601859
+    m_Localized: "\uCC38\uCE58"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9690404601860
+    m_Localized: "\uBC14\uB2E4\uC758 \uD0C4\uD658\uC774\uB77C \uBD88\uB9AC\uB294
+      \uB300\uD615 \uC5B4\uC885"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9690404601861
+    m_Localized: "\uCCAD\uD30C\uB791\uB3D4"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9690404601862
+    m_Localized: "\uD478\uB978\uBE5B \uBE44\uB298\uC758 \uBBFC\uCCA9\uD55C \uC0AC\uB0E5\uAFBC"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9690404601863
+    m_Localized: "\uCC9C\uB465 \uBC14\uB77C\uCFE0\uB2E4"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9690404601864
+    m_Localized: "\uBC88\uAC1C\uCC98\uB7FC \uBA39\uC774\uB97C \uB09A\uC544\uCC44\uB294
+      \uD3EC\uC2DD\uC790"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9690404601865
+    m_Localized: "\uC740\uBE5B\uAC08\uCE58"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9690404601866
+    m_Localized: "\uBB3C\uACB0\uC744 \uC790\uB974\uBA70 \uC9C8\uC8FC\uD558\uB294
+      \uC740\uBE5B\uC758 \uC5B4\uC885"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9690404601867
+    m_Localized: "\uC7BF\uBE5B\uC624\uC9D5\uC5B4"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9690404601868
+    m_Localized: "\uBA39\uBB3C\uC744 \uB0A8\uAE30\uACE0 \uC0AC\uB77C\uC9C0\uB294
+      \uC740\uB454\uD615 \uC0DD\uBB3C"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9690404601869
+    m_Localized: "\uC2EC\uD574\uB9C8\uADC0\uC0C1\uC5B4"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9690404601870
+    m_Localized: "\uBC14\uB2E4 \uAE4A\uC740 \uACF3\uC5D0\uC11C\uB9CC \uB098\uD0C0\uB098\uB294
+      \uAD34\uBB3C"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9690404601871
+    m_Localized: "\uB808\uBE44\uC544\uD0C4"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9690404601872
+    m_Localized: "\uACE0\uB300 \uBC14\uB2E4\uB97C \uC9C0\uBC30\uD588\uB358 \uD574\uB8E1\uC758
+      \uD6C4\uC190"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9690404601873
+    m_Localized: "\uBC14\uB2E4\uC758 \uC655\uAD00"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9690404601874
+    m_Localized: "\uBA38\uB9AC\uC5D0 \uC655\uAD00 \uBAA8\uC591\uC758 \uC0B0\uD638\uAC00
+      \uC790\uB77C\uB294 \uC2E0\uC131\uD55C \uC5B4\uB958"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9690404601875
+    m_Localized: "\uC740\uD558 \uAC00\uC624\uB9AC"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9690404601876
+    m_Localized: "\uBC24\uD558\uB298\uC758 \uBB34\uB2AC\uB97C \uC9C0\uB2CC \uD76C\uADC0
+      \uC5B4\uC885"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9690404601877
+    m_Localized: "\uD751\uC694\uC11D \uC1A1\uC0AC\uB9AC"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9690404601878
+    m_Localized: "\uAC80\uC740 \uBE44\uB298\uC774 \uD751\uC694\uC11D\uCC98\uB7FC
+      \uB2E8\uB2E8\uD55C \uC0DD\uBB3C"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9690404601879
+    m_Localized: "\uBC14\uC704\uB4F1\uC5B4"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9690404601880
+    m_Localized: "\uB4F1\uAECD\uC9C8\uC774 \uBC14\uC704\uCC98\uB7FC \uAC70\uCE60\uACE0
+      \uB2E8\uB2E8\uD55C \uC5B4\uC885"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9690404601881
+    m_Localized: "\uB3CC\uBE44\uB298 \uBCD1\uC5B4"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9690404601882
+    m_Localized: "\uBC14\uC704 \uC0AC\uC774\uB97C \uC720\uC601\uD558\uBA70 \uC774\uB07C\uB97C
+      \uBA39\uACE0 \uC790\uB77C\uB294 \uC0DD\uBB3C"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9690404601883
+    m_Localized: "\uBC14\uC704\uBD95\uC5B4"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9690404601884
+    m_Localized: "\uBC14\uC704 \uC0AC\uC774\uB97C \uC720\uC601\uD558\uBA70 \uC774\uB07C\uB97C
+      \uBA39\uACE0 \uC790\uB77C\uB294 \uC0DD\uBB3C"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9690404601885
+    m_Localized: "\uD654\uC11D\uB3D4"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9690404601886
+    m_Localized: "\uBAB8 \uC804\uCCB4\uAC00 \uAC11\uAC01\uC73C\uB85C \uB36E\uC778
+      \uACE0\uB300 \uC0DD\uBA85\uCCB4"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9690404601887
+    m_Localized: "\uC11D\uC870\uAC00\uC7AC"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9690404601888
+    m_Localized: "\uBC14\uC704\uAC19\uC740 \uAECD\uC9C8\uB85C \uC704\uC7A5\uD558\uBA70
+      \uC0B4\uC544\uAC00\uB294 \uC0DD\uBB3C"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9690404601889
+    m_Localized: "\uCCA0\uAC11\uAC80\uCE58\uC5B4"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9690404601890
+    m_Localized: "\uB2E8\uB2E8\uD55C \uAC11\uD53C\uC640 \uC1A1\uACF3\uB2C8\uB97C
+      \uAC00\uC9C4 \uACF5\uACA9\uD615 \uC5B4\uB958"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9690404601891
+    m_Localized: "\uCCA0\uAC11\uCD09\uC218"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9690404601892
+    m_Localized: "\uAE08\uC18D \uCD09\uC218\uB85C \uC801\uC744 \uAC10\uC2F8\uB294
+      \uC0DD\uBB3C"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9690404601893
+    m_Localized: "\uBC14\uC2E4\uB9AC\uC2A4\uD06C"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9690404601894
+    m_Localized: "\uBE60\uB978 \uC18D\uB3C4\uB85C \uBA39\uC787\uAC10\uC744 \uB450\uB3D9\uAC15\uB0B4\uB294
+      \uACE0\uB300 \uC0DD\uBB3C"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9690404601895
+    m_Localized: "\uAE68\uC5B4\uB09C \uACE0\uB300\uC5B4"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9690404601896
+    m_Localized: "\uC624\uB79C \uBD09\uC778 \uB05D\uC5D0 \uB208\uC744 \uB72C \uC804\uC124
+      \uC18D \uC0DD\uBA85\uCCB4"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9690404601897
+    m_Localized: "\uD654\uC5FC\uC789\uC5B4"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9690404601898
+    m_Localized: "\uB728\uAC70\uC6B4 \uBB3C\uC5D0\uC11C\uB3C4 \uBC84\uD2F0\uB294
+      \uC789\uC5B4"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9690404601899
+    m_Localized: "\uBD88\uAF43\uC1A1\uC5B4"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9690404601900
+    m_Localized: "\uBBFC\uCCA9\uD558\uAC8C \uC6C0\uC9C1\uC774\uB294 \uBD89\uC740
+      \uBD88\uAF43\uC758 \uC789\uC5B4"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9690404601901
+    m_Localized: "\uD654\uC5FC\uC9C0\uB290\uB7EC\uBBF8"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9690404601902
+    m_Localized: "\uC9C0\uB290\uB7EC\uBBF8 \uB05D\uC774 \uD56D\uC0C1 \uD0C0\uC624\uB974\uB294
+      \uC5B4\uC885"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9690404601903
+    m_Localized: "\uBD88\uAF43\uC544\uADC0"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9690404601904
+    m_Localized: "\uC785\uC744 \uBC8C\uB9B4 \uB54C \uBD88\uAE38\uC774 \uC0C8\uC5B4\uB098\uC624\uB294
+      \uC0DD\uBB3C"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9690404601905
+    m_Localized: "\uC9C0\uC625\uCC3D\uC5B4"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9690404601906
+    m_Localized: "\uCC3D \uAC19\uC740 \uC9C0\uB290\uB7EC\uBBF8\uB85C \uC6A9\uC554\uC744
+      \uAC00\uB974\uB294 \uC5B4\uC885"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9690404601907
+    m_Localized: "\uD654\uAC15\uC554\uAC00\uC7AC"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9690404601908
+    m_Localized: "\uD654\uAC15\uC554 \uAECD\uC9C8\uB85C \uBAB8\uC744 \uAC10\uC2FC
+      \uAC11\uAC01\uB958"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9690404601909
+    m_Localized: "\uBD88\uAF43\uD574\uD30C\uB9AC"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9690404601910
+    m_Localized: "\uD22C\uBA85\uD55C \uBAB8\uC5D0\uC11C \uBD88\uAF43\uC774 \uD750\uB974\uB294
+      \uC0DD\uBA85\uCCB4"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9690404601911
+    m_Localized: "\uC6A9\uC554\uBE44\uB298\uC7A5\uC5B4"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9690404601912
+    m_Localized: "\uBD88\uAF43\uCC98\uB7FC \uBC18\uC9DD\uC774\uB294 \uBE44\uB298\uC744
+      \uAC00\uC9C4 \uC0DD\uBB3C"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9690404601913
+    m_Localized: "\uB4DC\uB798\uACE4\uD53C\uC26C"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9690404601914
+    m_Localized: "\uACE0\uB300 \uC6A9\uC758 \uD53C\uAC00 \uD750\uB974\uB294 \uC804\uC124
+      \uC18D \uACE0\uC5F4 \uC0DD\uBB3C"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9690404601915
+    m_Localized: "\uD654\uC0B0\uACE0\uB798"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9690404601916
+    m_Localized: "\uB4F1\uC5D0 \uBD84\uD654\uAD6C\uB97C \uC774\uACE0 \uD638\uC218
+      \uC704\uB97C \uB5A0\uB2E4\uB2C8\uB294 \uAC70\uB300\uC5B4"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9690404601917
+    m_Localized: "\uACE0\uB300 \uC720\uBB3C"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9690404601918
+    m_Localized: "\uBC14\uB2E4 \uAE4A\uC219\uD788 \uAC00\uB77C\uC549\uC740 \uACE0\uB300
+      \uD574\uC800 \uC720\uBB3C"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9690404601919
+    m_Localized: "\uC77C\uBC18"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9690404601920
+    m_Localized: "\uD76C\uADC0"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9690404601921
+    m_Localized: "\uC5D0\uD53D"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9690404601922
+    m_Localized: "\uC804\uC124"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9690404601923
+    m_Localized: "\uBCF4\uBB3C"
+    m_Metadata:
+      m_Items: []
+  references:
+    version: 2
+    RefIds: []

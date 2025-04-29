@@ -1,0 +1,127 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9620f8c34305754d8cc9a7e49e852d9, type: 3}
+  m_Name: QuestTable_ko
+  m_EditorClassIdentifier: 
+  m_LocaleId:
+    m_Code: ko
+  m_SharedData: {fileID: 11400000, guid: 4c3ebd5ad5b70674e801029a2ebcd88a, type: 2}
+  m_Metadata:
+    m_Items: []
+  m_TableData:
+  - m_Id: 7233060864
+    m_Localized: "\uC138\uC6D4\uC744 \uB09A\uB294 \uBC95"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 16012067979264
+    m_Localized: "\uC5EC\uB7EC \uBB3C\uACE0\uAE30\uB97C \uB09A\uC544\uBCF4\uC790."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 16012067979265
+    m_Localized: "\uC591\uC2DD\uC7A5 \uAC74\uC124"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 16012067979266
+    m_Localized: "\uBB3C\uACE0\uAE30 \uC591\uC2DD\uC7A5\uC744 \uC9C0\uC5B4\uBCF4\uC790."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 16012067979267
+    m_Localized: "\uBB3C\uACE0\uAE30\uB97C \uC591\uC2DD\uD558\uB294 \uC591\uC2DD\uC7A5
+      \uCD94\uAC00"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 16012067979268
+    m_Localized: "\uBC15\uBB3C\uAD00 \uAC74\uC124"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 16012067979269
+    m_Localized: "\uC720\uBB3C\uC744 \uC804\uC2DC\uD558\uB294 \uBC15\uBB3C\uAD00\uC744
+      \uC9C0\uC5B4\uBCF4\uC790."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 16012067979270
+    m_Localized: "\uBC15\uBB3C\uAD00 \uD574\uAE08"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 16012067979271
+    m_Localized: "\uBC14\uC704\uC9C0\uB300 \uD130\uB110 \uAC1C\uBC29"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 16012067979272
+    m_Localized: "\uBC14\uC704\uC9C0\uB300\uB85C \uAC00\uB294 \uD130\uB110\uC744
+      \uB6AB\uC5B4\uBCF4\uC790."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 16012067979273
+    m_Localized: "\uC0C8\uB85C\uC6B4 \uB09A\uC2DC\uC9C0\uB300 : \uBC14\uC704\uC9C0\uB300
+      \uCD94\uAC00"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 16012067979274
+    m_Localized: "\uC6A9\uC554\uC9C0\uB300 \uD56D\uB85C \uAC1C\uCC99"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 16012067979275
+    m_Localized: "\uC6A9\uC554\uC9C0\uB300\uB85C \uAC00\uB294 \uD56D\uB85C\uB97C
+      \uAC1C\uCC99\uD558\uC790."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 16012067979276
+    m_Localized: "\uC0C8\uB85C\uC6B4 \uB09A\uC2DC\uC9C0\uB300 : \uC6A9\uC554\uC9C0\uB300
+      \uCD94\uAC00"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 16012067979277
+    m_Localized: "\uBC14\uC704\uC9C0\uB300 \uC591\uC2DD\uC7A5 \uCD94\uAC00"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 16012067979278
+    m_Localized: "\uBC14\uC704\uC9C0\uB300 \uBB3C\uACE0\uAE30\uB97C \uC591\uC2DD\uD574\uBCF4\uC790."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 16012072173568
+    m_Localized: "\uC0C8\uB85C\uC6B4 \uB09A\uC2DC\uC9C0\uB300 : \uBC14\uC704\uC9C0\uB300
+      \uC591\uC2DD\uC7A5 \uCD94\uAC00"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 16012072173569
+    m_Localized: "\uC6A9\uC554\uC9C0\uB300 \uC591\uC2DD\uC7A5 \uCD94\uAC00"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 16012072173570
+    m_Localized: "\uC6A9\uC554\uC9C0\uB300 \uBB3C\uACE0\uAE30\uB97C \uC591\uC2DD\uD574\uBCF4\uC790."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 16012072173571
+    m_Localized: "\uC0C8\uB85C\uC6B4 \uB09A\uC2DC\uC9C0\uB300 : \uC6A9\uC554\uC9C0\uB300
+      \uC591\uC2DD\uC7A5 \uCD94\uAC00"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 16012072173572
+    m_Localized: "\uB9C8\uC744\uC758 \uBD80\uD0C1"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 16012072173573
+    m_Localized: "\uB9C8\uC744 \uC77C\uAC70\uB9AC\uB97C \uD574\uACB0\uD558\uC790."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 620369989844992
+    m_Localized: ' '
+    m_Metadata:
+      m_Items: []
+  - m_Id: 620396581732352
+    m_Localized: ' '
+    m_Metadata:
+      m_Items: []
+  references:
+    version: 2
+    RefIds: []

@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -6,31 +5,38 @@ public class UIManager : MonoBehaviour
 {
     [SerializeField] GameObject fishingUI;
 
-    [SerializeField] GameObject inventoryUI;
     [SerializeField] GameObject fishInventoryUI;
-    [SerializeField] GameObject questUI;
     [SerializeField] GameObject guideUI;
-    [SerializeField] GameObject signUI;
+    [SerializeField] private GameObject skinUI;
+    [SerializeField] GameObject optionUI;
+    [SerializeField] private GameObject volumeUI;
 
-    [SerializeField] GameObject equipMerchantUI;
+    [SerializeField] private Animator errorText;
+
+    [SerializeField] GameObject upgradeNpcUI;
     [SerializeField] GameObject fishMerchantUI;
     [SerializeField] GameObject questNpcUI;
+    [SerializeField] GameObject fishFarmNpcUI;
+    [SerializeField] GameObject museumNpcUI;
+    [SerializeField] private GameObject endingNpcUI;
+    [SerializeField] private GameObject tutorialUI;
 
-    [SerializeField] TradeManager tradeManager;
     [SerializeField] FishTradeManager fishTradeManager;
     [SerializeField] QuestNpcManager questNpcManager;
-    [SerializeField] SignManager signManager;
+    [SerializeField] private UpgradeManager upgradeManager;
+    [SerializeField] FishFarmManager fishFarmManager;
+    [SerializeField] MuseumManager museumManager;
+    [SerializeField] private SkinManager skinManager;
+    [SerializeField] private GuideManager guideManager;
+    [SerializeField] private FishInvenManager fishInvenManager;
+    [SerializeField] private OptionManager optionManager;
+    [SerializeField] private EndingManager endingManager;
 
     private GameObject npcObject;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        inventoryUI.GetComponent<InventoryManager>().DefaultSetting();
-        fishInventoryUI.GetComponent<FishInvenManager>().DefaultSetting();
-        questUI.GetComponent<QuestManager>().DefaultSetting();
-        guideUI.GetComponent<GuideManager>().DefaultSetting();
-        questNpcManager.DefaultSetting();
-        fishTradeManager.DefaultSetting();
+        
     }
     
     // 낚시 UI
@@ -38,31 +44,15 @@ public class UIManager : MonoBehaviour
         fishingUI.GetComponent<FishingManager>().StartFishing(fishList);
     }
 
-    // 인벤토리 UI
-    public void OpenInventoryUI() {
-        inventoryUI.SetActive(true);
-    }
-
-    public void CloseInventoryUI() {
-        inventoryUI.SetActive(false);
-    }
-
     // 물고기 인벤토리 UI
     public void OpenFishInventoryUI() {
         fishInventoryUI.SetActive(true);
+        fishInvenManager.DefaultSetting();
     }
 
     public void CloseFishInventoryUI() {
         fishInventoryUI.SetActive(false);
-    }
-
-    // 퀘스트 UI
-    public void OpenQuestUI() {
-        questUI.SetActive(true);
-    }
-
-    public void CloseQuestUI() {
-        questUI.SetActive(false);
+        fishInvenManager.CloseWindow();
     }
 
     // 물고기 도감 UI
@@ -72,109 +62,152 @@ public class UIManager : MonoBehaviour
 
     public void CloseGuideUI() {
         guideUI.SetActive(false);
+        guideManager.CloseWindow();
     }
 
-    // 장비 상인 대화
-    public void OpenEquipMerchantTalkUI() {
-        equipMerchantUI.SetActive(true);
-        equipMerchantUI.transform.GetChild(0).gameObject.SetActive(true);
+    // 스킨 변경
+    public void OpenSkinUI() {
+        skinUI.SetActive(true);
+        skinManager.SetSlots();
     }
 
-    public void CloseEquipMerchantTalkUI() {
-        Debug.Log("상인 npc 창 닫음");
-        equipMerchantUI.transform.GetChild(0).gameObject.SetActive(false);
-        equipMerchantUI.SetActive(false);
+    public void CloseSkinUI() {
+        skinUI.SetActive(false);
+        skinManager.CloseWindow();
     }
 
-    // 물고기 상인 대화
-    public void OpenFishMerchantTalkUI() {
+    // 양식장 NPC
+    public void OpenFishFarmNpcUI() {
+        fishFarmNpcUI.SetActive(true);
+        fishFarmManager.SetMainSlot();
+    }
+
+    public void CloseFishFarmNpcUI() {
+        fishFarmNpcUI.SetActive(false);
+        fishFarmManager.CloseWindow();
+    }
+
+    // 박물관 NPC
+    public void OpenMuseumNpcUI() {
+        museumNpcUI.SetActive(true);
+        museumManager.SetLocked();
+    }
+
+    public void CloseMuseumNpcUI() {
+        museumNpcUI.SetActive(false);
+        museumManager.CloseWindow();
+    }
+
+    // 업그레이드 NPC
+    public void OpenUpgradeNpcUI() {
+        upgradeNpcUI.SetActive(true);
+        upgradeManager.DefaultSetting();
+    }
+
+    public void CloseUpgradeNpcUI() {
+        upgradeNpcUI.SetActive(false);
+        upgradeManager.CloseWindow();
+    }
+
+    // 물고기 거래 NPC
+    public void OpenFishMerchantUI() {
         fishMerchantUI.SetActive(true);
-        fishMerchantUI.transform.GetChild(0).gameObject.SetActive(true);
+        fishTradeManager.DefaultSetting();
     }
 
-    public void CloseFishMerchantTalkUI() {
-        Debug.Log("물고기 npc 창 닫음");
-        fishMerchantUI.transform.GetChild(0).gameObject.SetActive(false);
+    public void CloseFishMerchantUI() {
         fishMerchantUI.SetActive(false);
-    }
-
-    // 퀘스트 NPC 대화
-    public void OpenQuestNpcTalkUI() {
-        questNpcUI.transform.GetChild(0).gameObject.SetActive(true);
-        questNpcManager.SetTalk(npcObject);
-    }
-
-    public void CloseQuestNpcTalkUI() {
-        Debug.Log("퀘스트 npc 창 닫음");
-        questNpcUI.transform.GetChild(0).gameObject.SetActive(false);
-    }
-
-    // 장비 상인 거래
-    public void OpenMerchantTradeUI() {
-        equipMerchantUI.transform.GetChild(0).gameObject.SetActive(false);
-        equipMerchantUI.transform.GetChild(1).gameObject.SetActive(true);
-        Debug.Log("UIManager" + npcObject);
-        tradeManager.SetNpcObject(npcObject);
-    }
-
-    public void CloseMerchantTradeUI() {
-        equipMerchantUI.transform.GetChild(1).gameObject.SetActive(false);
-    }
-
-    // 물고기 상인 거래
-    public void OpenFishMerchantTradeUI() {
-        fishMerchantUI.transform.GetChild(0).gameObject.SetActive(false);
-        fishMerchantUI.transform.GetChild(1).gameObject.SetActive(true);
-    }
-
-    public void CloseFishMerchantTradeUI() {
-        fishMerchantUI.transform.GetChild(1).gameObject.SetActive(false);
+        fishTradeManager.CloseWindow();
     } 
 
-    // 퀘스트 NPC 확인
-    public void OpenQuestNpcCheckUI() {
-        questNpcUI.transform.GetChild(0).gameObject.SetActive(false);
-        questNpcUI.transform.GetChild(1).gameObject.SetActive(true);
-        questNpcManager.SetQuest();
+    // 퀘스트 NPC
+    public void OpenQuestNpcUI() {
+        questNpcUI.SetActive(true);
+        questNpcManager.SetQuest(npcObject);
     }
 
-    public void CloseQuestNpcCheckUI() {
-        questNpcUI.transform.GetChild(1).gameObject.SetActive(false);
+    public void CloseQuestNpcUI() {
+        questNpcUI.SetActive(false);
+        questNpcManager.CloseWindow();
     }
 
-    public void OpenSignUI() {
-        signUI.SetActive(true);
-        signManager.ShowFirstImage();
+    // 엔딩 NPC
+    public void OpenEndingNpcUI() {
+        endingNpcUI.SetActive(true);
     }
 
-    public void CloseSignUI() {
-        signUI.SetActive(false);
+    public void CloseEndingNpcUI() {
+        endingNpcUI.SetActive(false);
+    }
+
+    // 옵션
+    public void OpenOptionUI() {
+        optionUI.SetActive(true);
+    }
+
+    public void CloseOptionUI() {
+        optionManager.CloseWindow();
+    }
+
+    public void InventoryFull() {
+        errorText.Play("InventoryFullError");
+    }
+
+    public void NotClearQuest() {
+        errorText.Play("NotClearQuestError");
+    }
+
+    public void ReqFish() {
+        errorText.Play("ReqFish");
+    }
+
+    public void SelectFish() {
+        errorText.Play("SelectFish");
+    }
+    
+    public void DontHaveFish() {
+        errorText.Play("DontHaveFish");
+    }
+
+    public void NotEnoughGold() {
+        errorText.Play("NotEnoughGold");
+    }
+
+    public void SelectRelic() {
+        errorText.Play("SelectRelic");
+    }
+
+    public void OpenTutorial() {
+        tutorialUI.SetActive(true);
+    }
+
+    public void CloseTutorial() {
+        tutorialUI.SetActive(false);
     }
 
     public void CloseAllWindows() {
-        inventoryUI.GetComponent<InventoryManager>().CloseWindow();
-        inventoryUI.SetActive(false);
+        SoundManager.Instance.OpenUI();
+        CloseFishInventoryUI();
 
-        fishInventoryUI.GetComponent<FishInvenManager>().CloseWindow();
-        fishInventoryUI.SetActive(false);
+        CloseGuideUI();
 
-        questUI.GetComponent<QuestManager>().CloseWindow();
-        questUI.SetActive(false);
+        CloseSkinUI();
 
-        guideUI.GetComponent<GuideManager>().CloseWindow();
-        guideUI.SetActive(false);
+        CloseUpgradeNpcUI();
 
-        equipMerchantUI.transform.GetChild(1).gameObject.SetActive(false);
-        CloseEquipMerchantTalkUI();
+        CloseFishMerchantUI();
 
-        fishMerchantUI.transform.GetChild(1).gameObject.SetActive(false);
-        CloseFishMerchantTalkUI();
+        CloseQuestNpcUI();
 
-        questNpcManager.CloseWindow();
-        questNpcUI.transform.GetChild(1).gameObject.SetActive(false);
-        CloseQuestNpcTalkUI();
+        CloseFishFarmNpcUI();
 
-        CloseSignUI();
+        CloseMuseumNpcUI();
+
+        CloseEndingNpcUI();
+
+        CloseOptionUI();
+
+        CloseTutorial();
     }
 
     public void SetNpcObject(GameObject _npcObject) {

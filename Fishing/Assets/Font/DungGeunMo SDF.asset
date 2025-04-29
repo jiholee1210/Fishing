@@ -118,7 +118,7 @@ Texture2D:
   m_Name: DungGeunMo Atlas
   m_ImageContentsHash:
     serializedVersion: 2
-    Hash: 00000000000000000000000000000000
+    Hash: 784a7d9a1dc486f7c05e77666125a6cf
   m_IsAlphaChannelOptional: 0
   serializedVersion: 3
   m_Width: 1
@@ -238,6 +238,8 @@ MonoBehaviour:
     m_LigatureSubstitutionRecords:
     - m_ComponentGlyphIDs: b5000000a20300001b3b0000
       m_LigatureGlyphID: 15940
+    - m_ComponentGlyphIDs: 73030000243b0000
+      m_LigatureGlyphID: 892
     - m_ComponentGlyphIDs: a0000000243b0000
       m_LigatureGlyphID: 167
     m_GlyphPairAdjustmentRecords: []

@@ -1,40 +1,31 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Localization;
 
 public class QuestNpc : MonoBehaviour, INPC, IQuest
 {
-    [SerializeField] int type;
-    string line;
-    List<QuestData> questList;
-    public int GetNpcType()
-    {
-        return type;
-    }
+    [SerializeField] int npcID;
 
-    public void SetNpcType()
-    {
-        type = 3;
-    }
+    private LocalizedString localizedString = new LocalizedString("DialogTable", "highlight_talk");
+    private string highlight;
 
-    public string GetLine() {
-        return line;
-    }
-
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        SetNpcType();
-        line = "내가 이 마을의 관리인일세. 마을 문제를 해결해주면 그에 맞는 보상을 지급하겠네.";
-        questList = DataManager.Instance.island;
+        highlight = localizedString.GetLocalizedString();
     }
 
-    public List<QuestData> GetQuestList()
+    public int GetNpcType()
     {
-        return questList;
+        return 3;
     }
 
     public string GetHighlighter()
     {
-        return "대화하기";
+        return highlight;
+    }
+
+    public int GetNpcID()
+    {
+        return npcID;
     }
 }

@@ -3,5 +3,5 @@ using UnityEngine;
 
 public interface IQuest
 {
-    List<QuestData> GetQuestList();
+    int GetNpcID();
 }
