@@ -88,11 +88,11 @@ public class MuseumManager : MonoBehaviour
         detail.GetChild(3).GetComponent<TMP_Text>().text = playerFish[index].weight + " kg";
         detail.GetChild(4).GetComponent<TMP_Text>().text = playerFish[index].price + " " + LocalizationSettings.StringDatabase.GetLocalizedString("DialogTable", "coin");
         detail.GetChild(5).GetComponent<Image>().sprite = DataManager.Instance.gradeSprites[playerFish[index].grade];
+        detail.GetChild(6).GetComponent<TMP_Text>().text = fishData.desc;
     }
 
     private void DonateRelics() {
         if(relics.Count > 0) {
-            SoundManager.Instance.ButtonClick();
             playerData.donateCount += relics.Count;
 
             foreach(int index in relics) {

@@ -31,6 +31,7 @@ public class FishFarmManager : MonoBehaviour
 
     private List<PlayerFish> selectedFish = new();
     private List<int> prevID = new();
+    private int curType = -1;
 
     private Coroutine[] coroutines = new Coroutine[12];
 
@@ -60,6 +61,7 @@ public class FishFarmManager : MonoBehaviour
         detail.gameObject.SetActive(true);
         main.gameObject.SetActive(false);
 
+        curType = groundType;
         for(int i = 0; i < 3; i++) {
             SetFishInFarm(groundType, i);
         }
@@ -135,6 +137,7 @@ public class FishFarmManager : MonoBehaviour
             genTime += (grade[i] + 1) * 60f + 
                        ((int)DataManager.Instance.GetFishData(fishInFarm[fishFarmIndex].fishID).rarity + 1) * 60f;
         }
+        Debug.Log(genTime);
         float curTime = fishFarmTimer[timeIndex].timer;
         bool isFull = false;
         while(fishFarmTimer[timeIndex].isFullFarm) {
@@ -153,11 +156,13 @@ public class FishFarmManager : MonoBehaviour
                         FishData fishData = DataManager.Instance.GetFishData(newFish.fishID);
                         newFishList[groundType].list[i] = newFish;//새로운 playerfish 생성
                         
-                        fishFarmSlots[i].transform.GetChild(0).GetComponent<Image>().sprite = DataManager.Instance.gradeSprites[newFish.grade];
-                        fishFarmSlots[i].GetComponent<Image>().sprite = fishData.fishIcon;
-                        fishFarmSlots[i].transform.GetChild(0).GetComponent<Image>().color = new Color(1f, 1f, 1f ,1f);
-                        fishFarmSlots[i].GetComponent<Image>().color = new Color(1f, 1f, 1f ,1f);
-                        fishFarmSlots[i].GetComponent<Button>().enabled = true;
+                        if(curType.Equals(groundType)) {
+                            fishFarmSlots[i].transform.GetChild(0).GetComponent<Image>().sprite = DataManager.Instance.gradeSprites[newFish.grade];
+                            fishFarmSlots[i].GetComponent<Image>().sprite = fishData.fishIcon;
+                            fishFarmSlots[i].transform.GetChild(0).GetComponent<Image>().color = new Color(1f, 1f, 1f ,1f);
+                            fishFarmSlots[i].GetComponent<Image>().color = new Color(1f, 1f, 1f ,1f);
+                            fishFarmSlots[i].GetComponent<Button>().enabled = true;
+                        }
 
                         SetGoldText(groundType);
 
@@ -179,7 +184,9 @@ public class FishFarmManager : MonoBehaviour
         int gold = 0;
 
         for(int i = 0; i < newFishList[groundType].list.Count; i++) {
-            gold += newFishList[groundType].list[i].price;
+            if(newFishList[groundType].list[i].fishID != -1) {
+                gold += newFishList[groundType].list[i].price;
+            }
         }
         goldText.text = gold + " C";
     }
@@ -203,8 +210,9 @@ public class FishFarmManager : MonoBehaviour
     private void GetFish(int groundType, int index) {
         SoundManager.Instance.ButtonClick();
         playerInventory.GetFish(newFishList[groundType].list[index]);
-        newFishList[groundType].list[index] = null;
-
+        
+        newFishList[groundType].list[index].fishID = -1;
+        SetGoldText(groundType);
         fishFarmSlots[index].GetComponent<Image>().sprite = null;
         fishFarmSlots[index].transform.GetChild(0).GetComponent<Image>().sprite = null;
         fishFarmSlots[index].GetComponent<Image>().color = new Color(1f, 1f, 1f, 0f);
@@ -227,7 +235,7 @@ public class FishFarmManager : MonoBehaviour
 
             gold += newFishList[groundType].list[index].price;
 
-            newFishList[groundType].list[index] = null;
+            newFishList[groundType].list[index].fishID = -1;
 
             fishFarmSlots[index].GetComponent<Image>().sprite = null;
             fishFarmSlots[index].transform.GetChild(0).GetComponent<Image>().sprite = null;
@@ -247,7 +255,6 @@ public class FishFarmManager : MonoBehaviour
         select.gameObject.SetActive(true);
         select.GetChild(0).GetChild(1).GetChild(0).gameObject.SetActive(false);
         detail.gameObject.SetActive(false);
-
         for(int i = 0; i < fishInvenSlots.Length; i++) {
             int index = i;
             fishInvenSlots[index].GetComponent<Image>().sprite = null;
@@ -428,7 +435,7 @@ public class FishFarmManager : MonoBehaviour
         SoundManager.Instance.ButtonClick();
         detail.gameObject.SetActive(false);
         main.gameObject.SetActive(true);
-
+        curType = -1;
         SetMainSlot();
     }
 
@@ -488,5 +495,6 @@ public class FishFarmManager : MonoBehaviour
         main.gameObject.SetActive(true);
         detail.gameObject.SetActive(false);
         select.gameObject.SetActive(false);
+        curType = -1;
     } 
 }
